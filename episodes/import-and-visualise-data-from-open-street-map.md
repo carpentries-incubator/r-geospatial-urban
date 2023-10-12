@@ -40,16 +40,18 @@ We are going to look at *Brielle* together, but you can also work with the small
 
 /!\ This might not be needed, but ensures that your machine knows it has internet...
 
-```{r osm-curl-internet}
+```r
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 ```
 
 
-```{r osm-bounding-box}
+```r
 nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle", points_only = FALSE)
 bb <- sf::st_bbox(nominatim_polygon)
 bb
 ```
+
+
 ### Word of caution
 
 There might multiple responses from the API query, corresponding to different objects at the same location, or different objects at different locations.
@@ -62,17 +64,19 @@ For example: Brielle (Netherlands) and Brielle (New Jersey)
 
 We should therefore try to be as unambiguous as possible by adding a country code or district name.
 
-```{r osm-bounding-box2}
+
+```r
 nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle, NL", points_only = FALSE)
 bb <- sf::st_bbox(nominatim_polygon)
 bb
-
 ```
+
 
 
 ## Extracting features
 
 A [feature](https://wiki.openstreetmap.org/wiki/Map_features) in the OSM language is a category or tag of a geospatial object. Features are described by general keys (e.g. "building", "boundary", "landuse", "highway"), themselves decomposed into sub-categories (values) such as "farm", "hotel" or "house" for `buildings`, "motorway", "secondary" and "residential" for `highway`. This determines how they are represented on the map.
+
 
 ### Searching documentation
 
@@ -90,20 +94,26 @@ It appears that there is a function to extract features, using the Overpass API.
 
 On this page we can read about the arguments needed for each function: a bounding box for `opq()` and some `key` and `value` for `add_osm_feature()`. Thanks to the examples provided, we can assume that these keys and values correspond to different levels of tags from the OSM classification. In our case, we will keep it at the first level of classification, with "buildings" as `key`, and no value. We also see from the examples that another function is needed when working with the `sf` package: `osmdata_sf()`. This ensures that the type of object is suited for `sf`. With these tips and examples, we can write our feature extraction function as follows:
 
-```{r osm-feature}
+
+```r
 x <- opq(bbox = bb) %>%
    add_osm_feature(key = 'building') %>%
     osmdata_sf()
 ```
 
+
+
 ### Structure of objects
 
 What is this x object made of? It is a table of all the buildings contained in the bounding box, which gives us their OSM id, their geometry and a range of attributes, such as their name, building material, building date, etc. The completion level of this table depends on user contributions and open resources (here for instance: BAG, different in other countries).
 
-```{r osm-feature-preview}
-head(x$osm_polygons)
 
+
+```r
+head(x$osm_polygons)
 ```
+
+
 
 ## Mapping 
 
@@ -115,7 +125,7 @@ Let's map the building age of post-1900 Brielle buildings.
 
 First, we are going to select the polygons and reproject them with the Amersfoort/RD New projection, suited for maps centred on the Netherlands. This code for this projection is: 28992.
 
-```{r reproject}
+```r
 buildings <- x$osm_polygons %>%
   st_transform(.,crs=28992)
 ```
@@ -126,7 +136,7 @@ Then we create a variable which a threshold at 1900. Every date prior to 1900 wi
 
 Then we use the `ggplot` function to visualise the buildings by age. The specific function to represent information as a map is `geom_sf()`. The rest works like other graphs and visualisation, with `aes()` for the aesthetics.
 
-```{r map-age}
+```r
 buildings$build_date <- as.numeric(
   if_else(
     as.numeric(buildings$start_date) < 1900, 
@@ -190,10 +200,10 @@ associated with the lessons. They appear in the "Instructor View"
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- Use the `Nominatim` and `OverPass` APIs within R
+- Use the `osmdata` and `nominatimlite` packages to retrieve geospatial data
+- Select features and attributes among OSM tags
+- Use the `ggplot`, `sf` and `leaflet` packages to map data
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
