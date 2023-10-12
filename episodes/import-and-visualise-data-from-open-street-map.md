@@ -26,12 +26,11 @@ Open Street Map (OSM) is a collaborative project which aims at mapping the world
 This information is then validated by other users and eventually added to the common "map" or information system. This ensures that the information is accessible, open, verified, accurate and up-to-date.
 
 The result looks like this:
-![View of OSM web interface](episodes/fig/OSM1.png)
+![View of OSM web interface](https://raw.githubusercontent.com/ClementineCttn/r-geospatial-urban/blob/main/episodes/fig/OSM1.png)
 
 The geospatial data underlying this interface is made of geometrical objects (i.e. points, lines, polygons) and their associated tags (#building #height, #road #secondary #90kph, etc.).
 
 ## How to extract geospatial data from Open Street Map?
-
 
 ### Bounding-box
 
@@ -51,14 +50,14 @@ nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle", points_only
 bb <- sf::st_bbox(nominatim_polygon)
 bb
 ```
-- Word of caution
+### Word of caution
 
 There might multiple responses from the API query, corresponding to different objects at the same location, or different objects at different locations.
 For example: Brielle (Netherlands) and Brielle (New Jersey)
 
-![Brielle, Netherlands](episodes/fig/Brielle_NL.jpeg){width=40%}
+![Brielle, Netherlands](https://raw.githubusercontent.com/ClementineCttn/r-geospatial-urban/blob/main/episodes/fig/Brielle_NL.jpeg){width=40%}
 
-![Brielle, New Jersey](episodes/fig/Brielle_NJ.jpeg "Brielle, New Jersey"){width=40%}
+![Brielle, New Jersey](https://raw.githubusercontent.com/ClementineCttn/r-geospatial-urban/blob/main/episodes/fig/Brielle_NJ.jpeg "Brielle, New Jersey"){width=40%}
 
 
 We should therefore try to be as unambiguous as possible by adding a country code or district name.
@@ -71,7 +70,7 @@ bb
 ```
 
 
-### Extracting features
+## Extracting features
 
 A [feature](https://wiki.openstreetmap.org/wiki/Map_features) in the OSM language is a category or tag of a geospatial object. Features are described by general keys (e.g. "building", "boundary", "landuse", "highway"), themselves decomposed into sub-categories (values) such as "farm", "hotel" or "house" for `buildings`, "motorway", "secondary" and "residential" for `highway`. This determines how they are represented on the map.
 
@@ -81,11 +80,11 @@ Let's say we want to download data from OpenStreetMap and we know there is a pac
 
 > Let's check the documentation [online](https://docs.ropensci.org/osmdata/):
 
-![The OSMdata Documentation page](episodes/fig/osmdata.png){width=80%}
+![The OSMdata Documentation page](https://raw.githubusercontent.com/ClementineCttn/r-geospatial-urban/blob/main/episodes/fig/osmdata.png){width=80%}
 
 It appears that there is a function to extract features, using the Overpass API. This function's name is `opq` (for OverPassQuery) which, in combination with `add_osm_feature`, seems to do the job. However it might not be crystal clear how  to apply it to our case. Let's click on the function name to know more.
 
-![The Overpass Query Documentation page](episodes/fig/opq.png){width=80%}
+![The Overpass Query Documentation page](https://raw.githubusercontent.com/ClementineCttn/r-geospatial-urban/blob/main/episodes/fig/opq.png){width=80%}
 
 
 
@@ -96,6 +95,8 @@ x <- opq(bbox = bb) %>%
    add_osm_feature(key = 'building') %>%
     osmdata_sf()
 ```
+
+### Structure of objects
 
 What is this x object made of? It is a table of all the buildings contained in the bounding box, which gives us their OSM id, their geometry and a range of attributes, such as their name, building material, building date, etc. The completion level of this table depends on user contributions and open resources (here for instance: BAG, different in other countries).
 
@@ -176,6 +177,7 @@ leaflet(buildings2) %>%
 
 :::::::::::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::: 
 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -185,14 +187,6 @@ associated with the lessons. They appear in the "Instructor View"
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Figures
-
-You can use pandoc markdown for static figures with the following syntax:
-
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
-
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
