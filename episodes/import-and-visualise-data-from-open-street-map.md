@@ -73,6 +73,14 @@ bb
 
 
 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+If this does work for some reason, the `nominatim_polygon` can be found in the data folder: "episodes/data/boundingboxBrielle.shp".
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
 ## Extracting features
 
 A [feature](https://wiki.openstreetmap.org/wiki/Map_features) in the OSM language is a category or tag of a geospatial object. Features are described by general keys (e.g. "building", "boundary", "landuse", "highway"), themselves decomposed into sub-categories (values) such as "farm", "hotel" or "house" for `buildings`, "motorway", "secondary" and "residential" for `highway`. This determines how they are represented on the map.
@@ -129,6 +137,14 @@ First, we are going to select the polygons and reproject them with the Amersfoor
 buildings <- x$osm_polygons %>%
   st_transform(.,crs=28992)
 ```
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+If this does work for some reason, the `buildings` can be found in the data folder: "episodes/data/dataBrielle.shp".
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 
 ### Visualisation
 
@@ -187,15 +203,6 @@ leaflet(buildings2) %>%
 :::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: 
-
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

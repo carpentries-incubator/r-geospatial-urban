@@ -26,7 +26,7 @@ encode spatial vector data."](https://cran.r-project.org/web/packages/sf/sf.pdf)
 It contains a large set of functions to achieve all the operations on vector spatial data for which you might use traditional GIS software: change the coordinate system, join layers, intersect or unite polygons, create buffers and centroids, etc. cf. the `sf` [cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/sf.pdf).
 
 
-## Conservation in Brielle, NL
+### Conservation in Brielle, NL
 
 Let's focus on old buildings and imagine we're in charge of their conservation. We want to know how much of the city would be affected by a non-construction zone of 100m around pre-1800 buildings.
 
@@ -117,7 +117,7 @@ Now what we would like to distinguish conservation areas based on the number of 
                         option = "B")
 ```
 
-## Final output:
+### Final output:
 
 Let's map this layer over the initial map of individual buildings.
 
