@@ -1,7 +1,7 @@
 ---
 title: 'Import vector data from Open Street Map'
-teaching: 10
-exercises: 2
+teaching: 45
+exercises: 25
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -170,7 +170,7 @@ Anything odd? what? around the centre? Why these limits / isolated points?
 
 ## One solution
  
-```{r, echo=FALSE}
+```r
 buildings2 <- buildings %>%
   st_transform(.,crs=4326)
 
@@ -182,7 +182,6 @@ leaflet(buildings2) %>%
   fillColor = ~colorQuantile("YlGnBu", -build_date)(-build_date),
   highlightOptions = highlightOptions(color = "white", weight = 2,
     bringToFront = TRUE))
-
 ```
 
 :::::::::::::::::::::::::::::::::

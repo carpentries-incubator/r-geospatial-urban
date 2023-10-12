@@ -61,6 +61,7 @@ contact: 'team@carpentries.org'
 episodes: 
 - introduction.Rmd
 - import-and-visualise-data-from-open-street-map.md
+- basic-gis-operations-with-sf.md
 
 # Information for Learners
 learners: 
