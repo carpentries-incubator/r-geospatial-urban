@@ -1,0 +1,233 @@
+---
+title: 'Introduction to R and RStudio'
+teaching: 45
+exercises: 5 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	eval = FALSE
+)
+
+# Load libraries ----------------------------------------------------------
+# Package names
+packages <- c("tidyverse", "here")
+
+# Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+# Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+```
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How to find your way around RStudio?
+- How to manage your environment?
+- How to install packages?
+- How to interact with R?
+- How can I manage my projects in R?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Describe the purpose and use of each pane in the RStudio IDE
+- Locate buttons and options in the RStudio IDE
+- Create self-contained projects in RStudio
+- Define a variable
+- Assign data to a variable
+- Use mathematical and comparison operators
+- Call functions
+- Manage packages
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Project management in RStudio  
+RStudio is an integrated development environment (IDE), which means 
+it provides a (much prettier) interface for the R software. For R Studio to work, 
+you need to have R installed on your computer. But R is integrated into RStudio,
+so you never actually have to open R software.
+
+R Studio provides a useful feature: creating projects - 
+self-contained working space (i.e. working directory), to which R will refer to,
+when looking for and saving files. 
+You can create projects in existing directories (folders) or create a new one. 
+
+### Creating RStudio Project 
+We’re going to create a project in RStudio in a new directory.
+To create a project, go to: 
+
+- `File` 
+- `New Project` 
+- `New directory` 
+- Place the project that you will easily find on your laptop and name the 
+  project `data-carpentry`
+-`Create project`
+
+
+### Organising working directory
+
+Creating an RStudio project is a good first step towards good project management. 
+However, most of the time it is a good idea to organize working space further. 
+This is one suggestion of how your R project can look like.
+Let's go ahead and create the other folders:
+
+- `data/` - should be where your raw data is. **READ ONLY**
+- `data_output/` - should be where your data output is saved **READ AND WRITE**
+- `document/s` - all the documentation associated with the project (e.g. cookbook)
+- `fig_output/` - your figure outputs go here **WRITE ONLY**
+- `scripts/` - all your code goes here **READ AND WRITE**
+
+![R project organization](fig/rstudio_project_files.jpeg){alt="R Studio 
+project logo with five lines, each leading from the logo towards 
+one of the five boxes with texts: 'data/', 'data_output/',  'documents/',
+'fig_output/', 'scripts/'"}
+
+
+You can create these folders as you would any other folders on your laptop, but 
+R and RStudio offer handy ways to do it directly in your RStudio session.
+
+You can use RStudio interface to create a folder in your project by going to
+lower-bottom pane, files tab, and clicking on Folder icon. 
+A dialog box will appear, allowing you typing a name of a folder you want to create.
+
+An alternative solution is to create the folders using R command `dir.create()`. 
+In the console type 
+
+```{r}
+dir.create('data')
+dir.create('data_output')
+dir.create('documents')
+dir.create('fig_output')
+dir.create('scripts')
+
+```
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+In interest of time, focus on one way of creating the folders. You can showcase 
+an alternative method with just one example. 
+
+Once you have finished, ask the participants if they have managed to create a 
+R Project and get the same folder structure. 
+To do this, use green and red stickers.
+
+This will become important, as we use relative paths together with `here`
+package to read and write objects. 
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+### Two main ways to interact with R
+
+There are two main ways to interact with R through RStudio:
+
+- Test and play environment within the **interactive R console** 
+- Write and save an **R script (`.R` file)**  
+
+Each of the modes o interactions has its advantages and drawbacks. 
+    
+|        | Console | R script|
+|--------|---------|---------|
+|**Pros**|Immediate results|Work lost once you close RStudio |
+|**Cons**|Complete record of your work |Messy if you just want to print things out|
+ 
+During the workshop we will mostly use an R Script to have a full documentation 
+of what has been written.   
+
+### Running the code
+
+- In the console: `Enter`
+- In the script:
+   - `Ctrl` + `Enter`  (for MAC users: `Command` + `Enter`)
+   - `Run` button on right left - current line or selection
+
+### Creating a script
+We're going to work with a script. Let's create one now and save it in the `scripts` directory.
+
+- `File` 
+- `New File` 
+- `R Script` 
+- A new `Untitled` script will appear in the source pane. Save it using floppy disc icon.
+- Name it `intro-to-r.R`
+
+<!-- ### Escaping  -->
+
+<!-- The console shows it's ready to get new commands with `>` sign. It will show `+` sign if it still requires input for the command to be executed.  -->
+
+<!-- Sometimes you don't know what is missing/ you change your mind and want to run something else, or your code is running much too long and you just want it to stop. The way to do it is to hit `Esc`. -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: Can you do it?
+
+What is the output of this command?
+
+```r
+paste("This", "new", "lesson", "looks", "good")
+```
+
+:::::::::::::::::::::::: solution 
+
+## Output
+ 
+```output
+[1] "This new lesson looks good"
+```
+
+:::::::::::::::::::::::::::::::::
+
+
+## Challenge 2: how do you nest solutions within challenge blocks?
+
+:::::::::::::::::::::::: solution 
+
+You can add a line with at least three colons and a `solution` tag.
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Figures
+
+You can include figures generated from R Markdown:
+
+```{r pyramid, fig.alt = "pie chart illusion of a pyramid", fig.cap = "Sun arise each and every morning"}
+pie(
+  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
+  init.angle = 315, 
+  col = c("deepskyblue", "yellow", "yellow3"), 
+  border = FALSE
+)
+```
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
