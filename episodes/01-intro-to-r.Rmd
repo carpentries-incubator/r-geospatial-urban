@@ -30,50 +30,49 @@ invisible(lapply(packages, library, character.only = TRUE))
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How to find your way around RStudio?
-- How to manage your environment?
+- How to manage projects in R?
 - How to install packages?
 - How to interact with R?
-- How can I manage my projects in R?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Describe the purpose and use of each pane in the RStudio IDE
-- Locate buttons and options in the RStudio IDE
 - Create self-contained projects in RStudio
+- Install additional packages using R code.
+- Manage packages
 - Define a variable
 - Assign data to a variable
-- Use mathematical and comparison operators
 - Call functions
-- Manage packages
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Project management in RStudio  
+# Project management in RStudio  
+
 RStudio is an integrated development environment (IDE), which means 
-it provides a (much prettier) interface for the R software. For R Studio to work, 
+it provides a (much prettier) interface for the R software. For RStudio to work, 
 you need to have R installed on your computer. But R is integrated into RStudio,
 so you never actually have to open R software.
 
-R Studio provides a useful feature: creating projects - 
+RStudio provides a useful feature: creating projects - 
 self-contained working space (i.e. working directory), to which R will refer to,
 when looking for and saving files. 
 You can create projects in existing directories (folders) or create a new one. 
 
-### Creating RStudio Project 
+## Creating RStudio Project 
+
 We’re going to create a project in RStudio in a new directory.
 To create a project, go to: 
 
 - `File` 
 - `New Project` 
 - `New directory` 
-- Place the project that you will easily find on your laptop and name the 
-  project `data-carpentry`
--`Create project`
+- Place the project that you will easily find on your laptop and name the project `data-carpentry`
+- `Create project`
 
 
-### Organising working directory
+## Organising working directory
 
 Creating an RStudio project is a good first step towards good project management. 
 However, most of the time it is a good idea to organize working space further. 
@@ -82,11 +81,11 @@ Let's go ahead and create the other folders:
 
 - `data/` - should be where your raw data is. **READ ONLY**
 - `data_output/` - should be where your data output is saved **READ AND WRITE**
-- `document/s` - all the documentation associated with the project (e.g. cookbook)
+- `documents/` - all the documentation associated with the project (e.g. cookbook)
 - `fig_output/` - your figure outputs go here **WRITE ONLY**
 - `scripts/` - all your code goes here **READ AND WRITE**
 
-![R project organization](fig/rstudio_project_files.jpeg){alt="R Studio 
+![R project organization](fig/rstudio_project_files.jpeg){alt="RStudio 
 project logo with five lines, each leading from the logo towards 
 one of the five boxes with texts: 'data/', 'data_output/',  'documents/',
 'fig_output/', 'scripts/'"}
@@ -97,12 +96,13 @@ R and RStudio offer handy ways to do it directly in your RStudio session.
 
 You can use RStudio interface to create a folder in your project by going to
 lower-bottom pane, files tab, and clicking on Folder icon. 
-A dialog box will appear, allowing you typing a name of a folder you want to create.
+A dialog box will appear, 
+allowing you typing a name of a folder you want to create.
 
 An alternative solution is to create the folders using R command `dir.create()`. 
-In the console type 
+In the console type: 
 
-```{r}
+```{r create-directories}
 dir.create('data')
 dir.create('data_output')
 dir.create('documents')
@@ -110,7 +110,6 @@ dir.create('fig_output')
 dir.create('scripts')
 
 ```
-
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -126,12 +125,22 @@ package to read and write objects.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Two main ways to interact with R
+## Two main ways to interact with R
 
-There are two main ways to interact with R through RStudio:
+There are two main ways to interact with R through RStudio: 
 
-- Test and play environment within the **interactive R console** 
-- Write and save an **R script (`.R` file)**  
+- test and play environment within the interactive **R console** 
+- write and save an **R script (`.R` file)**  
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
+
+When you open the RStudio or create the Rstudio project, you will see Console 
+window on the left by default. Once you create an R script, 
+it is placed in the upper left pane. 
+The Console is moved to the bottom left pane.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 Each of the modes o interactions has its advantages and drawbacks. 
     
@@ -140,94 +149,220 @@ Each of the modes o interactions has its advantages and drawbacks.
 |**Pros**|Immediate results|Work lost once you close RStudio |
 |**Cons**|Complete record of your work |Messy if you just want to print things out|
  
-During the workshop we will mostly use an R Script to have a full documentation 
-of what has been written.   
 
-### Running the code
 
-- In the console: `Enter`
-- In the script:
-   - `Ctrl` + `Enter`  (for MAC users: `Command` + `Enter`)
-   - `Run` button on right left - current line or selection
+## Creating a script
 
-### Creating a script
-We're going to work with a script. Let's create one now and save it in the `scripts` directory.
+During the workshop we will mostly use an `.R` script to have a full documentation 
+of what has been written. This way we will also be able to reproduce the results.
+Let's create one now and save it in the `scripts` directory.
 
 - `File` 
 - `New File` 
 - `R Script` 
-- A new `Untitled` script will appear in the source pane. Save it using floppy disc icon.
-- Name it `intro-to-r.R`
-
-<!-- ### Escaping  -->
-
-<!-- The console shows it's ready to get new commands with `>` sign. It will show `+` sign if it still requires input for the command to be executed.  -->
-
-<!-- Sometimes you don't know what is missing/ you change your mind and want to run something else, or your code is running much too long and you just want it to stop. The way to do it is to hit `Esc`. -->
+- A new `Untitled` script will appear in the source pane. 
+- Save it using floppy disc icon. 
+- Select the `scripts/` folder as the file location
+- Name the script `intro-to-r.R`
 
 
+## Running the code
 
+Note that all code written in the script can be also executed at a spot in the  
+interactive console. 
+We will now learn how to run the code both in the console and the script.
 
+- In the Console you run the code by hitting <kbd>Enter</kbd> 
+  at the end of the line
+- In the R script there are two way to execute the code:
+   + You can use the `Run` button on the top right of the script window. 
+   + Alternatively, you can use a keyboard shortcut: <kbd>Ctrl</kbd>  +
+     <kbd>Enter</kbd> or <kbd>Command</kbd> +       <kbd>Return</kbd> for MAC users.
+     
+In both cases, the active line (the line where your cursor is placed) or a 
+highlighted snippet of code will be  executed.
 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
 
+### Escaping
 
+The console shows it's ready to get new commands with `>` sign. 
+It will show `+` sign if it still requires input for the command to be executed.
 
+Sometimes you don't know what is missing/ you change your mind and 
+want to run something else, or your code is running much too long 
+and you just want it to stop. 
+The way to do it is to hit <kbd>Esc</kbd>.
 
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+## Packages 
 
+A great power of R lays in **packages: add-on sets of functions** that are build
+by the community and once they go through a quality process they are available to
+download from a repository called `CRAN`. They need to be explicitly activated. 
+Now, we will be using `tidyverse` package, 
+which is actually a collection of useful packages. 
+Another package that we will use is `here`.
 
+You were asked to install `tidyverse` package in the preparation for the workshop.
+You need to install a package only once, so you won't have to do it again. 
+We will however need to install the `here` package. To do so, please go to your 
+script and type:
 
-::::::::::::::::::::::::::::::::::::: challenge 
-
-## Challenge 1: Can you do it?
-
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
+```{r install-here-package, eval=FALSE}
+install.packages('here')
 ```
 
-:::::::::::::::::::::::: solution 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
 
-## Output
+If you are not sure if you have `tidyverse` packaged installed, you can check it
+in the `Packages` tab in the bottom right pane. 
+In the search box start typing '`tidyverse`'  and see if it appears in the list 
+of installed packages. If not, you will need to install it by writing in 
+the script:
+
+```{r install-tidyverse-package, eval=FALSE}
+install.packages('tidyverse')
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
+
+### Commenting your code
+
+Now we have a bit of an issue with our script. As mentioned, the packages need to 
+be installed only once, but now, they will be installed each time we run the script, 
+which can take a lot of time if we're installing a large package like `tidyverse`.
+
+To keep a trace of you installing the packages, without executing it, you can use
+a comment. In `R`, anything that is written after a has sign `#`, is ignored in 
+execution. Thanks to this feature, you can annotate your code. 
+Let's adapt our script by changing the first lines into comments: 
+
+```{r comment}
+# install.packages('here')
+# install.packages('tidyverse')
  
-```output
-[1] "This new lesson looks good"
 ```
 
-:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-## Challenge 2: how do you nest solutions within challenge blocks?
+Installing packages is not sufficient to work with them. You will need to load 
+them each time you want to use them. To do that you use `library()` command:
 
-:::::::::::::::::::::::: solution 
+```{r load-package}
+# Load packages
+library(tidyverse)
+library(here)
 
-You can add a line with at least three colons and a `solution` tag.
-
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Figures
-
-You can include figures generated from R Markdown:
-
-```{r pyramid, fig.alt = "pie chart illusion of a pyramid", fig.cap = "Sun arise each and every morning"}
-pie(
-  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
-  init.angle = 315, 
-  col = c("deepskyblue", "yellow", "yellow3"), 
-  border = FALSE
-)
 ```
+
+## Handling paths 
+
+You have created a project which is your working directory, 
+and a few sub-folders, that will help you organise your project better. 
+But now, each time you will save or retrieve a file from those folders,
+you will need to specify the path from the folder you are in 
+(most likely the `scripts/` folder) to those files. 
+
+That can become complicated and might cause a reproducibility problem,
+if the person using your code (e.g. future you) 
+is working in a different sub-folder. 
+
+
+We will use `here()` package to tackle this issue! This package converts relative
+paths from the root (main folder) of your project to absolute paths (the exact 
+location on your computer).
+
+It might be confusing, so let's see how it works. We will use the `here` function
+from the `here` package. In the console, please write:
+
+```{r here}
+here()
+here('data')
+```
+
+You all probably have something different printed out. And this is fine, because
+`here` adapts to your computer's specific situation. 
+
+
+## Download files  
+
+We still need to download data for the first part of the workshop. 
+You can do it with the function `download.file()`. 
+We will save it in the `data/` folder, where the **raw** data should go. 
+In the script, we will write: 
+
+```{r download-files}
+# Download the data
+download.file('https://bit.ly/geospatial_data', 
+              here('data','gapminder_data.csv'), mode = 'wb')
+
+```
+
+
+# Introduction to R
+
+You can use R as calculator, you can for example write:
+
+```{r calculator}
+1+100
+1*100
+1/100
+
+```
+
+
+## Variables and assignment
+
+However, what's more useful is the that in R we can store values and
+use them whenever we need to. 
+We using the assignment operator `<-`, like this:
+
+```{r asignment-operator}
+x <- 1/40
+```
+
+Notice that assignment does not print a value. Instead, we've stored it for later 
+in something called a variable. `x` variable now contains the value `0.025`:
+```{r asignment-operator2}
+x
+```
+
+Look for the `Environment` tab in the upper right pane of RStudio. 
+You will see that `x` and its value have appeared in the list of Values. 
+Our variable `x` can be used in place of a number in any calculation that expects
+a number, e.g. when calculating a square root:
+
+```{r use-variable}
+sqrt(x)
+```
+
+Variables can be also reassigned. This means that we can assign a new value to 
+variable `x`:
+```{r reassign}
+x <- 100
+x
+```
+
+You can use one variable to create a new one:
+```{r reassign2}
+y <- sqrt(x) # you can use value stored in object x to create y
+y
+```
+
 
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- Use RStudio to write and run R programs.
+- Use `install.packages()` to install packages.
+- Use `library()` to load packages.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
