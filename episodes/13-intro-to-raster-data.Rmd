@@ -1,0 +1,114 @@
+---
+title: 'Intro to raster data'
+teaching: 30
+exercises: 20
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What is a raster dataset?
+- How do I work with and plot raster data in R?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Describe the fundamental attributes of a raster dataset.
+- Explore raster attributes and metadata using R.
+- Import rasters into R using the `terra` package.
+- Plot a raster file in R using the `ggplot2` package.
+- Describe the difference between single- and multi-band rasters.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+In this part of the workshop we will talk about raster data. We will start with an introduction of the fundamental principles, packages, and metadata needed to work with raster data in R. We will discuss some of the core metadata elements needed to understand raster data in R, including CRS and resolution. 
+
+We continue to work with the `tidyverse` and `here` packages and we will use the `terra` package to work with raster data. Make sure you have those packages loaded.
+
+```{r}
+library(tidyverse)  # Meta package for data science
+library(here)       # Working with paths
+library(terra)      # Accessing and manipulating raster data
+```
+
+::: prereq
+
+If you have not installed the `terra` package yet, do so by running `install.packages("terra")` before loading it with `library(terra)`. 
+
+:::
+
+## View Raster File Attributes
+
+We will be working with a series of GeoTIFF files in this lesson. The GeoTIFF format contains a set of embedded tags with metadata about the raster data. We can use the function `describe()` from the `terra` package to get information about our raster data before we read that data into R. It is recommended to do this before importing your data.
+
+```{r attr}
+describe(here("data","tud-dsm-5m.tif"))
+```
+
+## Open a Raster in R
+
+Now that we've previewed the metadata for our GeoTIFF, let's import this raster dataset. We are going to work with a Digital Surface Model (DSM) which is in the GeoTIFF format. We can use the `raster()` function to import a raster file.
+
+```{r}
+DSM_TUD <- raster(here("data","tud-dsm-5m.tif"))
+DSM_TUD
+```
+Similar to other data structures in R like vectors and data frame columns, descriptive statistics for raster data can be retrieved with the `summary()` function.
+
+```{r}
+summary(DSM_TUD)
+```
+But note the warning. Unless you force R to calculate these statistics using every cell, it will take a random sample of 100,000 cells and calculate from them instead. Now, raster objects are not data frames so you cannot count the cells with `nrow()`, but with the `ncell()` function of the `raster` package.
+
+```{r}
+summary(DSM_TUD, maxsamp = ncell(DSM_TUD))
+```
+
+To visualise raster data in `ggplot2`, we will need to convert it to a data frame. The `raster` package has a `as.data.frame` function for that purpose.
+
+```{r}
+DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
+```
+
+Now when we view the structure of our data, we will see a standard data frame format.
+
+```{r}
+str(DSM_TUD_df)
+```
+
+We can use `ggplot()` to plot this data with another `geom_` function called `geom_raster()`. The `coord_quickmap()` gives a quick approximation that preserves straight lines. This approximation is suitable for small areas that are not too close to the poles.
+
+```{r}
+ggplot() +
+    geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = tud.dsm.5m)) +
+    scale_fill_viridis_c() +  # remember, this color palette was introduced in the first lesson
+    coord_quickmap() 
+```
+
+This map, a so-called Digital Surface Model, shows the elevation of our study site, including buildings and vegetation.
+
+For faster previews, you can use the `plot()` function.
+
+```{r}
+plot(DSM_TUD)
+```
+
+But what units are these? This information is specified in the CRS, so let's have a closer look at the CRS of our raster.
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
