@@ -1,0 +1,327 @@
+---
+title: 'Exploring Data Frames & Data frame Manipulation with dplyr '
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What is a data frame?
+- How can I read data in R?
+- How can I get basic summary information about my data set?
+- How can I select specific rows and/or columns from a data frame?
+- How can I combine multiple commands into a single command?
+- How can I create new columns or remove existing columns from a data frame?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Describe what a data frame is.
+- Load external data from a .csv file into a data frame.
+- Summarize the contents of a data frame.
+- Select certain columns in a data frame with the dplyr function select.
+- Select certain rows in a data frame according to filtering conditions with the dplyr function filter.
+- Link the output of one dplyr function to the input of another function with the ‘pipe’ operator %>%.
+- Add new columns to a data frame that are functions of existing columns with mutate.
+- Use the split-apply-combine concept for data analysis.
+- Use summarize, group_by, and count to split a data frame into groups of observations, apply a summary statistics for each group, and then combine the results.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+# [Exploring Data frames](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html)
+
+Now we turn to the bread-and-butter of working with `R`: working with tabular data. In `R` data are stored in a data structure called **data frames**.  
+
+A data frame is a representation of data in the format of a **table** where the columns are **vectors** that all have the **same length**. 
+
+
+Because columns are vectors, each column must contain a **single type of data** (e.g., characters, numeric, factors). 
+For example, here is a figure depicting a data frame comprising a numeric, a character, and a logical vector.
+
+![](assets/img/data-frame.svg)
+<font size="3">*Source*:[Data Carpentry R for Social Scientists ](https://datacarpentry.org/r-socialsci/02-starting-with-data/index.html#what-are-data-frames-and-tibbles)</font>
+
+
+## Reading data
+
+`read.csv()` is a function used to read coma separated data files (`.csv` format)). There are other functions for files separated with other delimiters. 
+We're gonna read in the `gapminder` data set with information about countries' size, GDP and average life expectancy in different years.
+
+```{r reading-data}
+gapminder <- read.csv(here('data','gapminder_data.csv') )
+
+```
+
+## Exploring dataset
+Let’s investigate the `gapminder` data frame a bit; the first thing we should always do is check out what the data looks like.
+
+It is important to see if all the variables (columns) have the data type that we require. Otherwise we can run into trouble.
+
+```{r inspecting-data-str}
+str(gapminder) 
+
+```
+
+We can see that the `gapminder` object is a data.frame with `r nrow(gapminder)` observations/ rows and `r ncol(gapminder)` variables/columns. 
+In each line after a `$` sign, we see the name of each column, its type and first few values. 
+
+
+### First look at the dataset
+There are multiple ways to explore a data set. Here are just a few examples:
+
+
+```{r}
+head(gapminder) # see first 5  rows of the data set
+
+summary(gapminder) # gives basic statistical information about each column. Information format differes by data type.
+
+nrow(gapminder) # returns number of rows in a dataset
+
+ncol(gapminder) # returns number of columns in a dataset
+
+```
+
+### Dollar sign ($)
+
+When you're analyzing a data set, you often need to access its specific columns.
+
+One handy way to access a column is using it's name and a dollar sign `$`: 
+```{r subset-dollar-sign}
+country_vec <- gapminder$country  # Notation means: From dataset gapminder, give me column country. You can see that the column accessed in this way is just a vector of characters. 
+
+head(country_vec)
+
+```
+Note that the calling a column with a `$` sign will return a *vector*, it's not a data frame anymore.
+
+
+# [Data frame Manipulation with dplyr](https://datacarpentry.org/r-intro-geospatial/06-dplyr/index.html) 
+
+## Select
+Let's start manipulating the data. 
+
+First, we will adapt our data set, by keeping only the columns we're interested in, using the `select()` function from the `dplyr` package:
+
+```{r dplyr-select}
+year_country_gdp <- select(gapminder, year, country, gdpPercap) 
+
+head(year_country_gdp)
+
+```
+
+## Pipe
+Now, this is not the most common notation when working with `dplyr` package. `dplyr` offers an operator `%>%` called a pipe, which allows you build up very complicated commands in a readable way.
+
+
+In newer installation of `R` you can also find a notation `|>` . This pipe works in a similar way. The main difference is that you don't need to load any packages to have it available.
+
+
+The `select()` statement with pipe would look like that:
+
+```{r dplyr-pipe}
+
+year_country_gdp <- gapminder %>% 
+  select(year,country,gdpPercap)
+
+head(year_country_gdp)
+
+```
+
+First we define data set, then - with the use of pipe we pass it on to the `select()` function. This way we can chain multiple functions together, which we will be doing now. 
+
+## Filter
+
+We already now how to select only the needed columns. But now, we also want to filter the data set via certain condition with `filter()` function. Instead doing it in separate steps, we can do it all together. 
+
+In the `gapminder` data set, we want to see the results from outside of Europe for the 21st century. 
+```{r}
+year_country_gdp_euro <- gapminder %>% 
+  filter(continent != "Europe" & year > 2000) %>% # & operator (AND) - both conditions must be met
+  select(year, country, gdpPercap)
+
+head(year_country_gdp_euro)
+```
+Let's now find all the observations from Eurasia: 
+
+```{r}
+year_country_gdp_eurasia <- gapminder %>% 
+  filter(continent == "Europe" | continent == "Asia") %>% # I operator (OR) - one of the conditions must be met
+  select(year, country, gdpPercap)
+
+head(year_country_gdp_eurasia)
+```
+
+###  Exercise 1
+
+<div class="alert alert-info">
+<strong>Challenge</strong>
+Write a single command (which can span multiple lines and includes pipes) that will produce a dataframe that has the African values for life expectancy, country and year, but not for other Continents. How many rows does your data frame have and why?
+
+
+<strong>Solution</strong>
+
+</div>
+
+
+```{r ex5, class.source="bg-info"}
+year_country_lifeExp_Africa <- gapminder %>%
+                           filter(continent=="Africa"  ) %>%
+                           select(year,country,lifeExp)
+
+
+nrow(year_country_lifeExp_Africa)
+``` 
+
+
+
+## Group and summarize
+So far, we have created a data frame for one of the continents represented in the `gapminder` data set. But often instead of doing that, we would like to know statistics about all of the continents, presented by group.
+
+```{r dplyr-group}
+gapminder %>% # select the dataset
+  group_by(continent) %>% # group by continent
+  summarize(avg_gdpPercap = mean(gdpPercap)) # summarize function creates statistics for the data set 
+
+```
+
+### Exercise 2
+<div class="alert alert-info">
+<strong>Challenge</strong> 
+Calculate the average life expectancy per country. Which country has the longest average life expectancy and which has the shortest average life expectancy?
+
+<strong>Hint</strong> Use `max()`  and `min()` functions to find minimum and maximum.
+
+<strong>Solution</strong>
+
+</div>
+
+
+```{r ex6 , class.source="bg-info"}
+lifeExp_bycountry <- gapminder %>%
+   group_by(country) %>%
+   summarize(avg_lifeExp=mean(lifeExp))
+
+
+lifeExp_bycountry %>%
+   filter(avg_lifeExp == min(avg_lifeExp) | avg_lifeExp == max(avg_lifeExp))
+```
+
+### Multiple groups and summary variables
+You can also group by multiple columns:
+
+```{r dplyr-group-multi}
+
+gapminder %>%
+  group_by(continent, year) %>%
+  summarize(avg_gdpPercap = mean(gdpPercap))
+
+```
+
+On top of this, you can also make multiple summaries of those groups:
+```{r dplyr-summ}
+gdp_pop_bycontinents_byyear <- gapminder %>%
+  group_by(continent,year) %>%
+  summarize(
+    avg_gdpPercap = mean(gdpPercap),
+    sd_gdpPercap = sd(gdpPercap),
+    avg_pop = mean(pop),
+    sd_pop = sd(pop),
+    n_obs = n()
+    )
+
+```
+
+## Frequencies
+
+If you need only a number of observations per group, you can use the `count()` function
+```{r dplyr-count}
+
+gapminder %>%
+    group_by(continent) %>%
+    count()
+```
+ 
+
+## Mutate
+
+Frequently you’ll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we’ll use `mutate()`.
+
+```{r dplyr-mutate}
+gapminder_gdp <- gapminder %>%
+  mutate(gdpBillion = gdpPercap*pop/10^9)
+
+head(gapminder_gdp)
+
+```
+
+
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: Can you do it?
+
+What is the output of this command?
+
+```r
+paste("This", "new", "lesson", "looks", "good")
+```
+
+:::::::::::::::::::::::: solution 
+
+## Output
+ 
+```output
+[1] "This new lesson looks good"
+```
+
+:::::::::::::::::::::::::::::::::
+
+
+## Challenge 2: how do you nest solutions within challenge blocks?
+
+:::::::::::::::::::::::: solution 
+
+You can add a line with at least three colons and a `solution` tag.
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Figures
+
+You can include figures generated from R Markdown:
+
+```{r pyramid, fig.alt = "pie chart illusion of a pyramid", fig.cap = "Sun arise each and every morning"}
+pie(
+  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
+  init.angle = 315, 
+  col = c("deepskyblue", "yellow", "yellow3"), 
+  border = FALSE
+)
+```
+Or you can use pandoc markdown for static figures with the following syntax:
+
+`![optional caption that appears below the figure](figure url){alt='alt text for
+accessibility purposes'}`
+
+![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
+
+## Math
+
+One of our episodes contains $\LaTeX$ equations when describing how to create
+dynamic reports with {knitr}, so we now use mathjax to describe this:
+
+`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
+
+Cool, right?
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
