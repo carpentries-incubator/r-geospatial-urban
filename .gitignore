@@ -51,3 +51,6 @@ po/*~
 
 # renv detritus
 renv/sandbox/
+
+# Mac OS X files
+.DS_Store

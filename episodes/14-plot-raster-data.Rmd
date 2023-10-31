@@ -1,0 +1,289 @@
+---
+title: 'Plot raster data'
+teaching: 25
+exercises: 20
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
+library(tidyverse)
+library(terra)
+
+DSM_TUD <- rast("data/tud-dsm-5m.tif")
+DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
+
+```
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How can I create categorized or customized maps of raster data?
+- How can I customize the color scheme of a raster image?
+- How can I layer raster data in a single image?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Build customized plots for a single band raster using the ggplot2 package.
+- Layer a raster dataset on top of a hillshade to create an elegant basemap.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::: prereq
+
+# Things you'll need to complete this episode
+
+See the [lesson homepage]() for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
+
+<!-- This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before loading it with `library(terra)`. -->
+
+:::
+
+In this part, we will plot our raster object using `ggplot2` with customized coloring schemes. We will also see how to layer a raster on top of a hillshade to produce an eloquent map. We will continue working with the Digital Surface Model (DSM) raster from the [previous episode]().
+
+### Plotting Data Using Breaks
+In the previous plot, our DSM was colored with a continuous colour range. For clarity and visibility, we may prefer to view the data “symbolized” or colored according to ranges of values. This is comparable to a “classified” map. For that, we need to tell `ggplot` how many groups to break our data into and where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use `dplyr`’s `mutate()` function combined with `cut()` to split the data into 3 bins.
+
+```{r}
+DSM_TUD_df <- DSM_TUD_df %>%
+  mutate(fct_elevation = cut(`tud-dsm-5m`, breaks = 3))
+
+ggplot() +
+    geom_bar(data = DSM_TUD_df, aes(fct_elevation))
+```
+
+To see the cut-off values for the groups, we can ask for the unique values of `fct_elevation`:
+```{r}
+unique(DSM_TUD_df$fct_elevation)
+```
+
+And we can get the count of values (that is, number of pixels) in each group using `dplyr`’s `count()` function:
+```{r}
+DSM_TUD_df |> 
+  count(fct_elevation)
+```
+
+We might prefer to customize the cut-off values for these groups. Lets round the cut-off values so that we have groups for the ranges of -10-0m, 0-5m, and 5-100m. To implement this we will give `cut()` a numeric vector of break points instead of the number of breaks we want.
+
+```{r}
+custom_bins <- c(-10, 0, 5, 100)
+
+DSM_TUD_df <- DSM_TUD_df %>%
+  mutate(fct_elevation_cb = cut(`tud-dsm-5m`, breaks = custom_bins))
+
+unique(DSM_TUD_df$fct_elevation_cb)
+```
+
+::: callout
+
+# Data tip
+
+Note that 4 break values will result in 3 bins of data.
+
+The bin intervals are shown using `(` to mean exclusive and `]` to mean inclusive. For example: (0, 10] means “from 0 through 10”.
+
+:::
+
+And now we can plot our bar plot again, using the new groups:
+```{r}
+ggplot() +
+  geom_bar(data = DSM_TUD_df, aes(fct_elevation_cb))
+```
+
+And we can get the count of values in each group in the same way we did before:
+```{r}
+DSM_TUD_df |> 
+  count(fct_elevation_cb)
+```
+
+We can use those groups to plot our raster data, with each group being a different color:
+```{r}
+ggplot() +
+  geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = fct_elevation_cb)) + 
+  coord_quickmap()
+```
+The plot above uses the default colors inside ggplot for raster objects. We can specify our own colors to make the plot look a little nicer. R has a built in set of colors for plotting terrain, which are built in to the `terrain.colors()` function. Since we have three bins, we want to create a 3-color palette:
+
+```{r}
+terrain.colors(3)
+```
+
+The `terrain.colors()` function returns hex colors - each of these character strings represents a color. To use these in our map, we pass them across using the `scale_fill_manual()` function.
+```{r}
+ggplot() +
+ geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = fct_elevation_cb)) + 
+    scale_fill_manual(values = terrain.colors(3)) + 
+    coord_quickmap()
+```
+## More Plot Formatting
+
+If we need to create multiple plots using the same color palette, we can create an R object (`my_col`) for the set of colors that we want to use. We can then quickly change the palette across all plots by modifying the `my_col` object, rather than each individual plot.
+
+We can label the x and y axes of our plot too using `xlab` and `ylab`. We can also give the legend a more meaningful title by passing a value to the `name` argument of the `scale_fill_manual()` function.
+```{r}
+my_col <- terrain.colors(3)
+
+ggplot() +
+ geom_raster(data = DSM_TUD_df , aes(x = x, y = y,
+                                      fill = fct_elevation_cb)) + 
+    scale_fill_manual(values = my_col, name = "Elevation") + 
+    coord_quickmap()
+```
+Or we can also turn off the labels of both axes by passing `element_blank()` to the relevant part of the `theme()` function.
+```{r}
+ggplot() +
+ geom_raster(data = DSM_TUD_df , aes(x = x, y = y,
+                                      fill = fct_elevation_cb)) + 
+    scale_fill_manual(values = my_col, name = "Elevation") +
+    theme(axis.title = element_blank()) + 
+    coord_quickmap()
+```
+
+
+::: Challenge
+
+# Challenge: Plot Using Custom Breaks
+
+Create a plot of the TU Delft Digital Surface Model (`DSM_TUD`) that has:
+
+1. Six classified ranges of values (break points) that are evenly divided among the range of pixel values.
+2. Axis labels.
+3. A plot title.
+
+::: solution
+
+```{r}
+DSM_TUD_df <- DSM_TUD_df %>%
+  mutate(fct_elevation_6 = cut(`tud-dsm-5m`, breaks = 6))
+
+unique(DSM_TUD_df$fct_elevation_6)
+
+my_col <- terrain.colors(6)
+
+ggplot() +
+  geom_raster(data = DSM_TUD_df, aes(x = x, y = y,
+                                       fill = fct_elevation_6)) +
+  scale_fill_manual(values = my_col, name = "Elevation") +
+  coord_quickmap() +
+  xlab("X") +
+  ylab("Y") +
+  labs(title = "Elevation Classes of the Digital Surface Model (DSM)")
+```
+
+:::
+
+:::
+
+## Layering Rasters
+
+We can layer a raster on top of a hillshade raster for the same area, and use a transparency factor to create a 3-dimensional shaded effect. A hillshade is a raster that maps the terrain using light and shadow to create a 3D-looking image that you would see from above when viewing the terrain. We will add a custom color, making the plot grey.
+
+First we need to read in our DSM hillshade data and view the structure:
+```{r}
+DSM_hill_TUD <- rast("data/tud-dsm-5m-hill.tif")
+DSM_hill_TUD
+```
+
+Next we convert it to a data frame, so that we can plot it using `ggplot2`:
+```{r}
+DSM_hill_TUD_df <- as.data.frame(DSM_hill_TUD, xy = TRUE)
+str(DSM_hill_TUD_df)
+```
+
+Now we can plot the hillshade data:
+```{r}
+ggplot() +
+  geom_raster(data = DSM_hill_TUD_df,
+              aes(x = x, y = y, alpha = `tud-dsm-5m-hill`)) + 
+  scale_alpha(range =  c(0.15, 0.65), guide = "none") + 
+  coord_quickmap()
+```
+
+::: callout
+
+# Data tip
+
+Turn off, or hide, the legend on a plot by adding `guide = "none"` to a `scale_<something>()` function or by setting `theme(legend.position = "none")`.
+
+The `alpha` value determines how transparent the colors will be (0 being transparent, 1 being opaque).
+
+:::
+
+We can layer another raster on top of our hillshade by adding another call to the `geom_raster()` function. Let’s overlay `DSM_TUD` on top of the `DSM_hill_TUD`.
+
+```{r}
+ggplot() +
+  geom_raster(data = DSM_TUD_df , 
+              aes(x = x, y = y, 
+                  fill = `tud-dsm-5m`)) + 
+  geom_raster(data = DSM_hill_TUD_df, 
+              aes(x = x, y = y, 
+                  alpha = `tud-dsm-5m-hill`)) +  
+  scale_fill_viridis_c() +  
+  scale_alpha(range = c(0.15, 0.65), guide = "none") +  
+  ggtitle("Elevation with hillshade") +
+  coord_quickmap()
+```
+
+::: challenge
+
+Use the `tud-dtm.tif` and `tud-dtm-hill.tif` files from the `data` directory to create a Digital Terrain Model (DTM) map of the TU Delft area.
+
+Make sure to:
+
+- include hillshade in the maps,
+- label axes,
+- include a title for each map,
+- experiment with various alpha values and color palettes to represent the data.
+
+::: solution
+
+```{r}
+# import DTM
+DTM_TUD <- rast("data/tud-dtm-5m.tif")
+DTM_TUD_df <- as.data.frame(DTM_TUD, xy = TRUE)
+
+# DTM Hillshade
+DTM_hill_TUD <- rast("data/tud-dtm-5m-hill.tif")
+DTM_hill_TUD_df <- as.data.frame(DTM_hill_TUD, xy = TRUE)
+
+ggplot() +
+    geom_raster(data = DTM_TUD_df ,
+                aes(x = x, y = y,
+                     fill = `tud-dtm-5m`,
+                     alpha = 2.0)
+                ) +
+    geom_raster(data = DTM_hill_TUD_df,
+                aes(x = x, y = y,
+                  alpha = `tud-dtm-5m-hill`)
+                ) +
+    scale_fill_viridis_c() +
+    guides(fill = guide_colorbar()) +
+    scale_alpha(range = c(0.4, 0.7), guide = "none") +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank()) +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank()) +
+    ggtitle("DTM with Hillshade") +
+    coord_quickmap()
+```
+
+:::
+
+:::
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Continuous data ranges can be grouped into categories using `mutate()` and `cut()`.
+- Use built-in `terrain.colors()` or set your preferred color scheme manually.
+- Layer rasters on top of one another by using the `alpha` aesthetic.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
