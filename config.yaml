@@ -11,13 +11,13 @@
 carpentry: 'incubator'
 
 # Overall title for pages.
-title: 'Lesson Title'
+title: 'Geospatial Data Carpentry with R for Urbanists'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: 
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, data, lesson, The Carpentries'
+keywords: 'software, data, lesson, The Carpentries, geospatial'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
@@ -27,13 +27,13 @@ life_cycle: 'pre-alpha'
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/carpentries/workbench-template-rmd'
+source: 'https://github.com/carpentries-incubator/r-geospatial-urban'
 
 # Default branch of your lesson
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'team@carpentries.org'
+contact: 'c.cottineau@tudelft.nl'
 
 # Navigation ------------------------------------------------
 #
@@ -59,9 +59,8 @@ contact: 'team@carpentries.org'
 
 # Order of episodes in your lesson
 episodes: 
-- introduction.Rmd
-- import-and-visualise-data-from-open-street-map.md
-- basic-gis-operations-with-sf.md
+- import-and-visualise-osm-data.Rmd
+- basic-gis-with-r-sf.Rmd
 
 # Information for Learners
 learners: 
