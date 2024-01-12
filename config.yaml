@@ -63,6 +63,7 @@ episodes:
 - 01-intro-to-r.Rmd
 - 02-data-structures.Rmd
 - 03-explore-data.Rmd
+- 04-intro-to-visualisation.Rmd
 
 # Information for Learners
 learners: 
