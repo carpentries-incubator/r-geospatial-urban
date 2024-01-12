@@ -319,7 +319,7 @@ You can use R as calculator, you can for example write:
 
 ## Variables and assignment
 
-However, what's more useful is the that in R we can store values and
+However, what's more useful is that in R we can store values and
 use them whenever we need to. 
 We using the assignment operator `<-`, like this:
 
