@@ -64,7 +64,7 @@ levels(DSM_TUD_df$fct_elevation)
 
 And we can get the count of values (that is, number of pixels) in each group using `dplyr`’s `count()` function:
 ```{r}
-DSM_TUD_df |> 
+DSM_TUD_df %>% 
   count(fct_elevation)
 ```
 
