@@ -105,7 +105,7 @@ Now when we view the structure of our data, we will see a standard data frame fo
 str(DSM_TUD_df)
 ```
 
-We can use `ggplot()` to plot this data with a specific `geom_` function called `geom_raster()`. We will make the colour scale in our plot color-blindness friendly with `scale_fill_viridis_c`, introduced in an [earlier lesson](). We will also use the `coord_quickmap()` function to use an approximate Mercator projection for our plots. This approximation is suitable for small areas that are not too close to the poles. Other coordinate systems are available in `ggplot2` if needed, you can learn about them at their help page `?coord_map`.
+We can use `ggplot()` to plot this data with a specific `geom_` function called `geom_raster()`. We will make the colour scale in our plot colour-blindness friendly with `scale_fill_viridis_c`, introduced in an [earlier lesson](../episodes/04-intro-to-visualisation.Rmd). We will also use the `coord_quickmap()` function to use an approximate Mercator projection for our plots. This approximation is suitable for small areas that are not too close to the poles. Other coordinate systems are available in `ggplot2` if needed, you can learn about them at their help page `?coord_map`.
 
 ```{r first-rast-plot, fig.cap="Raster plot with `ggplot2` using the viridis color scale"}
 ggplot() +
