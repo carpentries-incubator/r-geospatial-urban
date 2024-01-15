@@ -52,7 +52,7 @@ library(sf)         # work with spatial vector data
 
 ## Import shapefiles
 
-Let's start by opening a shapefile. Shapefiles a common file format to store spatial vector data used in GIS software. We will read a shapefile with the administrative boundary of Delft with the function `st_read()` from the `sf` package. 
+Let's start by opening a shapefile. Shapefiles are a common file format to store spatial vector data used in GIS software. We will read a shapefile with the administrative boundary of Delft with the function `st_read()` from the `sf` package. 
 
 ```{r results='hide'}
 boundary_Delft <- st_read("data/delft-boundary.shp")
