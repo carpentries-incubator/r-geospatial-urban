@@ -62,7 +62,10 @@ boundary_Delft <- st_read("data/delft-boundary.shp")
 
 # All `sf` functions start with `st_`
 
-Note that all functions from the `sf` package start with the standard prefix `st_` which stands for Spatial Type. This is helpful in at least two ways: (1) it  makes the interaction with or translation to/from software using the simple features standard like PostGIS easy, and (2) it allows for easy autocompletion of function names in RStudio.
+Note that all functions from the `sf` package start with the standard prefix `st_` which stands for Spatial Type. This is helpful in at least two ways:  
+
+1. it makes the interaction with or translation to/from software using the simple features standard like PostGIS easy, and  
+2. it allows for easy autocompletion of function names in RStudio.
 
 :::
 
