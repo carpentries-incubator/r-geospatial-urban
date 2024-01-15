@@ -226,7 +226,7 @@ ggplot() +
   geom_raster(data = DSM_hill_TUD_df, 
               aes(x = x, y = y, 
                   alpha = `tud-dsm-5m-hill`)) +  
-  scale_fill_viridis_c() +  
+  scale_fill_viridis_c(option = "H") +  
   scale_alpha(range = c(0.15, 0.65), guide = "none") +  
   ggtitle("Elevation with hillshade") +
   coord_quickmap()
