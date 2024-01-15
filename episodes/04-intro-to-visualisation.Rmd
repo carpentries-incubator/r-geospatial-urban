@@ -148,7 +148,7 @@ Maybe we don't need that much information about the life expectancy. We
 only want to know if it's below or above average.
 
 ```{r ggplot-colors-discrete}
-plot_d <-  # this time let's save the plot in an object
+p <-  # this time let's save the plot in an object
   gapminder %>%  
   filter(year == 2007 & 
          continent == 'Americas') %>% 
@@ -166,7 +166,7 @@ like with any other object in `R`, if you want to see it, you need to
 call it.
 
 ```{r ggplot-call}
-plot_d
+p
 
 ```
 
@@ -175,13 +175,13 @@ Now we can make use of the saved object and add things to it.
 Let's also give it a title and name the axes:
 
 ```{r ggplot-titles}
-plot_d <- 
-  plot_d +
+p <- 
+  p +
   ggtitle('GDP per capita in Americas', subtitle = 'Year 2007') +
   xlab('Country')+
   ylab('GDP per capita')
 
-plot_d
+p
 ```
 
 # [Writing data](https://datacarpentry.org/r-intro-geospatial/08-writing-data/index.html)
@@ -192,7 +192,7 @@ Once we are happy with our plot we can save it in a format of our
 choice. Remember to save it in the dedicated folder.
 
 ```{r save-plot}
-ggsave(plot = plot_d, 
+ggsave(plot = p, 
        filename = here('fig_output','plot_americas_2007.pdf'))  # By default, ggsave() saves the last displayed plot, but you can also explicitly name the plot you want to save
 
 ```
