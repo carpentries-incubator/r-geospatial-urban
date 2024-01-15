@@ -161,8 +161,8 @@ displayed in a plot or which category is taken as a baseline in a statistical mo
 
 You can reorder the categories using `factor()` function.
 
-```{r factor-reorder}
-nordic_cat <- factor(nordic_cat, levels = c('Norway' , 'Denmark', 'Sweden')) # now Norway should be the first category, Denmark second and Sweden third
+```{r factor-reorder1}
+nordic_cat <- factor(nordic_cat, levels = c('Norway' , 'Denmark', 'Sweden'))  # now Norway should be the first category, Denmark second and Sweden third
 
 nordic_cat
 ```
@@ -172,7 +172,7 @@ nordic_cat
 There is more than one way to reorder factors. Later in the lesson,
 we will use `fct_relevel()` function from `forcats` package to do the reordering.
 
-```{r factor-reorder}
+```{r factor-reorder2}
 # nordic_cat <- fct_relevel(nordic_cat, 'Norway' , 'Denmark', 'Sweden') # now Norway should be the first category, Denmark second and Sweden third
 
 nordic_cat
