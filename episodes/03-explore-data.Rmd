@@ -4,6 +4,22 @@ teaching: 10
 exercises: 2
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
+# Load libraries ----------------------------------------------------------
+# Package names
+packages <- c("tidyverse", "here")
+
+# Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+
+```
+
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - What is a data frame?
