@@ -120,6 +120,7 @@ ggplot() +
     scale_fill_manual(values = terrain.colors(3)) + 
     coord_quickmap()
 ```
+
 ## More Plot Formatting
 
 If we need to create multiple plots using the same color palette, we can create an R object (`my_col`) for the set of colors that we want to use. We can then quickly change the palette across all plots by modifying the `my_col` object, rather than each individual plot.
