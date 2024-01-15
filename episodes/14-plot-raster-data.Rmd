@@ -8,7 +8,8 @@ exercises: 20
 knitr::opts_chunk$set(
 	echo = TRUE,
 	message = FALSE,
-	warning = FALSE
+	warning = FALSE,
+	fig.width = 12
 )
 
 library(tidyverse)
