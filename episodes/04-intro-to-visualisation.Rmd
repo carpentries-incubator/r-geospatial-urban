@@ -1,6 +1,7 @@
 ---
 title: "Introduction to visualisation"
-
+teaching: 10 # to be updated by Jerome & Kyri
+exercises: 2 # to be updated by Jerome & Kyri
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -16,29 +17,28 @@ title: "Introduction to visualisation"
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Generate plots to visualise data with ggplot.
+- Generate plots to visualise data with `ggplot2`.
 - Add plot layers to incrementally build a more complex plot.
-- Use the 'fill' argument for coloring surfaces, and modify colours with the  viridis or scale_manual packages. 
+- Use the `fill` argument for colouring surfaces, and modify colours with the viridis or scale_manual packages. 
 - Explore the help documentation.
-- Save and format your plot via the ggsave function.  
+- Save and format your plot via the `ggsave()` function.  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 # [Introduction to Visualisation](https://datacarpentry.org/r-intro-geospatial/07-plot-ggplot2/index.html)
 
-Package `ggplot2` is a powerful plotting system. I will introduce key
-features of `ggplot`. In the following parts of this workshop, you will
-use this package to visualize geo-spatial data. `gg` stands for grammar
+The package `ggplot2` is a powerful plotting system. We will start with an introduction of key
+features of `ggplot2`. In the following parts of this workshop, you will
+use this package to visualize geospatial data. `gg` stands for grammar
 of graphics, the idea that three components needed to create a graph
 are: - data - aesthetics - coordinate system on which we map the data
 (what is represented on x axis, what on y axis) - geometries - visual
 representation of the data (points, bars, etc.)
 
-Fun part about `ggplot` is that you can then add additional layers to
-the plot providing more information and make it more beautiful.
+Fun part about `ggplot2` is that you can add layers to
+the plot to provide more information and to make it more beautiful.
 
-First, lets plot distribution of life expectancy in the `gapminder` data
-set.
+First, lets plot the distribution of life expectancy in the `gapminder` dataset:
 
 ```{r ggplot}
   ggplot(data = gapminder,  aes(x = lifeExp) ) + # aesthetics layer 
@@ -47,18 +47,18 @@ set.
 ```
 
 You can see that in `ggplot` you use `+` as a pipe, to add layers.
-Within `ggplot` call, it is the only pipe that will work. But, it is
+Within the `ggplot()` call, it is the only pipe that will work. But, it is
 possible to chain operations on a data set with a pipe that we have
-already learned: `%>%` ( or `|>`) and follow them by ggplot grammar.
+already learned: `%>%` ( or `|>`) and follow them by ggplot syntax.
 
 Let's create another plot, this time only on a subset of observations:
 
 ```{r ggplot-col}
 gapminder %>%  # we select a data set
   filter(year == 2007 & 
-         continent == 'Americas') %>% # and filter it to keep only one year and one continent
-  ggplot(aes(x = country, y = gdpPercap)) + # we create aesthetics, both x and y axis represent values of  columns
-  geom_col() # we select a column graph as a geometry
+         continent == 'Americas') %>%  # and filter it to keep only one year and one continent
+  ggplot(aes(x = country, y = gdpPercap)) +  # the x and y axes represent values of columns
+  geom_col()  # we select a column graph as a geometry
 ```
 
 Now, you can iteratively improve how the plot looks like. For example,
@@ -70,7 +70,7 @@ gapminder %>%
          continent == 'Americas') %>% 
   ggplot(aes(x = country, y = gdpPercap)) + 
   geom_col()+ 
-  coord_flip()
+  coord_flip()  # flip axes
 ```
 
 One thing you might want to change here is the order in which countries
@@ -85,30 +85,30 @@ capita.
 gapminder %>%  
   filter(year == 2007, 
          continent == 'Americas') %>% 
-  mutate(country = fct_reorder(country, gdpPercap )) %>%
+  mutate(country = fct_reorder(country, gdpPercap )) %>%  # reorder factor levels
   ggplot(aes(x = country , y = gdpPercap)) + 
   geom_col() +
   coord_flip()
 
 ```
 
-Let's make things more colorful - let's represent the average life
-expectancy of a country by color
+Let's make things more colourful - let's represent the average life
+expectancy of a country by colour
 
 ```{r ggplot-colors}
 gapminder %>%  
   filter(year == 2007, 
          continent == 'Americas') %>% 
   mutate(country = fct_reorder(country, gdpPercap )) %>%
-  ggplot(aes(x = country, y = gdpPercap, fill = lifeExp  )) + # fill argument for coloring surfaces, color for points and lines
+  ggplot(aes(x = country, y = gdpPercap, fill = lifeExp  )) +  # fill argument for colouring surfaces, colour for points and lines
   geom_col()+ 
   coord_flip()
 
 
 ```
 
-We can also adapt the color scale. Common choice that is used for its
-readibility and colorblind-proofness are the pallettes available in the
+We can also adapt the colour scale. Common choice that is used for its
+readability and colorblind-proofness are the palettes available in the
 `viridis` package.
 
 ```{r ggplot-colors-adapt}
@@ -119,7 +119,7 @@ gapminder %>%
   ggplot(aes(x = country, y = gdpPercap, fill = lifeExp   )) + 
   geom_col()+ 
   coord_flip()+
-  scale_fill_viridis_c() # _c stands for continuous scale 
+  scale_fill_viridis_c()  # _c stands for continuous scale
 
 ```
 
@@ -127,17 +127,16 @@ Maybe we don't need that much information about the life expectancy. We
 only want to know if it's below or above average.
 
 ```{r ggplot-colors-discrete}
-plot_d <-  # this time let's save the plot in the object.
+plot_d <-  # this time let's save the plot in an object
   gapminder %>%  
   filter(year == 2007 & 
          continent == 'Americas') %>% 
   mutate(country = fct_reorder(country, gdpPercap ),
-         lifeExpCat = if_else(lifeExp >= mean(lifeExp), 'high', 'low' )
-         ) %>%
+         lifeExpCat = if_else(lifeExp >= mean(lifeExp), 'high', 'low')) %>%
   ggplot(aes(x = country, y = gdpPercap, fill = lifeExpCat)) + 
   geom_col()+ 
   coord_flip()+
-  scale_fill_manual(values = c('light blue', 'orange')) 
+  scale_fill_manual(values = c('light blue', 'orange'))  # customize the colours of the fill aesthetic
 
 ```
 
@@ -173,15 +172,15 @@ choice. Remember to save it in the dedicated folder.
 
 ```{r save-plot}
 ggsave(plot = plot_d, 
-       filename = here('fig_output','plot_americas_2007.pdf') ) # By default, ggsave() saves the last displayed plot, but you can also explicitly name the plot you want to save
+       filename = here('fig_output','plot_americas_2007.pdf'))  # By default, ggsave() saves the last displayed plot, but you can also explicitly name the plot you want to save
 
 ```
 
 ### Using help documentation
 
 My saved plot is not very readable. We can see why it happened by
-exploring the help documentation. We can do it by writing directly in
-the Console:
+exploring the help documentation. We can do that by writing directly in
+the console:
 
 ```{r help, eval=FALSE}
 ?ggsave
@@ -195,8 +194,8 @@ explore the documentation to see how to adapt the size e.g. by adapting
 ## Saving the data
 
 Another output of your work you want to save is a cleaned data set. In
-your analysis, you can then load directly that data set. Say we want to
-save the data only for Australia:
+your analysis, you can then load directly that data set. Let's say we want to
+save the data only for Americas:
 
 ```{r writing-data}
 gapminder_amr_2007 <- gapminder %>%
