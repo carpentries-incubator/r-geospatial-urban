@@ -31,7 +31,7 @@ installation issues.
 
 ::: prereq
 
-If you have not installed the `sf` package yet, run `install.packages("sf")` first. Note that the `sf` package has some external dependencies, namely GEOS, PROJ.4, GDAL and UDUNITS, which need to be installed beforehand. Follow the workshop [setup instructions]() for the installation of `sf` and its dependencies.
+If you have not installed the `sf` package yet, run `install.packages("sf")` first. Note that the `sf` package has some external dependencies, namely GEOS, PROJ.4, GDAL and UDUNITS, which need to be installed beforehand. Follow the workshop [setup instructions](../learners/setup.md) for the installation of `sf` and its dependencies.
 
 :::
 
