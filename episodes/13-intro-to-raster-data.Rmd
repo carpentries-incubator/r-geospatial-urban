@@ -93,7 +93,7 @@ But note the warning. Unless you force R to calculate these statistics using eve
 summary(values(DSM_TUD))
 ```
 
-To visualise this data in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](). The `terra` package has a built-in function for conversion to a data frame.
+To visualise this data in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has a built-in function for conversion to a data frame.
 
 ```{r}
 DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
