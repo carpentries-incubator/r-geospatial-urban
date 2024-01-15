@@ -223,7 +223,7 @@ This message is caused by a default setting in `geom_histogram()` enforcing that
 
 ```{r}
 ggplot() +
-  geom_histogram(data = DSM_TUD_df, aes(`tud-dsm-5m`), bins = 40)
+  geom_histogram(data = DSM_TUD_df, aes(`tud-dsm-5m`), bins = 60)
 ```
 
 Note that the shape of this histogram looks similar to the previous one that was created using the default of 30 bins. The distribution of elevation values for our Digital Surface Model (DSM) looks reasonable. It is likely that there are no bad data values in this particular raster.
