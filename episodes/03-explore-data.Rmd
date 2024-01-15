@@ -80,7 +80,8 @@ str(gapminder)
 
 ```
 
-We can see that the `gapminder` object is a data.frame with `r nrow(gapminder)` observations/ rows and `r ncol(gapminder)` variables/columns. 
+We can see that the `gapminder` object is a data.frame with `r nrow(gapminder)` observations (rows) and `r ncol(gapminder)` variables (columns). 
+
 In each line after a `$` sign, we see the name of each column, its type and first few values. 
 
 
