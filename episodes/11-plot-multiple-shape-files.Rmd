@@ -34,7 +34,7 @@ lines_Delft_selection <- lines_Delft %>%
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-This episode builds upon the [previous episode]() to work with vector layers in R and explore how to plot multiple vector layers.
+This episode builds upon the [previous episode](../episodes/10-explore-and-plot-by-vector-layer-attributes.Rmd) to work with vector layers in R and explore how to plot multiple vector layers.
 
 
 
