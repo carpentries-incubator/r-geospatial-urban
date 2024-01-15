@@ -49,10 +49,12 @@ gapminder <- read.csv("data/gapminder_data.csv")
 The package `ggplot2` is a powerful plotting system. We will start with an introduction of key
 features of `ggplot2`. In the following parts of this workshop, you will
 use this package to visualize geospatial data. `gg` stands for grammar
-of graphics, the idea that three components needed to create a graph
-are: - data - aesthetics - coordinate system on which we map the data
-(what is represented on x axis, what on y axis) - geometries - visual
-representation of the data (points, bars, etc.)
+of graphics, the idea that three components are needed to create a graph: 
+
+- data,
+- aesthetics - a coordinate system on which we map the data
+(what is represented on x axis, what on y axis), and
+- geometries - visual representation of the data (points, bars, etc.)
 
 Fun part about `ggplot2` is that you can add layers to
 the plot to provide more information and to make it more beautiful.
