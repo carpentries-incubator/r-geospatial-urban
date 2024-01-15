@@ -57,9 +57,9 @@ ggplot() +
     geom_bar(data = DSM_TUD_df, aes(fct_elevation))
 ```
 
-To see the cut-off values for the groups, we can ask for the unique values of `fct_elevation`:
+To see the cut-off values for the groups, we can ask for the levels of `fct_elevation`:
 ```{r}
-unique(DSM_TUD_df$fct_elevation)
+levels(DSM_TUD_df$fct_elevation)
 ```
 
 And we can get the count of values (that is, number of pixels) in each group using `dplyr`’s `count()` function:
@@ -76,7 +76,7 @@ custom_bins <- c(-10, 0, 5, 100)
 DSM_TUD_df <- DSM_TUD_df %>%
   mutate(fct_elevation_cb = cut(`tud-dsm-5m`, breaks = custom_bins))
 
-unique(DSM_TUD_df$fct_elevation_cb)
+levels(DSM_TUD_df$fct_elevation_cb)
 ```
 
 ::: callout
@@ -161,7 +161,7 @@ Create a plot of the TU Delft Digital Surface Model (`DSM_TUD`) that has:
 DSM_TUD_df <- DSM_TUD_df %>%
   mutate(fct_elevation_6 = cut(`tud-dsm-5m`, breaks = 6))
 
-unique(DSM_TUD_df$fct_elevation_6)
+levels(DSM_TUD_df$fct_elevation_6)
 
 my_col <- terrain.colors(6)
 
