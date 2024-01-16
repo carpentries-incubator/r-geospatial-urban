@@ -150,7 +150,7 @@ First we define data set, then - with the use of pipe we pass it on to the `sele
 
 ## Filter
 
-We already now how to select only the needed columns. But now, we also want to filter the data set via certain condition with `filter()` function. Instead doing it in separate steps, we can do it all together. 
+We already know how to select only the needed columns. But now, we also want to filter the data set via certain conditions with `filter()` function. Instead of doing it in separate steps, we can do it all together. 
 
 In the `gapminder` data set, we want to see the results from outside of Europe for the 21st century. 
 ```{r}
