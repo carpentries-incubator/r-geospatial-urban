@@ -73,7 +73,7 @@ gapminder <- read.csv("data/gapminder_data.csv")
 ## Exploring dataset
 Let’s investigate the `gapminder` data frame a bit; the first thing we should always do is check out what the data looks like.
 
-It is important to see if all the variables (columns) have the data type that we require. Otherwise we can run into trouble.
+It is important to see if all the variables (columns) have the data type that we require. For instance, a column might have numbers stored as characters, which would not allow us to make calculations with those numbers.
 
 ```{r inspecting-data-str}
 str(gapminder) 
