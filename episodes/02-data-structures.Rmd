@@ -137,7 +137,8 @@ Factors look like character data, but are used to represent categorical informat
 Factors create a structured relation between the different levels (values) of a
 categorical variable, such as days of the week or responses to a question in a
 survey. While factors look (and often behave) like character vectors, they are 
-actually treated as numbers by `R`. 
+actually treated as numbers by `R`, which is useful for computing summary 
+statistics about their distribution, running regression analysis, etc.
 So you need to be very careful when treating them as strings.
 
 ### Create factors
