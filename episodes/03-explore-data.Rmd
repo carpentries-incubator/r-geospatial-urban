@@ -174,7 +174,7 @@ head(year_country_gdp_eurasia)
 
 <div class="alert alert-info">
 <strong>Challenge</strong>
-Write a single command (which can span multiple lines and includes pipes) that will produce a dataframe that has the African values for life expectancy, country and year, but not for other Continents. How many rows does your data frame have and why?
+Write a single command (which can span multiple lines and includes pipes) that will produce a data frame that has the values for life expectancy, country and year, only for Eurasia. How many rows does your data frame have and why? 
 
 
 <strong>Solution</strong>
