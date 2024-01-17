@@ -177,7 +177,7 @@ We will now learn how to run the code both in the console and the script.
 - In the R script there are two way to execute the code:
    + You can use the `Run` button on the top right of the script window. 
    + Alternatively, you can use a keyboard shortcut: <kbd>Ctrl</kbd>  +
-     <kbd>Enter</kbd> or <kbd>Command</kbd> + <kbd>Return</kbd> for Mac users.
+     <kbd>Enter</kbd> or <kbd>Command</kbd> + <kbd>Return</kbd> for MAC users.
      
 In both cases, the active line (the line where your cursor is placed) or a 
 highlighted snippet of code will be executed. A common source of error in scripts,
@@ -275,16 +275,21 @@ you will need to specify the path from the folder you are in
 (most likely the `scripts/` folder) to those files. 
 
 That can become complicated and might cause a reproducibility problem,
-if the person using your code (e.g. future you) 
+if the person using your code (including future you) 
 is working in a different sub-folder. 
 
 
-We will use `here()` package to tackle this issue! This package converts relative
+We will use the `here()` package to tackle this issue. This package converts relative
 paths from the root (main folder) of your project to absolute paths (the exact 
-location on your computer).
+location on your computer). For instance, instead of writing out the full path like 
+"C:/Users/YourName/Documents/r-geospatial-urban/data/file.csv" or 
+"~/Documents/r-geospatial-urban/data/file.csv", you can use the `here()` function 
+to create a path relative to your project's main directory. This makes your code 
+more portable and reproducible, as it doesn't depend on a specific location of 
+your project on your computer.
 
-It might be confusing, so let's see how it works. We will use the `here` function
-from the `here` package. In the console, please write:
+It might be confusing, so let's see how it works. We will use the `here()` function
+from the `here` package. In the console, we write:
 
 ```{r here}
 here()
