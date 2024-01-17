@@ -178,7 +178,7 @@ The following `R` packages are used in the various geospatial lessons.
 To install these packages in RStudio, do the following:  
 1\. Open RStudio by double-clicking the RStudio application icon. You should see something like this:
 
-![](https://github.com/datacarpentry/geospatial-workshop/blob/main/fig/01-rstudio.png){alt='RStudio layout'}
+![](https://raw.githubusercontent.com/datacarpentry/geospatial-workshop/main/fig/01-rstudio.png){alt='RStudio layout'}
 
 2\. Type the following into the console and hit enter.
 
