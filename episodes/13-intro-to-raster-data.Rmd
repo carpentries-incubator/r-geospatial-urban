@@ -240,7 +240,7 @@ Use `describe()` to determine the following about the `tud-dsm-hill.tif` file:
 3. How large would a 5x5 pixel area be on the Earth’s surface?
 4. Is the file a multi- or single-band raster?
 
-Note that this file is a hillshade raster. We will learn about hillshades in the [Working with Multi-band Rasters in R episode.
+Note that this file is a hillshade raster. We will learn about hillshades in the [Working with Multi-band Rasters in R](../episodes/17-work-with-multi-band-rasters.Rmd) episode.
 
 ::: solution
 
