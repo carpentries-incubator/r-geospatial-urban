@@ -177,10 +177,15 @@ We will now learn how to run the code both in the console and the script.
 - In the R script there are two way to execute the code:
    + You can use the `Run` button on the top right of the script window. 
    + Alternatively, you can use a keyboard shortcut: <kbd>Ctrl</kbd>  +
-     <kbd>Enter</kbd> or <kbd>Command</kbd> +       <kbd>Return</kbd> for MAC users.
+     <kbd>Enter</kbd> or <kbd>Command</kbd> + <kbd>Return</kbd> for Mac users.
      
 In both cases, the active line (the line where your cursor is placed) or a 
-highlighted snippet of code will be  executed.
+highlighted snippet of code will be executed. A common source of error in scripts,
+such as a previously created object not found, is code that has not been executed in 
+previous lines: make sure that all code has been executed as described above. 
+To run all lines before the active line, you can use the keyboard shortcut 
+<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> on Windows/Linux or 
+<kbd>Command</kbd> + <kbd>option</kbd> + <kbd>B</kbd> on Mac.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
 
@@ -192,7 +197,7 @@ It will show `+` sign if it still requires input for the command to be executed.
 Sometimes you don't know what is missing/ you change your mind and 
 want to run something else, or your code is running much too long 
 and you just want it to stop. 
-The way to do it is to hit <kbd>Esc</kbd>.
+The way to do it is to press <kbd>Esc</kbd>.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
