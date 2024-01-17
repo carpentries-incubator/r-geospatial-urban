@@ -137,7 +137,8 @@ Factors look like character data, but are used to represent categorical informat
 Factors create a structured relation between the different levels (values) of a
 categorical variable, such as days of the week or responses to a question in a
 survey. While factors look (and often behave) like character vectors, they are 
-actually treated as numbers by `R`. 
+actually treated as numbers by `R`, which is useful for computing summary 
+statistics about their distribution, running regression analysis, etc.
 So you need to be very careful when treating them as strings.
 
 ### Create factors
@@ -177,7 +178,7 @@ not in the order of occurrence in the vector. `R` assigns value of:
 This is important as it can affect e.g. the order in which categories are 
 displayed in a plot or which category is taken as a baseline in a statistical model.
 
-You can reorder the categories using `factor()` function.
+You can reorder the categories using `factor()` function. This can be useful, for instance, to select a reference category (first level) in a regression model or for ordering legend items in a plot, rather than using the default category systematically (i.e. based on alphabetical order).
 
 ```{r factor-reorder1}
 nordic_cat <- factor(nordic_cat, levels = c('Norway' , 'Denmark', 'Sweden'))  # now Norway should be the first category, Denmark second and Sweden third

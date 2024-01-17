@@ -73,7 +73,7 @@ gapminder <- read.csv("data/gapminder_data.csv")
 ## Exploring dataset
 Let’s investigate the `gapminder` data frame a bit; the first thing we should always do is check out what the data looks like.
 
-It is important to see if all the variables (columns) have the data type that we require. Otherwise we can run into trouble.
+It is important to see if all the variables (columns) have the data type that we require. For instance, a column might have numbers stored as characters, which would not allow us to make calculations with those numbers.
 
 ```{r inspecting-data-str}
 str(gapminder) 
@@ -174,7 +174,7 @@ head(year_country_gdp_eurasia)
 
 <div class="alert alert-info">
 <strong>Challenge</strong>
-Write a single command (which can span multiple lines and includes pipes) that will produce a dataframe that has the African values for life expectancy, country and year, but not for other Continents. How many rows does your data frame have and why?
+Write a single command (which can span multiple lines and includes pipes) that will produce a data frame that has the values for life expectancy, country and year, only for Eurasia. How many rows does your data frame have and why? 
 
 
 <strong>Solution</strong>
@@ -259,7 +259,7 @@ gapminder %>%
 
 ## Mutate
 
-Frequently you’ll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we’ll use `mutate()`.
+Frequently you’ll want to create new columns based on the values in existing columns. For example, instead of only having the GDP per capita, we might want to create a new GDP variable and convert its units into Billions. For this, we’ll use `mutate()`.
 
 ```{r dplyr-mutate}
 gapminder_gdp <- gapminder %>%
