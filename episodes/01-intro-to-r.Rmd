@@ -314,6 +314,21 @@ download.file('https://bit.ly/geospatial_data',
 
 ```
 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
+
+# Importing data into R
+
+Three of the most common ways of importing data in R are:
+
+- loading a package with pre-installed data;
+- downloading data from a URL;
+- reading a file from your computer.
+
+For larger datasets, database connections or API requests are also possible. We
+will not cover these in the workshop.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 # Introduction to R
 
