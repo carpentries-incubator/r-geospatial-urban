@@ -21,7 +21,7 @@ exercises: 2
 
 ## Vectors 
 So far we've looked on individual values. Now we will move to a data structure 
-called vectors. Vectors are arrays of values of a same data type. 
+called vectors. Vectors are arrays of values of the same data type. 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
 
@@ -38,6 +38,16 @@ It can be:
 - `raw` (raw bytes)
 
 We won't discuss `complex` or `raw` data type in the workshop.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
+
+### Data structures
+
+Vectors are the most common and basic data structure in R but you will come 
+across other data structures such as lists, data frames and matrices as well.
+For an overview, see [Data Types and Structures](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures.html).
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
