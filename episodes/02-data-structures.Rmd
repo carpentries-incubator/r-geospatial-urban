@@ -55,7 +55,7 @@ In short:
 
 For a more detailed description, see [Data Types and Structures](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures.html).
 
-Data structures for geospatial data use combinations of lists, data frames, matrices and vectors. While vector data (not the data structure with the same name!) combines a data frame structure with lists for attributes and geometry in a nested way, raster data are essentially represented as matrices in which each cell is a pixel. More about vector and raster data later in the workshop!
+Note that vector data in the geospatial context is different from vector data types. More about vector data in a [later lesson](../episodes/09-open-and-plot-vector-layers.Rmd)!
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
