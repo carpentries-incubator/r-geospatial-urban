@@ -259,7 +259,7 @@ gapminder %>%
 
 ## Mutate
 
-Frequently you’ll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we’ll use `mutate()`.
+Frequently you’ll want to create new columns based on the values in existing columns. For example, instead of only having the GDP per capita, we might want to create a new GDP variable and convert its units into Billions. For this, we’ll use `mutate()`.
 
 ```{r dplyr-mutate}
 gapminder_gdp <- gapminder %>%
