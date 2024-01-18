@@ -22,6 +22,9 @@ leisure_locations_selection <- st_read("data/delft-leisure.shp") %>%
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+
+After completing this episode, participants should be able to…
+
 - Plot vector objects with different CRSs in the same plot.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
