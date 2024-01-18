@@ -207,7 +207,7 @@ ggplot() +
                  aes(x = x, y = y, 
                    alpha = `tud-dtm-5m-hill-ETRS89`)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_quickmap()
+     coord_equal()
 ```
 
 We have now successfully draped the Digital Terrain Model on top of our hillshade to produce a nice looking, textured map!
