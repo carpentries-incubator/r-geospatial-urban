@@ -121,7 +121,7 @@ ggplot() +
 
 ## Export a shapefile
 
-To save a file, use the `st_write()` function from the `sf` package.
+To save a file, use the `st_write()` function from the `sf` package. Although `sf` guesses the driver needed for a specified output file name from its extension, this can be made explicitly via the `driver` argument. In our case `driver = "ESRI Shapefile"` ensures that the the output is correctly saved as a `.shp` file.
 
 ```{r, eval=FALSE}
 st_write(leisure_locations_selection,
