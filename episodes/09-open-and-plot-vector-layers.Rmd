@@ -102,6 +102,7 @@ st_bbox(boundary_Delft)
 ```
 
 We need a **projected CRS**, which in the case of the Netherlands is typically the Amersfort / RD New projection. To reproject our shapefile, we will use the `st_transform()` function. For the `crs` argument we can use the EPSG code of the CRS we want to use, which is `28992` for the `Amersfort / RD New` projection. 
+To check the EPSG code of any CRS, we can check this website: https://epsg.io/
 
 ```{r}
 boundary_Delft <- st_transform(boundary_Delft, 28992)
