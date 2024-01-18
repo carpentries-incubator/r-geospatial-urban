@@ -11,13 +11,13 @@
 carpentry: 'incubator'
 
 # Overall title for pages.
-title: 'Lesson Title'
+title: 'Geospatial Data Carpentry for Urbanism'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 
+created:
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, data, lesson, The Carpentries'
+keywords: 'software, data, lesson, The Carpentries, geospatial'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
@@ -27,13 +27,13 @@ life_cycle: 'pre-alpha'
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/carpentries/workbench-template-rmd'
+source: 'https://github.com/carpentries-incubator/r-geospatial-urban'
 
 # Default branch of your lesson
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'team@carpentries.org'
+contact: 'c.forgaci@tudelft.nl'
 
 # Navigation ------------------------------------------------
 #
@@ -58,7 +58,7 @@ contact: 'team@carpentries.org'
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes: 
+episodes:
 - introduction.Rmd
 - 01-intro-to-r.Rmd
 - 02-data-structures.Rmd
@@ -66,13 +66,13 @@ episodes:
 - 04-intro-to-visualisation.Rmd
 
 # Information for Learners
-learners: 
+learners:
 
 # Information for Instructors
-instructors: 
+instructors:
 
 # Learner Profiles
-profiles: 
+profiles:
 
 # Customisation ---------------------------------------------
 #
