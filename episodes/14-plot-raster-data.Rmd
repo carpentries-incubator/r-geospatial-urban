@@ -147,7 +147,7 @@ ggplot() +
 ```
 
 
-::: Challenge
+::: challenge
 
 # Challenge: Plot Using Custom Breaks
 
