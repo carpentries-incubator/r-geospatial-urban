@@ -39,7 +39,7 @@ See the [setup instructions](../learners/setup.md) for detailed information abou
 
 :::
 
-In this lesson we will work with raster data. We will start with an introduction of the fundamental principles and metadata needed to work with raster data in R. We will discuss some of the core metadata elements needed to understand raster data in R, including CRS and resolution. 
+In this lesson, we will work with raster data. We will start with an introduction of the fundamental principles and metadata needed to work with raster data in R. We will discuss some of the core metadata elements needed to understand raster data in R, including CRS and resolution. 
 
 We continue to work with the `tidyverse` package and we will use the `terra` package to work with raster data. Make sure you have those packages loaded.
 
