@@ -43,13 +43,9 @@ Let's focus on old buildings and imagine we're in charge of their conservation. 
 
 Let's select them and see where they are.
 
-
 ```{r}
 old <- 1800 # year prior to which you consider a building old
 
-
-#N.B. This might not be needed, but ensures that your machine knows it has internet...
-assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 
 nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle, NL", points_only = FALSE)
 bb <- sf::st_bbox(nominatim_polygon)
@@ -69,6 +65,17 @@ old_buildings <- buildings %>%
  ggplot(data = old_buildings) + geom_sf(colour="red")
  
 ```
+
+::::::::::::::::::::::::::::::::::::: callout
+
+If you encounter an error linked to your internet proxy, run this line of code. It might not be needed, but ensures that your machine knows it has internet.
+
+```{r}
+assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 As conservationists, we want to create a zone around historical buildings where building regulation will have special restrictions to preserve historical buildings. 
 
 ## Buffers
@@ -180,43 +187,47 @@ The historical threshold now applies to all pre-war buildings, but the distance 
  
 ```{r}
  
- old <- 1939 
- distance <- 10
- #select
- old_buildings <- buildings %>%
-   filter(start_date <= old)
- #buffer
- buffer_old_buildings <- st_buffer(old_buildings, dist = distance)
-  #union
- single_old_buffer <- st_union(buffer_old_buildings) %>%
-   st_cast(to = "POLYGON") %>%
-   st_as_sf()  
+old <- 1939 
+distance <- 10
+
+# select
+old_buildings <- buildings %>%
+  filter(start_date <= old)
+
+# buffer
+buffer_old_buildings <- st_buffer(old_buildings, dist = distance)
+  
+# union
+single_old_buffer <- st_union(buffer_old_buildings) %>%
+  st_cast(to = "POLYGON") %>%
+  st_as_sf()  
  
- single_old_buffer <- single_old_buffer %>%
-   mutate("ID"=1:nrow(single_old_buffer))  %>%
-   st_transform(single_old_buffer,crs=4326) 
- #centroids
- centroids_old <- st_centroid(old_buildings) %>%
-   st_transform(.,crs=4326)  
-  #intersection
-  centroids_buffers <- st_intersection(centroids_old,single_old_buffer) %>%
-   mutate(n=1)
- centroid_by_buffer <- centroids_buffers %>% 
-   group_by(ID) %>%
-   summarise(
-   n = sum(n)
-   )
- single_buffer <- single_old_buffer %>% 
-   mutate(n_buildings = centroid_by_buffer$n)
+single_old_buffer <- single_old_buffer %>%
+  mutate("ID"=1:nrow(single_old_buffer))  %>%
+  st_transform(single_old_buffer,crs=4326) 
+
+# centroids
+centroids_old <- st_centroid(old_buildings) %>%
+  st_transform(.,crs=4326)  
+  
+# intersection
+centroids_buffers <- st_intersection(centroids_old,single_old_buffer) %>%
+  mutate(n=1)
+ 
+centroid_by_buffer <- centroids_buffers %>% 
+  group_by(ID) %>%
+  summarise(n = sum(n))
+  
+single_buffer <- single_old_buffer %>% 
+  mutate(n_buildings = centroid_by_buffer$n)
   ggplot() + 
-   geom_sf(data = buildings) +
-   geom_sf(data = single_buffer, aes(fill=n_buildings), colour = NA) +
-   scale_fill_viridis_c(alpha = 0.6,
-                        begin = 0.6,
-                        end = 1,
-                        direction = -1,
-                        option = "B") 
-   
+    geom_sf(data = buildings) +
+    geom_sf(data = single_buffer, aes(fill = n_buildings), colour = NA) +
+    scale_fill_viridis_c(alpha = 0.6,
+                         begin = 0.6,
+                         end = 1,
+                         direction = -1,
+                         option = "B")    
 ```
 ::::::::::::::::::::::::
 
@@ -229,7 +240,8 @@ The historical threshold now applies to all pre-war buildings, but the distance 
 ## Area
 
 ```{r}
-single_buffer$area <- st_area(single_buffer, )  %>% units::set_units(., km^2)
+single_buffer$area <- sf::st_area(single_buffer, )  %>% 
+  units::set_units(., km^2)
 
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
@@ -245,18 +257,13 @@ single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / si
 ```
 
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use the `st_*` functions from `sf` for basic GIS operations
 - Perform unions, joins and intersection operations
-- Compute the area of spatial polygons
+- Compute the area of spatial polygons with `st_area()`
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

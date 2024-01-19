@@ -47,11 +47,8 @@ The first thing to do is to define the area within which you want to retrieve da
 
 We are going to look at *Brielle* together, but you can also work with the small cities of *Naarden*, *Geertruidenberg*, *Gorinchem*, *Enkhuizen* or *Dokkum*.
 
-N.B. This might not be needed, but ensures that your machine knows it has internet...
 
-```{r}
-assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
-```
+
 
 
 We first geocode our spatial text search and extract the corresponding polygon (`geo_lite_sf`) and then extract its bounding box (`st_bbox`).
@@ -64,6 +61,16 @@ nominatim_polygon <- geo_lite_sf(address = "Brielle", points_only = FALSE)
 bb <- st_bbox(nominatim_polygon)
 bb
 ```
+
+::::::::::::::::::::::::::::::::::::: callout
+
+If you encounter an error linked to your internet proxy, run this line of code. It might not be needed, but ensures that your machine knows it has internet.
+
+```{r}
+assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ### A word of caution
