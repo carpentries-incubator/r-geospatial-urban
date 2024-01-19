@@ -59,8 +59,8 @@ contact: 'c.cottineau@tudelft.nl'
 
 # Order of episodes in your lesson
 episodes: 
-- import-and-visualise-osm-data.Rmd
-- basic-gis-with-r-sf.Rmd
+- 18-import-and-visualise-osm-data.Rmd
+- 19-basic-gis-with-r-sf.Rmd
 
 # Information for Learners
 learners: 
