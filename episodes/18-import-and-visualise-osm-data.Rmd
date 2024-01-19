@@ -1,5 +1,5 @@
 ---
-title: 'Import and visualise OSM data'
+title: 'Import and Visualise OSM Data'
 teaching: 45
 exercises: 25
 ---
@@ -21,7 +21,7 @@ After completing this episode, participants should be able to…
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Introduction: What is OpenStreetMap?
+## What is OpenStreetMap?
 
 OpenStreetMap (OSM) is a collaborative project which aims at mapping the world and sharing geospatial data in an open way. Anyone can contribute, by mapping geographical objects they encounter, by adding topical information on existing map objects (their name, function, capacity, etc.), or by mapping buildings and roads from satellite imagery (cf. [HOT: Humanitarian OpenStreetMap Team](https://www.hotosm.org/)).
 
@@ -37,13 +37,11 @@ The geospatial data underlying this interface is made of geometrical objects (i.
 ```{r message=FALSE}
 library(tidyverse)
 library(sf)
-library(leaflet)
-library(osmdata)
-library(nominatimlite)
+
 ```
 
 
-### Bounding-box
+### Bounding box
 
 The first thing to do is to define the area within which you want to retrieve data, aka the *bounding box*. This can be defined easily using a place name and the package `nominatimlite` to access the free Nominatim API provided by OpenStreetMap. 
 
@@ -59,13 +57,16 @@ assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 We first geocode our spatial text search and extract the corresponding polygon (`geo_lite_sf`) and then extract its bounding box (`st_bbox`).
 
 ```{r}
-nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle", points_only = FALSE)
-bb <- sf::st_bbox(nominatim_polygon)
+#install.packages("nominatimlite")
+library(nominatimlite)
+
+nominatim_polygon <- geo_lite_sf(address = "Brielle", points_only = FALSE)
+bb <- st_bbox(nominatim_polygon)
 bb
 ```
 
 
-### Word of caution
+### A word of caution
 
 There might be multiple responses from the API query, corresponding to different objects at the same location, or different objects at different locations.
 For example: Brielle (Netherlands) and Brielle (New Jersey)
@@ -74,13 +75,11 @@ For example: Brielle (Netherlands) and Brielle (New Jersey)
 
 ![Brielle, New Jersey](fig/Brielle_NJ.jpeg "Brielle, New Jersey"){width=40%}
 
-
-We should therefore try to be as unambiguous as possible by adding a country code or district name.
-
+By default, `geo_lite_sf()` from the `nominatimlite` package returns the first item. This means that regardless of the number of returned locations with the given name, the function will return a bounding box and it might be that we are not looking for the first item. We should therefore try to be as unambiguous as possible by adding a country code or district name.
 
 ```{r}
-nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle, NL", points_only = FALSE)
-bb <- sf::st_bbox(nominatim_polygon)
+nominatim_polygon <- geo_lite_sf(address = "Brielle, NL", points_only = FALSE)
+bb <- st_bbox(nominatim_polygon)
 bb
 ```
 
@@ -107,7 +106,7 @@ Let's check the documentation [online](https://docs.ropensci.org/osmdata/):
 
 ![The OSMdata Documentation page](fig/osmdata.png){width=80%}
 
-It appears that there is a function to extract features, using the Overpass API. This function's name is `opq` (for OverPassQuery) which, in combination with `add_osm_feature`, seems to do the job. However it might not be crystal clear how  to apply it to our case. Let's click on the function name to know more.
+It appears that there is a function to extract features, using the Overpass API. This function is `opq()` (for OverPassQuery) which, in combination with `add_osm_feature()`, seems to do the job. However, it might not be crystal clear how to apply it to our case. Let's click on the function name in the documentation to find out more.
 
 ![The Overpass Query Documentation page](fig/opq.png){width=80%}
 
@@ -117,9 +116,13 @@ On this page we can read about the arguments needed for each function: a boundin
 
 
 ```{r}
+#install.packages("osmdata")
+library(osmdata)
+
+
 x <- opq(bbox = bb) %>%
    add_osm_feature(key = 'building') %>%
-    osmdata_sf()
+   osmdata_sf()
 ```
 
 
@@ -200,6 +203,10 @@ Anything odd? what? around the centre? Why these limits / isolated points?
 ## One solution
  
 ```{r}
+#install.packages("leaflet")
+library(leaflet)
+
+
 buildings2 <- buildings %>%
   st_transform(.,crs=4326)
 

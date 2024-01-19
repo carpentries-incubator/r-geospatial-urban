@@ -12,6 +12,8 @@ exercises: 25
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+After completing this episode, participants should be able to…
+
 - Perform unions, joins and intersection operations
 - Compute the area of spatial polygons
 - Create buffers and centroids 
