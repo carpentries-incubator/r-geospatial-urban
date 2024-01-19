@@ -1,7 +1,7 @@
 ---
 title: 'Work with Multi-Band Rasters'
 teaching: 25
-exercises: 5
+exercises: 0
 ---
 
 ```{r setup, include=FALSE}
@@ -24,6 +24,8 @@ library(terra)
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+After completing this episode, participants should be able to…
+
 - Identify a single versus a multi-band raster file.
 - Import multi-band rasters into R using the `terra` package.
 - Plot multi-band colour image rasters in R using the `ggplot` package.
@@ -34,7 +36,7 @@ library(terra)
 
 # Things you'll need to complete this episode
 
-See the [lesson homepage]() for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
+See the [setup instructions](../learners/setup.md) for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
 
 <!-- This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before loading it with `library(terra)`. -->
 
@@ -65,7 +67,7 @@ ggplot() +
 
 ## Image Raster Data Values
 
-As we saw in the previous exercise, this raster contains values between 0 and 255. These values represent degrees of brightness associated with the image band. In the case of a RGB image (red, green and blue), band 1 is the red band. When we plot the red band, larger numbers (towards 255) represent pixels with more red in them (a strong red reflection). Smaller numbers (towards 0) represent pixels with less red in them (less red was reflected). To plot an RGB image, we mix red + green + blue values into one single colour to create a full colour image - similar to the colour image a digital camera creates.
+This raster contains values between 0 and 255. These values represent degrees of brightness associated with the image band. In the case of a RGB image (red, green and blue), band 1 is the red band. When we plot the red band, larger numbers (towards 255) represent pixels with more red in them (a strong red reflection). Smaller numbers (towards 0) represent pixels with less red in them (less red was reflected). To plot an RGB image, we mix red + green + blue values into one single colour to create a full colour image - similar to the colour image a digital camera creates.
 
 ## Import a Specific Band
 
@@ -102,7 +104,7 @@ We can view the attributes of each band in the stack in a single output. For exa
 ```{r}
 RGB_stack_TUD[[2]]
 ```
-We can also use the `ggplot` functions to plot the data in any layer of our raster object. Remember, we need to convert to a data frame first.
+We can also use `ggplot2` to plot the data in any layer of our raster object. Remember, we need to convert to a data frame first.
 
 ```{r}
 RGB_stack_TUD_df <- as.data.frame(RGB_stack_TUD, xy = TRUE)
@@ -129,11 +131,11 @@ We can access any individual band in the same way.
 
 ## Create a three-band image
 
-To render a final three band, colored image in R, we use the `plotRGB()` function.
+To render a final three band, coloured image in R, we use the `plotRGB()` function.
 
 This function allows us to:
 
-- Identify what bands we want to render in the red, green and blue regions. The `plotRGB()` function defaults to a 1=red, 2=green, and 3=blue band order. However, you can define what bands you’d like to plot manually. Manual definition of bands is useful if you have, for example a near-infrared band and want to create a color infrared image.
+- Identify what bands we want to render in the red, green and blue regions. The `plotRGB()` function defaults to a 1=red, 2=green, and 3=blue band order. However, you can define what bands you’d like to plot manually. Manual definition of bands is useful if you have, for example a near-infrared band and want to create a colour infrared image.
 - Adjust the stretch of the image to increase or decrease contrast.
 
 Let’s plot our 3-band image. Note that we can use the `plotRGB()` function directly with our RasterStack object (we don’t need a data frame as this function isn’t part of the `ggplot2` package).

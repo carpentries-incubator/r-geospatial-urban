@@ -1,7 +1,7 @@
 ---
 title: 'Reproject Raster Data'
 teaching: 30
-exercises: 0
+exercises: 2
 ---
 
 ```{r setup, include=FALSE}
@@ -27,6 +27,8 @@ DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+After completing this episode, participants should be able to…
+
 - Reproject a raster in R.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -35,23 +37,23 @@ DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
 
 # Things you'll need to complete this episode
 
-See the [lesson homepage]() for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
+See the [setup instructions](../learners/setup.md) for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
 
 <!-- This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before loading it with `library(terra)`. -->
 
 :::
 
-Sometimes we encounter raster datasets that do not “line up” when plotted or analysed. Rasters that don’t line up are most often in different Coordinate Reference Systems (CRS). This episode explains how to deal with rasters in different, known CRSs. It will walk though reprojecting rasters in R using the `project()` function in the `terra` package.
+Sometimes we encounter raster datasets that do not “line up” when plotted or analysed. Rasters that don’t line up are most often in different Coordinate Reference Systems (CRS). This episode explains how to deal with rasters in different CRS. It will walk though reprojecting rasters in R using the `project()` function in the `terra` package.
 
 
 
 ## Raster Projection
 
-In the [Plot Raster Data]() episode, we learned how to layer a raster file on top of a hillshade for a nice looking basemap. In that episode, all of our data were in the same CRS. What happens when things don’t line up?
+In the [Plot Raster Data](../episodes/14-plot-raster-data.Rmd) episode, we learned how to layer a raster file on top of a hillshade for a nice looking basemap. In that episode, all of our data were in the same CRS. What happens when things don’t line up?
 
 For this episode, we will be working with the Digital Terrain Model data. This differs from the surface model data we’ve been working with so far in that the digital surface model (DSM) includes the tops of trees and buildings, while the digital terrain model (DTM) shows the ground level.
 
-We’ll be looking at another model (the canopy/building height model) in [a later episode]() and will see how to calculate the CHM from the DSM and DTM. Here, we will create a map of the Digital Terrain Model (`DTM_TUD`) of TU Delft and its surrounding draped (or layered) on top of the hillshade (`DTM_hill_TUD`). 
+We’ll be looking at another model (the canopy/building height model) in [a later episode](../episodes/16-raster-calculations.Rmd) and will see how to calculate the CHM from the DSM and DTM. Here, we will create a map of the Digital Terrain Model (`DTM_TUD`) of TU Delft and its surrounding draped (or layered) on top of the hillshade (`DTM_hill_TUD`). 
 
 ![Source: National Ecological Observatory Network (NEON).](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/lidarTree-height.png)
 
@@ -59,12 +61,13 @@ First, we need to import the DTM and DTM hillshade data.
 
 ```{r}
 DTM_TUD <- rast("data/tud-dtm-5m.tif")
-DTM_hill_TUD <- rast("data/tud-dtm-5m-hill-ETRS89.tif")
+DTM_hill_TUD <- rast("data/tud-dtm-5m-hill-WGS84.tif")
 ```
 
 Next, we will convert each of these datasets to a data frame for plotting with `ggplot`.
 ```{r}
 DTM_TUD_df <- as.data.frame(DTM_TUD, xy = TRUE)
+# DTM_hill_TUD_df <- as.data.frame(DTM_hill_TUD, xy = TRUE)
 DTM_hill_TUD_df <- as.data.frame(DTM_hill_TUD, xy = TRUE)
 ```
 
@@ -76,7 +79,7 @@ ggplot() +
                   fill = `tud-dtm-5m`)) + 
      geom_raster(data = DTM_hill_TUD_df, 
                  aes(x = x, y = y, 
-                   alpha = `tud-dtm-5m-hill-ETRS89`)) +
+                   alpha = `tud-dtm-5m`)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
      coord_quickmap()
 ```
@@ -99,11 +102,11 @@ Next we plot the DTM Hillshade on its own to see whether everything is OK.
 ggplot() +
   geom_raster(data = DTM_hill_TUD_df,
               aes(x = x, y = y,
-                  alpha = `tud-dtm-5m-hill-ETRS89`)) +
+                  alpha = `tud-dtm-5m`)) +
   coord_quickmap()
 ```
 
-If we look at the axes, we can see that the projections of the two rasters are different. When this is the case, `ggplot` won’t render the image. It won’t even throw an error message to tell you something has gone wrong. We can look at Coordinate Reference Systems (CRSs) of the DTM and the hillshade data to see how they differ.
+If we look at the axes, we can see that the units, and therefore the projections, of the two rasters are different. When this is the case, `ggplot2` won’t render the image. It won’t even throw an error message to tell you something has gone wrong. We can look at Coordinate Reference Systems (CRSs) of the DTM and the hillshade data to see how they differ.
 
 ::: challenge
 
@@ -120,13 +123,13 @@ crs(DTM_TUD, parse = TRUE)
 ```{r}
 crs(DTM_hill_TUD, parse = TRUE)
 ```
-`DTM_TUD` is in the Amersfoort / RD New projection, whereas `DTM_hill_TUD` is in ETRS89-extended / LAEA Europe.
+`DTM_TUD` is in the Amersfoort / RD New projection, whereas `DTM_hill_TUD` is in WGS 84.
 
 :::
 
 :::
 
-Because the two rasters are in different CRSs, they don’t line up when plotted in R. We need to reproject (or change the projection of) `DTM_hill_TUD` into the Amersfoort / RD New CRS.
+Because the two rasters are in different CRS, they don’t line up when plotted in R. We need to reproject (or change the projection of) `DTM_hill_TUD` into the Amersfoort / RD New CRS.
 
 ## Reproject Rasters
 
@@ -205,7 +208,7 @@ ggplot() +
                   fill = `tud-dtm-5m`)) + 
      geom_raster(data = DTM_hill_TUD_2_df, 
                  aes(x = x, y = y, 
-                   alpha = `tud-dtm-5m-hill-ETRS89`)) +
+                   alpha = `tud-dtm-5m`)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
      coord_equal()
 ```

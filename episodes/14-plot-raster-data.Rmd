@@ -1,7 +1,7 @@
 ---
-title: 'Plot raster data'
+title: 'Plot Raster Data'
 teaching: 25
-exercises: 20
+exercises: 13
 ---
 
 ```{r setup, include=FALSE}
@@ -23,14 +23,16 @@ DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How can I create categorized or customized maps of raster data?
-- How can I customize the color scheme of a raster image?
+- How can I customize the colour scheme of a raster image?
 - How can I layer raster data in a single image?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Build customized plots for a single band raster using the ggplot2 package.
+After completing this episode, participants should be able to…
+
+- Build customized plots for a single band raster using the `ggplot2` package.
 - Layer a raster dataset on top of a hillshade to create an elegant basemap.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -39,16 +41,16 @@ DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
 
 # Things you'll need to complete this episode
 
-See the [lesson homepage]() for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
+See the [setup instructions](../learners/setup.md) for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
 
 <!-- This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before loading it with `library(terra)`. -->
 
 :::
 
-In this part, we will plot our raster object using `ggplot2` with customized coloring schemes. We will also see how to layer a raster on top of a hillshade to produce an eloquent map. We will continue working with the Digital Surface Model (DSM) raster from the [previous episode]().
+In this part, we will plot our raster object using `ggplot2` with customized coloring schemes. We will also see how to layer a raster on top of a hillshade to produce an eloquent map. We will continue working with the Digital Surface Model (DSM) raster from the [previous episode](../episodes/13-intro-to-raster-data.Rmd).
 
 ### Plotting Data Using Breaks
-In the previous plot, our DSM was colored with a continuous colour range. For clarity and visibility, we may prefer to view the data “symbolized” or colored according to ranges of values. This is comparable to a “classified” map. For that, we need to tell `ggplot` how many groups to break our data into and where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use `dplyr`’s `mutate()` function combined with `cut()` to split the data into 3 bins.
+In the previous plot, our DSM was coloured with a continuous colour range. For clarity and visibility, we may prefer to view the data “symbolized” or coloured according to ranges of values. This is comparable to a “classified” map. For that, we need to tell `ggplot()` how many groups to break our data into and where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use `dplyr`’s `mutate()` function combined with `cut()` to split the data into 3 bins.
 
 ```{r}
 DSM_TUD_df <- DSM_TUD_df %>%
@@ -102,19 +104,19 @@ DSM_TUD_df |>
   count(fct_elevation_cb)
 ```
 
-We can use those groups to plot our raster data, with each group being a different color:
+We can use those groups to plot our raster data, with each group being a different colour:
 ```{r}
 ggplot() +
   geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = fct_elevation_cb)) + 
   coord_quickmap()
 ```
-The plot above uses the default colors inside ggplot for raster objects. We can specify our own colors to make the plot look a little nicer. R has a built in set of colors for plotting terrain, which are built in to the `terrain.colors()` function. Since we have three bins, we want to create a 3-color palette:
+The plot above uses the default colours inside `ggplot2` for raster objects. We can specify our own colours to make the plot look a little nicer. R has a built in set of colours for plotting terrain, which are built in to the `terrain.colors()` function. Since we have three bins, we want to create a 3-colour palette:
 
 ```{r}
 terrain.colors(3)
 ```
 
-The `terrain.colors()` function returns hex colors - each of these character strings represents a color. To use these in our map, we pass them across using the `scale_fill_manual()` function.
+The `terrain.colors()` function returns hex colours - each of these character strings represents a colour. To use these in our map, we pass them across using the `scale_fill_manual()` function.
 ```{r}
 ggplot() +
  geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = fct_elevation_cb)) + 
@@ -124,7 +126,7 @@ ggplot() +
 
 ## More Plot Formatting
 
-If we need to create multiple plots using the same color palette, we can create an R object (`my_col`) for the set of colors that we want to use. We can then quickly change the palette across all plots by modifying the `my_col` object, rather than each individual plot.
+If we need to create multiple plots using the same colour palette, we can create an R object (`my_col`) for the set of colours that we want to use. We can then quickly change the palette across all plots by modifying the `my_col` object, rather than each individual plot.
 
 We can label the x and y axes of our plot too using `xlab` and `ylab`. We can also give the legend a more meaningful title by passing a value to the `name` argument of the `scale_fill_manual()` function.
 ```{r}
@@ -133,10 +135,12 @@ my_col <- terrain.colors(3)
 ggplot() +
  geom_raster(data = DSM_TUD_df , aes(x = x, y = y,
                                       fill = fct_elevation_cb)) + 
+    xlab("xlab") +
+    ylab("ylab") +
     scale_fill_manual(values = my_col, name = "Elevation") + 
     coord_quickmap()
 ```
-Or we can also turn off the labels of both axes by passing `element_blank()` to the relevant part of the `theme()` function.
+The axis labels x and y are not necessary, nor are the new labels meaningful, so we can turn them off by passing `element_blank()` to the relevant part of the `theme()` function.
 ```{r}
 ggplot() +
  geom_raster(data = DSM_TUD_df , aes(x = x, y = y,
@@ -183,7 +187,7 @@ ggplot() +
 
 ## Layering Rasters
 
-We can layer a raster on top of a hillshade raster for the same area, and use a transparency factor to create a 3-dimensional shaded effect. A hillshade is a raster that maps the terrain using light and shadow to create a 3D-looking image that you would see from above when viewing the terrain. We will add a custom color, making the plot grey.
+We can layer a raster on top of a hillshade raster for the same area, and use a transparency factor to create a 3-dimensional shaded effect. A hillshade is a raster that maps the terrain using light and shadow to create a 3D-looking image that you would see from above when viewing the terrain. We will add a custom colour, making the plot grey.
 
 First we need to read in our DSM hillshade data and view the structure:
 ```{r}
@@ -212,7 +216,7 @@ ggplot() +
 
 Turn off, or hide, the legend on a plot by adding `guide = "none"` to a `scale_<something>()` function or by setting `theme(legend.position = "none")`.
 
-The `alpha` value determines how transparent the colors will be (0 being transparent, 1 being opaque).
+The `alpha` value determines how transparent the colours will be (0 being transparent, 1 being opaque).
 
 :::
 
@@ -264,7 +268,7 @@ ggplot() +
                 aes(x = x, y = y,
                   alpha = `tud-dtm-5m-hill`)
                 ) +
-    scale_fill_viridis_c() +
+    scale_fill_viridis_c(option = "H") +
     guides(fill = guide_colorbar()) +
     scale_alpha(range = c(0.4, 0.7), guide = "none") +
     theme_bw() +
@@ -284,7 +288,7 @@ ggplot() +
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Continuous data ranges can be grouped into categories using `mutate()` and `cut()`.
-- Use built-in `terrain.colors()` or set your preferred color scheme manually.
+- Use the built-in `terrain.colors()` or set your preferred colour scheme manually.
 - Layer rasters on top of one another by using the `alpha` aesthetic.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

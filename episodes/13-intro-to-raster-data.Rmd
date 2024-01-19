@@ -1,7 +1,7 @@
 ---
-title: 'Intro to raster data'
+title: 'Intro to Raster Data'
 teaching: 30
-exercises: 20
+exercises: 2
 ---
 
 ```{r setup, include=FALSE}
@@ -22,11 +22,15 @@ library(terra)
 :::
 
 ::: objectives
+
+After completing this episode, participants should be able to…
+
 - Describe the fundamental attributes of a raster dataset.
 - Explore raster attributes and metadata using R.
 - Import rasters into R using the `terra` package.
 - Plot a raster file in R using the `ggplot2` package.
 - Describe the difference between single- and multi-band rasters.
+
 :::
 
 ::: prereq
@@ -52,28 +56,29 @@ library(terra)
 
 # The data used in this lesson
 
-In this and following episodes, we will use ...
+In this and lesson, we will use:
 
-For more detailed information about the datasets, check out the Geospatial workshop data page.
+- data extracted from the [AHN digital elevation dataset of the Netherlands](https://www.ahn.nl/) for the TU Delft campus area; and
+- high-resolution RGB aerial photos of the TU Delft library obtained from [Beeldmateriaal Nederland](https://www.beeldmateriaal.nl/download-luchtfotos).
 
 :::
 
 ## View Raster File Attributes
 
-We will be working with a series of GeoTIFF files in this lesson. The GeoTIFF format contains a set of embedded tags with metadata about the raster data. We can use the function `describe()` from the `terra` package to get information about our raster data before we read that data into R. It is recommended to do this before importing your data.
+We will be working with a series of GeoTIFF files in this lesson. The GeoTIFF format contains a set of embedded tags with metadata about the raster data. We can use the function `describe()` from the `terra` package to get information about our raster data before we read that data into R. It is recommended to do this before importing your data. We first examine the file `tud-dsm-5m.tif`.
 
 ```{r attr}
 describe("data/tud-dsm-5m.tif")
 ```
-We will be exploring this data throughout this episode. By the end of this episode, you will be able to explain and understand the output above.
+We will be using this information throughout this episode. By the end of the episode, you will be able to explain and understand the output above.
 
 ## Open a Raster in R
 
-Now that we've previewed the metadata for our GeoTIFF, let's import this raster dataset into R and explore its metadata more closely.  We can use the `rast()` function to import a raster file in R.
+Now that we've previewed the metadata for our GeoTIFF, let's import this raster dataset into R and explore its metadata more closely. We can use the `rast()` function to import a raster file in R.
 
 ::: callout
 # Data tip - Object names  
-To improve code readability, use file and object names that make it clear what is in the file. The raster data for this episode contain Delft University of Technology and its surroundings so we’ll use a naming convention of `datatype_TUD`. The first object is a Digital Surface Model (DSM) in GeoTIFF format stored in a file `tud-dsm-5m.tif` which we will load into an object named according to our naming convention `DSM_TUD`.
+To improve code readability, use file and object names that make it clear what is in the file. The raster data for this episode contain the TU Delft campus and its surroundings so we’ll use a naming convention of `datatype_TUD`. The first object is a Digital Surface Model (DSM) in GeoTIFF format stored in a file `tud-dsm-5m.tif` which we will load into an object named according to our naming convention `DSM_TUD`.
 :::
 
 First we will load our raster file into R and view the data structure.
@@ -82,19 +87,21 @@ First we will load our raster file into R and view the data structure.
 DSM_TUD <- rast("data/tud-dsm-5m.tif")
 DSM_TUD
 ```
-The information above includes a report of min and max values, but no other data range statistics. Similar to other data structures in R like vectors and data frame columns, descriptive statistics for raster data can be retrieved with the `summary()` function.
+The information above includes a report on dimension, resulotion, extent and CRS, but no information about the values. Similar to other data structures in R like vectors and data frame columns, descriptive statistics for raster data can be retrieved with the `summary()` function.
 
 ```{r, warning=TRUE}
 summary(DSM_TUD)
 ```
 
-But note the warning. Unless you force R to calculate these statistics using every cell in the raster, it will take a random sample of 100,000 cells and calculate from them instead. To force calculation all the values, you can use the function `values`:
+This output gives us information about the range of values in the DSM. We can see, for instance, that the lowest elevation is `-5.2235`, the highest is `89.7838`. But note the warning. Unless you force R to calculate these statistics using every cell in the raster, it will take a random sample of 100,000 cells and calculate from them instead. To force calculation all the values, you can use the function `values`:
 
 ```{r}
 summary(values(DSM_TUD))
 ```
 
-To visualise this data in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has a built-in function for conversion to a data frame.
+With a summary on all cells of the raster, the values range from a smaller minimum of `-5.3907` to a higher maximum of `92.0910`.
+
+To visualise the DSM in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has a built-in function for conversion to a data frame.
 
 ```{r}
 DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
@@ -111,7 +118,7 @@ We can use `ggplot()` to plot this data with a specific `geom_` function called 
 ```{r first-rast-plot, fig.cap="Raster plot with `ggplot2` using the viridis color scale"}
 ggplot() +
     geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = `tud-dsm-5m`)) +
-    scale_fill_viridis_c() +
+    scale_fill_viridis_c(option = "H") +
     coord_quickmap() 
 ```
 
@@ -124,10 +131,10 @@ More information about the viridis palette used above at [viridis package docume
 ::: callout
 # Plotting tip
 
-For faster previews, you can use the `plot()` function on a terra object.
+For faster previews, you can use the `plot()` function on a `terra` object.
 :::
 
-This map shows our Digital Surface Model, that is, the elevation of our study site including buildings and vegetation. From the legend we can see that the maximum elevation is around 90, but we cannot tell whether this is 90 feet or 90 meters because the legend doesn’t show us the units. We can look at the metadata of our object to see what the units are. Much of the metadata that we’re interested in is part of the CRS.
+This map shows our Digital Surface Model, that is, the elevation of our study site including buildings and vegetation. From the legend we can confirm that the maximum elevation is around 90, but we cannot tell whether this is 90 feet or 90 meters because the legend doesn’t show us the units. We can look at the metadata of our object to see what the units are. Much of the metadata that we’re interested in is part of the CRS.
 
 Now we will see how features of the CRS appear in our data file and what meanings they have.
 
@@ -166,6 +173,16 @@ Raster statistics are often calculated and embedded in a GeoTIFF for us. We can 
 minmax(DSM_TUD)
 ```
 
+::: callout
+# Data tip - Set min and max values
+
+If the `min` and `max` values are `Inf` and `-Inf` respectively, it means that they haven't been calculated. We can calculate them using the `setMinMax()` function.
+
+```{r}
+DSM_TUD <- setMinMax(DSM_TUD)
+```
+:::
+
 ```{r}
 min(values(DSM_TUD))
 ```
@@ -174,17 +191,8 @@ min(values(DSM_TUD))
 max(values(DSM_TUD))
 ```
 
-::: callout
-# Data tip - Set Min and Max values
 
-If the minimum and maximum values haven't been calculated, we can calculate them using the `setMinMax()` function.
-
-```{r}
-DSM_TUD <- setMinMax(DSM_TUD)
-```
-:::
-
-We can see that the elevation at our site ranges from -5.39069m to 92.08102m.
+We can see that the elevation at our site ranges from `-5.39069`m to `92.08102`m.
 
 ## Raster bands
 
@@ -194,12 +202,12 @@ The Digital Surface Model object (`DSM_TUD`) that we’ve been working with is a
 
 
 
-A raster dataset can contain one or more bands. We can use the `rast()` function to import a single band from a single or multi-band raster. We can view the number of bands in a raster using the `nlyr()` function.
+A raster dataset can contain one or more bands. We can view the number of bands in a raster using the `nlyr()` function.
 
 ```{r}
 nlyr(DSM_TUD)
 ```
-This dataset has only 1 band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode]().
+This dataset has only 1 band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode](..episodes/17-work-with-multi-band-rasters.Rmd).
 
 
 
@@ -220,7 +228,7 @@ Notice that a message is displayed when R creates the histogram:
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-This message is caused by a default setting in `geom_histogram()` enforcing that there are 30 bins for the data. We can define the number of bins we want in the histogram by giving another value to the `bins` argument.
+This message is caused by a default setting in `geom_histogram()` enforcing that there are 30 bins for the data. We can define the number of bins we want in the histogram by giving another value to the `bins` argument. 60 bins, for instance, will give a more detailed histogram of the same distribution:
 
 ```{r}
 ggplot() +
