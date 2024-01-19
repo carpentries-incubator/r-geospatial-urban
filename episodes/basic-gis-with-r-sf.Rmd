@@ -45,7 +45,10 @@ Let's select them and see where they are.
 ```{r}
 old <- 1800 # year prior to which you consider a building old
 
+
+#N.B. This might not be needed, but ensures that your machine knows it has internet...
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
+
 nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle, NL", points_only = FALSE)
 bb <- sf::st_bbox(nominatim_polygon)
 x <- opq(bbox = bb) %>%
@@ -74,6 +77,10 @@ Let's say this zone should be 100 meters. In GIS terms, we want to create a buff
 ```{r}
  distance <- 100 # in meters 
  
+#First, we check that the "old_buildings" layer projection is measured in meters:
+st_crs(old_buildings)
+
+#then we use `st_buffer()`
 buffer_old_buildings <- 
   st_buffer(x = old_buildings, dist = distance)
  
@@ -94,10 +101,12 @@ single_old_buffer<- single_old_buffer %>%
   mutate("ID"=as.factor(1:nrow(single_old_buffer))) %>%
   st_transform(.,crs=28992) 
   
+
 ```
 
-We also use `st_cast()` to explicit the type of the resulting object (*POLYGON* instead of the default *MULTIPOLYGON*), `st_as_sf()` to transform the polygon into an `sf` object.
+We also use `st_cast()` to explicit the type of the resulting object (*POLYGON* instead of the default *MULTIPOLYGON*), `st_as_sf()` to transform the polygon into an `sf` object. With this function, we ensure that we end up with an `sf` object, which was not the case after we forced the union of old buildings into a *POLYGON* format.
 
+We create unique IDs to identify the new polygons.
 
 ## Centroids
 For the sake of visualisation speed, we would like to represent buildings by a single point (for instance: their geometric centre) rather than their actual footprint. This operation means defining their centroid and the corresponding function is `st_centroid`.
@@ -124,9 +133,11 @@ Now what we would like to distinguish conservation areas based on the number of 
  centroid_by_buffer <- centroids_buffers %>%
    group_by(ID) %>%
    summarise(n = sum(n))
+ 
  single_buffer <- single_old_buffer %>%
    mutate(n_buildings = centroid_by_buffer$n)
 
+ 
   ggplot() + 
    geom_sf(data = single_buffer, aes(fill=n_buildings)) +
    scale_fill_viridis_c(alpha = 0.8,
@@ -135,6 +146,10 @@ Now what we would like to distinguish conservation areas based on the number of 
                         direction = -1,
                         option = "B")
 ```
+
+`st_intersection` here adds the attributes of the intersected polygon buffers to the data table of the centroids. This means we will now know about each centroid, the ID of its intersected polygon-buffer, and a variable called "n" which is population with 1 for everyone. This means that all centroids will have the same weight when aggregated.
+
+We aggregate them by ID number (`group_by(ID)`) and sum the variable `n` to know how many centroids are contained in each polygon-buffer.
 
 ### Final output:
 
