@@ -43,7 +43,7 @@ See the [setup instructions](../learners/setup.md) for detailed information abou
 
 :::
 
-Sometimes we encounter raster datasets that do not “line up” when plotted or analysed. Rasters that don’t line up are most often in different Coordinate Reference Systems (CRS). This episode explains how to deal with rasters in different CRS. It will walk though reprojecting rasters in R using the `project()` function in the `terra` package.
+Sometimes we encounter raster datasets that do not “line up” when plotted or analysed. Rasters that don’t line up are most often in different Coordinate Reference Systems (CRS). This episode explains how to deal with rasters in different CRS. It will walk through reprojecting rasters in R using the `project()` function in the `terra` package.
 
 
 
@@ -51,9 +51,9 @@ Sometimes we encounter raster datasets that do not “line up” when plotted or
 
 In the [Plot Raster Data](../episodes/14-plot-raster-data.Rmd) episode, we learned how to layer a raster file on top of a hillshade for a nice looking basemap. In that episode, all of our data were in the same CRS. What happens when things don’t line up?
 
-For this episode, we will be working with the Digital Terrain Model data. This differs from the surface model data we’ve been working with so far in that the digital surface model (DSM) includes the tops of trees and buildings, while the digital terrain model (DTM) shows the ground level.
+For this episode, we will be working with the Digital Terrain Model (DTM) data. This differs from the surface model data we’ve been working with so far in that the digital surface model (DSM) includes the tops of trees and buildings, while the DTM shows the ground level.
 
-We’ll be looking at another model (the canopy/building height model) in [a later episode](../episodes/16-raster-calculations.Rmd) and will see how to calculate the CHM from the DSM and DTM. Here, we will create a map of the Digital Terrain Model (`DTM_TUD`) of TU Delft and its surrounding draped (or layered) on top of the hillshade (`DTM_hill_TUD`). 
+We’ll be looking at another model (the canopy/building height model, or CHM) in [a later episode](../episodes/16-raster-calculations.Rmd) and will see how to calculate the CHM from the DSM and DTM. Here, we will create a map of the Digital Terrain Model (`DTM_TUD`) of TU Delft and its surrounding draped (or layered) on top of the hillshade (`DTM_hill_TUD`). 
 
 ![Source: National Ecological Observatory Network (NEON).](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/lidarTree-height.png)
 

@@ -47,7 +47,7 @@ This episode explores how to import and plot a multi-band raster in R.
 
 ## Getting Started with Multi-Band Data in R
 
-In this episode, the multi-band data that we are working with is Beeldmateriaal Open Data from the Netherlands. Each RGB image is a 3-band raster. The same steps would apply to working with a multi-spectral image with 4 or more bands - like Landsat imagery.
+In this episode, the multi-band data that we are working with is [Beeldmateriaal Open Data](https://opendata.beeldmateriaal.nl/) from the Netherlands. Each RGB image is a 3-band raster. The same steps would apply to working with a multi-spectral image with 4 or more bands - like Landsat imagery.
 
 By using the `rast()` function along with the `lyrs` parameter, we can read specific raster bands; omitting this parameter would read instead all bands.
 
@@ -131,7 +131,7 @@ We can access any individual band in the same way.
 
 ## Create a three-band image
 
-To render a final three band, coloured image in R, we use the `plotRGB()` function.
+To render a final three-band, coloured image in R, we use the `plotRGB()` function.
 
 This function allows us to:
 
