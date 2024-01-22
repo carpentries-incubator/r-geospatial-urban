@@ -151,7 +151,7 @@ What units are our data in?
 
 ::: solution
 
-`+units=m` in the output of the code above tells us that our data is in meters.
+`+units=m` in the output of the code above tells us that our data is in meters (m).
 
 :::
 :::
