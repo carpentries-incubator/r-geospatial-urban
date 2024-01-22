@@ -36,6 +36,8 @@ gapminder <- read.csv("data/gapminder_data.csv")
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+After completing this episode, participants should be able to…
+
 - Generate plots to visualise data with `ggplot2`.
 - Add plot layers to incrementally build a more complex plot.
 - Use the `fill` argument for colouring surfaces, and modify colours with the viridis or scale_manual packages. 

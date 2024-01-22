@@ -38,6 +38,8 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+After completing this episode, participants should be able to…
+
 - Create self-contained projects in RStudio
 - Install additional packages using R code.
 - Manage packages

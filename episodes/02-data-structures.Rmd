@@ -13,6 +13,8 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+After completing this episode, participants should be able to…
+
 - To be aware of the different types of data.
 - To begin exploring data frames, and understand how they are related to vectors, factors and lists.
 - To be able to ask questions from R about the type, class, and structure of an object.

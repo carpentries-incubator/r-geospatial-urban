@@ -33,6 +33,8 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+After completing this episode, participants should be able to…
+
 - Describe what a data frame is.
 - Load external data from a .csv file into a data frame.
 - Summarize the contents of a data frame.
