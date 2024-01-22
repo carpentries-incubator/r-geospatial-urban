@@ -6,7 +6,7 @@ exercises: 5
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How can you read, examine and visualize point, line and polygon vector data in R?
+- How can I read, examine and visualize point, line and polygon vector data in R?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
