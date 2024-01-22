@@ -180,7 +180,7 @@ year_country_gdp_eurasia <- gapminder %>%
   filter(continent == "Europe" | continent == "Asia") %>% # | operator (OR) - one of the conditions must be met
   select(year, country, gdpPercap)
 
-nrow(year_country_lifeExp_Africa)
+nrow(year_country_gdp_eurasia)
 ``` 
 
 
