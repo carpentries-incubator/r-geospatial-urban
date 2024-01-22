@@ -90,7 +90,7 @@ There are multiple ways to explore a data set. Here are just a few examples:
 
 
 ```{r}
-head(gapminder) # see first 5  rows of the data set
+head(gapminder) # see first 6  rows of the data set
 
 summary(gapminder) # gives basic statistical information about each column. Information format differes by data type.
 
@@ -150,7 +150,7 @@ First we define data set, then - with the use of pipe we pass it on to the `sele
 
 ## Filter
 
-We already know how to select only the needed columns. But now, we also want to filter the data set via certain conditions with `filter()` function. Instead of doing it in separate steps, we can do it all together. 
+We already know how to select only the needed columns. But now, we also want to filter the rows of our data set via certain conditions with `filter()` function. Instead of doing it in separate steps, we can do it all together. 
 
 In the `gapminder` data set, we want to see the results from outside of Europe for the 21st century. 
 ```{r}
@@ -159,15 +159,6 @@ year_country_gdp_euro <- gapminder %>%
   select(year, country, gdpPercap)
 
 head(year_country_gdp_euro)
-```
-Let's now find all the observations from Eurasia: 
-
-```{r}
-year_country_gdp_eurasia <- gapminder %>% 
-  filter(continent == "Europe" | continent == "Asia") %>% # I operator (OR) - one of the conditions must be met
-  select(year, country, gdpPercap)
-
-head(year_country_gdp_eurasia)
 ```
 
 ###  Exercise 1
@@ -183,10 +174,9 @@ Write a single command (which can span multiple lines and includes pipes) that w
 
 
 ```{r ex5, class.source="bg-info"}
-year_country_lifeExp_Africa <- gapminder %>%
-                           filter(continent=="Africa"  ) %>%
-                           select(year,country,lifeExp)
-
+year_country_gdp_eurasia <- gapminder %>% 
+  filter(continent == "Europe" | continent == "Asia") %>% # | operator (OR) - one of the conditions must be met
+  select(year, country, gdpPercap)
 
 nrow(year_country_lifeExp_Africa)
 ``` 
@@ -194,7 +184,7 @@ nrow(year_country_lifeExp_Africa)
 
 
 ## Group and summarize
-So far, we have created a data frame for one of the continents represented in the `gapminder` data set. But often instead of doing that, we would like to know statistics about all of the continents, presented by group.
+So far, we have provided summary statistics on the whole dataset, selected columns, and filtered the observations. But often instead of doing that, we would like to know statistics about all of the continents, presented by group.
 
 ```{r dplyr-group}
 gapminder %>% # select the dataset
@@ -273,7 +263,9 @@ head(gapminder_gdp)
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- 
+- We can use the `select()` and `filter()` functions to select certain columns in a data frame and to subset it based a specific conditions.
+- With `mutate()`, we can create new columns in a data frame with values based on existing columns.
+- By combining `group_by()` and `summarize()` in a pipe (`%>%`) chain,  we can generate summary statistics for each group in a data frame.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -145,7 +145,7 @@ gapminder %>%
 ```
 
 Maybe we don't need that much information about the life expectancy. We
-only want to know if it's below or above average.
+only want to know if it's below or above average. We will make use of the `if_else()` function inside `mutate()` to create a new column `lifeExpCat` with the value `high` if life expectancy is above average and `low` otherwise. Note the usage of the `if_else()` function: `if_else(<condition>, <value if TRUE>, <value if FALSE>)`.
 
 ```{r ggplot-colors-discrete}
 p <-  # this time let's save the plot in an object
@@ -226,3 +226,13 @@ gapminder_amr_2007 <- gapminder %>%
 
 write.csv(gapminder_amr_2007, here('data_output', 'gapminder_americas_2007.csv'), row.names=FALSE)
 ```
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- With `ggplot2`, we use the `+` operator to combine plot layers and incrementally build a more complex plot.
+- In the aesthetics (`aes()`), we can assign variables to the x and y axes and use the `fill` argument for colouring surfaces.
+- With `scale_fill_viridis_c()` and `scale_fill_manual()` we can assign new colours to our plot.
+- To open the help documentation for a function, we run the name of the function preceded by the `?` sign.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
