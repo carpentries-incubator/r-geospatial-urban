@@ -6,15 +6,25 @@ This lesson is a template lesson that uses [The Carpentries Workbench][workbench
 
 ## Rendered Version of This Lesson
 
+Version 1.0
+
 ## Contact Information
+
+[Claudiu Forgaci](https://github.com/cforgaci)
 
 ## Contributing Information
 
+Please see the [CONTRIBUTING page](https://github.com/carpentries-incubator/r-geospatial-urban/blob/main/CONTRIBUTING.md) for guidance on how to contribute to this lessom.
+
 ## Credits / Acknowledgements
+
+- [Claudiu Forgaci](https://github.com/cforgaci)
 
 ## Citation
 
 ## License
+
+The R Geospatial Urban lesson, like most other software provided by The Carpentries, are made available under the OSI-approved MIT license. Please see the [LICENSE page](https://github.com/carpentries-incubator/r-geospatial-urban/blob/main/LICENSE.md) for further information.
 
 To use this template to
 start a new lesson repository,
