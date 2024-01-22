@@ -31,6 +31,9 @@ lines_Delft_selection <- lines_Delft %>%
 
 After completing this episode, participants should be able to…
 
+
+After completing this episode, participants should be able to…
+
 - Plot multiple vector layers in the same plot.
 - Apply custom symbols to spatial objects in a plot.
 
