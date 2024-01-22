@@ -118,10 +118,8 @@ Notice that the range of values for the output CHM starts right below 0 and rang
 It’s often a good idea to explore the range of values in a raster dataset just like we might explore a dataset that we collected in the field.
 
 1. What is the minimum and maximum value for the Canopy Height Model `CHM_TUD` that we just created?
-2. What are two ways you can check this range of data for `CHM_TUD`?
-3. What is the distribution of all the pixel values in the CHM?
-4. Plot a histogram with 6 bins instead of the default and change the colour of the histogram.
-5. Plot the `CHM_TUD` raster using breaks that make sense for the data. Include an appropriate colour palette for the data, plot title and no axes ticks / labels.
+2. What is the distribution of all the pixel values in the CHM?
+3. Plot the `CHM_TUD` raster using breaks that make sense for the data. Include an appropriate colour palette for the data, plot title and no axes ticks / labels.
 
 ::: solution
 
@@ -131,10 +129,6 @@ max(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 
 ggplot(CHM_TUD_df) +
     geom_histogram(aes(`tud-dsm-5m`))
-
-ggplot(CHM_TUD_df) +
-    geom_histogram(aes(`tud-dsm-5m`), colour="black", 
-                   fill="darkgreen", bins = 6)
 
 custom_bins <- c(-5, 0, 10, 20, 30, 100)
 CHM_TUD_df <- CHM_TUD_df %>%

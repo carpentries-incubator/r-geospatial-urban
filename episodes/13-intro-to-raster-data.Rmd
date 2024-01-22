@@ -25,7 +25,6 @@ library(terra)
 
 After completing this episode, participants should be able to…
 
-- Describe the fundamental attributes of a raster dataset.
 - Explore raster attributes and metadata using R.
 - Import rasters into R using the `terra` package.
 - Plot a raster file in R using the `ggplot2` package.
@@ -45,7 +44,7 @@ See the [setup instructions](../learners/setup.md) for detailed information abou
 
 In this lesson, we will work with raster data. We will start with an introduction of the fundamental principles and metadata needed to work with raster data in R. We will discuss some of the core metadata elements needed to understand raster data in R, including CRS and resolution. 
 
-We continue to work with the `tidyverse` package and we will use the `terra` package to work with raster data. Make sure you have those packages loaded.
+We continue to work with the `tidyverse` package and we will use the `terra` package to work with raster data. Make sure that you have those packages loaded.
 
 ```{r load-pkgs, eval=FALSE}
 library(tidyverse)
@@ -101,7 +100,7 @@ summary(values(DSM_TUD))
 
 With a summary on all cells of the raster, the values range from a smaller minimum of `-5.3907` to a higher maximum of `92.0910`.
 
-To visualise the DSM in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has a built-in function for conversion to a data frame.
+To visualise the DSM in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has the built-in function `as.data.frame()` for conversion to a data frame.
 
 ```{r}
 DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
@@ -118,7 +117,7 @@ We can use `ggplot()` to plot this data with a specific `geom_` function called 
 ```{r first-rast-plot, fig.cap="Raster plot with `ggplot2` using the viridis color scale"}
 ggplot() +
     geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = `tud-dsm-5m`)) +
-    scale_fill_viridis_c(option = "H") +
+    scale_fill_viridis_c(option = "H") +  # `option = "H"` provides a contrasting colour scale
     coord_quickmap() 
 ```
 
@@ -164,7 +163,7 @@ The CRS for our data is given to us by R in PROJ.4 format. Let’s break down th
 See more about CRS and PROJ.4 strings in [this lesson](https://datacarpentry.org/organization-geospatial/03-crs).
 :::
 
-## Calculate the Min and Max value
+## Calculate Raster Min and Max values
 
 It is useful to know the minimum and maximum values of a raster dataset. In this case, as we are working with elevation data, these values represent the min/max elevation range at our site.
 

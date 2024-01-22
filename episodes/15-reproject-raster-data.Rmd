@@ -49,13 +49,25 @@ Sometimes we encounter raster datasets that do not “line up” when plotted or
 
 ## Raster Projection
 
+<<<<<<< HEAD
 In the [Plot Raster Data](../episodes/14-plot-raster-data.Rmd) episode, we learned how to layer a raster file on top of a hillshade for a nice looking basemap. In that episode, all of our data were in the same CRS. What happens when things don’t line up?
 
 For this episode, we will be working with the Digital Terrain Model (DTM) data. This differs from the surface model data we’ve been working with so far in that the digital surface model (DSM) includes the tops of trees and buildings, while the DTM shows the ground level.
+=======
+For this episode, we will be working with the Digital Terrain Model data. This differs from the surface model data we’ve been working with so far in that the digital surface model (DSM) includes the tops of trees and buildings, while the digital terrain model (DTM) shows the ground level.
+>>>>>>> 963dd67 (Update raster episodes)
 
 We’ll be looking at another model (the canopy/building height model, or CHM) in [a later episode](../episodes/16-raster-calculations.Rmd) and will see how to calculate the CHM from the DSM and DTM. Here, we will create a map of the Digital Terrain Model (`DTM_TUD`) of TU Delft and its surrounding draped (or layered) on top of the hillshade (`DTM_hill_TUD`). 
 
-![Source: National Ecological Observatory Network (NEON).](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/lidarTree-height.png)
+:::::::::::::::::::::::::::::::::::::: questions
+
+### Layering Rasters: Hillshade
+
+We can layer a raster on top of a hillshade raster for the same area, and use a transparency factor to create a 3-dimensional shaded effect. A hillshade is a raster that maps the terrain using light and shadow to create a 3D-looking image that you would see from above when viewing the terrain. We will add a custom colour, making the plot grey.
+
+Read more about layering raster [here](https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-raster-plot.html#layering-rasters).
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 First, we need to import the DTM and DTM hillshade data.
 
@@ -67,7 +79,6 @@ DTM_hill_TUD <- rast("data/tud-dtm-5m-hill-WGS84.tif")
 Next, we will convert each of these datasets to a data frame for plotting with `ggplot`.
 ```{r}
 DTM_TUD_df <- as.data.frame(DTM_TUD, xy = TRUE)
-# DTM_hill_TUD_df <- as.data.frame(DTM_hill_TUD, xy = TRUE)
 DTM_hill_TUD_df <- as.data.frame(DTM_hill_TUD, xy = TRUE)
 ```
 
@@ -79,7 +90,7 @@ ggplot() +
                   fill = `tud-dtm-5m`)) + 
      geom_raster(data = DTM_hill_TUD_df, 
                  aes(x = x, y = y, 
-                   alpha = `tud-dtm-5m`)) +
+                   alpha = `tud-dtm-5m-hill`)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
      coord_quickmap()
 ```
@@ -102,7 +113,7 @@ Next we plot the DTM Hillshade on its own to see whether everything is OK.
 ggplot() +
   geom_raster(data = DTM_hill_TUD_df,
               aes(x = x, y = y,
-                  alpha = `tud-dtm-5m`)) +
+                  alpha = `tud-dtm-5m-hill`)) +
   coord_quickmap()
 ```
 
@@ -208,7 +219,7 @@ ggplot() +
                   fill = `tud-dtm-5m`)) + 
      geom_raster(data = DTM_hill_TUD_2_df, 
                  aes(x = x, y = y, 
-                   alpha = `tud-dtm-5m`)) +
+                   alpha = `tud-dtm-5m-hill`)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
      coord_equal()
 ```
