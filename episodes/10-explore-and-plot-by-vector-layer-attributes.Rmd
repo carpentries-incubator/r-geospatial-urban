@@ -23,6 +23,8 @@ point_Delft <- st_read("data/delft-leisure.shp")
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+After completing this episode, participants should be able to…
+
 - Query attributes of a vector object.
 
 - Subset vector objects using specific attribute values.
@@ -227,7 +229,7 @@ motorway_Delft_length <- motorway_Delft %>%
 nrow(motorway_Delft)
 ```
 
-4. Plot the motorways
+4. Plot the motorways.
 
 ```{r}
 ggplot(data = motorway_Delft) + 
@@ -236,7 +238,7 @@ ggplot(data = motorway_Delft) +
   coord_sf(datum = st_crs(28992))
 ```
 
-5. Same steps with pedestrian streets
+5. Follow the same steps with pedestrian streets.
 
 ```{r}
 pedestrian_Delft <- lines_Delft %>% 
@@ -439,7 +441,7 @@ Create a map of the municipal boundaries in the Netherlands using the data locat
 ::: solution
 
 ```{r}
-municipal_boundaries_NL <- st_read(here("data", "nl-gemeenten.shp"))
+municipal_boundaries_NL <- st_read(here("episodes", "data", "nl-gemeenten.shp"))
 ```
 
 ```{r}

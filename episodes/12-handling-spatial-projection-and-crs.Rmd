@@ -125,7 +125,7 @@ To save a file, use the `st_write()` function from the `sf` package. Although `s
 
 ```{r, eval=FALSE}
 st_write(leisure_locations_selection,
-         "data/leisure_locations_selection.shp"), driver = "ESRI Shapefile")
+         "data/leisure_locations_selection.shp", driver = "ESRI Shapefile")
 ```
 
 
