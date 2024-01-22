@@ -87,7 +87,7 @@ First we will load our raster file into R and view the data structure.
 DSM_TUD <- rast("data/tud-dsm-5m.tif")
 DSM_TUD
 ```
-The information above includes a report on dimension, resulotion, extent and CRS, but no information about the values. Similar to other data structures in R like vectors and data frame columns, descriptive statistics for raster data can be retrieved with the `summary()` function.
+The information above includes a report on dimension, resolution, extent and CRS, but no information about the values. Similar to other data structures in R like vectors and data frame columns, descriptive statistics for raster data can be retrieved with the `summary()` function.
 
 ```{r, warning=TRUE}
 summary(DSM_TUD)
