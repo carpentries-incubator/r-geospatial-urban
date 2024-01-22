@@ -220,6 +220,7 @@ gapminder %>%
    group_by(country) %>%
    summarize(avg_lifeExp=mean(lifeExp)) %>%
    filter(avg_lifeExp == min(avg_lifeExp) | avg_lifeExp == max(avg_lifeExp))
+```
 
 ### Multiple groups and summary variables
 You can also group by multiple columns:
