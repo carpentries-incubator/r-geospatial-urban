@@ -90,7 +90,25 @@ abcd_vector
 
 ```
 
-### Missing values  
+### Missing values
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+### Exercise 
+
+Combine the `abcd_vector` with the `numeric_vector` in R. What is the data type of this new vector and why?
+
+:::::::::::::::::::::::: solution 
+
+```
+combined_vector <- c(abcd_vector, numeric_vector)
+combined_vector
+```
+The combined vector is a character vector. Because vectors can only hold one data type and `abcd_vector` cannot be interpreted as numbers, the numbers in `numeric_vector` are _coerced_ into characters.
+
+:::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 A common operation you want to perform is to remove all the missing values 
 (in R denoted as `NA`). Let's have a look how to do it: 
