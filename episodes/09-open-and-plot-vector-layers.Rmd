@@ -33,11 +33,11 @@ last-minute installation issues.
 
 ::: prereq
 
-If you have not installed the `sf` package yet, run `install.packages("sf")` first. Note that the `sf` package has some external dependencies, namely GEOS, PROJ.4, GDAL and UDUNITS, which need to be installed beforehand. Follow the workshop [setup instructions](../learners/setup.md) for the installation of `sf` and its dependencies.
+In this lesson you will work with the `sf` package. Note that the `sf` package has some external dependencies, namely GEOS, PROJ.4, GDAL and UDUNITS, which need to be installed beforehand. Before starting the lesson, follow the workshop [setup instructions](../learners/setup.md) for the installation of `sf` and its dependencies.
 
 :::
 
-First we need to load the packages we will use in this lesson. We will use the package `tidyverse` with which you are already familiar from the previous lesson. In addition, we need to load the [`sf`](https://r-spatial.github.io/sf/) package for working with spatial vector data. 
+First we need to load the packages we will use in this lesson. We will use the `tidyverse` package with which you are already familiar from the previous lesson. In addition, we need to load the [`sf`](https://r-spatial.github.io/sf/) package for working with spatial vector data. 
 
 ```{r lib, message=FALSE}
 library(tidyverse)  # wrangle, reshape and visualize data
@@ -66,8 +66,8 @@ boundary_Delft <- st_read("data/delft-boundary.shp", quiet = TRUE)
 
 Note that all functions from the `sf` package start with the standard prefix `st_` which stands for Spatial Type. This is helpful in at least two ways:  
 
-1. it makes the interaction with or translation to/from software using the simple features standard like PostGIS easy, and  
-2. it allows for easy autocompletion of function names in RStudio.
+1. it allows for easy autocompletion of function names in RStudio, and
+2. it makes the interaction with or translation to/from software using the simple features standard like PostGIS easy.
 
 :::
 
@@ -144,7 +144,7 @@ ggplot(data = boundary_Delft) +
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-### Challenge 1: Import line and point vector layers
+### Challenge: Import line and point vector layers
 
 Read in `delft-streets.shp` and `delft-leisure.shp` and assign them to `lines_Delft` and `points_Delft` respectively. Answer the following questions:
 
@@ -160,11 +160,11 @@ lines_Delft <- st_read("data/delft-streets.shp")
 points_Delft <- st_read("data/delft-leisure.shp")
 ```
 
-We can check the type of data with the `class()` function from base R. Both `lines_Delft` and `points_Delft` are objects of class `"sf"`, which extends the `"data.frame"` class. 
+We can check the type of type of geometry with the `st_geometry_type()` function. `lines_Delft` contains `"LINESTRING"` geometry and `points_Delft` is made of `"POINT"` geometries. 
 
 ```{r}
-class(lines_Delft)
-class(points_Delft)
+st_geometry_type(lines_Delft)[1]
+st_geometry_type(points_Delft)[2]
 ```
 
 `lines_Delft` and `points_Delft` are in the correct CRS.

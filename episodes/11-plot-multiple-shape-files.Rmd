@@ -1,7 +1,7 @@
 ---
 title: 'Plot multiple shapefiles'
-teaching: 40
-exercises: 20
+teaching: 30
+exercises: 5
 ---
 
 ```{r setup, include=FALSE}
@@ -31,9 +31,6 @@ lines_Delft_selection <- lines_Delft %>%
 
 After completing this episode, participants should be able to…
 
-
-After completing this episode, participants should be able to…
-
 - Plot multiple vector layers in the same plot.
 - Apply custom symbols to spatial objects in a plot.
 
@@ -45,7 +42,7 @@ This episode builds upon the [previous episode](../episodes/10-explore-and-plot-
 
 ## Load the data
 
-To work with vector data in R, we can use the `sf` library. The `terra` package also allows us to explore metadata using similar commands for both raster and vector files. Make sure that you have these packages loaded.
+To work with vector data in R, we use the `sf` library. Make sure that it is loaded.
 
 We will continue to work with the three ESRI shapefiles that we loaded in the [Open and Plot Vector Layers](../episodes/09-open-and-plot-vector-layers.Rmd) episode.
 
@@ -68,7 +65,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-Next, let’s build a custom legend using the symbology (the colors and symbols) that we used to create the plot above. For example, it might be good if the lines were symbolized as lines. In the previous episode, you may have noticed that the default legend behavior for `geom_sf` is to draw a ‘patch’ for each legend entry. If you want the legend to draw lines or points, you need to add an instruction to the `geom_sf` call - in this case, `show.legend = 'line'`.
+Next, let’s build a custom legend using the functions `scale_color_manual()` and `scale_fill_manual()`.
 
 ```{r}
 leisure_colors <- rainbow(15)
@@ -96,11 +93,16 @@ ggplot() +
 
 We notice that there are quite some playgrounds in the residential parts of Delft, whereas on campus there is a concentration of picnic tables. So that is what our next challenge is about.
 
-### Challenge 7 (5 minutes)
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge: Visualising multiple layers with a custom legend
 
 Create a map of leisure locations only including `playground` and `picnic_table`, with each point colored by the leisure type. Overlay this layer on top of the `lines_Delft` layer (the streets). Create a custom legend that applies line symbols to lines and point symbols to the points.
 
 Modify the plot above. Tell R to plot each point, using a different symbol of shape value.
+
+:::::::::::::::::::::::: solution 
 
 ```{r}
 leisure_locations_selection <- st_read("data/delft-leisure.shp") %>% 
@@ -119,7 +121,7 @@ blue_orange <- c("cornflowerblue", "darkorange")
 ggplot() + 
   geom_sf(data = lines_Delft_selection, aes(color = highway)) + 
   geom_sf(data = leisure_locations_selection, aes(fill = leisure), 
-          shape = 21, show.legend = 'point') + 
+          shape = 21) + 
   scale_color_manual(name = "Line Type", values = road_colors,
      guide = guide_legend(override.aes = list(linetype = "solid", shape = NA))) + 
   scale_fill_manual(name = "Soil Type", values = blue_orange,
@@ -141,19 +143,16 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<!-- End of challenge -->
+:::::::::::::::::::::::::::::::::
 
-
-
-
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use the `+` operator to add multiple layers to a ggplot.
 - A plot can be a combination of multiple vector layers.
-- Use the `show.legend` argument to set legend symbol types.
-- Use the `scale_fill_manual()` function to set legend colors.
+- Use the `scale_color_manual()` and `scale_fill_manual()` functions to set legend colors.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -1,7 +1,7 @@
 ---
 title: 'Handling Spatial Projections & CRS'
-teaching: 40
-exercises: 20
+teaching: 25
+exercises: 5
 ---
 
 ```{r setup, include=FALSE}
@@ -85,15 +85,16 @@ ggplot() +
 
 ::: challenge
 
-# Plot multiple layers of spatial data
+# Challenge: Plot multiple layers of spatial data
 <!-- 5 minutes -->
 
 Create a map of South Holland as follows:
 
-1. Import and plot `nl-gemeenten.shp`. Adjust line width as necessary.
-2. Layer the boundary of Delft onto the plot.
-3. Add a title.
-4. Add a legend that shows both the province boundaries (as a line) and the boundary of Delft (as a filled polygon).
+1. Import `nl-gemeenten.shp` and filter only the municipalities in South Holland.
+2. Plot it and adjust line width as necessary.
+3. Layer the boundary of Delft onto the plot.
+4. Add a title.
+5. Add a legend that shows both the province boundaries (as a line) and the boundary of Delft (as a filled polygon).
 
 ::: solution
 
@@ -121,7 +122,7 @@ ggplot() +
 
 ## Export a shapefile
 
-To save a file, use the `st_write()` function from the `sf` package. Although `sf` guesses the driver needed for a specified output file name from its extension, this can be made explicitly via the `driver` argument. In our case `driver = "ESRI Shapefile"` ensures that the the output is correctly saved as a `.shp` file.
+To save a file, use the `st_write()` function from the `sf` package. Although `sf` guesses the driver needed for a specified output file name from its extension, this can be made explicitly via the `driver` argument. In our case `driver = "ESRI Shapefile"` ensures that the output is correctly saved as a `.shp` file.
 
 ```{r, eval=FALSE}
 st_write(leisure_locations_selection,
