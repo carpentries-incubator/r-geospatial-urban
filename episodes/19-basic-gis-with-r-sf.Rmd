@@ -27,6 +27,8 @@ library(sf)
 library(osmdata)
 library(leaflet)
 library(nominatimlite)
+assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
+
 ```
 
 
@@ -68,7 +70,7 @@ old_buildings <- buildings %>%
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-If you encounter an error linked to your internet proxy, run this line of code. It might not be needed, but ensures that your machine knows it has internet.
+If you encounter an error linked to your internet proxy ("Error: Overpass query unavailable without internet R"), run this line of code. It might not be needed, but ensures that your machine knows it has internet.
 
 ```{r}
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
