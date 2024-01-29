@@ -62,7 +62,7 @@ knitr::opts_chunk$set(
 
 # Open and Plot Shapefiles
 
-## Challenge 1: `r emo::ji("clock")` **5 mins**
+## Challenge 1: **5 mins**
 
 Read in `delft-streets.shp` and `delft-leisure.shp` and call them `lines_Delft` and `point_Delft` respectively.
 
@@ -101,7 +101,7 @@ st_bbox(point_Delft)
 
 # Explore and plot by vector layer attributes
 
-## Challenge 2: `r emo::ji("clock")` **3 mins**
+## Challenge 2: **3 mins**
 
 Explore the attributes associated with the `point_Delft` and `boundary_Delft` spatial objects.
 
@@ -138,7 +138,7 @@ point_Delft
 names(point_Delft)
 ```
 
-## Challenge 3: `r emo::ji("clock")` **5 mins**
+## Challenge 3: **5 mins**
 
 1. Create a new object that only contains the motorways in Delft. 
 2. How many features does the new object have?
@@ -176,7 +176,7 @@ ggplot(data = motorway_Delft) +
   coord_sf()
 ```
 
-## Challenge 4: `r emo::ji("clock")` **3 mins**
+## Challenge 4: **3 mins**
 
 In the previous example, we set the line widths to be 1, 0.75, 0.5, and 0.25. In our case line thicknesses are consistent with the hierarchy of the selected road types, but in some cases we might want to show a different hierarchy.
 
@@ -211,7 +211,7 @@ ggplot(data = lines_Delft_selection) +
   coord_sf()
 ```
 
-## Challenge 5: `r emo::ji("clock")` **5 mins**
+## Challenge 5: **5 mins**
 
 Create a plot that emphasizes only roads where bicycles are allowed, as follows: 
 
@@ -243,7 +243,7 @@ ggplot() +
   coord_sf()
 ```
 
-## Challenge 6: `r emo::ji("clock")` **3 mins**
+## Challenge 6: **3 mins**
 
 Create a map of the municipal boundaries in the Netherlands, as follows:
 
@@ -275,7 +275,7 @@ ggplot(data = municipal_boundaries_NL) +
 
 # Plot multiple shapefiles
 
-## Challenge 7: `r emo::ji("clock")` **5 mins**
+## Challenge 7: **5 mins**
 
 Create a map of leisure locations only including `playground` and `picnic_table`:
 
@@ -319,7 +319,7 @@ p +
 
 # Handling spatial projections
 
-## Challenge 8: `r emo::ji("clock")` **3 mins**
+## Challenge 8: **3 mins**
 
 Create a map of the South Holland, as follows:
 
