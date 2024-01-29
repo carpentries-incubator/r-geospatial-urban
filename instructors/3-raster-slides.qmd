@@ -37,7 +37,7 @@ knitr::opts_chunk$set(
 5. Working with multi-band rasters
 
 
-## `raster` package for spatial raster data
+## The `raster` package
 
 ![](fig/tudlib-green.png){fig-align="center"}
 
