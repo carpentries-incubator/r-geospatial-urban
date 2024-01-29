@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/01-intro-to-r.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/02-data-structures.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/03-explore-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/04-intro-to-visualisation.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/09-open-and-plot-vector-layers.html</loc>
   </url>
   <url>
@@ -47,6 +59,18 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/index.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/01-intro-to-r.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/02-data-structures.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/03-explore-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/04-intro-to-visualisation.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/09-open-and-plot-vector-layers.html</loc>
