@@ -29,6 +29,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="2-vector-slides_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="2-vector-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -345,25 +409,35 @@ Claudiu Forgaci
 </div>
 
 </section>
-<section id="sf-package-for-spatial-vector-data" class="slide level2">
-<h2><code>sf</code> package for spatial vector data</h2>
+<section id="intro-to-geospatial-concepts" class="title-slide slide level1 center">
+<h1>Intro to Geospatial Concepts</h1>
+
+</section>
+
+<section>
+<section id="geospatial-vector-data-in-r" class="title-slide slide level1 center">
+<h1>Geospatial Vector Data in R</h1>
+
+</section>
+<section id="the-sf-package" class="slide level2">
+<h2>The <code>sf</code> package</h2>
 
 <img data-src="https://user-images.githubusercontent.com/520851/50280460-e35c1880-044c-11e9-9ed7-cc46754e49db.jpg" class="r-stretch quarto-figure-center"></section>
-<section id="sf-package-for-spatial-vector-data-1" class="slide level2">
-<h2><code>sf</code> package for spatial vector data</h2>
+<section id="the-sf-package-1" class="slide level2">
+<h2>The <code>sf</code> package</h2>
 <ul>
 <li class="fragment"><code>sf</code> provides <a href="https://en.wikipedia.org/wiki/Simple_Features">simple features access</a> to R</li>
-<li class="fragment">represents simple features as records in a <code>data.frame</code> or <code>tibble</code> with a <code>geometry</code> column</li>
+<li class="fragment">represents simple features as records in a data frame with a <code>geometry</code> column</li>
 <li class="fragment">function names start with a prefix <code>st_</code> (“st” stands for spatial type), which is also handy for auto-completion in RStudio</li>
 </ul>
-</section>
+</section></section>
 <section>
 <section id="open-and-plot-shapefiles" class="title-slide slide level1 center">
 <h1>Open and Plot Shapefiles</h1>
 
 </section>
-<section id="challenge-1-3-mins" class="slide level2">
-<h2>Challenge 1: 🕐 <strong>3 mins</strong></h2>
+<section id="challenge-1-5-mins" class="slide level2">
+<h2>Challenge 1: 🕟 <strong>5 mins</strong></h2>
 <p>Read in <code>delft-streets.shp</code> and <code>delft-leisure.shp</code> and call them <code>lines_Delft</code> and <code>point_Delft</code> respectively.</p>
 <p>Answer the following questions:</p>
 <ol type="1">
@@ -374,10 +448,25 @@ Claudiu Forgaci
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_e6dfe400" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_f9a27f10" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>lines_Delft <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"delft-streets.shp"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2"></a>point_Delft <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"delft-leisure.shp"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">st_geometry_type</span>(lines_Delft)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">st_geometry_type</span>(point_Delft)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">st_crs</span>(lines_Delft)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">st_crs</span>(point_Delft)</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">st_bbox</span>(lines_Delft)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">st_bbox</span>(point_Delft)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section></section>
@@ -387,7 +476,7 @@ Claudiu Forgaci
 
 </section>
 <section id="challenge-2-3-mins" class="slide level2">
-<h2>Challenge 2: 🕙 <strong>3 mins</strong></h2>
+<h2>Challenge 2: 🕐 <strong>3 mins</strong></h2>
 <p>Explore the attributes associated with the <code>point_Delft</code> and <code>boundary_Delft</code> spatial objects.</p>
 <ol type="1">
 <li class="fragment">How many attributes does each have?</li>
@@ -398,7 +487,7 @@ Claudiu Forgaci
 <p>⁣&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A) location B) leisure C) osm_id</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_7f4e3e0c" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_0e0714de" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -406,9 +495,22 @@ Claudiu Forgaci
 </div>
 <!-- **Hint:**  -->
 </div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">ncol</span>(point_Delft)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">ncol</span>(boundary_Delft)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">head</span>(point_Delft)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">head</span>(point_Delft, <span class="dv">10</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>point_Delft</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">names</span>(point_Delft)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section id="challenge-3-5-mins" class="slide level2">
-<h2>Challenge 3: 🕓 <strong>5 mins</strong></h2>
+<h2>Challenge 3: 🕢 <strong>5 mins</strong></h2>
 <ol type="1">
 <li class="fragment">Create a new object that only contains the motorways in Delft.</li>
 <li class="fragment">How many features does the new object have?</li>
@@ -418,15 +520,35 @@ Claudiu Forgaci
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_c523cf7b" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_504b7a26" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">levels</span>(<span class="fu">factor</span>(lines_Delft<span class="sc">$</span>highway))</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>motorway_Delft <span class="ot">&lt;-</span> lines_Delft <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">filter</span>(highway <span class="sc">==</span> <span class="st">"motorway"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a>motorway_Delft <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">mutate</span>(<span class="at">length =</span> <span class="fu">st_length</span>(.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">select</span>(<span class="fu">everything</span>(), geometry) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">summarise</span>(<span class="at">total_length =</span> <span class="fu">sum</span>(length))</span>
+<span id="cb3-10"><a href="#cb3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="fu">nrow</span>(motorway_Delft)</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="fu">ggplot</span>(<span class="at">data =</span> motorway_Delft) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="fu">ggtitle</span>(<span class="st">"Mobility network of Delft"</span>, <span class="at">subtitle =</span> <span class="st">"Motorways"</span>) <span class="sc">+</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section id="challenge-4-3-mins" class="slide level2">
-<h2>Challenge 4: ⏰ <strong>3 mins</strong></h2>
+<h2>Challenge 4: 🕚 <strong>3 mins</strong></h2>
 <p>In the previous example, we set the line widths to be 1, 0.75, 0.5, and 0.25. In our case line thicknesses are consistent with the hierarchy of the selected road types, but in some cases we might want to show a different hierarchy.</p>
 <p>Let’s create another plot where we show the different line types with the following thicknesses:</p>
 <ul>
@@ -437,32 +559,60 @@ Claudiu Forgaci
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_332b6281" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_7339863b" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">levels</span>(<span class="fu">factor</span>(lines_Delft<span class="sc">$</span>highway))</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>line_widths <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> lines_Delft_selection) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">size =</span> highway)) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">scale_size_manual</span>(<span class="at">values =</span> line_widths) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">labs</span>(<span class="at">size =</span> <span class="st">"Road Size"</span>) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">ggtitle</span>(<span class="st">"Mobility network of Delft"</span>, <span class="at">subtitle =</span> <span class="st">"Roads &amp; Cycleways - Line width varies"</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section id="challenge-5-5-mins" class="slide level2">
-<h2>Challenge 5: 🕰 <strong>5 mins</strong></h2>
+<h2>Challenge 5: 🕡 <strong>5 mins</strong></h2>
 <p>Create a plot that emphasizes only roads where bicycles are allowed, as follows:</p>
 <ul>
-<li class="fragment">make the lines where bicycles are not allowed THINNER than the roads where bicycles are allowed.</li>
+<li class="fragment">Make the lines where bicycles are not allowed THINNER than the roads where bicycles are allowed.</li>
 <li class="fragment">Be sure to add a title and legend to your map.</li>
 <li class="fragment">You might consider a color palette that has all bike-friendly roads displayed in a bright color. All other lines can be black.</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_d3ca1efa" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_d7cb0eba" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">levels</span>(<span class="fu">factor</span>(lines_Delft_selection<span class="sc">$</span>highway))</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>lines_Delft_bicycle <span class="ot">&lt;-</span> lines_Delft <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">filter</span>(highway <span class="sc">==</span> <span class="st">"cycleway"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lines_Delft) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lines_Delft_bicycle, <span class="at">color =</span> <span class="st">"magenta"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="fu">ggtitle</span>(<span class="st">"Mobility network of Delft"</span>, <span class="at">subtitle =</span> <span class="st">"Roads dedicated to bikes"</span>) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
 <section id="challenge-6-3-mins" class="slide level2">
-<h2>Challenge 6: 🕗 <strong>3 mins</strong></h2>
+<h2>Challenge 6: 🕜 <strong>3 mins</strong></h2>
 <p>Create a map of the municipal boundaries in the Netherlands, as follows:</p>
 <ul>
 <li class="fragment">Use the data located in your data folder: <code>nl-gemeenten.shp</code>.</li>
@@ -471,10 +621,22 @@ Claudiu Forgaci
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_f56ba00b" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_f066ca9f" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>municipal_boundaries_NL <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"nl-gemeenten.shp"</span>))</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">str</span>(municipal_boundaries_NL)</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">levels</span>(<span class="fu">factor</span>(municipal_boundaries_NL<span class="sc">$</span>ligtInPr_1))</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> municipal_boundaries_NL) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> ligtInPr_1), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">ggtitle</span>(<span class="st">"Contiguous NL Municipal Boundaries"</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section></section>
@@ -484,30 +646,52 @@ Claudiu Forgaci
 
 </section>
 <section id="challenge-7-5-mins" class="slide level2">
-<h2>Challenge 7: 🕔 <strong>5 mins</strong></h2>
+<h2>Challenge 7: 🕘 <strong>5 mins</strong></h2>
 <p>Create a map of leisure locations only including <code>playground</code> and <code>picnic_table</code>:</p>
 <ul>
-<li class="fragment"><p>color each point by the leisure type.</p></li>
+<li class="fragment"><p>Color each point by the leisure type.</p></li>
 <li class="fragment"><p>Overlay this layer on top of the <code>lines_Delft</code> layer (the streets).</p></li>
 <li class="fragment"><p>Create a custom legend that applies line symbols to lines and point symbols to the points.</p></li>
 <li class="fragment"><p>Extra: Modify the previous plot. Tell R to plot each point, using a different symbol of shape value.</p></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_8f11696b" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_eec5b114" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>leisure_locations_selection <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"delft-leisure.shp"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">filter</span>(leisure <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"playground"</span>, <span class="st">"picnic_table"</span>))</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a>blue_orange <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cornflowerblue"</span>, <span class="st">"darkorange"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lines_Delft_selection, <span class="fu">aes</span>(<span class="at">color =</span> highway)) <span class="sc">+</span> </span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">"Line Type"</span>, <span class="at">values =</span> road_colors) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">ggtitle</span>(<span class="st">"Road network and leisure"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a>p <span class="sc">+</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> leisure_locations_selection, <span class="fu">aes</span>(<span class="at">fill =</span> leisure), <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">"Leisure Type"</span>, <span class="at">values =</span> blue_orange)</span>
+<span id="cb7-14"><a href="#cb7-14"></a></span>
+<span id="cb7-15"><a href="#cb7-15"></a>p <span class="sc">+</span> </span>
+<span id="cb7-16"><a href="#cb7-16"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> leisure_locations_selection, <span class="fu">aes</span>(<span class="at">fill =</span> leisure, <span class="at">shape =</span> leisure), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">"Leisure Type"</span>, <span class="at">values =</span> blue_orange) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">name =</span> <span class="st">"Leisure Type"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">22</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section></section>
 <section>
-<section id="handle-spatial-projections" class="title-slide slide level1 center">
-<h1>Handle spatial projections</h1>
+<section id="handling-spatial-projections" class="title-slide slide level1 center">
+<h1>Handling spatial projections</h1>
 
 </section>
 <section id="challenge-8-3-mins" class="slide level2">
-<h2>Challenge 8: 🕓 <strong>3 mins</strong></h2>
+<h2>Challenge 8: 🕰 <strong>3 mins</strong></h2>
 <p>Create a map of the South Holland, as follows:</p>
 <ol type="1">
 <li class="fragment">Import <code>nl-gemeenten.shp</code> and filter only the municipalities in South Holland.</li>
@@ -518,13 +702,26 @@ Claudiu Forgaci
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_fb720582" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_96de5618" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
 <div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>boundary_ZH <span class="ot">&lt;-</span> municipal_boundary_NL <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">filter</span>(ligtInPr_1 <span class="sc">==</span> <span class="st">"Zuid-Holland"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> boundary_ZH, <span class="fu">aes</span>(<span class="at">color =</span><span class="st">"color"</span>), <span class="at">show.legend =</span> <span class="st">"line"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">labels =</span> <span class="st">"Municipal Boundaries"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"color"</span> <span class="ot">=</span> <span class="st">"gray18"</span>)) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> boundary_Delft, <span class="fu">aes</span>(<span class="at">shape =</span> <span class="st">"shape"</span>), <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">fill =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">labels =</span> <span class="st">"Municipality of Delft"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"shape"</span> <span class="ot">=</span> <span class="dv">19</span>)) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">ggtitle</span>(<span class="st">"Delft location in South Holland"</span>) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="fu">theme</span>(<span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="footer footer-default">
 <p>Geospatial Data Carpentry for Urbanism</p>
 </div>

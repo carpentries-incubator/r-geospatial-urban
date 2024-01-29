@@ -46,19 +46,23 @@ knitr::opts_chunk$set(
 ```
 
 
-## `sf` package for spatial vector data
+# Intro to Geospatial Concepts
+
+# Geospatial Vector Data in R
+
+## The `sf` package
 
 ![](https://user-images.githubusercontent.com/520851/50280460-e35c1880-044c-11e9-9ed7-cc46754e49db.jpg){fig-align="center"}
 
-## `sf` package for spatial vector data
+## The `sf` package
 
 - `sf` provides [simple features access](https://en.wikipedia.org/wiki/Simple_Features) to R
-- represents simple features as records in a `data.frame` or `tibble` with a `geometry` column
+- represents simple features as records in a data frame with a `geometry` column
 - function names start with a prefix `st_` ("st" stands for spatial type), which is also handy for auto-completion in RStudio
 
 # Open and Plot Shapefiles
 
-## Challenge 1: `r emo::ji("clock")` **3 mins**
+## Challenge 1: `r emo::ji("clock")` **5 mins**
 
 Read in `delft-streets.shp` and `delft-leisure.shp` and call them `lines_Delft` and `point_Delft` respectively.
 
@@ -80,13 +84,13 @@ countdown::countdown(minutes = 3)
 ```{r}
 #| label: ch-1
 #| eval: false
-#| include: false
+#| include: true
 
 lines_Delft <- st_read(here("episodes", "data", "delft-streets.shp"))
 point_Delft <- st_read(here("episodes", "data", "delft-leisure.shp"))
 
-class(lines_Delft)
-class(point_Delft)
+st_geometry_type(lines_Delft)
+st_geometry_type(point_Delft)
 
 st_crs(lines_Delft)
 st_crs(point_Delft)
@@ -121,7 +125,7 @@ countdown::countdown(minutes = 3)
 ```{r}
 #| label: ch-2
 #| eval: false
-#| include: false
+#| include: true
 
 ncol(point_Delft)
 ncol(boundary_Delft)
@@ -152,7 +156,7 @@ countdown::countdown(minutes = 5)
 ```{r}
 #| label: ch-3
 #| eval: false
-#| include: false
+#| include: true
 
 levels(factor(lines_Delft$highway))
 
@@ -169,16 +173,6 @@ nrow(motorway_Delft)
 ggplot(data = motorway_Delft) +
   geom_sf(size = 1.5) +
   ggtitle("Mobility network of Delft", subtitle = "Motorways") +
-  coord_sf()
-
-pedestrian_Delft <- lines_Delft %>% 
-  filter(highway == "pedestrian")
-
-nrow(pedestrian_Delft)
-
-ggplot(data = pedestrian_Delft) +
-  geom_sf() +
-  ggtitle("Slow mobility network of Delft", subtitle = "Pedestrian") +
   coord_sf()
 ```
 
@@ -203,7 +197,7 @@ countdown::countdown(minutes = 3)
 ```{r}
 #| label: ch-4
 #| eval: false
-#| include: false
+#| include: true
 
 levels(factor(lines_Delft$highway))
 
@@ -221,7 +215,7 @@ ggplot(data = lines_Delft_selection) +
 
 Create a plot that emphasizes only roads where bicycles are allowed, as follows: 
 
-- make the lines where bicycles are not allowed THINNER than the roads where bicycles are allowed. 
+- Make the lines where bicycles are not allowed THINNER than the roads where bicycles are allowed. 
 - Be sure to add a title and legend to your map. 
 - You might consider a color palette that has all bike-friendly roads displayed in a bright color. All other lines can be black.
 
@@ -235,9 +229,7 @@ countdown::countdown(minutes = 5)
 ```{r}
 #| label: ch-5
 #| eval: false
-#| include: false
-
-class(lines_Delft_selection$highway)
+#| include: true
 
 levels(factor(lines_Delft_selection$highway))
 
@@ -267,9 +259,9 @@ countdown::countdown(minutes = 3)
 . . . 
 
 ```{r}
-#| label: ch-6
+#| label: ch-6-1
 #| eval: false
-#| include: false
+#| include: true
 
 municipal_boundaries_NL <- st_read(here("episodes", "data", "nl-gemeenten.shp"))
 str(municipal_boundaries_NL)
@@ -287,7 +279,7 @@ ggplot(data = municipal_boundaries_NL) +
 
 Create a map of leisure locations only including `playground` and `picnic_table`:
 
-- color each point by the leisure type. 
+- Color each point by the leisure type. 
 - Overlay this layer on top of the `lines_Delft` layer (the streets). 
 - Create a custom legend that applies line symbols to lines and point symbols to the points.
 
@@ -303,39 +295,29 @@ countdown::countdown(minutes = 5)
 ```{r}
 #| label: ch-7
 #| eval: false
-#| include: false
+#| include: true
 
-leisure_locations_selection <- st_read(here("data", "delft-leisure.shp")) %>% 
+leisure_locations_selection <- st_read(here("episodes", "data", "delft-leisure.shp")) %>% 
   filter(leisure %in% c("playground", "picnic_table"))
-
-levels(factor(leisure_locations_selection$leisure))
 
 blue_orange <- c("cornflowerblue", "darkorange")
 
-ggplot() + 
+p <- ggplot() + 
   geom_sf(data = lines_Delft_selection, aes(color = highway)) + 
-  geom_sf(data = leisure_locations_selection, aes(fill = leisure), 
-          shape = 21, show.legend = 'point') + 
-  scale_color_manual(name = "Line Type", values = road_colors,
-                     guide = guide_legend(override.aes = list(linetype = "solid", shape = NA))) + 
-  scale_fill_manual(name = "Soil Type", values = blue_orange,
-                    guide = guide_legend(override.aes = list(linetype = "blank", shape = 21, colour = NA))) + 
-  ggtitle("Traffic and leisure") + 
-  coord_sf()
+  scale_color_manual(name = "Line Type", values = road_colors) +
+  ggtitle("Road network and leisure")
 
-ggplot() + 
-  geom_sf(data = lines_Delft_selection, aes(color = highway), size = 1) + 
-  geom_sf(data = leisure_locations_selection, aes(fill = leisure, shape = leisure), size = 3) + 
-  scale_shape_manual(name = "Leisure Type", values = c(21, 22)) +
-  scale_color_manual(name = "Line Type", values = road_colors) + 
-  scale_fill_manual(name = "Leisure Type", values = rainbow(15),
-                    guide = guide_legend(override.aes = list(linetype = "blank", shape = c(21, 22),
-                                                             color = "black"))) + 
-  ggtitle("Road network and leisure") + 
-  coord_sf()
+p +
+  geom_sf(data = leisure_locations_selection, aes(fill = leisure), shape = 21) +
+  scale_fill_manual(name = "Leisure Type", values = blue_orange)
+
+p + 
+  geom_sf(data = leisure_locations_selection, aes(fill = leisure, shape = leisure), size = 3) +
+  scale_fill_manual(name = "Leisure Type", values = blue_orange) +
+  scale_shape_manual(name = "Leisure Type", values = c(21, 22))
 ```
 
-# Handle spatial projections
+# Handling spatial projections
 
 ## Challenge 8: `r emo::ji("clock")` **3 mins**
 
@@ -357,7 +339,7 @@ countdown::countdown(minutes = 3)
 ```{r}
 #| label: ch-8
 #| eval: false
-#| include: false
+#| include: true
 
 boundary_ZH <- municipal_boundary_NL %>% 
   filter(ligtInPr_1 == "Zuid-Holland")
