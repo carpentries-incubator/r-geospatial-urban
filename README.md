@@ -10,7 +10,7 @@ Version 1.0
 
 ## Contact Information
 
-[Claudiu Forgaci](https://github.com/cforgaci)
+[Rbanism Community](mailto:rbanism@tudelf.nl)
 
 ## Contributing Information
 
