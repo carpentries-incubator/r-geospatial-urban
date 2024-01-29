@@ -30,12 +30,14 @@ knitr::opts_chunk$set(
 
 ## Outline
 
-1. Intro to raster data: packages, metadata (CRS, resolution)
+1. Intro to raster data
 2. Plotting raster data
 3. Reprojecting raster data
 4. Raster calculations
 5. Working with multi-band rasters
 
+
+# Intro to raster data
 
 ## The `raster` package
 
@@ -44,7 +46,7 @@ knitr::opts_chunk$set(
 
 ## Challenge 1: `r emo::ji("clock")` **2 mins**
 
-Use `GDALinfo()` to determine the following about the `tud-dsm-hill.tif` file:
+Use `describe()` to determine the following about the `tud-dsm-hill.tif` file:
 
 1. Does this file have the same CRS as `DSM_TUD`?
 2. What is resolution of the raster data?
@@ -57,15 +59,14 @@ Use `GDALinfo()` to determine the following about the `tud-dsm-hill.tif` file:
 countdown::countdown(minutes = 2)
 ``` 
 
-
+# Plotting raster data
 
 ## Challenge 2: `r emo::ji("clock")` **5 mins**
 
 Create a plot of the TU Delft Digital Surface Model (`DSM_TUD`) that has:
 
 1. Six classified ranges of values (break points) that are evenly divided among the range of pixel values.
-2. Axis labels.
-3. A plot title.
+2. A plot title.
 
 ``` {r}
 #| echo: false
@@ -73,26 +74,9 @@ Create a plot of the TU Delft Digital Surface Model (`DSM_TUD`) that has:
 countdown::countdown(minutes = 5)
 ``` 
 
+# Reprojecting raster data
 
-
-## Challenge 3: `r emo::ji("clock")` **8 mins**
-
-Use the `tud-dtm.tif` and `tud-dtm-hill.tif` files from the `data` directory to create a Digital Terrain Model map of the TU Delft area.
-
-Make sure to:
-
-- include hillshade in the maps,
-- label axes,
-- include a title for each map,
-- experiment with various alpha values and color palettes to represent the data. 
-
-``` {r}
-#| echo: false
-#| cache: false
-countdown::countdown(minutes = 8)
-``` 
-
-## Challenge 4: `r emo::ji("clock")` **2 mins**
+## Challenge 3: `r emo::ji("clock")` **2 mins**
 
 View the CRS for each of these two datasets. What projection does each use?
 
@@ -102,18 +86,20 @@ View the CRS for each of these two datasets. What projection does each use?
 countdown::countdown(minutes = 2)
 ``` 
 
-## Challenge 5: `r emo::ji("clock")` **5 mins**
+# Raster calculations
+
+## Challenge 4: `r emo::ji("clock")` **10 mins**
 
 It’s often a good idea to explore the range of values in a raster dataset just like we might explore a dataset that we collected in the field.
 
-1. What is the min and maximum value for the Canopy Height Model `CHM_TUD` that we just created?
-2. What are two ways you can check this range of data for `CHM_TUD`?
+1. What is the min and max value for the Canopy Height Model `CHM_TUD` that we just created?
 3. What is the distribution of all the pixel values in the CHM?
-4. Plot a histogram with 6 bins instead of the default and change the color of the histogram.
 5. Plot the `CHM_TUD` raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels.
 
 ``` {r}
 #| echo: false
 #| cache: false
-countdown::countdown(minutes = 5)
+countdown::countdown(minutes = 10)
 ``` 
+
+# Working with multi-band rasters
