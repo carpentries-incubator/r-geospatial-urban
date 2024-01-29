@@ -182,7 +182,103 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. Using RMarkdown</a>
+        <a href="09-open-and-plot-vector-layers.html">1. Open and Plot Vector Layers</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="10-explore-and-plot-by-vector-layer-attributes.html">2. Explore and plot by vector layer attributes</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="11-plot-multiple-shape-files.html">3. Plot multiple shapefiles</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="12-handling-spatial-projection-and-crs.html">4. Handling Spatial Projections &amp; CRS</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="13-intro-to-raster-data.html">5. Intro to Raster Data</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="14-plot-raster-data.html">6. Plot Raster Data</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="15-reproject-raster-data.html">7. Reproject Raster Data</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="16-raster-calculations.html">8. Raster Calculations</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush10">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading10">
+        <a href="17-work-with-multi-band-rasters.html">9. Work with Multi-Band Rasters</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -246,17 +342,80 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         
         
-<section id="introduction"><h2 class="section-heading"><a href="introduction.html">Using RMarkdown</a></h2>
+<section id="09-open-and-plot-vector-layers"><h2 class="section-heading"><a href="09-open-and-plot-vector-layers.html">Open and Plot Vector Layers</a></h2>
 <hr class="half-width">
 <ul>
-<li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<li>Metadata for vector layers include geometry type, CRS, and
+extent.</li>
+<li>Load spatial objects into R with the <code>st_read()</code>
+function.</li>
+<li>Spatial objects can be plotted directly with <code>ggplot</code>
+using the <code>geom_sf()</code> function. No need to convert to a data
+frame.</li>
+</ul></section><section id="10-explore-and-plot-by-vector-layer-attributes"><h2 class="section-heading"><a href="10-explore-and-plot-by-vector-layer-attributes.html">Explore and plot by vector layer attributesQuery Vector Feature Metadata<a class="anchor" aria-label="anchor" href="#query-vector-feature-metadata"></a></a></h2>
+<hr class="half-width">
+<ul>
+<li><p>Spatial objects in <code>sf</code> are similar to standard data
+frames and can be manipulated using the same functions.</p></li>
+<li><p>Almost any feature of a plot can be customized using the various
+functions and options in the <code>ggplot2</code> package.</p></li>
+</ul></section><section id="11-plot-multiple-shape-files"><h2 class="section-heading"><a href="11-plot-multiple-shape-files.html">Plot multiple shapefiles</a></h2>
+<hr class="half-width">
+<ul>
+<li>Use the <code>+</code> operator to add multiple layers to a
+ggplot.</li>
+<li>A plot can be a combination of multiple vector layers.</li>
+<li>Use the <code>show.legend</code> argument to set legend symbol
+types.</li>
+<li>Use the <code>scale_fill_manual()</code> function to set legend
+colors.</li>
+</ul></section><section id="12-handling-spatial-projection-and-crs"><h2 class="section-heading"><a href="12-handling-spatial-projection-and-crs.html">Handling Spatial Projections &amp; CRS</a></h2>
+<hr class="half-width">
+<ul>
+<li>
+<code>ggplot2</code> automatically converts all objects in a plot to
+the same CRS.</li>
+<li>Still be aware of the CRS and extent for each object.</li>
+<li>You can export an <code>sf</code> object to a shapefile with
+<code>st_write()</code>.</li>
+</ul></section><section id="13-intro-to-raster-data"><h2 class="section-heading"><a href="13-intro-to-raster-data.html">Intro to Raster Data</a></h2>
+<hr class="half-width">
+<ul>
+<li>The GeoTIFF file format includes metadata about the raster
+data.</li>
+<li>To plot raster data with the <code>ggplot2</code> package, we need
+to convert them to data frames.</li>
+<li>R stores CRS information in the PROJ.4 format.</li>
+<li>Histograms are useful to identify missing or bad data values.</li>
+</ul></section><section id="14-plot-raster-data"><h2 class="section-heading"><a href="14-plot-raster-data.html">Plot Raster Data</a></h2>
+<hr class="half-width">
+<ul>
+<li>Continuous data ranges can be grouped into categories using
+<code>mutate()</code> and <code>cut()</code>.</li>
+<li>Use the built-in <code>terrain.colors()</code> or set your preferred
+colour scheme manually.</li>
+</ul></section><section id="15-reproject-raster-data"><h2 class="section-heading"><a href="15-reproject-raster-data.html">Reproject Raster Data</a></h2>
+<hr class="half-width">
+<ul>
+<li>In order to plot two raster data sets together, they must be in the
+same CRS.</li>
+<li>Use the <code>project()</code> function to convert between
+CRSs.</li>
+</ul></section><section id="16-raster-calculations"><h2 class="section-heading"><a href="16-raster-calculations.html">Raster Calculations</a></h2>
+<hr class="half-width">
+<ul>
+<li>Rasters can be computed on using mathematical functions.</li>
+<li>The <code>writeRaster()</code> function can be used to write raster
+data to a file.</li>
+</ul></section><section id="17-work-with-multi-band-rasters"><h2 class="section-heading"><a href="17-work-with-multi-band-rasters.html">Work with Multi-Band Rasters</a></h2>
+<hr class="half-width">
+<ul>
+<li>A single raster file can contain multiple bands or layers.</li>
+<li>Use the <code>rast()</code> function to load all bands in a
+multi-layer raster file into R.</li>
+<li>Individual bands within a SpatRaster can be accessed, analysed, and
+visualized using the same functions no matter how many bands it
+holds.</li>
 </ul></section>
 </div>
     </main>

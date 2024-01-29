@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/09-open-and-plot-vector-layers.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/10-explore-and-plot-by-vector-layer-attributes.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/11-plot-multiple-shape-files.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/12-handling-spatial-projection-and-crs.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/13-intro-to-raster-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/14-plot-raster-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/15-reproject-raster-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/16-raster-calculations.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/17-work-with-multi-band-rasters.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/3-raster-slides.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/404.html</loc>
   </url>
   <url>
@@ -17,6 +47,33 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/index.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/09-open-and-plot-vector-layers.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/10-explore-and-plot-by-vector-layer-attributes.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/11-plot-multiple-shape-files.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/12-handling-spatial-projection-and-crs.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/13-intro-to-raster-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/14-plot-raster-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/15-reproject-raster-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/16-raster-calculations.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/17-work-with-multi-band-rasters.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/404.html</loc>
