@@ -8,7 +8,7 @@ This workshop is designed to be run on your local machine. First, you will need 
 
 ## Data
 
-Download the [data zip file](data/lesson-data.zip) and unzip it to your Desktop. The file is 63.9 MB.
+Download the [data zip file](https://surfdrive.surf.nl/files/index.php/s/G2zgWK7SrHsSOSh) and unzip it to your Desktop. The file is 67.5 MB.
 
 ## Software
 
