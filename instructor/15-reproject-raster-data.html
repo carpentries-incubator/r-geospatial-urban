@@ -368,30 +368,20 @@ will see how to calculate the CHM from the DSM and DTM. Here, we will
 create a map of the Digital Terrain Model (<code>DTM_TUD</code>) of TU
 Delft and its surrounding draped (or layered) on top of the hillshade
 (<code>DTM_hill_TUD</code>).</p>
-<div class="overview card">
-<h2 class="card-header">Overview</h2>
-<div class="row g-0">
-<div class="col-md-4">
-<div class="card-body">
-<div class="inner">
-<h3 class="card-title">Questions</h3>
+<div id="layering-rasters-hillshade" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="layering-rasters-hillshade" class="callout-inner">
+<h3 class="callout-title">Layering Rasters: Hillshade<a class="anchor" aria-label="anchor" href="#layering-rasters-hillshade"></a>
+</h3>
+<div class="callout-content">
 <p>We can layer a raster on top of a hillshade raster for the same area,
 and use a transparency factor to create a 3-dimensional shaded effect. A
 hillshade is a raster that maps the terrain using light and shadow to
 create a 3D-looking image that you would see from above when viewing the
 terrain. We will add a custom colour, making the plot grey.</p>
 <p>Read more about layering raster <a href="https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-raster-plot.html#layering-rasters" class="external-link">here</a>.</p>
-</div>
-</div>
-</div>
-<div class="col-md-8">
-<div class="card-body">
-<div class="inner bordered">
-<h3 class="card-title">Objectives</h3>
-<p>After completing this episode, participants should be able to…</p>
-<ul><li>Reproject a raster in R.</li>
-</ul></div>
-</div>
 </div>
 </div>
 </div>
@@ -480,7 +470,7 @@ each use?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
