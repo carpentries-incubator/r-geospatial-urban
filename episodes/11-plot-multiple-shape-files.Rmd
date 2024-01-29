@@ -39,7 +39,6 @@ After completing this episode, participants should be able to…
 This episode builds upon the [previous episode](../episodes/10-explore-and-plot-by-vector-layer-attributes.Rmd) to work with vector layers in R and explore how to plot multiple vector layers.
 
 
-
 ## Load the data
 
 To work with vector data in R, we use the `sf` library. Make sure that it is loaded.

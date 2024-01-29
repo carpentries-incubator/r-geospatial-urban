@@ -63,6 +63,11 @@ episodes:
 - 10-explore-and-plot-by-vector-layer-attributes.Rmd
 - 11-plot-multiple-shape-files.Rmd
 - 12-handling-spatial-projection-and-crs.Rmd
+- 13-intro-to-raster-data.Rmd
+- 14-plot-raster-data.Rmd
+- 15-reproject-raster-data.Rmd
+- 16-raster-calculations.Rmd
+- 17-work-with-multi-band-rasters.Rmd
 
 # Information for Learners
 learners:

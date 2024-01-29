@@ -1,0 +1,105 @@
+---
+title: "Intro to Geospatial Raster Data with R"
+author:
+  - "Claudiu Forgaci"
+  - "Daniele Cannatella"
+format: 
+  revealjs:
+    # logo: assets/img/TUDelft_logo_rgb.png
+    # css: logo.css
+    footer: "Data Carpentry for Geospatial Data"
+    chalkboard: true
+    incremental: true   
+    theme: [default, custom.scss]
+---
+
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  error = FALSE
+  )
+```
+
+
+## Outline
+
+1. Intro to raster data
+2. Plotting raster data
+3. Reprojecting raster data
+4. Raster calculations
+5. Working with multi-band rasters
+
+
+# Intro to raster data
+
+## The `raster` package
+
+![](fig/tudlib-green.png){fig-align="center"}
+
+
+## Challenge 1: `r emo::ji("clock")` **2 mins**
+
+Use `describe()` to determine the following about the `tud-dsm-hill.tif` file:
+
+1. Does this file have the same CRS as `DSM_TUD`?
+2. What is resolution of the raster data?
+3. How large would a 5x5 pixel area be on the Earth’s surface?
+4. Is the file a multi- or single-band raster?
+
+``` {r}
+#| echo: false
+#| cache: false
+countdown::countdown(minutes = 2)
+``` 
+
+# Plotting raster data
+
+## Challenge 2: `r emo::ji("clock")` **5 mins**
+
+Create a plot of the TU Delft Digital Surface Model (`DSM_TUD`) that has:
+
+1. Six classified ranges of values (break points) that are evenly divided among the range of pixel values.
+2. A plot title.
+
+``` {r}
+#| echo: false
+#| cache: false
+countdown::countdown(minutes = 5)
+``` 
+
+# Reprojecting raster data
+
+## Challenge 3: `r emo::ji("clock")` **2 mins**
+
+View the CRS for each of these two datasets. What projection does each use?
+
+``` {r}
+#| echo: false
+#| cache: false
+countdown::countdown(minutes = 2)
+``` 
+
+# Raster calculations
+
+## Challenge 4: `r emo::ji("clock")` **10 mins**
+
+It’s often a good idea to explore the range of values in a raster dataset just like we might explore a dataset that we collected in the field.
+
+1. What is the min and max value for the Canopy Height Model `CHM_TUD` that we just created?
+3. What is the distribution of all the pixel values in the CHM?
+5. Plot the `CHM_TUD` raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels.
+
+``` {r}
+#| echo: false
+#| cache: false
+countdown::countdown(minutes = 10)
+``` 
+
+# Working with multi-band rasters

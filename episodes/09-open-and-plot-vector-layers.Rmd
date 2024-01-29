@@ -29,6 +29,7 @@ or two installation 'walk-in' hours on a day before the workshop. Also, 15-30
 minutes at the beginning of the first workshop day should be enough to tackle 
 last-minute installation issues.
 
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::: prereq
@@ -96,6 +97,7 @@ As the output of `st_crs()` can be long, you can use `$Name` and `$epsg` after t
 :::
 
 The `st_bbox()` function shows the extent of the layer. As `WGS 84` is a **geographic CRS**, the extent of the shapefile is displayed in degrees.
+
 
 ```{r}
 st_bbox(boundary_Delft)
