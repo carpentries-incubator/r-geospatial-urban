@@ -86,11 +86,11 @@
   Geospatial Data Carpentry for Urbanism
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 49%" class="percentage">
-    49%
+<aside class="col-md-12 lesson-progress"><div style="width: 52%" class="percentage">
+    52%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 49%" aria-valuenow="49" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 52%" aria-valuenow="52" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -337,7 +337,7 @@
         
         
         
-        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
+        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 30 minutes</p>
         
         <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -360,6 +360,7 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
+<p>After completing this episode, participants should be able to…</p>
 <ul><li>Plot vector objects with different CRSs in the same plot.</li>
 </ul></div>
 </div>
@@ -500,18 +501,20 @@ Geodetic CRS:  WGS 84</code></pre>
 <span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Map of Contiguous NL Municipal Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/12-handling-spatial-projection-and-crs-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="plot-multiple-layers-of-spatial-data" class="callout challenge">
+<figure><img src="../fig/12-handling-spatial-projection-and-crs-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-multiple-layers-of-spatial-data" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="plot-multiple-layers-of-spatial-data" class="callout-inner">
-<h3 class="callout-title">Plot multiple layers of spatial data<a class="anchor" aria-label="anchor" href="#plot-multiple-layers-of-spatial-data"></a>
+<div id="challenge-plot-multiple-layers-of-spatial-data" class="callout-inner">
+<h3 class="callout-title">Challenge: Plot multiple layers of spatial
+data<a class="anchor" aria-label="anchor" href="#challenge-plot-multiple-layers-of-spatial-data"></a>
 </h3>
 <div class="callout-content">
 <!-- 5 minutes -->
 <p>Create a map of South Holland as follows:</p>
-<ol style="list-style-type: decimal"><li>Import and plot <code>nl-gemeenten.shp</code>. Adjust line width as
-necessary.</li>
+<ol style="list-style-type: decimal"><li>Import <code>nl-gemeenten.shp</code> and filter only the
+municipalities in South Holland.</li>
+<li>Plot it and adjust line width as necessary.</li>
 <li>Layer the boundary of Delft onto the plot.</li>
 <li>Add a title.</li>
 <li>Add a legend that shows both the province boundaries (as a line) and
@@ -524,7 +527,7 @@ the boundary of Delft (as a filled polygon).</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -553,12 +556,17 @@ the boundary of Delft (as a filled polygon).</li>
 </section><section id="export-a-shapefile"><h2 class="section-heading">Export a shapefile<a class="anchor" aria-label="anchor" href="#export-a-shapefile"></a>
 </h2>
 <hr class="half-width"><p>To save a file, use the <code>st_write()</code> function from the
-<code>sf</code> package.</p>
+<code>sf</code> package. Although <code>sf</code> guesses the driver
+needed for a specified output file name from its extension, this can be
+made explicitly via the <code>driver</code> argument. In our case
+<code>driver = "ESRI Shapefile"</code> ensures that the output is
+correctly saved as a <code>.shp</code> file.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(leisure_locations_selection,</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">"data/leisure_locations_selection.shp"</span>), driver <span class="ot">=</span> <span class="st">"ESRI Shapefile"</span><span class="er">)</span></span></code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">st_write</span><span class="op">(</span><span class="va">leisure_locations_selection</span>,</span>
+<span>         <span class="st">"data/leisure_locations_selection.shp"</span>, driver <span class="op">=</span> <span class="st">"ESRI Shapefile"</span><span class="op">)</span></span></code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
