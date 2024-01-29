@@ -1,7 +1,7 @@
 ---
 title: 'Explore and plot by vector layer attributes'
-teaching: 20
-exercises: 10
+teaching: 30
+exercises: 20
 ---
 
 
@@ -14,6 +14,8 @@ exercises: 10
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
+
+After completing this episode, participants should be able to…
 
 - Query attributes of a vector object.
 
@@ -83,11 +85,11 @@ attribute table.
 
 :::
 
-We can also preview the content of the object by looking at the first 6 rows with the `head()` function, which is in the case of an `sf` object the same as examining the object directly.
+We can also preview the content of the object by looking at the first 6 rows with the `head()` function, which in the case of an `sf` object is similar to examining the object directly.
 
 
 ```r
-head(lines_Delft)
+head (lines_Delft)
 ```
 
 ```{.output}
@@ -157,6 +159,7 @@ levels(factor(lines_Delft$highway))
 [21] "tertiary"       "tertiary_link"  "track"          "trunk"         
 [25] "trunk_link"     "unclassified"  
 ```
+Note that this way the values are shown by default in alphabetical order and `NA`s are not displayed, whereas using `unique()` returns unique values in the order of their occurrence in the data frame and it also shows `NA` values.
 
 ::::::::::::::::::::::::::::::::
 
@@ -240,7 +243,7 @@ Projected CRS: Amersfoort / RD New
 # point_Delft
 ```
 
-However, this is not a good approach as the first rows might still have many `NA`s and three distinct values might still not be present in the first `n` rows of the data frame. To remove `NA`s, we can use the function `na.omit()` on the leisure column to remove `NA`s completely. Note that we use the `$` operator to examine the content of a single variable.
+We have our answer (`sports_centre` is the third value), but in general this is not a good approach as the first rows might still have many `NA`s and three distinct values might still not be present in the first `n` rows of the data frame. To remove `NA`s, we can use the function `na.omit()` on the leisure column to remove `NA`s completely. Note that we use the `$` operator to examine the content of a single variable.
 
 
 ```r
@@ -252,15 +255,15 @@ head(na.omit(point_Delft$leisure))  # this is better
 [5] "sports_centre" "playground"   
 ```
 
-To show only unique values, we can use the `unique()` function to only see the first occurrence of each distinct value (note that `NA` will still be included once).
+To show only unique values, we can use the `levels()` function on a factor to only see the first occurrence of each distinct value. Note `NA`s are dropped in this case and that we get the first three of the unique alphabetically ordered values.
 
 
 ```r
-head(unique(point_Delft$leisure), n = 3)   # this is even better
+head(levels(factor(point_Delft$leisure)), n = 3)   # this is even better
 ```
 
 ```{.output}
-[1] "picnic_table" "marina"       NA            
+[1] "dance"       "dog_park"    "escape_game"
 ```
 
 3. To see a list of all attribute names, we can use the `names()` function.
@@ -347,6 +350,8 @@ ggplot(data = cycleway_Delft) +
 ::: challenge
 <!-- 7 minutes -->
 
+Challenge: Now with motorways (and pedestrian streets)
+
 1. Create a new object that only contains the motorways in Delft. 
 2. How many features does the new object have?
 3. What is the total length of motorways?
@@ -422,7 +427,7 @@ nrow(motorway_Delft)
 [1] 48
 ```
 
-4. Plot the motorways
+4. Plot the motorways.
 
 
 ```r
@@ -434,7 +439,7 @@ ggplot(data = motorway_Delft) +
 
 <img src="fig/10-explore-and-plot-by-vector-layer-attributes-rendered-unnamed-chunk-22-1.png" style="display: block; margin: auto;" />
 
-5. Same steps with pedestrian streets
+5. Follow the same steps with pedestrian streets.
 
 
 ```r
@@ -498,7 +503,7 @@ unique(lines_Delft$highway)
 [25] "platform"       "proposed"       NA              
 ```
 
-If we look at all the unique values of the highway field of our street network we see more than 20 values. Let's focus on a subset of four values to illustrate the use of distinct colors. We use a piped expression in which we only filter the rows of our data frame that have one of the four given values `"motorway"`, `"primary"`, `"secondary"`, and `"cycleway"`. We also make sure that the highway column is a factor column.
+If we look at all the unique values of the highway field of our street network we see more than 20 values. Let's focus on a subset of four values to illustrate the use of distinct colors. We use a piped expression in which we only filter the rows of our data frame that have one of the four given values `"motorway"`, `"primary"`, `"secondary"`, and `"cycleway"`. Note that we do this with the `%in` operator which is a more compact equivalent of a series of conditions joined by the `|` (or) operator. We also make sure that the highway column is a factor column.
 
 
 ```r
@@ -509,7 +514,7 @@ lines_Delft_selection <- lines_Delft %>%
   mutate(highway = factor(highway, levels = road_types))
 ```
 
-Next we define the four colors we want to use, one for each type of road in our vector object. Note that in R you can use named colors like `"blue"`, `"green"`, `"navy"`, and `"purple"`. A full list of named colors can be listed with the `colors()` function.
+Next we define the four colors we want to use, one for each type of road in our vector object. Note that in R you can use named colors like `"blue"`, `"green"`, `"navy"`, and `"purple"`. If you are using RStudio, you will see the named colors previewed in line. A full list of named colors can be listed with the `colors()` function.
 
 
 ```r
@@ -557,7 +562,7 @@ ggplot(data = lines_Delft_selection) +
 
 ::: challenge
 
-# Plot line width by attribute
+# Challenge: Plot line width by attribute
 
 In the example above, we set the line widths to be 1, 0.75, 0.5, and 0.25. In our case line thicknesses are consistent with the hierarchy of the selected road types, but in some cases we might want to show a different hierarchy.
 
@@ -607,13 +612,14 @@ Let’s add a legend to our plot. We will use the `road_colors` object that we c
 
 
 ```r
-ggplot(data = lines_Delft_selection) + 
+p1 <- ggplot(data = lines_Delft_selection) + 
   geom_sf(aes(color = highway), linewidth = 1.5) +
   scale_color_manual(values = road_colors) +
   labs(color = 'Road Type') + 
   labs(title = "Mobility network of Delft", 
        subtitle = "Roads & Cycleways - Default Legend") + 
   coord_sf(datum = st_crs(28992))
+p1
 ```
 
 <div class="figure" style="text-align: center">
@@ -623,15 +629,9 @@ ggplot(data = lines_Delft_selection) +
 
 
 ```r
-ggplot(data = lines_Delft_selection) + 
-  geom_sf(aes(color = highway), linewidth = 1.5) +
-  scale_color_manual(values = road_colors) + 
-  labs(color = 'Road Type') +
+p2 <- p1 +
   theme(legend.text = element_text(size = 20), 
-        legend.box.background = element_rect(size = 1)) + 
-  labs(title = "Mobility network of Delft", 
-       subtitle = "Roads & Cycleways - Modified Legend") +
-  coord_sf(datum = st_crs(28992))
+        legend.box.background = element_rect(size = 1))
 ```
 
 ```{.warning}
@@ -642,34 +642,18 @@ Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 generated.
 ```
 
+```r
+p2
+```
+
 <div class="figure" style="text-align: center">
 <img src="fig/10-explore-and-plot-by-vector-layer-attributes-rendered-unnamed-chunk-35-1.png" alt="Map of the mobility network in Delft with large-font and border around the legend."  />
 <p class="caption">Map of the mobility network in Delft with large-font and border around the legend.</p>
 </div>
 
-
-```r
-new_colors <- c("springgreen", "blue", "magenta", "orange")
-
-ggplot(data = lines_Delft_selection) + 
-  geom_sf(aes(color = highway), linewidth = 1.5) + 
-  scale_color_manual(values = new_colors) +
-  labs(color = 'Road Type') +
-  theme(legend.text = element_text(size = 20), 
-        legend.box.background = element_rect(size = 1)) + 
-  labs(title = "Mobility network of Delft", 
-       subtitle = "Roads & Cycleways - Modified Legend") +
-  coord_sf(datum = st_crs(28992))
-```
-
-<div class="figure" style="text-align: center">
-<img src="fig/10-explore-and-plot-by-vector-layer-attributes-rendered-unnamed-chunk-36-1.png" alt="Map of the mobility network in Delft using a different color palette."  />
-<p class="caption">Map of the mobility network in Delft using a different color palette.</p>
-</div>
-
 ::: challenge
 
-# Plot lines by attributes
+# Challenge: Plot lines by attributes
 <!-- 5 minutes -->
 
 Create a plot that emphasizes only roads where bicycles are allowed. To emphasize this, make the lines where bicycles are not allowed THINNER than the roads where bicycles are allowed. Be sure to add a title and legend to your map. You might consider a color palette that has all bike-friendly roads displayed in a bright color. All other lines can be black.
@@ -715,7 +699,7 @@ ggplot(data = lines_Delft) +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/10-explore-and-plot-by-vector-layer-attributes-rendered-unnamed-chunk-39-1.png" style="display: block; margin: auto;" />
+<img src="fig/10-explore-and-plot-by-vector-layer-attributes-rendered-unnamed-chunk-38-1.png" style="display: block; margin: auto;" />
 
 :::
 
@@ -723,7 +707,7 @@ ggplot(data = lines_Delft) +
 
 ::: challenge
 
-# Plot polygon by attribute
+# Challenge: Plot polygon by attribute
 <!-- 5 minutes -->
 
 Create a map of the municipal boundaries in the Netherlands using the data located in your data folder: `nl-gemeenten.shp`. Apply a line color to each state using its region value. Add a legend.
@@ -732,7 +716,7 @@ Create a map of the municipal boundaries in the Netherlands using the data locat
 
 
 ```r
-municipal_boundaries_NL <- st_read(here("data", "nl-gemeenten.shp"))
+municipal_boundaries_NL <- st_read("data/nl-gemeenten.shp")
 ```
 
 ```{.output}
@@ -786,7 +770,7 @@ ggplot(data = municipal_boundaries_NL) +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/10-explore-and-plot-by-vector-layer-attributes-rendered-unnamed-chunk-42-1.png" style="display: block; margin: auto;" />
+<img src="fig/10-explore-and-plot-by-vector-layer-attributes-rendered-unnamed-chunk-41-1.png" style="display: block; margin: auto;" />
 
 :::
 
