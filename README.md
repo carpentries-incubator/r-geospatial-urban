@@ -1,4 +1,4 @@
-# R Geospatial Urban
+# Geospatial Data Carpentry for Urbanism
 
 This lesson is a template lesson that uses [The Carpentries Workbench][workbench].
 
