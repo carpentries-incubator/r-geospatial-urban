@@ -23,6 +23,8 @@ Download the [data zip file](https://surfdrive.surf.nl/files/index.php/s/G2zgWK7
 
 We provide quick instructions below for installing the various software needed for this workshop. At points, they assume familiarity with the command line and with installation in general. As there are different operating systems and many different versions of operating systems and environments, these may not work on your computer. If an installation doesn't work for you, please refer to the installation instructions for that software listed in the table above.
 
+If you have previously installed these software on your computer, please make sure to update your installations. Using the latest versions of R, RStudio, R packages and external dependencies indicated in the setup instructions will ensure that the software we use behaves the same way on all computers during the workshop.
+
 ::::::::::::::::::::::::::::::::::::::: discussion
 
 ### GDAL, GEOS, and PROJ.4
