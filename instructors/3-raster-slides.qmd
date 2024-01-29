@@ -44,7 +44,7 @@ knitr::opts_chunk$set(
 ![](fig/tudlib-green.png){fig-align="center"}
 
 
-## Challenge 1: `r emo::ji("clock")` **2 mins**
+## Challenge 1: **2 mins**
 
 Use `describe()` to determine the following about the `tud-dsm-hill.tif` file:
 
@@ -61,7 +61,7 @@ countdown::countdown(minutes = 2)
 
 # Plotting raster data
 
-## Challenge 2: `r emo::ji("clock")` **5 mins**
+## Challenge 2: **5 mins**
 
 Create a plot of the TU Delft Digital Surface Model (`DSM_TUD`) that has:
 
@@ -76,7 +76,7 @@ countdown::countdown(minutes = 5)
 
 # Reprojecting raster data
 
-## Challenge 3: `r emo::ji("clock")` **2 mins**
+## Challenge 3: **2 mins**
 
 View the CRS for each of these two datasets. What projection does each use?
 
@@ -88,7 +88,7 @@ countdown::countdown(minutes = 2)
 
 # Raster calculations
 
-## Challenge 4: `r emo::ji("clock")` **10 mins**
+## Challenge 4: **10 mins**
 
 It’s often a good idea to explore the range of values in a raster dataset just like we might explore a dataset that we collected in the field.
 
