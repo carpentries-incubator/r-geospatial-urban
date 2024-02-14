@@ -507,7 +507,7 @@ function is `st_centroid`.
 ## Centroids
 
 ```{r centroids}
-sf::sf_use_s2(FALSE)
+sf::sf_use_s2(FALSE) # s2 works with geographic projections, so to calculate centroids in projected CRS units (meters), we need to disable it.
 centroids_old <- st_centroid(old_buildings) %>%
   st_transform(.,crs=28992)  
 
