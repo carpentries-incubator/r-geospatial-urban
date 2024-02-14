@@ -43,10 +43,19 @@
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/17-work-with-multi-band-rasters.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/18-import-and-visualise-osm-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/19-basic-gis-with-r-sf.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/2-vector-slides.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/3-raster-slides.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/4-gis-slides.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/404.html</loc>
@@ -107,6 +116,12 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/17-work-with-multi-band-rasters.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/18-import-and-visualise-osm-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/19-basic-gis-with-r-sf.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/r-geospatial-urban/instructor/404.html</loc>
