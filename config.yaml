@@ -11,10 +11,10 @@
 carpentry: 'incubator'
 
 # Overall title for pages.
-title: 'Geospatial Data Carpentry with R for Urbanists'
+title: 'Geospatial Data Carpentry for Urbanism'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created:
+created: 
 
 # Comma-separated list of keywords for the lesson
 keywords: 'software, data, lesson, The Carpentries, geospatial'
@@ -33,7 +33,7 @@ source: 'https://github.com/carpentries-incubator/r-geospatial-urban'
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'c.forgaci@tudelft.nl'
+contact: 'rbanism@tudelft.nl'
 
 # Navigation ------------------------------------------------
 #
@@ -58,7 +58,13 @@ contact: 'c.forgaci@tudelft.nl'
 # - another-learner.md
 
 # Order of episodes in your lesson
+
 episodes:
+- 01-intro-to-r.Rmd
+- 02-data-structures.Rmd
+- 03-explore-data.Rmd
+- 04-intro-to-visualisation.Rmd
+- 08-intro-to-geospatial-concepts.Rmd
 - 09-open-and-plot-vector-layers.Rmd
 - 10-explore-and-plot-by-vector-layer-attributes.Rmd
 - 11-plot-multiple-shape-files.Rmd
@@ -68,6 +74,8 @@ episodes:
 - 15-reproject-raster-data.Rmd
 - 16-raster-calculations.Rmd
 - 17-work-with-multi-band-rasters.Rmd
+- 18-import-and-visualise-osm-data.Rmd
+- 19-basic-gis-with-r-sf.Rmd
 
 # Information for Learners
 learners:
