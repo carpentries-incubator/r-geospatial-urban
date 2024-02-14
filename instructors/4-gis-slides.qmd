@@ -770,7 +770,7 @@ Any questions?
 :::
 
 ::: {.column width="30%"}
-![](post-workshop-survey.png)
+![](fig/post-workshop-survey.png)
 :::
 :::
 
@@ -796,14 +796,14 @@ A TUD **community** that promotes open-source software and
 **open-science** practices in the field of **urbanism.**
 
 
-![](sticker2.png){width=40%}
+![](fig/sticker2.png){width=40%}
 :::
 
 ::: {.column width="45%"}
 
 Join the community!
 
-![](rbanism-membership.png){width=70%,fig-align="center"}
+![](fig/rbanism-membership.png){width=70%,fig-align="center"}
 
 :::
 :::
