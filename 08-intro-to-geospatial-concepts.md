@@ -31,7 +31,7 @@ The shape of the Earth is approximately a sphere which is slightly wider than it
 The most common and basic representation of the position of points on the Earth is the combination of the **geographical latitude and longitude**, as shown below.
 
 <div class="figure" style="text-align: center">
-<img src="fig/latlon.png" alt="Geographical latitude and longitude. Source: van der Marel (2014)."  />
+<img src="fig/latlon.png" alt="Geographical latitude and longitude. Source: van der Marel (2014)." width="713" />
 <p class="caption">Geographical latitude and longitude. Source: van der Marel (2014).</p>
 </div>
 
@@ -93,7 +93,7 @@ In this workshop, we use two CRS shown in @tbl-crs.
 The figure below shows the same city (Rotterdam) in these two CRS.
     
 <div class="figure" style="text-align: center">
-<img src="fig/rotterdam-crs.png" alt="Rotterdam in two different CRS"  />
+<img src="fig/rotterdam-crs.png" alt="Rotterdam in two different CRS" width="1631" />
 <p class="caption">Rotterdam in two different CRS</p>
 </div>
 
