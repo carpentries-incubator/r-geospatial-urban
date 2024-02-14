@@ -270,13 +270,8 @@ buildings <- x$osm_polygons %>%
 ## Mapping urbanisation in Brielle
 
 ```{r map-age}
-buildings$build_date <- as.numeric(
-  if_else(
-    as.numeric(buildings$start_date) < 1900, 
-          1900, 
-          as.numeric(buildings$start_date)
-          )
-  )
+start_date <- as.numeric(buildings$start_date)
+buildings$build_date <- if_else(start_date < 1900, 1900, start_date)
 
  ggplot(data = buildings) +
    geom_sf(aes(fill = build_date, colour=build_date))  +
@@ -319,9 +314,7 @@ countdown::countdown(minutes = 20)
     basemap layer with the `addPolygons` function.
 
 -   Have the `fillColor` of these polygons represent the `build_date`
-    variable. [Choropleth
-    documentation](https://rstudio.github.io/leaflet/choropleths.html).
-    Using the example and replace the variable names where needed.
+    variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) for use of colors. Tip: use the examples given in the documentation and replace the variable names where needed.
 
 ![](fig/leafletBrielle.png){fig-align="center"}
 

@@ -137,12 +137,12 @@ x <- opq(bbox = bb) %>%
 
 ### Structure of objects
 
-What is this x object made of? It is a table of all the buildings contained in the bounding box, which gives us their OSM id, their geometry and a range of attributes, such as their name, building material, building date, etc. The completion level of this table depends on user contributions and open resources (here for instance: BAG, different in other countries).
+What is this `x` object made of? It is a data frame of all the buildings contained in the bounding box, which gives us their OSM id, their geometry and a range of attributes, such as their name, building material, building date, etc. The completion level of this data frame depends on user contributions and open resources. Here, for instance, the national [BAG](https://data.overheid.nl/dataset/10491-bag) dataset was used and it is quite complete, but that is different in other countries.
 
 
 
 ```{r}
-head(x$osm_polygons)
+str(x$osm_polygons)
 ```
 
 
@@ -172,18 +172,13 @@ If this does not work for some reason, the `buildings` can be found in the data 
 
 ### Visualisation
 
-Then we create a variable which a threshold at 1900. Every date prior to 1900 will be recoded 1900, so that buildings older than 1900 will be represented with the same shade.
+Then we create a new variable using the threshold at 1900. Every date before 1900 will be recoded as `1900`, so that buildings older than 1900 will be represented with the same shade.
 
-Then we use the `ggplot` function to visualise the buildings by age. The specific function to represent information as a map is `geom_sf()`. The rest works like other graphs and visualisation, with `aes()` for the aesthetics.
+Then we use the `ggplot()` function to visualise the buildings by age. The specific function to represent information as a map is `geom_sf()`. The rest works like other graphs and visualisation, with `aes()` for the aesthetics.
 
 ```{r}
-buildings$build_date <- as.numeric(
-  if_else(
-    as.numeric(buildings$start_date) < 1900, 
-          1900, 
-          as.numeric(buildings$start_date)
-          )
-  )
+start_date <- as.numeric(buildings$start_date)
+buildings$build_date <- if_else(start_date < 1900, 1900, start_date)
 
  ggplot(data = buildings) +
    geom_sf(aes(fill = build_date, colour=build_date))  +
@@ -191,8 +186,8 @@ buildings$build_date <- as.numeric(
    scale_colour_viridis_c(option = "viridis")
 ```
 
-So this reveals the historical centre of [city] and the various extensions.
-Anything odd? what? around the centre? Why these limits / isolated points?
+So this reveals the historical centre of Brielle (or the city you chose) and the various urban extensions through time.
+Anything odd? What? Around the centre? Why these limits / isolated points?
 
 
 
@@ -201,10 +196,9 @@ Anything odd? what? around the centre? Why these limits / isolated points?
 ## Challenge: import an interactive basemap layer under the buildings with `Leaflet` (20min)
 
 - Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/)
-- Plot a basemap in Leaflet and try different tiles. [Basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
-- Transform the buildings into WGS84 projection and add them to the basemap layer with the `addPolygons` function.
-- Have the `fillColor` of these polygons represent the `build_date` variable. [Choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html). Using the example and replace the variable names where needed.
-
+- Plot a basemap in Leaflet and try different tiles in the [basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
+- Transform the buildings into WGS84 projection and add them to the basemap layer with the `addPolygons()` function.
+- Have the `fillColor` of these polygons represent the `build_date` variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) for use of colors. Tip: use the examples given in the documentation and replace the variable names where needed.
 
 :::::::::::::::::::::::: solution 
 
@@ -234,7 +228,7 @@ leaflet(buildings2) %>%
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use the `Nominatim` and `OverPass` APIs within R
+- Use the `Nominatim` and `Overpass` APIs within R
 - Use the `osmdata` and `nominatimlite` packages to retrieve geospatial data
 - Select features and attributes among OSM tags
 - Use the `ggplot`, `sf` and `leaflet` packages to map data
