@@ -20,6 +20,10 @@ After completing this episode, participants should be able to…
 - Map the results
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
 
 ```{r message=FALSE}
 library(tidyverse)
