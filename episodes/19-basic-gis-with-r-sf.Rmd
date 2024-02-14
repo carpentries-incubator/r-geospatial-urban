@@ -123,7 +123,7 @@ We create unique IDs to identify the new polygons.
 For the sake of visualisation speed, we would like to represent buildings by a single point (for instance: their geometric centre) rather than their actual footprint. This operation means defining their _centroid_ and the corresponding function is `st_centroid()`.
 
 ```{r}
-sf::sf_use_s2(FALSE).  # s2 works with geographic projections, so to calculate centroids in projected CRS units (meters), we need to disable it.
+sf::sf_use_s2(FALSE)  # s2 works with geographic projections, so to calculate centroids in projected CRS units (meters), we need to disable it.
 
 centroids_old <- st_centroid(old_buildings) %>%
   st_transform(.,crs=28992)  
