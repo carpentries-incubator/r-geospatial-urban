@@ -65,13 +65,16 @@ You can create a vector with a `c()` function.
 
 ```{r vectors}
 
-numeric_vector <- c(2, 6, 3) # vector of numbers - numeric data type.
+# vector of numbers - numeric data type.
+numeric_vector <- c(2, 6, 3) 
 numeric_vector
 
-character_vector <- c('banana', 'apple', 'orange') # vector of words - or strings of characters- character data type
+# vector of words - or strings of characters- character data type
+character_vector <- c('banana', 'apple', 'orange') 
 character_vector
 
-logical_vector <- c(TRUE, FALSE, TRUE) # vector of logical values (is something true or false?)- logical data type.
+# vector of logical values (is something true or false?)- logical data type.
+logical_vector <- c(TRUE, FALSE, TRUE) 
 logical_vector
 
 ```
