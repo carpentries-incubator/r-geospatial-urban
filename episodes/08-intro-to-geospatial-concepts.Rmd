@@ -8,14 +8,14 @@ author: 'Ana Petrović'
 ::: questions
 
 -   How do you describe the location of a geographic feature on the surface of the earth?
--   How do you describe different types of projections? 
+-   How do you describe different types of CRS? 
 -   How do you decide on what CRS to use?
 
 :::
 
 ::: objectives
 
--   Identify the CRS and projection that is best fit for a specific analytical question.
+-   Identify the CRS that is best fit for a specific analytical question.
 
 :::
 
@@ -75,14 +75,12 @@ In this workshop, we use two CRS shown in @tbl-crs.
 
 |                | WGS 84 (EPSG:4326)                                       | Amersfoort / RD New (EPSG:28992)                |
 |-----------------|----------------------------|----------------------------|
-| Units          | degrees                                                  | meters                                          |
-| Projection     | Geographic (uses latitude and longitude for coordinates) |                                                 |
-|                | Dynamic (relies on a datum which is not plate-fixed)     | Static (relies on a datum which is plate-fixed) |
-| Celestial body | Earth                                                    |                                                 |
+| Properties | Dynamic (relies on a datum which is not plate-fixed)<br>Celestial body: Earth<br>Prime meridian: Greenwich | Static (relies on a datum which is plate-fixed)<br>Ellipsoid: Bessel 1841                                                 |
 | Datum          | World Geodetic System 1984 ensemble                      | Amersfoort                                      |
+| Projection     | Geographic (uses latitude and longitude for coordinates) | Projected (uses meters for coordinates)         |
 | Method         | Lat/long (Geodetic alias)                                | Oblique Stereographic Alternative               |
-| Prime meridian | Greenwich                                                |                                                 |
-| Ellipsoid      |                                                          | Bessel 1841                                     |
+| Units          | degrees                                                  | meters                                          |
+
 
 : Main properties of WGS 84 and Amersfoort / RD New coordinate reference systems {#tbl-crs}
 
@@ -132,15 +130,15 @@ Correct answer: c. EPSG:3035
 
 You want to calculate the shortest path between two buildings in Delft. Which CRS will you use?  
 
-a)	EPSG:4326
-b)	EPSG:28992
-c)	EPSG:3035  
+a.	EPSG:4326
+b.	EPSG:28992
+c.	EPSG:3035  
 
 Hint: Go to https://epsg.io/ or https://epsg.org/search/by-name and check properties of the given CRS, such as datum, type of map projection, units of measure etc. 
 
 ::: solution
 
-Correct answer: c. EPSG:28992
+Correct answer: b. EPSG:28992
 
 :::
 
@@ -171,6 +169,8 @@ Correct answer: c. EPSG:28992
 
 ::: keypoints
 
--   ...
+-   Each location on the Earth has its geographical latitude and longitude, which can be transformed on a plane using a map projection.
 
+-   Depending on the research question, we need a global or local CRS suitable properties.
+ 
 :::
