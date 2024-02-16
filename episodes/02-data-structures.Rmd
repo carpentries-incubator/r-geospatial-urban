@@ -215,9 +215,9 @@ nordic_cat <- factor(
     'Norway', 
     'Denmark', 
     'Sweden'
-    )
-  ) # now Norway will be the first category, Denmark second and Sweden third
+  )) 
 
+# now Norway will be the first category, Denmark second and Sweden third
 nordic_cat
 ```
 
@@ -227,8 +227,15 @@ There is more than one way to reorder factors. Later in the lesson,
 we will use `fct_relevel()` function from `forcats` package to do the reordering.
 
 ```{r factor-reorder2}
-nordic_cat <- fct_relevel(nordic_cat, 'Norway' , 'Denmark', 'Sweden') # With 
-# this, Norway will be  first category, Denmark second and Sweden third
+library(forcats)
+
+nordic_cat <- fct_relevel(
+  nordic_cat, 
+  'Norway' , 
+  'Denmark', 
+  'Sweden'
+  ) # With this, Norway will be  first category, 
+    # Denmark second and Sweden third
 
 nordic_cat
 ```
@@ -255,9 +262,14 @@ outside of this set, it will become an unknown/missing value detonated by
 
 ```{r factor-missing-level}
 nordic_str
-nordic_cat2 <- factor(nordic_str, levels = c('Norway', 'Denmark'))
-nordic_cat2 # since we have not included Sweden in the list of factor levels, 
-# it has become NA.
+nordic_cat2 <- factor(
+  nordic_str, 
+  levels = c('Norway', 'Denmark')
+  )
+
+# because we did not include Sweden in the list of 
+# factor levels, it has become NA.
+nordic_cat2 
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::
 

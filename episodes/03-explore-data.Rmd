@@ -108,7 +108,9 @@ When you're analyzing a data set, you often need to access its specific columns.
 
 One handy way to access a column is using it's name and a dollar sign `$`: 
 ```{r subset-dollar-sign}
-country_vec <- gapminder$country  # Notation means: From dataset gapminder, give me column country. You can see that the column accessed in this way is just a vector of characters. 
+# This notation means: From dataset gapminder, give me column country. You can 
+# see that the column accessed in this way is just a vector of characters. 
+country_vec <- gapminder$country 
 
 head(country_vec)
 
@@ -157,7 +159,8 @@ We already know how to select only the needed columns. But now, we also want to 
 In the `gapminder` data set, we want to see the results from outside of Europe for the 21st century. 
 ```{r}
 year_country_gdp_euro <- gapminder %>% 
-  filter(continent != "Europe" & year >= 2000) %>% # & operator (AND) - both conditions must be met
+  filter(continent != "Europe" & year >= 2000) %>% # & operator (AND) - both 
+  # conditions must be met
   select(year, country, gdpPercap)
 
 head(year_country_gdp_euro)
