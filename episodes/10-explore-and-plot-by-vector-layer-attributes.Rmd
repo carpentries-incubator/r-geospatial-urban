@@ -186,7 +186,9 @@ Now we can plot only the cycleways.
 ```{r fig.cap="Map of cycleways in Delft."}
 ggplot(data = cycleway_Delft) +
   geom_sf() +
-  labs(title = "Slow mobility network in Delft", subtitle = "Cycleways") +
+  labs(title = "Slow mobility network in Delft", 
+       subtitle = "Cycleways"
+      ) +
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -371,13 +373,17 @@ p1 <- ggplot(data = lines_Delft_selection) +
   labs(title = "Mobility network of Delft", 
        subtitle = "Roads & Cycleways - Default Legend") + 
   coord_sf(datum = st_crs(28992))
+
+# show plot
 p1
 ```
 
 ```{r fig.cap="Map of the mobility network in Delft with large-font and border around the legend."}
 p2 <- p1 +
   theme(legend.text = element_text(size = 20), 
-        legend.box.background = element_rect(size = 1))
+        legend.box.background = element_rect(linewidth = 1))
+
+# show plot
 p2
 ```
 
