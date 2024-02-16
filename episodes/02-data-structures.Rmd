@@ -124,7 +124,9 @@ First, let's try to calculate mean for the values in this vector
 ```{r remove-na1}
 mean(with_na) # mean() function cannot interpret the missing values
 
-mean(with_na, na.rm = T) # You can add the argument na.rm=TRUE to calculate the result while ignoring the missing values.
+# You can add the argument na.rm=TRUE to calculate the result while
+# ignoring the missing values.
+mean(with_na, na.rm = T) 
 ```
 
 However, sometimes, you would like to have the `NA` 
@@ -133,9 +135,11 @@ For this you need to identify which elements of the vector hold missing values
 with `is.na()` function. 
 
 ```{r remove-na2}
-is.na(with_na) #  This will produce a vector of logical values, stating if a statement 'This element of the vector is a missing value' is true or not
+is.na(with_na) # This will produce a vector of logical values, 
+# stating if a statement 'This element of the vector is a missing value'
+# is true or not
 
-!is.na(with_na) # # The ! operator means negation ,i.e. not is.na(with_na)
+!is.na(with_na) # The ! operator means negation, i.e. not is.na(with_na)
 
 ```
 
@@ -145,7 +149,8 @@ Sub-setting in `R` is done with square brackets`[ ]`.
 
 ```{r remove-na3}
 
-without_na <- with_na[ !is.na(with_na) ] # this notation will return only the elements that have TRUE on their respective positions
+without_na <- with_na[ !is.na(with_na) ] # this notation will return only
+# the elements that have TRUE on their respective positions
 
 without_na
 
@@ -173,7 +178,8 @@ known as levels.
 nordic_str <- c('Norway', 'Sweden', 'Norway', 'Denmark', 'Sweden')
 nordic_str # regular character vectors printed out
 
-nordic_cat <- factor(nordic_str) # factor() function converts a vector to factor data type
+# factor() function converts a vector to factor data type
+nordic_cat <- factor(nordic_str)
 nordic_cat # With factors, R prints out additional information - 'Levels'
 
 ```
@@ -204,7 +210,13 @@ displayed in a plot or which category is taken as a baseline in a statistical mo
 You can reorder the categories using `factor()` function. This can be useful, for instance, to select a reference category (first level) in a regression model or for ordering legend items in a plot, rather than using the default category systematically (i.e. based on alphabetical order).
 
 ```{r factor-reorder1}
-nordic_cat <- factor(nordic_cat, levels = c('Norway' , 'Denmark', 'Sweden'))  # now Norway should be the first category, Denmark second and Sweden third
+nordic_cat <- factor(
+  nordic_cat, levels = c(
+    'Norway', 
+    'Denmark', 
+    'Sweden'
+    )
+  ) # now Norway will be the first category, Denmark second and Sweden third
 
 nordic_cat
 ```
@@ -215,7 +227,8 @@ There is more than one way to reorder factors. Later in the lesson,
 we will use `fct_relevel()` function from `forcats` package to do the reordering.
 
 ```{r factor-reorder2}
-# nordic_cat <- fct_relevel(nordic_cat, 'Norway' , 'Denmark', 'Sweden') # now Norway should be the first category, Denmark second and Sweden third
+nordic_cat <- fct_relevel(nordic_cat, 'Norway' , 'Denmark', 'Sweden') # With 
+# this, Norway will be  first category, Denmark second and Sweden third
 
 nordic_cat
 ```
@@ -243,7 +256,8 @@ outside of this set, it will become an unknown/missing value detonated by
 ```{r factor-missing-level}
 nordic_str
 nordic_cat2 <- factor(nordic_str, levels = c('Norway', 'Denmark'))
-nordic_cat2 # since we have not included Sweden in the list of factor levels, it has become NA.
+nordic_cat2 # since we have not included Sweden in the list of factor levels, 
+# it has become NA.
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::
 
