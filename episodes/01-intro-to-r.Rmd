@@ -312,7 +312,7 @@ In the script, we will write:
 ```{r download-files}
 # Download the data
 download.file('https://bit.ly/geospatial_data', 
-              here('episodes', 'data','gapminder_data.csv'))
+              here('data','gapminder_data.csv'))
 
 ```
 
