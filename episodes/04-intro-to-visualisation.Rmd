@@ -57,10 +57,16 @@ The package `ggplot2` is a powerful plotting system. We will start with an intro
 
 A fun part about `ggplot2` is that you can add layers to the plot to provide more information and to make it more beautiful.
 
-In the following parts of this workshop, you will use this package to visualize geospatial data. First, lets plot the distribution of life expectancy in the `gapminder` dataset:
+In the following parts of this workshop, you will use this package to visualize geospatial data. First, make sure that you have the following packages loaded.
+
+```{r load-pkgs, eval=FALSE}
+library(tidyverse)
+library(terra)
+```
+
+Now, lets plot the distribution of life expectancy in the `gapminder` dataset:
 
 ```{r ggplot}
-library(ggplot2)
 
 ggplot(data = gapminder,  # data
   aes(x = lifeExp) # aesthetics layer 
