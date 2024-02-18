@@ -75,7 +75,7 @@ The main parameters of each CRS are the following:
 -   **Projection** is mathematical transformation of the angular measurements on the Earth to linear units (e.g. meters) on a flat surface (paper or a computer screen).
 -   **Additional parameters**, such as a definition of the centre of the map, are often necessary to create the full CRS.
 
-In this workshop, we use two CRS shown below.
+In this workshop, we use the following two CRS:
 
 |                | WGS 84 (EPSG:4326)                                       | Amersfoort / RD New (EPSG:28992)                |
 |-----------------|----------------------------|----------------------------|

@@ -240,17 +240,13 @@ head(year_country_gdp_euro)
 6 2007      Angola 4797.2313
 ```
 
-###  Exercise 1
+::: challenge
 
-<div class="alert alert-info">
-<strong>Challenge</strong>
+##  Exercise 1
+
 Write a single command (which can span multiple lines and includes pipes) that will produce a data frame that has the values for life expectancy, country and year, only for Eurasia. How many rows does your data frame have and why? 
 
-
-<strong>Solution</strong>
-
-</div>
-
+::: solution
 
 
 ```{.r .bg-info}
@@ -266,7 +262,9 @@ nrow(year_country_gdp_eurasia)
 [1] 756
 ```
 
+:::
 
+:::
 
 ## Group and summarize
 So far, we have provided summary statistics on the whole dataset, selected columns, and filtered the observations. But often instead of doing that, we would like to know statistics about all of the continents, presented by group.
@@ -289,17 +287,15 @@ gapminder %>% # select the dataset
 5 Oceania          18622.
 ```
 
-### Exercise 2
-<div class="alert alert-info">
-<strong>Challenge</strong> 
+::: challenge
+
+## Exercise 2
+
 Calculate the average life expectancy per country. Which country has the longest average life expectancy and which has the shortest average life expectancy?
 
 <strong>Hint</strong> Use `max()`  and `min()` functions to find minimum and maximum.
 
-<strong>Solution</strong>
-
-</div>
-
+::: solution
 
 
 ```{.r .bg-info}
@@ -317,6 +313,10 @@ gapminder %>%
 1 Iceland             76.5
 2 Sierra Leone        36.8
 ```
+
+:::
+
+:::
 
 ### Multiple groups and summary variables
 You can also group by multiple columns:
