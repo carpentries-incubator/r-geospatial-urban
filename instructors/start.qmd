@@ -1,5 +1,4 @@
 ---
-title: "Geospatial Data Carpentry for Urbanism"
 date: "19 February 2024"
 format: 
   revealjs:
@@ -19,6 +18,12 @@ knitr::opts_chunk$set(
   error = FALSE
   )
 ```
+
+# Geospatial Data Carpentry for Urbanism { background-image="fig/tudlib-green.png"}
+
+19-20 February 2024 
+
+TU Delft Library, Orange Room
 
 ## Meet the team
 
@@ -84,25 +89,44 @@ knitr::opts_chunk$set(
 
 ## Program
 
+::: {.fragment}
+
 **Day 1**
 
-  - Part 1. Introduction to R
-  - *Lunch*
-  - Part 2. Working with vector data in R
+  - 09:00-09:15 Introduction
+  - 09:15-12:15 Part 1. **Introduction to R** (incl. 1 break)
+  - 12:15-13:00 Lunch
+  - 13:00-16:40 Part 2. **Working with vector data in R** (incl. 1 break)
+  - 16:40-17:00 Closing & feedback
+
+:::
+
+::: {.fragment}
 
 **Day 2**
 
-  - Part 3. Working with raster data in R
-  - *Lunch*
-  - Part 4: Working with OSM data and GIS in R
+  - 09:00-09:10 Opening
+  - 09:10-12:15 Part 3. **Working with raster data in R** (incl. 1 break)
+  - 12:15-13:00 Lunch
+  - 13:00-16:40 Part 4: **Working with OSM data and GIS in R** (incl. 1 break)
+  - 16:40-17:00 Closing & feedback
+  - 17:00 Drinks
+  
+:::
 
 ## How do we work?
 
-- Code along + livecode
+::: {.incremental}
 
-- Helpers
+- **Code along** with the instructor.
 
-- Sticky notes
+- With **🟩 <font color="green">green</font> and 🟥 <font color="red">red</font> sticky notes** you indicate that you 🟩 <font color="green">are</font> or 🟥 <font color="red">are not</font> on track when prompted by the instructor. 
+
+- When you are stuck, **put a 🟥 <font color="red">red</font> sticky note on the back of your screen** and a helper will approach you.
+
+- **Copy & paste code from the [livecode repository](https://edu.nl/nrd7v)** if you are behind and need to catch up.
+
+:::
 
 ## Code of conduct
 
@@ -124,7 +148,7 @@ If you believe someone is violating the [Code of Conduct](https://docs.carpentri
 
 - **Photos and videos will be taken** - indicate your consent to be photographed or filmed on your wearable name tag (green = YES, red = NO) or simply let us know if you prefer not to display your choice.
 
-- **Ph.D. candidates receive 1,5 GS credits** if they attend the entire workshop - attendance forms will be handed out at the end of Day 2.
+- **Ph.D. candidates receive 1,5 GS credits** if they attend and actively participate in the entire workshop - attendance forms will be handed out at the end of Day 2.
 
 - **Lunch** (both days), **coffee/tea** (breaks) and **drinks** (end of day 2) will be provided.
 
