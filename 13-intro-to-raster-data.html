@@ -737,7 +737,7 @@ what meanings they have.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p><code>+units=m</code> in the output of the code above tells us that
 our data is in meters (m).</p>
@@ -836,7 +836,7 @@ haven’t been calculated. We can calculate them using the
 been working with is a single band raster. This means that there is only
 one dataset stored in the raster: surface elevation in meters for one
 time period.</p>
-<figure><img src="https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/single_multi_raster.png" class="figure mx-auto d-block"></figure><p>A raster dataset can contain one or more bands. We can view the
+<figure><img src="https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/single_multi_raster.png" alt="" class="figure mx-auto d-block"><figcaption>Single- and multi-band raster</figcaption></figure><p>A raster dataset can contain one or more bands. We can view the
 number of bands in a raster using the <code>nlyr()</code> function.</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -852,7 +852,7 @@ number of bands in a raster using the <code>nlyr()</code> function.</p>
 <p>This dataset has only 1 band. However, raster data can also be
 multi-band, meaning that one raster file contains data for more than one
 variable or time period for each cell. We will discuss multi-band raster
-data in a <a href="..episodes/17-work-with-multi-band-rasters.html">later
+data in a <a href="17-work-with-multi-band-rasters.html">later
 episode</a>.</p>
 </section><section id="creating-a-histogram-of-raster-values"><h2 class="section-heading">Creating a histogram of raster values<a class="anchor" aria-label="anchor" href="#creating-a-histogram-of-raster-values"></a>
 </h2>
@@ -920,7 +920,7 @@ with Multi-band Rasters in R</a> episode.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
