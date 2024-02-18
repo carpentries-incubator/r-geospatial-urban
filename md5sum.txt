@@ -23,6 +23,6 @@
 "episodes/19-basic-gis-with-r-sf.Rmd" "cd4fe4050b67f46536fe61b3b72a43c2" "site/built/19-basic-gis-with-r-sf.md" "2024-02-18"
 "instructors/instructor-notes.md" "cae72b6712578d74a49fea7513099f8c" "site/built/instructor-notes.md" "2024-02-18"
 "learners/reference.md" "1c7cc4e229304d9806a13f69ca1b8ba4" "site/built/reference.md" "2024-02-18"
-"learners/setup.md" "8a7b12296a505cf374f58cef72102332" "site/built/setup.md" "2024-02-18"
+"learners/setup.md" "dea81100282d7460d6534bcb721c6982" "site/built/setup.md" "2024-02-18"
 "profiles/learner-profiles.md" "60b93493cf1da06dfd63255d73854461" "site/built/learner-profiles.md" "2024-02-18"
 "renv/profiles/lesson-requirements/renv.lock" "01c7414e737d3e461dc7c27b027a70ae" "site/built/renv.lock" "2024-02-18"

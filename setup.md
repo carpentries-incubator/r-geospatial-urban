@@ -51,7 +51,7 @@ Install the geospatial libraries individually using [homebrew](https://brew.sh).
 $ brew tap osgeo/osgeo4mac && brew tap --repair
 $ brew install proj
 $ brew install geos
-$ brew install gdal2
+$ brew install gdal
 ```
 :::::::::::::::::::::::::
 
