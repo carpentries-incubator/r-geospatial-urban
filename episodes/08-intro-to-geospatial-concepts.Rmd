@@ -7,15 +7,15 @@ author: 'Ana Petrović'
 
 ::: questions
 
--   How do you describe the location of a geographic feature on the surface of the earth?
--   How do you describe different types of CRS? 
--   How do you decide on what CRS to use?
+-   How do I describe the location of a geographic feature on the surface of the earth?
+-   What is coordinate reference system (CRS) and how do I describe different types of CRS?
+-   How do I decide on what CRS to use?  
 
 :::
 
 ::: objectives
 
--   Identify the CRS that is best fit for a specific analytical question.
+-   Identify the CRS that is best fit for a specific research question.
 
 :::
 
@@ -75,11 +75,14 @@ In this workshop, we use two CRS shown in @tbl-crs.
 
 |                | WGS 84 (EPSG:4326)                                       | Amersfoort / RD New (EPSG:28992)                |
 |-----------------|----------------------------|----------------------------|
-| Properties | Dynamic (relies on a datum which is not plate-fixed)<br>Celestial body: Earth<br>Prime meridian: Greenwich | Static (relies on a datum which is plate-fixed)<br>Ellipsoid: Bessel 1841                                                 |
+| Definition | Dynamic (relies on a datum which is not plate-fixed) | Static (relies on a datum which is plate-fixed)         |
+| Celestial body | Earth | Earth |
+| Ellipsoid | WGS-84 | Bessel 1841 |
+| Prime meridian | International Reference Meridian | Greenwich |
 | Datum          | World Geodetic System 1984 ensemble                      | Amersfoort                                      |
 | Projection     | Geographic (uses latitude and longitude for coordinates) | Projected (uses meters for coordinates)         |
 | Method         | Lat/long (Geodetic alias)                                | Oblique Stereographic Alternative               |
-| Units          | degrees                                                  | meters                                          |
+| Units          | Degrees                                                  | Meters                                          |
 
 
 : Main properties of WGS 84 and Amersfoort / RD New coordinate reference systems {#tbl-crs}
@@ -171,6 +174,7 @@ Correct answer: b. EPSG:28992
 
 -   Each location on the Earth has its geographical latitude and longitude, which can be transformed on a plane using a map projection.
 
--   Depending on the research question, we need a global or local CRS suitable properties.
+-   Depending on the research question, we need a global, regional, or local CRS suitable properties.
+
  
 :::
