@@ -48,7 +48,7 @@ After completing this episode, participants should be able to…
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-# [Exploring Data frames](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html)
+# Exploring Data frames
 
 Now we turn to the bread-and-butter of working with `R`: working with tabular data. In `R` data are stored in a data structure called **data frames**.  
 
@@ -116,7 +116,7 @@ head(country_vec)
 Note that the calling a column with a `$` sign will return a *vector*, it's not a data frame anymore.
 
 
-# [Data frame Manipulation with dplyr](https://datacarpentry.org/r-intro-geospatial/06-dplyr/index.html) 
+# Data frame Manipulation with dplyr
 
 ## Select
 Let's start manipulating the data. 

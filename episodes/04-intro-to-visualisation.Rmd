@@ -46,7 +46,7 @@ After completing this episode, participants should be able to…
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-# [Introduction to Visualisation](https://datacarpentry.org/r-intro-geospatial/07-plot-ggplot2/index.html)
+# Introduction to Visualisation
 
 The package `ggplot2` is a powerful plotting system. We will start with an introduction of key
 features of `ggplot2`. In the following parts of this workshop, you will
@@ -186,7 +186,7 @@ p <-
 p
 ```
 
-# [Writing data](https://datacarpentry.org/r-intro-geospatial/08-writing-data/index.html)
+# Writing data
 
 ## Saving the plot
 
