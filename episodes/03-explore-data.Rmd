@@ -59,7 +59,7 @@ Because columns are vectors, each column must contain a **single type of data** 
 For example, here is a figure depicting a data frame comprising a numeric, a character, and a logical vector.
 
 ![](fig/data-frame.svg)
-<br><font size="3">*Source*:[Data Carpentry R for Social Scientists ](https://datacarpentry.org/r-socialsci/02-starting-with-data/index.html#what-are-data-frames-and-tibbles)</font>
+<br><font size="3">*Source*: [Data Carpentry R for Social Scientists ](https://datacarpentry.org/r-socialsci/02-starting-with-data/index.html#what-are-data-frames-and-tibbles)</font>
 
 
 ## Reading data
@@ -68,7 +68,7 @@ For example, here is a figure depicting a data frame comprising a numeric, a cha
 We're gonna read in the `gapminder` data set with information about countries' size, GDP and average life expectancy in different years.
 
 ```{r reading-data}
-gapminder <- read_csv("data/gapminder_data.csv")
+gapminder <- read.csv("data/gapminder_data.csv")
 
 ```
 
@@ -92,9 +92,11 @@ There are multiple ways to explore a data set. Here are just a few examples:
 
 
 ```{r}
-head(gapminder) # see first 6  rows of the data set
 
-summary(gapminder) # gives basic statistical information about each column. Information format differes by data type.
+head(gapminder) # shows first 6  rows of the data set
+
+summary(gapminder) # basic statistical information about each column. 
+# Information format differes by data type.
 
 nrow(gapminder) # returns number of rows in a dataset
 
@@ -108,7 +110,9 @@ When you're analyzing a data set, you often need to access its specific columns.
 
 One handy way to access a column is using it's name and a dollar sign `$`: 
 ```{r subset-dollar-sign}
-country_vec <- gapminder$country  # Notation means: From dataset gapminder, give me column country. You can see that the column accessed in this way is just a vector of characters. 
+# This notation means: From dataset gapminder, give me column country. You can 
+# see that the column accessed in this way is just a vector of characters. 
+country_vec <- gapminder$country 
 
 head(country_vec)
 
@@ -157,8 +161,9 @@ We already know how to select only the needed columns. But now, we also want to 
 In the `gapminder` data set, we want to see the results from outside of Europe for the 21st century. 
 ```{r}
 year_country_gdp_euro <- gapminder %>% 
-  filter(continent != "Europe" & year >= 2000) %>% # & operator (AND) - both conditions must be met
+  filter(continent != "Europe" & year >= 2000) %>% 
   select(year, country, gdpPercap)
+# '&' operator (AND) - both conditions must be met
 
 head(year_country_gdp_euro)
 ```
@@ -177,8 +182,9 @@ Write a single command (which can span multiple lines and includes pipes) that w
 
 ```{r ex5, class.source="bg-info"}
 year_country_gdp_eurasia <- gapminder %>% 
-  filter(continent == "Europe" | continent == "Asia") %>% # | operator (OR) - one of the conditions must be met
-  select(year, country, gdpPercap)
+  filter(continent == "Europe" | continent == "Asia") %>% 
+  select(year, country, gdpPercap) 
+# '|' operator (OR) - one of the conditions must be met
 
 nrow(year_country_gdp_eurasia)
 ``` 
@@ -191,7 +197,7 @@ So far, we have provided summary statistics on the whole dataset, selected colum
 ```{r dplyr-group}
 gapminder %>% # select the dataset
   group_by(continent) %>% # group by continent
-  summarize(avg_gdpPercap = mean(gdpPercap)) # summarize function creates statistics for the data set 
+  summarize(avg_gdpPercap = mean(gdpPercap)) # create basic stats
 
 ```
 
@@ -211,7 +217,8 @@ Calculate the average life expectancy per country. Which country has the longest
 gapminder %>%
    group_by(country) %>%
    summarize(avg_lifeExp=mean(lifeExp)) %>%
-   filter(avg_lifeExp == min(avg_lifeExp) | avg_lifeExp == max(avg_lifeExp))
+   filter(avg_lifeExp == min(avg_lifeExp) | 
+            avg_lifeExp == max(avg_lifeExp) )
 ```
 
 ### Multiple groups and summary variables
