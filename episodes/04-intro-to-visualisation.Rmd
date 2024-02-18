@@ -68,10 +68,11 @@ Now, lets plot the distribution of life expectancy in the `gapminder` dataset:
 
 ```{r ggplot}
 
-ggplot(data = gapminder,  # data
-  aes(x = lifeExp) # aesthetics layer 
-  ) +  
-geom_histogram() # geometry layer
+ggplot(
+  data = gapminder, # data
+  aes(x = lifeExp) # aesthetics layer
+) +
+  geom_histogram() # geometry layer
 
 ```
 
@@ -83,22 +84,24 @@ already learned: `%>%` ( or `|>`) and follow them by ggplot syntax.
 Let's create another plot, this time only on a subset of observations:
 
 ```{r ggplot-col}
-gapminder %>%  # we select a data set
-  filter(year == 2007 & continent == 'Americas') %>%  # filter to keep one year and one continent
-  ggplot(aes(x = country, y = gdpPercap)) +  # the x and y axes represent values of columns
-    geom_col()  # we select a column graph as a geometry
+gapminder %>% # we select a data set
+  filter(year == 2007 & continent == "Americas") %>% # filter to keep one year and one continent
+  ggplot(aes(x = country, y = gdpPercap)) + # the x and y axes represent values of columns
+  geom_col() # we select a column graph as a geometry
 ```
 
 Now, you can iteratively improve how the plot looks like. For example,
 you might want to flip it, to better display the labels.
 
 ```{r ggplot-coord-flip}
-gapminder %>%  
-  filter(year == 2007, 
-         continent == 'Americas') %>% 
-  ggplot(aes(x = country, y = gdpPercap)) + 
-  geom_col() + 
-  coord_flip()  # flip axes
+gapminder %>%
+  filter(
+    year == 2007,
+    continent == "Americas"
+  ) %>%
+  ggplot(aes(x = country, y = gdpPercap)) +
+  geom_col() +
+  coord_flip() # flip axes
 ```
 
 One thing you might want to change here is the order in which countries
@@ -110,11 +113,13 @@ Now the order of the levels will depend on another variable - GDP per
 capita.
 
 ```{r ggplot-color}
-gapminder %>%  
-  filter(year == 2007, 
-         continent == 'Americas') %>% 
-  mutate(country = fct_reorder(country, gdpPercap )) %>%  # reorder factor levels
-  ggplot(aes(x = country , y = gdpPercap)) + 
+gapminder %>%
+  filter(
+    year == 2007,
+    continent == "Americas"
+  ) %>%
+  mutate(country = fct_reorder(country, gdpPercap)) %>% # reorder factor levels
+  ggplot(aes(x = country, y = gdpPercap)) +
   geom_col() +
   coord_flip()
 
@@ -124,16 +129,18 @@ Let's make things more colourful - let's represent the average life
 expectancy of a country by colour
 
 ```{r ggplot-colors}
-gapminder %>%  
-  filter(year == 2007, 
-         continent == 'Americas') %>% 
-  mutate(country = fct_reorder(country, gdpPercap )) %>%
+gapminder %>%
+  filter(
+    year == 2007,
+    continent == "Americas"
+  ) %>%
+  mutate(country = fct_reorder(country, gdpPercap)) %>%
   ggplot(aes(
-    x = country, 
-    y = gdpPercap, 
+    x = country,
+    y = gdpPercap,
     fill = lifeExp # use 'fill' for surfaces; 'colour' for points and lines
   )) +
-  geom_col() + 
+  geom_col() +
   coord_flip()
 
 ```
@@ -143,14 +150,16 @@ readability and colorblind-proofness are the palettes available in the
 `viridis` package.
 
 ```{r ggplot-colors-adapt}
-gapminder %>%  
-  filter(year == 2007, 
-         continent == 'Americas') %>% 
+gapminder %>%
+  filter(
+    year == 2007,
+    continent == "Americas"
+  ) %>%
   mutate(country = fct_reorder(country, gdpPercap)) %>%
-  ggplot(aes(x = country, y = gdpPercap, fill = lifeExp)) + 
-    geom_col() + 
-    coord_flip() +
-    scale_fill_viridis_c()  # _c stands for continuous scale
+  ggplot(aes(x = country, y = gdpPercap, fill = lifeExp)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_viridis_c() # _c stands for continuous scale
 
 ```
 
@@ -158,23 +167,27 @@ Maybe we don't need that much information about the life expectancy. We
 only want to know if it's below or above average. We will make use of the `if_else()` function inside `mutate()` to create a new column `lifeExpCat` with the value `high` if life expectancy is above average and `low` otherwise. Note the usage of the `if_else()` function: `if_else(<condition>, <value if TRUE>, <value if FALSE>)`.
 
 ```{r ggplot-colors-discrete}
-p <-  # this time let's save the plot in an object
-  gapminder %>%  
-  filter(year == 2007 & 
-         continent == 'Americas') %>% 
-  mutate(country = fct_reorder(country, gdpPercap),
-         lifeExpCat = if_else(
-           lifeExp >= mean(lifeExp), 
-           'high', 
-           'low')) %>%
-  ggplot(aes(x = country, y = gdpPercap, fill = lifeExpCat)) + 
-  geom_col() + 
+p <- # this time let's save the plot in an object
+  gapminder %>%
+  filter(year == 2007 &
+    continent == "Americas") %>%
+  mutate(
+    country = fct_reorder(country, gdpPercap),
+    lifeExpCat = if_else(
+      lifeExp >= mean(lifeExp),
+      "high",
+      "low"
+    )
+  ) %>%
+  ggplot(aes(x = country, y = gdpPercap, fill = lifeExpCat)) +
+  geom_col() +
   coord_flip() +
-  scale_fill_manual(values = c(
-    'light blue', 
-    'orange'
+  scale_fill_manual(
+    values = c(
+      "light blue",
+      "orange"
     ) # customize the colors
-  )  
+  )
 
 ```
 
@@ -193,9 +206,9 @@ Let's also give it a title and name the axes:
 
 ```{r ggplot-titles}
 p <- p +
-  ggtitle('GDP per capita in Americas', subtitle = 'Year 2007') +
-  xlab('Country')+
-  ylab('GDP per capita')
+  ggtitle("GDP per capita in Americas", subtitle = "Year 2007") +
+  xlab("Country") +
+  ylab("GDP per capita")
 
 # show plot
 p
@@ -209,10 +222,11 @@ Once we are happy with our plot we can save it in a format of our
 choice. Remember to save it in the dedicated folder.
 
 ```{r save-plot, eval=FALSE}
-ggsave(plot = p, 
-       filename = here('fig_output','plot_americas_2007.pdf')
-      )  
-# By default, ggsave() saves the last displayed plot, but 
+ggsave(
+  plot = p,
+  filename = here("fig_output", "plot_americas_2007.pdf")
+)
+# By default, ggsave() saves the last displayed plot, but
 # you can also explicitly name the plot you want to save
 
 ```
@@ -240,15 +254,16 @@ save the data only for Americas:
 
 ```{r writing-data, eval=FALSE}
 gapminder_amr_2007 <- gapminder %>%
-  filter(year == 2007 & continent == 'Americas') %>%
-  mutate(country_reordered = fct_reorder(country, gdpPercap), 
-         lifeExpCat = if_else(lifeExp >= mean(lifeExp), 'high', 'low')
-        )
+  filter(year == 2007 & continent == "Americas") %>%
+  mutate(
+    country_reordered = fct_reorder(country, gdpPercap),
+    lifeExpCat = if_else(lifeExp >= mean(lifeExp), "high", "low")
+  )
 
-write.csv(gapminder_amr_2007, 
-          here('data_output', 'gapminder_americas_2007.csv'), 
-          row.names=FALSE
-         )
+write.csv(gapminder_amr_2007,
+  here("data_output", "gapminder_americas_2007.csv"),
+  row.names = FALSE
+)
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
