@@ -1,5 +1,5 @@
 ---
-title: "Intro to Geospatial Vector Data with R"
+title: "Introduction to Geospatial Vector Data with R"
 author: 
   - "Ana Petrović"
   - "Claudiu Forgaci"
@@ -7,7 +7,7 @@ format:
   revealjs:
     # logo: assets/img/TUDelft_logo_rgb.png
     # css: logo.css
-    footer: "Geospatial Data Carpentry for Urbanism"
+    # footer: "Geospatial Data Carpentry for Urbanism"
     chalkboard: true
     incremental: true   
     theme: [default, custom.scss]
@@ -46,7 +46,161 @@ knitr::opts_chunk$set(
 ```
 
 
-# Intro to Geospatial Concepts
+# Introduction to Geospatial Concepts
+
+## The shape of the Earth
+
+![Source: UN Statistics Division and International Cartographic Association (2012)](https://unstats.un.org/unsd/geoinfo/ungegn/docs/_data_icacourses/_ImagesModules/_selfstudy/S06_images/S06_03_a00.jpg)
+
+## Geographical latitude and longitude
+
+:::: {.columns}
+
+::: {.column width="50%" .nonincremental}
+
+- **Meridians** – vertical circles with constant longitude, **_great circles_**
+
+- **Parallels** – horizontal circles with constant latitude, **_small circles_**
+
+:::
+
+::: {.column width="50%"}
+
+![Source: van der Marel (2014)](fig/latlon.png)
+
+:::
+
+::::
+
+## Map projection: From the 3D Earth to a 2D map
+
+:::: {.columns}
+
+::: {.column width="50%" .nonincremental}
+
+**Map projection** is a systematic transformation of the latitudes and longitudes of locations on the surface of an ellipsoid into locations on a plane.
+
+:::
+
+::: {.column width="50%"}
+
+![Source: Data Carpentry (2023)](https://datacarpentry.org/organization-geospatial/fig/orange-peel-earth.jpg)
+
+:::
+
+::::
+
+
+## Different map projections for different purposes
+
+:::::: {.rows}
+
+::::: {.row}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![Source: Knippers (2009)](https://kartoweb.itc.nl/geometrics/Bitmaps/Intro%201.9a.gif){width=100%}
+
+:::
+
+::: {.column width="50%" .nonincremental}
+
+Each map projection introduces a **distortion** in geometrical elements – **distance**, **angle**, and **area**.
+
+:::
+
+::::
+
+:::::
+
+::::: {.row .fragment}
+
+| To best preserve … | use projections which are … |
+|---|---|
+| angles between any two curves | conformal |
+| area or scale | equal-area (equivalent) |
+| distances | equal-distance (conventional) |
+
+:::::
+
+::::::
+
+## Coordinate reference systems (CRS) {}
+
+:::: {.columns}
+
+::: {.column width="50%" .nonincremental .fragment}
+
+**A coordinate reference system (CRS)** is a coordinate-based local, regional or global system for locating geographical entities, which uses a specific map projection.
+
+Each CRS has a unique **EPSG code**. 
+
+:::
+
+::: {.column width="50%" .nonincremental .fragment style="font-size: 100%;"}
+
+**Most used CRS in the Netherlands**:  
+
+- World Geodetic System 1984 (WGS84) – EPSG:4326
+- European Terrestrial Reference System 1989 (ETRS89) – EPSG:4258
+- Amersfoort / RD New – EPSG:28992
+
+:::
+
+::::
+
+## The main parameters of each CRS 
+
+- **Datum**: model of the shape of the Earth – how a coordinate system is linked to the Earth, e.g. where (0,0) is (units of measure: degrees) 
+
+- **Projection**: transformation of degrees to linear units (e.g. meters) on a flat surface
+
+- **Additional parameters**, such as a definition of the centre of the map
+
+## We will use these two CRS
+
+::: {style="font-size: 66%;"}
+
+|                | WGS 84 (EPSG:4326)                                       | Amersfoort / RD New (EPSG:28992)                |
+|-----------------|----------------------------|----------------------------|
+| Definition | Dynamic (relies on a datum which is not plate-fixed) | Static (relies on a datum which is plate-fixed)         |
+| Celestial body | Earth | Earth |
+| Ellipsoid | WGS-84 | Bessel 1841 |
+| Prime meridian | International Reference Meridian | Greenwich |
+| Datum          | World Geodetic System 1984 ensemble                      | Amersfoort                                      |
+| Projection     | Geographic (uses latitude and longitude for coordinates) | Projected (uses meters for coordinates)         |
+| Method         | Lat/long (Geodetic alias)                                | Oblique Stereographic Alternative               |
+| Units          | Degrees                                                  | Meters                                          |
+
+:::
+
+## Rotterdam in these two CRS
+
+<br><br>
+
+![](fig/rotterdam-crs.png)
+
+## Map scale
+
+**Map scale** measures the ratio between distance on a map and the corresponding distance on the ground. 
+
+::: {.fragment}
+On a 1:100 000 scale map, 1cm equals 1km (100 000 cm) on the ground. 
+:::
+
+::: {.fragment style="font-size: 100%;"}
+
+It can be expressed as:
+
+|||
+|---|----------| 
+|Verbal: | 1 centimetre represents 250 meters |
+|Fraction: | 1:25000 |
+|Graphic: | ![](fig/scalebar.png){width=75%} |
+
+:::
 
 # Geospatial Vector Data in R
 
