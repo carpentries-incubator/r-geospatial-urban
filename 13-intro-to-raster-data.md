@@ -323,7 +323,7 @@ We can see that the elevation at our site ranges from `-5.39069`m to `92.08102`m
 
 The Digital Surface Model object (`DSM_TUD`) that we’ve been working with is a single band raster. This means that there is only one dataset stored in the raster: surface elevation in meters for one time period.
 
-![](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/single_multi_raster.png)
+![Single- and multi-band raster](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/single_multi_raster.png)
 
 
 
@@ -337,7 +337,7 @@ nlyr(DSM_TUD)
 ```{.output}
 [1] 1
 ```
-This dataset has only 1 band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode](..episodes/17-work-with-multi-band-rasters.Rmd).
+This dataset has only 1 band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode](../episodes/17-work-with-multi-band-rasters.Rmd).
 
 
 
