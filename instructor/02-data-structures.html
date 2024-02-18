@@ -461,7 +461,8 @@ vector data types. More about vector data in a <a href="09-open-and-plot-vector-
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">numeric_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">6</span>, <span class="fl">3</span><span class="op">)</span> <span class="co"># vector of numbers - numeric data type.</span></span>
+<code class="sourceCode R"><span><span class="co"># vector of numbers - numeric data type.</span></span>
+<span><span class="va">numeric_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">6</span>, <span class="fl">3</span><span class="op">)</span> </span>
 <span><span class="va">numeric_vector</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -473,7 +474,8 @@ vector data types. More about vector data in a <a href="09-open-and-plot-vector-
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">character_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'banana'</span>, <span class="st">'apple'</span>, <span class="st">'orange'</span><span class="op">)</span> <span class="co"># vector of words - or strings of characters- character data type</span></span>
+<code class="sourceCode R"><span><span class="co"># vector of words - or strings of characters- character data type</span></span>
+<span><span class="va">character_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'banana'</span>, <span class="st">'apple'</span>, <span class="st">'orange'</span><span class="op">)</span> </span>
 <span><span class="va">character_vector</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -485,7 +487,8 @@ vector data types. More about vector data in a <a href="09-open-and-plot-vector-
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">logical_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># vector of logical values (is something true or false?)- logical data type.</span></span>
+<code class="sourceCode R"><span><span class="co"># vector of logical values (is something true or false?)- logical data type.</span></span>
+<span><span class="va">logical_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span> </span>
 <span><span class="va">logical_vector</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -580,7 +583,9 @@ it:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">mean</span><span class="op">(</span><span class="va">with_na</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="co"># You can add the argument na.rm=TRUE to calculate the result while ignoring the missing values.</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># You can add the argument na.rm=TRUE to calculate the result while</span></span>
+<span><span class="co"># ignoring the missing values.</span></span>
+<span><span class="fu">mean</span><span class="op">(</span><span class="va">with_na</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> </span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -595,7 +600,7 @@ which elements of the vector hold missing values with
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span> <span class="co">#  This will produce a vector of logical values, stating if a statement 'This element of the vector is a missing value' is true or not</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span> <span class="co"># This will produce a vector of logical values, </span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -606,7 +611,10 @@ which elements of the vector hold missing values with
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span> <span class="co"># # The ! operator means negation ,i.e. not is.na(with_na)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># stating if a statement 'This element of the vector is a missing value'</span></span>
+<span><span class="co"># is true or not</span></span>
+<span></span>
+<span><span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span> <span class="co"># The ! operator means negation, i.e. not is.na(with_na)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -621,7 +629,8 @@ brackets<code>[ ]</code>.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">without_na</span> <span class="op">&lt;-</span> <span class="va">with_na</span><span class="op">[</span> <span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span> <span class="op">]</span> <span class="co"># this notation will return only the elements that have TRUE on their respective positions</span></span>
+<code class="sourceCode R"><span><span class="va">without_na</span> <span class="op">&lt;-</span> <span class="va">with_na</span><span class="op">[</span> <span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span> <span class="op">]</span> <span class="co"># this notation will return only</span></span>
+<span><span class="co"># the elements that have TRUE on their respective positions</span></span>
 <span></span>
 <span><span class="va">without_na</span></span></code></pre>
 </div>
@@ -663,7 +672,8 @@ known as levels.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nordic_cat</span> <span class="op">&lt;-</span> <span class="fu">factor</span><span class="op">(</span><span class="va">nordic_str</span><span class="op">)</span> <span class="co"># factor() function converts a vector to factor data type</span></span>
+<code class="sourceCode R"><span><span class="co"># factor() function converts a vector to factor data type</span></span>
+<span><span class="va">nordic_cat</span> <span class="op">&lt;-</span> <span class="fu">factor</span><span class="op">(</span><span class="va">nordic_str</span><span class="op">)</span></span>
 <span><span class="va">nordic_cat</span> <span class="co"># With factors, R prints out additional information - 'Levels'</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -722,8 +732,14 @@ alphabetical order).</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nordic_cat</span> <span class="op">&lt;-</span> <span class="fu">factor</span><span class="op">(</span><span class="va">nordic_cat</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'Norway'</span> , <span class="st">'Denmark'</span>, <span class="st">'Sweden'</span><span class="op">)</span><span class="op">)</span>  <span class="co"># now Norway should be the first category, Denmark second and Sweden third</span></span>
+<code class="sourceCode R"><span><span class="va">nordic_cat</span> <span class="op">&lt;-</span> <span class="fu">factor</span><span class="op">(</span></span>
+<span>  <span class="va">nordic_cat</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span></span>
+<span>    <span class="st">'Norway'</span>, </span>
+<span>    <span class="st">'Denmark'</span>, </span>
+<span>    <span class="st">'Sweden'</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> </span>
 <span></span>
+<span><span class="co"># now Norway will be the first category, Denmark second and Sweden third</span></span>
 <span><span class="va">nordic_cat</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -747,7 +763,15 @@ we will use <code>fct_relevel()</code> function from
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># nordic_cat &lt;- fct_relevel(nordic_cat, 'Norway' , 'Denmark', 'Sweden') # now Norway should be the first category, Denmark second and Sweden third</span></span>
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">forcats</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">nordic_cat</span> <span class="op">&lt;-</span> <span class="fu">fct_relevel</span><span class="op">(</span></span>
+<span>  <span class="va">nordic_cat</span>, </span>
+<span>  <span class="st">'Norway'</span> , </span>
+<span>  <span class="st">'Denmark'</span>, </span>
+<span>  <span class="st">'Sweden'</span></span>
+<span>  <span class="op">)</span> <span class="co"># With this, Norway will be  first category, </span></span>
+<span>    <span class="co"># Denmark second and Sweden third</span></span>
 <span></span>
 <span><span class="va">nordic_cat</span></span></code></pre>
 </div>
@@ -802,8 +826,14 @@ unknown/missing value detonated by <code>R</code> as
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nordic_cat2</span> <span class="op">&lt;-</span> <span class="fu">factor</span><span class="op">(</span><span class="va">nordic_str</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'Norway'</span>, <span class="st">'Denmark'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">nordic_cat2</span> <span class="co"># since we have not included Sweden in the list of factor levels, it has become NA.</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">nordic_cat2</span> <span class="op">&lt;-</span> <span class="fu">factor</span><span class="op">(</span></span>
+<span>  <span class="va">nordic_str</span>, </span>
+<span>  levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'Norway'</span>, <span class="st">'Denmark'</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># because we did not include Sweden in the list of </span></span>
+<span><span class="co"># factor levels, it has become NA.</span></span>
+<span><span class="va">nordic_cat2</span> </span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
