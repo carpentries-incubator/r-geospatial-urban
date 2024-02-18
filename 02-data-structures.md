@@ -65,7 +65,8 @@ You can create a vector with a `c()` function.
 
 
 ```r
-numeric_vector <- c(2, 6, 3) # vector of numbers - numeric data type.
+# vector of numbers - numeric data type.
+numeric_vector <- c(2, 6, 3) 
 numeric_vector
 ```
 
@@ -74,7 +75,8 @@ numeric_vector
 ```
 
 ```r
-character_vector <- c('banana', 'apple', 'orange') # vector of words - or strings of characters- character data type
+# vector of words - or strings of characters- character data type
+character_vector <- c('banana', 'apple', 'orange') 
 character_vector
 ```
 
@@ -83,7 +85,8 @@ character_vector
 ```
 
 ```r
-logical_vector <- c(TRUE, FALSE, TRUE) # vector of logical values (is something true or false?)- logical data type.
+# vector of logical values (is something true or false?)- logical data type.
+logical_vector <- c(TRUE, FALSE, TRUE) 
 logical_vector
 ```
 
@@ -153,7 +156,9 @@ mean(with_na) # mean() function cannot interpret the missing values
 ```
 
 ```r
-mean(with_na, na.rm = T) # You can add the argument na.rm=TRUE to calculate the result while ignoring the missing values.
+# You can add the argument na.rm=TRUE to calculate the result while
+# ignoring the missing values.
+mean(with_na, na.rm = T) 
 ```
 
 ```{.output}
@@ -167,7 +172,7 @@ with `is.na()` function.
 
 
 ```r
-is.na(with_na) #  This will produce a vector of logical values, stating if a statement 'This element of the vector is a missing value' is true or not
+is.na(with_na) # This will produce a vector of logical values, 
 ```
 
 ```{.output}
@@ -175,7 +180,10 @@ is.na(with_na) #  This will produce a vector of logical values, stating if a sta
 ```
 
 ```r
-!is.na(with_na) # # The ! operator means negation ,i.e. not is.na(with_na)
+# stating if a statement 'This element of the vector is a missing value'
+# is true or not
+
+!is.na(with_na) # The ! operator means negation, i.e. not is.na(with_na)
 ```
 
 ```{.output}
@@ -188,7 +196,8 @@ Sub-setting in `R` is done with square brackets`[ ]`.
 
 
 ```r
-without_na <- with_na[ !is.na(with_na) ] # this notation will return only the elements that have TRUE on their respective positions
+without_na <- with_na[ !is.na(with_na) ] # this notation will return only
+# the elements that have TRUE on their respective positions
 
 without_na
 ```
@@ -225,7 +234,8 @@ nordic_str # regular character vectors printed out
 ```
 
 ```r
-nordic_cat <- factor(nordic_str) # factor() function converts a vector to factor data type
+# factor() function converts a vector to factor data type
+nordic_cat <- factor(nordic_str)
 nordic_cat # With factors, R prints out additional information - 'Levels'
 ```
 
@@ -272,8 +282,14 @@ You can reorder the categories using `factor()` function. This can be useful, fo
 
 
 ```r
-nordic_cat <- factor(nordic_cat, levels = c('Norway' , 'Denmark', 'Sweden'))  # now Norway should be the first category, Denmark second and Sweden third
+nordic_cat <- factor(
+  nordic_cat, levels = c(
+    'Norway', 
+    'Denmark', 
+    'Sweden'
+  )) 
 
+# now Norway will be the first category, Denmark second and Sweden third
 nordic_cat
 ```
 
@@ -289,7 +305,15 @@ we will use `fct_relevel()` function from `forcats` package to do the reordering
 
 
 ```r
-# nordic_cat <- fct_relevel(nordic_cat, 'Norway' , 'Denmark', 'Sweden') # now Norway should be the first category, Denmark second and Sweden third
+library(forcats)
+
+nordic_cat <- fct_relevel(
+  nordic_cat, 
+  'Norway' , 
+  'Denmark', 
+  'Sweden'
+  ) # With this, Norway will be  first category, 
+    # Denmark second and Sweden third
 
 nordic_cat
 ```
@@ -334,8 +358,14 @@ nordic_str
 ```
 
 ```r
-nordic_cat2 <- factor(nordic_str, levels = c('Norway', 'Denmark'))
-nordic_cat2 # since we have not included Sweden in the list of factor levels, it has become NA.
+nordic_cat2 <- factor(
+  nordic_str, 
+  levels = c('Norway', 'Denmark')
+  )
+
+# because we did not include Sweden in the list of 
+# factor levels, it has become NA.
+nordic_cat2 
 ```
 
 ```{.output}

@@ -217,7 +217,7 @@ We can increase the number of rows with the n argument (e.g., `head(n = 10)` to 
 
 
 ```r
-head(point_Delft, 10)  # you might be lucky to see three distinct values
+head(point_Delft, 10)  
 ```
 
 ```{.output}
@@ -240,7 +240,7 @@ Projected CRS: Amersfoort / RD New
 ```
 
 ```r
-# point_Delft
+# you might be lucky to see three distinct values
 ```
 
 We have our answer (`sports_centre` is the third value), but in general this is not a good approach as the first rows might still have many `NA`s and three distinct values might still not be present in the first `n` rows of the data frame. To remove `NA`s, we can use the function `na.omit()` on the leisure column to remove `NA`s completely. Note that we use the `$` operator to examine the content of a single variable.
@@ -259,11 +259,15 @@ To show only unique values, we can use the `levels()` function on a factor to on
 
 
 ```r
-head(levels(factor(point_Delft$leisure)), n = 3)   # this is even better
+head(levels(factor(point_Delft$leisure)), n = 3)   
 ```
 
 ```{.output}
 [1] "dance"       "dog_park"    "escape_game"
+```
+
+```r
+# this is even better
 ```
 
 3. To see a list of all attribute names, we can use the `names()` function.
@@ -338,7 +342,9 @@ Now we can plot only the cycleways.
 ```r
 ggplot(data = cycleway_Delft) +
   geom_sf() +
-  labs(title = "Slow mobility network in Delft", subtitle = "Cycleways") +
+  labs(title = "Slow mobility network in Delft", 
+       subtitle = "Cycleways"
+      ) +
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -433,7 +439,9 @@ nrow(motorway_Delft)
 ```r
 ggplot(data = motorway_Delft) + 
   geom_sf(linewidth = 1.5) +
-  labs(title = "Fast mobility network", subtitle = "Motorways") + 
+  labs(title = "Fast mobility network", 
+       subtitle = "Motorways"
+       ) + 
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -474,7 +482,9 @@ nrow(pedestrian_Delft)
 ```r
 ggplot() +
   geom_sf(data = pedestrian_Delft) +
-  labs(title = "Slow mobility network", subtitle = "Pedestrian") + 
+  labs(title = "Slow mobility network", 
+       subtitle = "Pedestrian"
+       ) + 
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -595,7 +605,8 @@ ggplot(data = lines_Delft_selection) +
   geom_sf(aes(linewidth = highway)) +
   scale_linewidth_manual(values = line_width) +
   labs(title = "Mobility network of Delft",
-       subtitle = "Roads & Cycleways - Line width varies") + 
+       subtitle = "Roads & Cycleways - Line width varies"
+       ) + 
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -619,6 +630,8 @@ p1 <- ggplot(data = lines_Delft_selection) +
   labs(title = "Mobility network of Delft", 
        subtitle = "Roads & Cycleways - Default Legend") + 
   coord_sf(datum = st_crs(28992))
+
+# show plot
 p1
 ```
 
@@ -631,18 +644,9 @@ p1
 ```r
 p2 <- p1 +
   theme(legend.text = element_text(size = 20), 
-        legend.box.background = element_rect(size = 1))
-```
+        legend.box.background = element_rect(linewidth = 1))
 
-```{.warning}
-Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
-ℹ Please use the `linewidth` argument instead.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-generated.
-```
-
-```r
+# show plot
 p2
 ```
 
@@ -686,16 +690,22 @@ levels(factor(lines_Delft$highway))
 
 
 ```r
-# First, create a data frame with only those roads where bicycles are allowed
+# First, create a data frame with only roads where bicycles 
+# are allowed
 lines_Delft_bicycle <- lines_Delft %>% 
   filter(highway == "cycleway")
 
-# Next, visualise using ggplot
+# Next, visualise it using ggplot
 ggplot(data = lines_Delft) +
   geom_sf() +
-  geom_sf(data = lines_Delft_bicycle, aes(color = highway), linewidth = 1) +
+  geom_sf(data = lines_Delft_bicycle, 
+          aes(color = highway), 
+          linewidth = 1
+          ) +
   scale_color_manual(values = "magenta") +
-  labs(title = "Mobility network in Delft", subtitle = "Roads dedicated to Bikes") +
+  labs(title = "Mobility network in Delft", 
+       subtitle = "Roads dedicated to Bikes"
+       ) +
   coord_sf(datum = st_crs(28992))
 ```
 

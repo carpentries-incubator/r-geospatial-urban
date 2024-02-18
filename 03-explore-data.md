@@ -34,7 +34,7 @@ After completing this episode, participants should be able to…
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-# [Exploring Data frames](https://datacarpentry.org/r-intro-geospatial/04-data-structures-part2/index.html)
+# Exploring Data frames
 
 Now we turn to the bread-and-butter of working with `R`: working with tabular data. In `R` data are stored in a data structure called **data frames**.  
 
@@ -45,7 +45,7 @@ Because columns are vectors, each column must contain a **single type of data** 
 For example, here is a figure depicting a data frame comprising a numeric, a character, and a logical vector.
 
 ![](fig/data-frame.svg)
-<br><font size="3">*Source*:[Data Carpentry R for Social Scientists ](https://datacarpentry.org/r-socialsci/02-starting-with-data/index.html#what-are-data-frames-and-tibbles)</font>
+<br><font size="3">*Source*: [Data Carpentry R for Social Scientists ](https://datacarpentry.org/r-socialsci/02-starting-with-data/index.html#what-are-data-frames-and-tibbles)</font>
 
 
 ## Reading data
@@ -55,7 +55,7 @@ We're gonna read in the `gapminder` data set with information about countries' s
 
 
 ```r
-gapminder <- read_csv("data/gapminder_data.csv")
+gapminder <- read.csv("data/gapminder_data.csv")
 ```
 
 ## Exploring dataset
@@ -69,23 +69,13 @@ str(gapminder)
 ```
 
 ```{.output}
-spc_tbl_ [1,704 × 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
- $ country  : chr [1:1704] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
- $ year     : num [1:1704] 1952 1957 1962 1967 1972 ...
- $ pop      : num [1:1704] 8425333 9240934 10267083 11537966 13079460 ...
- $ continent: chr [1:1704] "Asia" "Asia" "Asia" "Asia" ...
- $ lifeExp  : num [1:1704] 28.8 30.3 32 34 36.1 ...
- $ gdpPercap: num [1:1704] 779 821 853 836 740 ...
- - attr(*, "spec")=
-  .. cols(
-  ..   country = col_character(),
-  ..   year = col_double(),
-  ..   pop = col_double(),
-  ..   continent = col_character(),
-  ..   lifeExp = col_double(),
-  ..   gdpPercap = col_double()
-  .. )
- - attr(*, "problems")=<externalptr> 
+'data.frame':	1704 obs. of  6 variables:
+ $ country  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
+ $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+ $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+ $ continent: chr  "Asia" "Asia" "Asia" "Asia" ...
+ $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+ $ gdpPercap: num  779 821 853 836 740 ...
 ```
 
 We can see that the `gapminder` object is a data.frame with 1704 observations (rows) and 6 variables (columns). 
@@ -99,23 +89,21 @@ There are multiple ways to explore a data set. Here are just a few examples:
 
 
 ```r
-head(gapminder) # see first 6  rows of the data set
+head(gapminder) # shows first 6  rows of the data set
 ```
 
 ```{.output}
-# A tibble: 6 × 6
-  country      year      pop continent lifeExp gdpPercap
-  <chr>       <dbl>    <dbl> <chr>       <dbl>     <dbl>
-1 Afghanistan  1952  8425333 Asia         28.8      779.
-2 Afghanistan  1957  9240934 Asia         30.3      821.
-3 Afghanistan  1962 10267083 Asia         32.0      853.
-4 Afghanistan  1967 11537966 Asia         34.0      836.
-5 Afghanistan  1972 13079460 Asia         36.1      740.
-6 Afghanistan  1977 14880372 Asia         38.4      786.
+      country year      pop continent lifeExp gdpPercap
+1 Afghanistan 1952  8425333      Asia  28.801  779.4453
+2 Afghanistan 1957  9240934      Asia  30.332  820.8530
+3 Afghanistan 1962 10267083      Asia  31.997  853.1007
+4 Afghanistan 1967 11537966      Asia  34.020  836.1971
+5 Afghanistan 1972 13079460      Asia  36.088  739.9811
+6 Afghanistan 1977 14880372      Asia  38.438  786.1134
 ```
 
 ```r
-summary(gapminder) # gives basic statistical information about each column. Information format differes by data type.
+summary(gapminder) # basic statistical information about each column. 
 ```
 
 ```{.output}
@@ -136,6 +124,8 @@ summary(gapminder) # gives basic statistical information about each column. Info
 ```
 
 ```r
+# Information format differes by data type.
+
 nrow(gapminder) # returns number of rows in a dataset
 ```
 
@@ -158,7 +148,9 @@ When you're analyzing a data set, you often need to access its specific columns.
 One handy way to access a column is using it's name and a dollar sign `$`: 
 
 ```r
-country_vec <- gapminder$country  # Notation means: From dataset gapminder, give me column country. You can see that the column accessed in this way is just a vector of characters. 
+# This notation means: From dataset gapminder, give me column country. You can 
+# see that the column accessed in this way is just a vector of characters. 
+country_vec <- gapminder$country 
 
 head(country_vec)
 ```
@@ -170,7 +162,7 @@ head(country_vec)
 Note that the calling a column with a `$` sign will return a *vector*, it's not a data frame anymore.
 
 
-# [Data frame Manipulation with dplyr](https://datacarpentry.org/r-intro-geospatial/06-dplyr/index.html) 
+# Data frame Manipulation with dplyr
 
 ## Select
 Let's start manipulating the data. 
@@ -185,15 +177,13 @@ head(year_country_gdp)
 ```
 
 ```{.output}
-# A tibble: 6 × 3
-   year country     gdpPercap
-  <dbl> <chr>           <dbl>
-1  1952 Afghanistan      779.
-2  1957 Afghanistan      821.
-3  1962 Afghanistan      853.
-4  1967 Afghanistan      836.
-5  1972 Afghanistan      740.
-6  1977 Afghanistan      786.
+  year     country gdpPercap
+1 1952 Afghanistan  779.4453
+2 1957 Afghanistan  820.8530
+3 1962 Afghanistan  853.1007
+4 1967 Afghanistan  836.1971
+5 1972 Afghanistan  739.9811
+6 1977 Afghanistan  786.1134
 ```
 
 ## Pipe
@@ -214,15 +204,13 @@ head(year_country_gdp)
 ```
 
 ```{.output}
-# A tibble: 6 × 3
-   year country     gdpPercap
-  <dbl> <chr>           <dbl>
-1  1952 Afghanistan      779.
-2  1957 Afghanistan      821.
-3  1962 Afghanistan      853.
-4  1967 Afghanistan      836.
-5  1972 Afghanistan      740.
-6  1977 Afghanistan      786.
+  year     country gdpPercap
+1 1952 Afghanistan  779.4453
+2 1957 Afghanistan  820.8530
+3 1962 Afghanistan  853.1007
+4 1967 Afghanistan  836.1971
+5 1972 Afghanistan  739.9811
+6 1977 Afghanistan  786.1134
 ```
 
 First we define data set, then - with the use of pipe we pass it on to the `select()` function. This way we can chain multiple functions together, which we will be doing now. 
@@ -235,22 +223,21 @@ In the `gapminder` data set, we want to see the results from outside of Europe f
 
 ```r
 year_country_gdp_euro <- gapminder %>% 
-  filter(continent != "Europe" & year >= 2000) %>% # & operator (AND) - both conditions must be met
+  filter(continent != "Europe" & year >= 2000) %>% 
   select(year, country, gdpPercap)
+# '&' operator (AND) - both conditions must be met
 
 head(year_country_gdp_euro)
 ```
 
 ```{.output}
-# A tibble: 6 × 3
-   year country     gdpPercap
-  <dbl> <chr>           <dbl>
-1  2002 Afghanistan      727.
-2  2007 Afghanistan      975.
-3  2002 Algeria         5288.
-4  2007 Algeria         6223.
-5  2002 Angola          2773.
-6  2007 Angola          4797.
+  year     country gdpPercap
+1 2002 Afghanistan  726.7341
+2 2007 Afghanistan  974.5803
+3 2002     Algeria 5288.0404
+4 2007     Algeria 6223.3675
+5 2002      Angola 2773.2873
+6 2007      Angola 4797.2313
 ```
 
 ###  Exercise 1
@@ -268,8 +255,9 @@ Write a single command (which can span multiple lines and includes pipes) that w
 
 ```{.r .bg-info}
 year_country_gdp_eurasia <- gapminder %>% 
-  filter(continent == "Europe" | continent == "Asia") %>% # | operator (OR) - one of the conditions must be met
-  select(year, country, gdpPercap)
+  filter(continent == "Europe" | continent == "Asia") %>% 
+  select(year, country, gdpPercap) 
+# '|' operator (OR) - one of the conditions must be met
 
 nrow(year_country_gdp_eurasia)
 ```
@@ -287,7 +275,7 @@ So far, we have provided summary statistics on the whole dataset, selected colum
 ```r
 gapminder %>% # select the dataset
   group_by(continent) %>% # group by continent
-  summarize(avg_gdpPercap = mean(gdpPercap)) # summarize function creates statistics for the data set 
+  summarize(avg_gdpPercap = mean(gdpPercap)) # create basic stats
 ```
 
 ```{.output}
@@ -318,7 +306,8 @@ Calculate the average life expectancy per country. Which country has the longest
 gapminder %>%
    group_by(country) %>%
    summarize(avg_lifeExp=mean(lifeExp)) %>%
-   filter(avg_lifeExp == min(avg_lifeExp) | avg_lifeExp == max(avg_lifeExp))
+   filter(avg_lifeExp == min(avg_lifeExp) | 
+            avg_lifeExp == max(avg_lifeExp) )
 ```
 
 ```{.output}
@@ -343,7 +332,7 @@ gapminder %>%
 # A tibble: 60 × 3
 # Groups:   continent [5]
    continent  year avg_gdpPercap
-   <chr>     <dbl>         <dbl>
+   <chr>     <int>         <dbl>
  1 Africa     1952         1253.
  2 Africa     1957         1385.
  3 Africa     1962         1598.
@@ -407,15 +396,13 @@ head(gapminder_gdp)
 ```
 
 ```{.output}
-# A tibble: 6 × 7
-  country      year      pop continent lifeExp gdpPercap gdpBillion
-  <chr>       <dbl>    <dbl> <chr>       <dbl>     <dbl>      <dbl>
-1 Afghanistan  1952  8425333 Asia         28.8      779.       6.57
-2 Afghanistan  1957  9240934 Asia         30.3      821.       7.59
-3 Afghanistan  1962 10267083 Asia         32.0      853.       8.76
-4 Afghanistan  1967 11537966 Asia         34.0      836.       9.65
-5 Afghanistan  1972 13079460 Asia         36.1      740.       9.68
-6 Afghanistan  1977 14880372 Asia         38.4      786.      11.7 
+      country year      pop continent lifeExp gdpPercap gdpBillion
+1 Afghanistan 1952  8425333      Asia  28.801  779.4453   6.567086
+2 Afghanistan 1957  9240934      Asia  30.332  820.8530   7.585449
+3 Afghanistan 1962 10267083      Asia  31.997  853.1007   8.758856
+4 Afghanistan 1967 11537966      Asia  34.020  836.1971   9.648014
+5 Afghanistan 1972 13079460      Asia  36.088  739.9811   9.678553
+6 Afghanistan 1977 14880372      Asia  38.438  786.1134  11.697659
 ```
 
 

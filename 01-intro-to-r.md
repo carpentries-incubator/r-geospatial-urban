@@ -127,8 +127,8 @@ Each of the modes o interactions has its advantages and drawbacks.
     
 |        | Console | R script|
 |--------|---------|---------|
-|**Pros**|Immediate results|Work lost once you close RStudio |
-|**Cons**|Complete record of your work |Messy if you just want to print things out|
+|**Pros**|Immediate results| Complete record of your work |
+|**Cons**| Work lost once you close RStudio  | Messy if you just want to print things out|
  
 
 
@@ -295,7 +295,7 @@ In the script, we will write:
 ```r
 # Download the data
 download.file('https://bit.ly/geospatial_data', 
-              here('episodes', 'data','gapminder_data.csv'))
+              here('data','gapminder_data.csv'))
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout

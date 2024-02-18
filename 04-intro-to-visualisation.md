@@ -29,27 +29,33 @@ After completing this episode, participants should be able to…
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-# [Introduction to Visualisation](https://datacarpentry.org/r-intro-geospatial/07-plot-ggplot2/index.html)
+# Introduction to Visualisation
 
-The package `ggplot2` is a powerful plotting system. We will start with an introduction of key
-features of `ggplot2`. In the following parts of this workshop, you will
-use this package to visualize geospatial data. `gg` stands for grammar
-of graphics, the idea that three components are needed to create a graph: 
+The package `ggplot2` is a powerful plotting system. We will start with an introduction of key features of `ggplot2`.  `gg` stands for grammar of graphics. The idea idea behind it is that the following three components are needed to create a graph: 
 
 - data,
 - aesthetics - a coordinate system on which we map the data
 (what is represented on x axis, what on y axis), and
 - geometries - visual representation of the data (points, bars, etc.)
 
-Fun part about `ggplot2` is that you can add layers to
-the plot to provide more information and to make it more beautiful.
+A fun part about `ggplot2` is that you can add layers to the plot to provide more information and to make it more beautiful.
 
-First, lets plot the distribution of life expectancy in the `gapminder` dataset:
+In the following parts of this workshop, you will use this package to visualize geospatial data. First, make sure that you have the following packages loaded.
 
 
 ```r
-  ggplot(data = gapminder,  aes(x = lifeExp) ) + # aesthetics layer 
-  geom_histogram() # geometry layer
+library(tidyverse)
+library(terra)
+```
+
+Now, lets plot the distribution of life expectancy in the `gapminder` dataset:
+
+
+```r
+ggplot(data = gapminder,  # data
+  aes(x = lifeExp) # aesthetics layer 
+  ) +  
+geom_histogram() # geometry layer
 ```
 
 <img src="fig/04-intro-to-visualisation-rendered-ggplot-1.png" style="display: block; margin: auto;" />
@@ -64,10 +70,9 @@ Let's create another plot, this time only on a subset of observations:
 
 ```r
 gapminder %>%  # we select a data set
-  filter(year == 2007 & 
-         continent == 'Americas') %>%  # and filter it to keep only one year and one continent
+  filter(year == 2007 & continent == 'Americas') %>%  # filter to keep one year and one continent
   ggplot(aes(x = country, y = gdpPercap)) +  # the x and y axes represent values of columns
-  geom_col()  # we select a column graph as a geometry
+    geom_col()  # we select a column graph as a geometry
 ```
 
 <img src="fig/04-intro-to-visualisation-rendered-ggplot-col-1.png" style="display: block; margin: auto;" />
@@ -81,7 +86,7 @@ gapminder %>%
   filter(year == 2007, 
          continent == 'Americas') %>% 
   ggplot(aes(x = country, y = gdpPercap)) + 
-  geom_col()+ 
+  geom_col() + 
   coord_flip()  # flip axes
 ```
 
@@ -117,8 +122,12 @@ gapminder %>%
   filter(year == 2007, 
          continent == 'Americas') %>% 
   mutate(country = fct_reorder(country, gdpPercap )) %>%
-  ggplot(aes(x = country, y = gdpPercap, fill = lifeExp  )) +  # fill argument for colouring surfaces, colour for points and lines
-  geom_col()+ 
+  ggplot(aes(
+    x = country, 
+    y = gdpPercap, 
+    fill = lifeExp # use 'fill' for surfaces; 'colour' for points and lines
+  )) +
+  geom_col() + 
   coord_flip()
 ```
 
@@ -133,11 +142,11 @@ readability and colorblind-proofness are the palettes available in the
 gapminder %>%  
   filter(year == 2007, 
          continent == 'Americas') %>% 
-  mutate(country = fct_reorder(country, gdpPercap )) %>%
-  ggplot(aes(x = country, y = gdpPercap, fill = lifeExp   )) + 
-  geom_col()+ 
-  coord_flip()+
-  scale_fill_viridis_c()  # _c stands for continuous scale
+  mutate(country = fct_reorder(country, gdpPercap)) %>%
+  ggplot(aes(x = country, y = gdpPercap, fill = lifeExp)) + 
+    geom_col() + 
+    coord_flip() +
+    scale_fill_viridis_c()  # _c stands for continuous scale
 ```
 
 <img src="fig/04-intro-to-visualisation-rendered-ggplot-colors-adapt-1.png" style="display: block; margin: auto;" />
@@ -151,15 +160,22 @@ p <-  # this time let's save the plot in an object
   gapminder %>%  
   filter(year == 2007 & 
          continent == 'Americas') %>% 
-  mutate(country = fct_reorder(country, gdpPercap ),
-         lifeExpCat = if_else(lifeExp >= mean(lifeExp), 'high', 'low')) %>%
+  mutate(country = fct_reorder(country, gdpPercap),
+         lifeExpCat = if_else(
+           lifeExp >= mean(lifeExp), 
+           'high', 
+           'low')) %>%
   ggplot(aes(x = country, y = gdpPercap, fill = lifeExpCat)) + 
-  geom_col()+ 
-  coord_flip()+
-  scale_fill_manual(values = c('light blue', 'orange'))  # customize the colours of the fill aesthetic
+  geom_col() + 
+  coord_flip() +
+  scale_fill_manual(values = c(
+    'light blue', 
+    'orange'
+    ) # customize the colors
+  )  
 ```
 
-Since we saved a plot as an object, nothing has been printed out. Just
+Since we saved a plot as an object `p`, nothing has been printed out. Just
 like with any other object in `R`, if you want to see it, you need to
 call it.
 
@@ -176,18 +192,18 @@ Let's also give it a title and name the axes:
 
 
 ```r
-p <- 
-  p +
+p <- p +
   ggtitle('GDP per capita in Americas', subtitle = 'Year 2007') +
   xlab('Country')+
   ylab('GDP per capita')
 
+# show plot
 p
 ```
 
 <img src="fig/04-intro-to-visualisation-rendered-ggplot-titles-1.png" style="display: block; margin: auto;" />
 
-# [Writing data](https://datacarpentry.org/r-intro-geospatial/08-writing-data/index.html)
+# Writing data
 
 ## Saving the plot
 
@@ -197,11 +213,10 @@ choice. Remember to save it in the dedicated folder.
 
 ```r
 ggsave(plot = p, 
-       filename = here('fig_output','plot_americas_2007.pdf'))  # By default, ggsave() saves the last displayed plot, but you can also explicitly name the plot you want to save
-```
-
-```{.error}
-Error in grDevices::pdf(file = filename, ..., version = version): cannot open file '/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/fig_output/plot_americas_2007.pdf'
+       filename = here('fig_output','plot_americas_2007.pdf')
+      )  
+# By default, ggsave() saves the last displayed plot, but 
+# you can also explicitly name the plot you want to save
 ```
 
 ### Using help documentation
@@ -230,14 +245,14 @@ save the data only for Americas:
 ```r
 gapminder_amr_2007 <- gapminder %>%
   filter(year == 2007 & continent == 'Americas') %>%
-  mutate(country_reordered = fct_reorder(country, gdpPercap ), 
-         lifeExpCat = if_else(lifeExp >= mean(lifeExp), 'high', 'low'))
+  mutate(country_reordered = fct_reorder(country, gdpPercap), 
+         lifeExpCat = if_else(lifeExp >= mean(lifeExp), 'high', 'low')
+        )
 
-write.csv(gapminder_amr_2007, here('data_output', 'gapminder_americas_2007.csv'), row.names=FALSE)
-```
-
-```{.error}
-Error in file(file, ifelse(append, "a", "w")): cannot open the connection
+write.csv(gapminder_amr_2007, 
+          here('data_output', 'gapminder_americas_2007.csv'), 
+          row.names=FALSE
+         )
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 

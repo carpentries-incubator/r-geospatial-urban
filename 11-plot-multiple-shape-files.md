@@ -43,8 +43,14 @@ To begin, we will create a plot with the site boundary as the first layer. Then 
 
 ```r
 ggplot() + 
-  geom_sf(data = boundary_Delft, fill = "lightgrey", color = "lightgrey") +
-  geom_sf(data = lines_Delft_selection, aes(color = highway), size = 1) +
+  geom_sf(data = boundary_Delft, 
+          fill = "lightgrey", 
+          color = "lightgrey"
+          ) +
+  geom_sf(data = lines_Delft_selection, 
+          aes(color = highway), 
+          size = 1
+          ) +
   geom_sf(data = point_Delft) +
   labs(title = "Mobility network of Delft") + 
   coord_sf(datum = st_crs(28992))
@@ -58,12 +64,25 @@ Next, let’s build a custom legend using the functions `scale_color_manual()` a
 ```r
 leisure_colors <- rainbow(15)
 point_Delft$leisure <- factor(point_Delft$leisure)
+
 ggplot() + 
-  geom_sf(data = boundary_Delft, fill = "lightgrey", color = "lightgrey") +
-  geom_sf(data = lines_Delft_selection, aes(color = highway), size = 1) + 
-  geom_sf(data = point_Delft, aes(fill = leisure), shape = 21) +
-  scale_color_manual(values = road_colors, name = "Road Type") + 
-  scale_fill_manual(values = leisure_colors, name = "Lesiure Location") + 
+  geom_sf(data = boundary_Delft, 
+          fill = "lightgrey", 
+          color = "lightgrey"
+          ) +
+  geom_sf(data = lines_Delft_selection, 
+          aes(color = highway), 
+          size = 1
+          ) + 
+  geom_sf(data = point_Delft, 
+          aes(fill = leisure), 
+          shape = 21) +
+  scale_color_manual(values = road_colors, 
+                     name = "Road Type"
+                     ) + 
+  scale_fill_manual(values = leisure_colors, 
+                    name = "Lesiure Location"
+                    ) + 
   labs(title = "Mobility network and leisure in Delft") + 
   coord_sf(datum = st_crs(28992))
 ```
@@ -73,11 +92,24 @@ ggplot() +
 
 ```r
 ggplot() +
-  geom_sf(data = boundary_Delft, fill = "lightgrey", color = "lightgrey") +
-  geom_sf(data = lines_Delft_selection, aes(color = highway), size = 1) +
-  geom_sf(data = point_Delft, aes(fill = leisure), shape = 22) +
-  scale_color_manual(values = road_colors, name = "Line Type") +
-  scale_fill_manual(values = leisure_colors, name = "Leisure Location") +
+  geom_sf(data = boundary_Delft, 
+          fill = "lightgrey", 
+          color = "lightgrey"
+          ) +
+  geom_sf(data = lines_Delft_selection, 
+          aes(color = highway), 
+          size = 1
+          ) +
+  geom_sf(data = point_Delft, 
+          aes(fill = leisure), 
+          shape = 22
+          ) +
+  scale_color_manual(values = road_colors, 
+                     name = "Line Type"
+                     ) +
+  scale_fill_manual(values = leisure_colors, 
+                    name = "Leisure Location"
+                    ) +
   labs(title = "Mobility network and leisure in Delft") + 
   coord_sf(datum = st_crs(28992))
 ```
@@ -131,13 +163,28 @@ blue_orange <- c("cornflowerblue", "darkorange")
 
 ```r
 ggplot() + 
-  geom_sf(data = lines_Delft_selection, aes(color = highway)) + 
-  geom_sf(data = leisure_locations_selection, aes(fill = leisure), 
-          shape = 21) + 
-  scale_color_manual(name = "Line Type", values = road_colors,
-     guide = guide_legend(override.aes = list(linetype = "solid", shape = NA))) + 
-  scale_fill_manual(name = "Soil Type", values = blue_orange,
-     guide = guide_legend(override.aes = list(linetype = "blank", shape = 21, colour = NA))) + 
+  geom_sf(data = lines_Delft_selection, 
+          aes(color = highway)
+          ) + 
+  geom_sf(data = leisure_locations_selection, 
+          aes(fill = leisure), 
+          shape = 21
+          ) + 
+  scale_color_manual(name = "Line Type", 
+                     values = road_colors,
+                     guide = guide_legend(override.aes = list(
+                                         linetype = "solid", 
+                                         shape = NA
+                                         ))
+                     ) + 
+  scale_fill_manual(name = "Soil Type", 
+                    values = blue_orange,
+                    guide = guide_legend(override.aes = list(
+                                         linetype = "blank", 
+                                         shape = 21, 
+                                         colour = NA
+                                         ))
+                    ) + 
   labs(title = "Traffic and leisure") + 
   coord_sf(datum = st_crs(28992))
 ```
@@ -147,13 +194,28 @@ ggplot() +
 
 ```r
 ggplot() + 
-  geom_sf(data = lines_Delft_selection, aes(color = highway), size = 1) + 
-  geom_sf(data = leisure_locations_selection, aes(fill = leisure, shape = leisure), size = 2) + 
-  scale_shape_manual(name = "Leisure Type", values = c(21, 22)) +
-  scale_color_manual(name = "Line Type", values = road_colors) + 
-  scale_fill_manual(name = "Leisure Type", values = rainbow(15),
-     guide = guide_legend(override.aes = list(linetype = "blank", shape = c(21, 22),
-     color = "black"))) + 
+  geom_sf(data = lines_Delft_selection, 
+          aes(color = highway), 
+          size = 1
+          ) + 
+  geom_sf(data = leisure_locations_selection, 
+          aes(fill = leisure, shape = leisure), 
+          size = 2
+          ) + 
+  scale_shape_manual(name = "Leisure Type", 
+                     values = c(21, 22)
+                     ) +
+  scale_color_manual(name = "Line Type", 
+                     values = road_colors
+                     ) + 
+  scale_fill_manual(name = "Leisure Type", 
+                    values = rainbow(15),
+                    guide = guide_legend(override.aes = list(
+                                         linetype = "blank", 
+                                         shape = c(21, 22),
+                                         color = "black"
+                                         ))
+                    ) + 
   labs(title = "Road network and leisure") + 
   coord_sf(datum = st_crs(28992))
 ```
