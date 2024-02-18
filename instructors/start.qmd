@@ -55,6 +55,13 @@ TU Delft Library, Orange Room
 
 <br><br><br><br><br><br><br><br><br><br>Tell us your name and favourite geographic location.
 
+::: {style="font-size: 50%;"}
+
+<br><div>Photo by <a href="https://unsplash.com/@dtropinin?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Dmitrii Tropinin</a> on <a href="https://unsplash.com/photos/red-and-white-ship-on-sea-during-daytime-cmJJJ829kK4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></div>
+
+:::
+
+
 
 ## What will you (not) learn?
 
@@ -154,4 +161,14 @@ If you believe someone is violating the [Code of Conduct](https://docs.carpentri
 
 :::
 
-# Competition {background-image="fig/competition.jpeg"}
+# <br><br>Competition {background-image="fig/competition.jpeg"}
+
+::: {div}
+
+::: {style="font-size: 50%;"}
+
+<br><br><br><br><br><br><br><br><br><br><br><br><div>Photo by <a href="https://unsplash.com/@markkoenig?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Mark König</a> on <a href="https://unsplash.com/photos/a-group-of-people-rowing-on-a-body-of-water-fNXJs8IVFHA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></div>
+
+:::
+
+:::
