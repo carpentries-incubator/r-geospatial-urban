@@ -58,7 +58,7 @@ A data frame is a representation of data in the format of a **table** where the 
 Because columns are vectors, each column must contain a **single type of data** (e.g., characters, numeric, factors). 
 For example, here is a figure depicting a data frame comprising a numeric, a character, and a logical vector.
 
-![](fig/data-frame.svg)
+![A data frame](fig/data-frame.svg)
 <br><font size="3">*Source*: [Data Carpentry R for Social Scientists ](https://datacarpentry.org/r-socialsci/02-starting-with-data/index.html#what-are-data-frames-and-tibbles)</font>
 
 
