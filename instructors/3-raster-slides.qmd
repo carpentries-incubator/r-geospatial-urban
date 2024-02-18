@@ -7,7 +7,7 @@ format:
   revealjs:
     # logo: assets/img/TUDelft_logo_rgb.png
     # css: logo.css
-    footer: "Data Carpentry for Geospatial Data"
+    # footer: "Data Carpentry for Geospatial Data"
     chalkboard: true
     incremental: true   
     theme: [default, custom.scss]
@@ -41,7 +41,7 @@ knitr::opts_chunk$set(
 
 ## The `raster` package
 
-![](fig/tudlib-green.png){fig-align="center"}
+![A plot showing the green band of an RGB aerial image of the TU Delft library](fig/tudlib-green.png){fig-align="center"}
 
 
 ## Challenge 1: **2 mins**
