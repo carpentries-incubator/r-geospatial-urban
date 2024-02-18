@@ -48,7 +48,7 @@ assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 
 ### Bounding box
 
-The first thing to do is to define the area within which you want to retrieve data, aka the *bounding box*. This can be defined easily using a place name and the package `nominatimlite` to access the free Nominatim API provided by OpenStreetMap. 
+The first thing to do is to define the area within which you want to retrieve data, aka the *bounding box*. This can be defined easily using a place name to access the free Nominatim API provided by OpenStreetMap. 
 
 We are going to look at *Brielle* together, but you can also work with the small cities of *Naarden*, *Geertruidenberg*, *Gorinchem*, *Enkhuizen* or *Dokkum*.
 
@@ -59,11 +59,7 @@ We are going to look at *Brielle* together, but you can also work with the small
 We first geocode our spatial text search and extract the corresponding polygon (`geo_lite_sf`) and then extract its bounding box (`st_bbox`).
 
 ```{r}
-#install.packages("nominatimlite")
-library(nominatimlite)
-
-nominatim_polygon <- geo_lite_sf(address = "Brielle", points_only = FALSE)
-bb <- st_bbox(nominatim_polygon)
+bb <- getbb("Brielle")
 bb
 ```
 
@@ -87,11 +83,10 @@ For example: Brielle (Netherlands) and Brielle (New Jersey)
 
 ![Brielle, New Jersey](fig/Brielle_NJ.jpeg "Brielle, New Jersey"){width=40%}
 
-By default, `geo_lite_sf()` from the `nominatimlite` package returns the first item. This means that regardless of the number of returned locations with the given name, the function will return a bounding box and it might be that we are not looking for the first item. We should therefore try to be as unambiguous as possible by adding a country code or district name.
+By default, `getbb()` from the `osmdata` package returns the first item. This means that regardless of the number of returned locations with the given name, the function will return a bounding box and it might be that we are not looking for the first item. We should therefore try to be as unambiguous as possible by adding a country code or district name.
 
 ```{r}
-nominatim_polygon <- geo_lite_sf(address = "Brielle, NL", points_only = FALSE)
-bb <- st_bbox(nominatim_polygon)
+bb <- getbb("Brielle, NL")
 bb
 ```
 
@@ -233,7 +228,7 @@ leaflet(buildings2) %>%
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use the `Nominatim` and `Overpass` APIs within R
-- Use the `osmdata` and `nominatimlite` packages to retrieve geospatial data
+- Use the `osmdata` package to retrieve geospatial data
 - Select features and attributes among OSM tags
 - Use the `ggplot`, `sf` and `leaflet` packages to map data
 
