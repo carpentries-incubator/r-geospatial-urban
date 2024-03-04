@@ -141,7 +141,7 @@ Now, let's plot this shapefile. You are already familiar with the `ggplot2` pack
 ggplot(data = boundary_Delft) +
   geom_sf(size = 3, color = "black", fill = "cyan1") +
   labs(title = "Delft Administrative Boundary") +
-  coord_sf(datum = st_crs(28992))  # displays the axes in meters
+  coord_sf(datum = st_crs(28992)) # displays the axes in meters
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
