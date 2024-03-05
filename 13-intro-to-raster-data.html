@@ -362,7 +362,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Intro to Raster Data</h1>
-        <p>Last updated on 2024-02-27 |
+        <p>Last updated on 2024-03-05 |
         
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/13-intro-to-raster-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -431,13 +431,12 @@ sure that you have those packages loaded.</p>
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">terra</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="the-data-used-in-this-lesson" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="the-data-used-in-this-lesson" class="callout-inner">
-<h3 class="callout-title">The data used in this lesson<a class="anchor" aria-label="anchor" href="#the-data-used-in-this-lesson"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="the-data-used-in-this-lesson">The data used in this lesson<a class="anchor" aria-label="anchor" href="#the-data-used-in-this-lesson"></a></h3>
 <div class="callout-content">
 <p>In this and lesson, we will use:</p>
 <ul><li>data extracted from the <a href="https://www.ahn.nl/" class="external-link">AHN digital
@@ -532,13 +531,12 @@ above.</p>
 <hr class="half-width"><p>Now that we’ve previewed the metadata for our GeoTIFF, let’s import
 this raster dataset into R and explore its metadata more closely. We can
 use the <code>rast()</code> function to import a raster file in R.</p>
-<div id="data-tip---object-names" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="data-tip---object-names" class="callout-inner">
-<h3 class="callout-title">Data tip - Object names<a class="anchor" aria-label="anchor" href="#data-tip---object-names"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="data-tip---object-names">Data tip - Object names<a class="anchor" aria-label="anchor" href="#data-tip---object-names"></a></h3>
 <div class="callout-content">
 <p>To improve code readability, use file and object names that make it
 clear what is in the file. The raster data for this episode contain the
@@ -670,26 +668,24 @@ about them at their help page <code>?coord_map</code>.</p>
 </div>
 <figure style="text-align: center"><img src="fig/13-intro-to-raster-data-rendered-first-rast-plot-1.png" alt="Raster plot with `ggplot2` using the viridis color scale" class="figure mx-auto d-block"><figcaption>
 Raster plot with <code>ggplot2</code> using the viridis color scale
-</figcaption></figure><div id="plotting-tip" class="callout callout">
+</figcaption></figure><div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="plotting-tip" class="callout-inner">
-<h3 class="callout-title">Plotting tip<a class="anchor" aria-label="anchor" href="#plotting-tip"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="plotting-tip">Plotting tip<a class="anchor" aria-label="anchor" href="#plotting-tip"></a></h3>
 <div class="callout-content">
 <p>More information about the viridis palette used above at <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html" class="external-link">viridis
 package documentation</a>.</p>
 </div>
 </div>
 </div>
-<div id="plotting-tip-1" class="callout callout">
+<div id="callout4" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="plotting-tip-1" class="callout-inner">
-<h3 class="callout-title">Plotting tip<a class="anchor" aria-label="anchor" href="#plotting-tip-1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="plotting-tip-1">Plotting tip<a class="anchor" aria-label="anchor" href="#plotting-tip-1"></a></h3>
 <div class="callout-content">
 <p>For faster previews, you can use the <code>plot()</code> function on
 a <code>terra</code> object.</p>
@@ -737,7 +733,7 @@ what meanings they have.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p><code>+units=m</code> in the output of the code above tells us that
 our data is in meters (m).</p>
@@ -745,13 +741,12 @@ our data is in meters (m).</p>
 </div>
 </div>
 </div>
-<div id="understanding-crs-in-proj.4-format" class="callout callout">
+<div id="callout5" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="understanding-crs-in-proj.4-format" class="callout-inner">
-<h3 class="callout-title">Understanding CRS in PROJ.4 format<a class="anchor" aria-label="anchor" href="#understanding-crs-in-proj.4-format"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="understanding-crs-in-proj-4-format">Understanding CRS in PROJ.4 format<a class="anchor" aria-label="anchor" href="#understanding-crs-in-proj-4-format"></a></h3>
 <div class="callout-content">
 <p>The CRS for our data is given to us by R in PROJ.4 format. Let’s
 break down the pieces of a PROJ.4 string. The string contains all of the
@@ -785,13 +780,12 @@ us. We can view these values:</p>
 min        Inf
 max       -Inf</code></pre>
 </div>
-<div id="data-tip---set-min-and-max-values" class="callout callout">
+<div id="callout6" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="data-tip---set-min-and-max-values" class="callout-inner">
-<h3 class="callout-title">Data tip - Set min and max values<a class="anchor" aria-label="anchor" href="#data-tip---set-min-and-max-values"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="data-tip---set-min-and-max-values">Data tip - Set min and max values<a class="anchor" aria-label="anchor" href="#data-tip---set-min-and-max-values"></a></h3>
 <div class="callout-content">
 <p>If the <code>min</code> and <code>max</code> values are
 <code>Inf</code> and <code>-Inf</code> respectively, it means that they
@@ -836,7 +830,8 @@ haven’t been calculated. We can calculate them using the
 been working with is a single band raster. This means that there is only
 one dataset stored in the raster: surface elevation in meters for one
 time period.</p>
-<figure><img src="https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/single_multi_raster.png" alt="" class="figure mx-auto d-block"><figcaption>Single- and multi-band raster</figcaption></figure><p>A raster dataset can contain one or more bands. We can view the
+<figure><img src="https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/single_multi_raster.png" alt="Single- and multi-band raster" class="figure mx-auto d-block"><div class="figcaption">Single- and multi-band raster</div>
+</figure><p>A raster dataset can contain one or more bands. We can view the
 number of bands in a raster using the <code>nlyr()</code> function.</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -920,7 +915,7 @@ with Multi-band Rasters in R</a> episode.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -993,13 +988,12 @@ with Multi-band Rasters in R</a> episode.</p>
 </div>
 </div>
 </div>
-<div id="more-resources" class="callout callout">
+<div id="callout7" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="more-resources" class="callout-inner">
-<h3 class="callout-title">More resources<a class="anchor" aria-label="anchor" href="#more-resources"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="more-resources">More resources<a class="anchor" aria-label="anchor" href="#more-resources"></a></h3>
 <div class="callout-content">
 <ul><li>See the manual and tutorials of the <code>terra</code> package on <a href="https://rspatial.org/" class="external-link">https://rspatial.org/</a>.</li>
 </ul></div>
@@ -1084,8 +1078,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/13-intro-to-raster-data.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/13-intro-to-raster-data.html",
   "dateCreated": "2024-02-21",
-  "dateModified": "2024-02-27",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-05",
+  "datePublished": "2024-03-05"
 }
 
   </script><script>

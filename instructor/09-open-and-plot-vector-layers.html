@@ -359,7 +359,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Open and Plot Vector Layers</h1>
-        <p>Last updated on 2024-02-27 |
+        <p>Last updated on 2024-03-05 |
         
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/09-open-and-plot-vector-layers.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -444,13 +444,12 @@ working with spatial vector data.</p>
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>  <span class="co"># wrangle, reshape and visualize data</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">sf</span><span class="op">)</span>         <span class="co"># work with spatial vector data</span></span></code></pre>
 </div>
-<div id="the-sf-package" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="the-sf-package" class="callout-inner">
-<h3 class="callout-title">The<code>sf</code>package<a class="anchor" aria-label="anchor" href="#the-sf-package"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="the-sf-package">The <code>sf</code> package<a class="anchor" aria-label="anchor" href="#the-sf-package"></a></h3>
 <div class="callout-content">
 <p><code>sf</code> stands for Simple Features which is a standard
 defined by the Open Geospatial Consortium for storing and accessing
@@ -474,13 +473,14 @@ administrative boundary of Delft with the function
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">boundary_Delft</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="st">"data/delft-boundary.shp"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="all-sf-functions-start-with-st_" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="all-sf-functions-start-with-st_" class="callout-inner">
-<h3 class="callout-title">All<code>sf</code>functions start with<code>st_</code><a class="anchor" aria-label="anchor" href="#all-sf-functions-start-with-st_"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="all-sf-functions-start-with-st_">All <code>sf</code> functions start with
+<code>st_</code>
+<a class="anchor" aria-label="anchor" href="#all-sf-functions-start-with-st_"></a></h3>
 <div class="callout-content">
 <p>Note that all functions from the <code>sf</code> package start with
 the standard prefix <code>st_</code> which stands for Spatial Type. This
@@ -545,13 +545,14 @@ GEOGCRS["WGS 84",
             ANGLEUNIT["degree",0.0174532925199433]],
     ID["EPSG",4326]]</code></pre>
 </div>
-<div id="examining-the-output-of-st_crs" class="callout callout">
+<div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="examining-the-output-of-st_crs" class="callout-inner">
-<h3 class="callout-title">Examining the output of<code>st_crs()</code><a class="anchor" aria-label="anchor" href="#examining-the-output-of-st_crs"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="examining-the-output-of-st_crs">Examining the output of
+<code>st_crs()</code>
+<a class="anchor" aria-label="anchor" href="#examining-the-output-of-st_crs"></a></h3>
 <div class="callout-content">
 <p>As the output of <code>st_crs()</code> can be long, you can use
 <code>$Name</code> and <code>$epsg</code> after the <code>crs()</code>
@@ -648,13 +649,12 @@ Projected CRS: Amersfoort / RD New
   osm_id                       geometry
 1 324269 POLYGON ((87703.78 442651, ...</code></pre>
 </div>
-<div id="callout4" class="callout callout">
+<div id="callout4" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout4"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Read more about Coordinate Reference Systems <a href="https://datacarpentry.org/organization-geospatial/03-crs.html" class="external-link">here</a>.
 We will also practice transformation between CRS in <a href="12-handling-spatial-projection-and-crs.html">Handling Spatial
@@ -878,8 +878,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/09-open-and-plot-vector-layers.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/09-open-and-plot-vector-layers.html",
   "dateCreated": "2024-02-21",
-  "dateModified": "2024-02-27",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-05",
+  "datePublished": "2024-03-05"
 }
 
   </script><script>

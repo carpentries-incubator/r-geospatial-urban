@@ -350,7 +350,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to R and RStudio</h1>
-        <p>Last updated on 2024-02-27 |
+        <p>Last updated on 2024-03-05 |
         
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/01-intro-to-r.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -442,7 +442,8 @@ ONLY</strong>
 <code>scripts/</code> - all your code goes here <strong>READ AND
 WRITE</strong>
 </li>
-</ul><figure><img src="../fig/rstudio_project_files.jpeg" alt="RStudio  project logo with five lines, each leading from the logo towards  one of the five boxes with texts: 'data/', 'data_output/',  'documents/', 'fig_output/', 'scripts/'" class="figure mx-auto d-block"><figcaption>R project organization</figcaption></figure><p>You can create these folders as you would any other folders on your
+</ul><figure><img src="../fig/rstudio_project_files.jpeg" alt="RStudio project logo with five lines, each leading from the logo towards one of the five boxes with texts: 'data/', 'data_output/', 'documents/', 'fig_output/', 'scripts/'" class="figure mx-auto d-block"><div class="figcaption">R project organization</div>
+</figure><p>You can create these folders as you would any other folders on your
 laptop, but R and RStudio offer handy ways to do it directly in your
 RStudio session.</p>
 <p>You can use RStudio interface to create a folder in your project by
@@ -490,13 +491,12 @@ console</strong>
 <li>write and save an <strong>R script (<code>.R</code>
 file)</strong>
 </li>
-</ul><div id="callout1" class="callout callout">
+</ul><div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>When you open the RStudio or create the Rstudio project, you will see
 Console window on the left by default. Once you create an R script, it
@@ -556,13 +556,12 @@ has been executed as described above. To run all lines before the active
 line, you can use the keyboard shortcut <kbd>Ctrl</kbd> + <kbd>Alt</kbd>
 + <kbd>B</kbd> on Windows/Linux or <kbd>Command</kbd> +
 <kbd>option</kbd> + <kbd>B</kbd> on Mac.</p>
-<div id="escaping" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="escaping" class="callout-inner">
-<h3 class="callout-title">Escaping<a class="anchor" aria-label="anchor" href="#escaping"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="escaping">Escaping<a class="anchor" aria-label="anchor" href="#escaping"></a></h3>
 <div class="callout-content">
 <p>The console shows it’s ready to get new commands with
 <code>&gt;</code> sign. It will show <code>+</code> sign if it still
@@ -595,13 +594,12 @@ type:</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">'here'</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="callout3" class="callout callout">
+<div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout3"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>If you are not sure if you have <code>tidyverse</code> packaged
 installed, you can check it in the <code>Packages</code> tab in the
@@ -618,13 +616,12 @@ script:</p>
 </div>
 </div>
 </div>
-<div id="commenting-your-code" class="callout callout">
+<div id="callout4" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="commenting-your-code" class="callout-inner">
-<h3 class="callout-title">Commenting your code<a class="anchor" aria-label="anchor" href="#commenting-your-code"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="commenting-your-code">Commenting your code<a class="anchor" aria-label="anchor" href="#commenting-your-code"></a></h3>
 <div class="callout-content">
 <p>Now we have a bit of an issue with our script. As mentioned, the
 packages need to be installed only once, but now, they will be installed
@@ -705,13 +702,12 @@ data should go. In the script, we will write:</p>
 <span><span class="fu">download.file</span><span class="op">(</span><span class="st">'https://bit.ly/geospatial_data'</span>, </span>
 <span>              <span class="fu">here</span><span class="op">(</span><span class="st">'data'</span>,<span class="st">'gapminder_data.csv'</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="importing-data-into-r" class="callout callout">
+<div id="callout5" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="importing-data-into-r" class="callout-inner">
-<h3 class="callout-title">Importing data into R<a class="anchor" aria-label="anchor" href="#importing-data-into-r"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="importing-data-into-r">Importing data into R<a class="anchor" aria-label="anchor" href="#importing-data-into-r"></a></h3>
 <div class="callout-content">
 <p>Three of the most common ways of importing data in R are:</p>
 <ul><li>loading a package with pre-installed data;</li>
@@ -864,8 +860,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/01-intro-to-r.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/01-intro-to-r.html",
   "dateCreated": "2024-02-21",
-  "dateModified": "2024-02-27",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-05",
+  "datePublished": "2024-03-05"
 }
 
   </script><script>
