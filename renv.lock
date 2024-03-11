@@ -113,16 +113,6 @@
       ],
       "Hash": "cad6cf7f1d5f6e906700b9d3e718c796"
     },
-    "assertthat": {
-      "Package": "assertthat",
-      "Version": "0.2.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "tools"
-      ],
-      "Hash": "50c838a310445e954bc13f26f26a6ecf"
-    },
     "backports": {
       "Package": "backports",
       "Version": "1.4.1",
@@ -521,30 +511,6 @@
         "rlang"
       ],
       "Hash": "bb0eec2fe32e88d9e2836c2f73ea2077"
-    },
-    "emo": {
-      "Package": "emo",
-      "Version": "0.0.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "emo",
-      "RemoteUsername": "hadley",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "3f03b11491ce3d6fc5601e210927eff73bf8e350",
-      "Requirements": [
-        "R",
-        "assertthat",
-        "crayon",
-        "glue",
-        "lubridate",
-        "magrittr",
-        "purrr",
-        "rlang",
-        "stringr",
-        "utils"
-      ],
-      "Hash": "10f2391a926b0087a671ed9965ea30a3"
     },
     "evaluate": {
       "Package": "evaluate",
