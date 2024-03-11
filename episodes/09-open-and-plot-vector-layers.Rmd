@@ -160,10 +160,9 @@ ggplot(data = boundary_Delft) +
 
 Read in `delft-streets.shp` and `delft-leisure.shp` and assign them to `lines_Delft` and `points_Delft` respectively. Answer the following questions:
 
-1. What type of R spatial object is created when you import each layer?
-2. What is the CRS and extent for each object?
-3. Do the files contain points, lines, or polygons?
-4. How many features are in each file?
+1. What is the CRS and extent for each object?
+2. Do the files contain points, lines, or polygons?
+3. How many features are in each file?
 
 :::::::::::::::::::::::: solution 
 
