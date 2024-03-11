@@ -29,7 +29,6 @@ or two installation 'walk-in' hours on a day before the workshop. Also, 15-30
 minutes at the beginning of the first workshop day should be enough to tackle 
 last-minute installation issues.
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::: prereq
@@ -47,9 +46,9 @@ library(sf)         # work with spatial vector data
 
 ::: callout
 
-# The `sf` package
+# The `sf` package  
 
-`sf` stands for Simple Features which is a standard defined by the Open Geospatial Consortium for storing and accessing geospatial vector data. PostGIS, for instance, uses the same standard, so PostGIS users might recognise the functions used by the `sf` package. 
+`sf` stands for Simple Features which is a standard defined by the Open Geospatial Consortium for storing and accessing geospatial vector data. Read more about simple features and its implementation in R [here](https://r-spatial.github.io/sf/articles/sf1.html).
 
 :::
 
@@ -74,9 +73,13 @@ Note that all functions from the `sf` package start with the standard prefix `st
 
 ## Spatial Metadata
 
-By default (with `quiet = FALSE`), the `st_read()` function provides a message with a summary of metadata about the file that was read in. To examine the metadata in more detail, we can use other, more specialised, functions from the `sf` package.  
+By default (with `quiet = FALSE`), the `st_read()` function provides a message with a summary of metadata about the file that was read in.
 
-The `st_geometry_type()` function, for instance, gives us information about the geometry type, which in this case is `POLYGON`.
+```{r}
+st_read("data/delft-boundary.shp")
+```
+
+To examine the metadata in more detail, we can use other, more specialised, functions from the `sf` package. The `st_geometry_type()` function, for instance, gives us information about the geometry type, which in this case is `POLYGON`.
 
 ```{r}
 st_geometry_type(boundary_Delft)
@@ -92,27 +95,34 @@ st_crs(boundary_Delft)
 
 # Examining the output of `st_crs()`
 
-As the output of `st_crs()` can be long, you can use `$Name` and `$epsg` after the `crs()` call to extract the projection name and EPSG code respectively.
+As the output of `st_crs()` can be long, you can use `$Name` and `$epsg` after the `crs()` call to extract the projection name and EPSG code respectively. 
+
+```{r}
+st_crs(boundary_Delft)$Name
+st_crs(boundary_Delft)$epsg
+```
+
+The `$` operator is used to extract a specific part of an object. We used it in a [previous episode]() to subset a data frame by column name. In this case, it is used to extract named elements stored in a `crs` object. For more information, see [the documentation of the `st_crs` function](https://r-spatial.github.io/sf/reference/st_crs.html#details).
 
 :::
 
-The `st_bbox()` function shows the extent of the layer. As `WGS 84` is a **geographic CRS**, the extent of the shapefile is displayed in degrees.
+The `st_bbox()` function shows the extent of the layer.  
 
 
 ```{r}
 st_bbox(boundary_Delft)
 ```
 
-We need a **projected CRS**, which in the case of the Netherlands is typically the Amersfort / RD New projection. To reproject our shapefile, we will use the `st_transform()` function. For the `crs` argument we can use the EPSG code of the CRS we want to use, which is `28992` for the `Amersfort / RD New` projection. 
+As `WGS 84` is a **geographic CRS**, the extent of the shapefile is displayed in degrees. We need a **projected CRS**, which in the case of the Netherlands is the `Amersfoort / RD New` projection. To reproject our shapefile, we will use the `st_transform()` function. For the `crs` argument we can use the EPSG code of the CRS we want to use, which is `28992` for the `Amersfort / RD New` projection. 
 To check the EPSG code of any CRS, we can check this website: https://epsg.io/
 
 ```{r}
-boundary_Delft <- st_transform(boundary_Delft, 28992)
+boundary_Delft <- st_transform(boundary_Delft, crs = 28992)
 st_crs(boundary_Delft)$Name
 st_crs(boundary_Delft)$epsg
 ```
 
-Notice that the bounding box is measured in meters after the transformation.
+Notice that the bounding box is measured in meters after the transformation. The `$units_gdal` named element confirms that the new CRS uses metric units.
 
 ```{r}
 st_bbox(boundary_Delft)
@@ -135,7 +145,7 @@ Read more about Coordinate Reference Systems [here](https://datacarpentry.org/or
 
 ## Plot a vector layer
 
-Now, let's plot this shapefile. You are already familiar with the `ggplot2` package from [Introduction to Visualisation](../episodes/04-intro-to-visualisation.Rmd). `ggplot2` has special `geom_` functions for spatial data. We will use the `geom_sf()` function for `sf` data.
+Now, let's plot this shapefile. You are already familiar with the `ggplot2` package from [Introduction to Visualisation](../episodes/04-intro-to-visualisation.Rmd). `ggplot2` has special `geom_` functions for spatial data. We will use the `geom_sf()` function for `sf` data. We use `coord_sf()` to ensure that the coordinates shown on the two axes are displayed in meters.
 
 ```{r}
 ggplot(data = boundary_Delft) +
@@ -169,7 +179,7 @@ st_geometry_type(lines_Delft)[1]
 st_geometry_type(points_Delft)[2]
 ```
 
-`lines_Delft` and `points_Delft` are in the correct CRS.
+Both `lines_Delft` and `points_Delft` are in `EPSG:28992`.
 
 ```{r}
 st_crs(lines_Delft)$epsg
@@ -191,8 +201,8 @@ st_bbox(points_Delft)
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Metadata for vector layers include geometry type, CRS, and extent.
-- Load spatial objects into R with the `st_read()` function.
+- Metadata for vector layers include geometry type, CRS, and extent and can be examined with the `sf` functions `st_geometry_type()`, `st_crs()`, and `st_bbox()`, respectively.
+- Load spatial objects into R with the `sf` function `st_read()`.
 - Spatial objects can be plotted directly with `ggplot2` using the `geom_sf()` function. No need to convert to a data frame.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
