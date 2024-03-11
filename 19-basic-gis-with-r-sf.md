@@ -63,7 +63,7 @@ summary(buildings$start_date)
 
 ```{.output}
    Length     Class      Mode 
-    10601 character character 
+    10625 character character 
 ```
 
 ```r
@@ -325,7 +325,7 @@ single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / si
 ```
 
 ```{.error}
-Error in `[[<-.data.frame`(`*tmp*`, i, value = numeric(0)): replacement has 0 rows, data has 158
+Error in `[[<-.data.frame`(`*tmp*`, i, value = numeric(0)): replacement has 0 rows, data has 159
 ```
 
 ```r
