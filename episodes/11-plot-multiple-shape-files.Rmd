@@ -41,19 +41,18 @@ This episode builds upon the [previous episode](../episodes/10-explore-and-plot-
 
 ## Load the data
 
-To work with vector data in R, we use the `sf` library. Make sure that it is loaded.
+To work with vector data in R, we use the `sf` package. Make sure that it is loaded.
 
-We will continue to work with the three ESRI shapefiles that we loaded in the [Open and Plot Vector Layers](../episodes/09-open-and-plot-vector-layers.Rmd) episode.
-
+We will continue to work with the three shapefiles that we loaded in the [Open and Plot Vector Layers](../episodes/09-open-and-plot-vector-layers.Rmd) episode.
 
 
 ## Plotting Multiple Vector Layers
 
 So far we learned how to plot information from a single shapefile and do some plot customization. What if we want to create a more complex plot with many shapefiles and unique symbols that need to be represented clearly in a legend?
 
-We will create a plot that combines our leisure locations (`point_Delft`), municipal boundary (`boundary_Delft`) and streets (`lines_Delft`) spatial objects. We will need to build a custom legend as well.
+We will create a plot that combines our leisure locations (`point_Delft`), municipal boundary (`boundary_Delft`) and street (`lines_Delft`) objects. We will also build a custom legend.
 
-To begin, we will create a plot with the site boundary as the first layer. Then layer the leisure locations and street data on top using `+`.
+To begin, we create a plot with the site boundary as the first layer. Then layer the leisure locations and street data on top in consecutive calls to `geom_sf()`.
 
 ```{r}
 ggplot() + 
@@ -70,11 +69,14 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-Next, let’s build a custom legend using the functions `scale_color_manual()` and `scale_fill_manual()`.
+Next, let’s build a custom legend using the functions `scale_color_manual()` and `scale_fill_manual()`. We will use the custom `road_colors` object created in the previous episode and we will create a new object called `leisure_colors` to store values of all 15 types of leisure with the `rainbow()` function. 
+
+We also need to customise the shape of the points with the `shape` aesthetic if we want to determine the colours inside the points. `shape = 21` will show the points as circles with a custom fill.
 
 ```{r}
-leisure_colors <- rainbow(15)
 point_Delft$leisure <- factor(point_Delft$leisure)
+levels(point_Delft$leisure) %>% length()
+leisure_colors <- rainbow(15)
 
 ggplot() + 
   geom_sf(data = boundary_Delft, 
@@ -97,6 +99,16 @@ ggplot() +
   labs(title = "Mobility network and leisure in Delft") + 
   coord_sf(datum = st_crs(28992))
 ```
+
+::: challenge
+
+# Customizing point shapes
+
+What value of `shape` will display points as squares with custom fills?
+
+::: solution
+
+`shape = 22` will display points as squares with custom fills. Our previous plot would look like this:
 
 ```{r}
 ggplot() +
@@ -122,6 +134,10 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
+:::
+
+:::
+
 We notice that there are quite some playgrounds in the residential parts of Delft, whereas on campus there is a concentration of picnic tables. So that is what our next challenge is about.
 
 
@@ -129,9 +145,9 @@ We notice that there are quite some playgrounds in the residential parts of Delf
 
 ## Challenge: Visualising multiple layers with a custom legend
 
-Create a map of leisure locations only including `playground` and `picnic_table`, with each point colored by the leisure type. Overlay this layer on top of the `lines_Delft` layer (the streets). Create a custom legend that applies line symbols to lines and point symbols to the points.
+Create a map of leisure locations only including `playground` and `picnic_table`, with each point coloured by the leisure type. Overlay this layer on top of the `lines_Delft` layer (the streets). Tell R to plot playgrounds and picnic tables with different `shape` values. Make sure your plot has a custom legend.
 
-Modify the plot above. Tell R to plot each point, using a different symbol of shape value.
+Tip: You can call `scale_` functions multiple times for the same layer, for any of the aesthetics used in `aes()`.
 
 :::::::::::::::::::::::: solution 
 
@@ -141,7 +157,7 @@ leisure_locations_selection <- st_read("data/delft-leisure.shp") %>%
 ```
 
 ```{r}
-levels(factor(leisure_locations_selection$leisure))
+factor(leisure_locations_selection$leisure) %>% levels()
 ```
 
 ```{r}
@@ -151,55 +167,15 @@ blue_orange <- c("cornflowerblue", "darkorange")
 ```{r}
 ggplot() + 
   geom_sf(data = lines_Delft_selection, 
-          aes(color = highway)
-          ) + 
+          aes(color = highway)) + 
   geom_sf(data = leisure_locations_selection, 
-          aes(fill = leisure), 
-          shape = 21
-          ) + 
-  scale_color_manual(name = "Line Type", 
-                     values = road_colors,
-                     guide = guide_legend(override.aes = list(
-                                         linetype = "solid", 
-                                         shape = NA
-                                         ))
-                     ) + 
-  scale_fill_manual(name = "Soil Type", 
-                    values = blue_orange,
-                    guide = guide_legend(override.aes = list(
-                                         linetype = "blank", 
-                                         shape = 21, 
-                                         colour = NA
-                                         ))
-                    ) + 
-  labs(title = "Traffic and leisure") + 
-  coord_sf(datum = st_crs(28992))
-```
-
-```{r}
-ggplot() + 
-  geom_sf(data = lines_Delft_selection, 
-          aes(color = highway), 
-          size = 1
-          ) + 
-  geom_sf(data = leisure_locations_selection, 
-          aes(fill = leisure, shape = leisure), 
-          size = 2
-          ) + 
+          aes(fill = leisure, shape = leisure)) + 
   scale_shape_manual(name = "Leisure Type", 
-                     values = c(21, 22)
-                     ) +
+                     values = c(21, 22)) +
   scale_color_manual(name = "Line Type", 
-                     values = road_colors
-                     ) + 
+                     values = road_colors) + 
   scale_fill_manual(name = "Leisure Type", 
-                    values = rainbow(15),
-                    guide = guide_legend(override.aes = list(
-                                         linetype = "blank", 
-                                         shape = c(21, 22),
-                                         color = "black"
-                                         ))
-                    ) + 
+                    values = blue_orange) + 
   labs(title = "Road network and leisure") + 
   coord_sf(datum = st_crs(28992))
 ```
@@ -211,9 +187,8 @@ ggplot() +
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use the `+` operator to add multiple layers to a ggplot.
-- A plot can be a combination of multiple vector layers.
-- Use the `scale_color_manual()` and `scale_fill_manual()` functions to set legend colors.
+- A plot can be a combination of multiple vector layers, each added with a separate call to `geom_sf()`.
+- Use the `scale_<aesthetic>_manual()` functions to customise aesthetics of vector layers such as `color`, `fill`, and `shape`.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
