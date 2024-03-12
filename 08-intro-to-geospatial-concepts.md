@@ -8,12 +8,14 @@ author: 'Ana Petrović'
 ::: questions
 
 -   How do I describe the location of a geographic feature on the surface of the earth?
--   What is coordinate reference system (CRS) and how do I describe different types of CRS?
+-   What is a coordinate reference system (CRS) and how do I describe different types of CRS?
 -   How do I decide on what CRS to use?  
 
 :::
 
 ::: objectives
+
+After completing this episode, participants should be able to…
 
 -   Identify the CRS that is best fit for a specific research question.
 
@@ -48,7 +50,7 @@ The black lines in the figure above show the equator and the prime meridian runn
 <p class="caption">Map projection represented as flattening an orange peel. Source: Data Carpentry (2023).</p>
 </div>
 
-Many different map projections are in use for different purposes. Generally, they can be categorised into the following groups: cylindrical, conic, and azimuthal (see @fig-projections).
+Many different map projections are in use for different purposes. Generally, they can be categorised into the following groups: cylindrical, conic, and azimuthal.
 
 <div class="figure" style="text-align: center">
 <img src="https://kartoweb.itc.nl/geometrics/Bitmaps/Intro%201.9a.gif" alt="Cylindrical, conic, and azimuthal map projections. Source: Knippers (2009)."  />
@@ -162,6 +164,7 @@ Correct answer: b. EPSG:28992
 
 
 ::: callout
+
 # Useful resources
 
 -   Campbell, J., Shin, M. E. (2011). Essentials of Geographic Information Systems. Textbooks. 2. <https://digitalcommons.liberty.edu/textbooks/2> (Accessed 22-01-2024)

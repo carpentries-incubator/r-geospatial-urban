@@ -72,21 +72,14 @@ Projected CRS: Amersfoort / RD New
 ggplot() +
   geom_sf(data = country_boundary_NL, 
           color = "gray18", 
-          linewidth = 2
-          ) +
+          linewidth = 2) +
   geom_sf(data = municipal_boundary_NL, 
-          color = "gray40"
-          ) +
+          color = "gray40") +
   labs(title = "Map of Contiguous NL Municipal Boundaries") +
   coord_sf(datum = st_crs(28992))
 ```
 
 <img src="fig/12-handling-spatial-projection-and-crs-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
-
-
-```r
-# st_crs(point_Delft)
-```
 
 
 ```r
@@ -139,20 +132,17 @@ boundary_Delft <- st_transform(boundary_Delft, 28992)
 ggplot() +
   geom_sf(data = country_boundary_NL, 
           linewidth = 2, 
-          color = "gray18"
-          ) +
+          color = "gray18") +
   geom_sf(data = municipal_boundary_NL, 
-          color = "gray40"
-          ) +
+          color = "gray40") +
   geom_sf(data = boundary_Delft, 
           color = "purple", 
-          fill = "purple"
-          ) +
+          fill = "purple") +
   labs(title = "Map of Contiguous NL Municipal Boundaries") +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/12-handling-spatial-projection-and-crs-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-handling-spatial-projection-and-crs-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
 
 ::: challenge
 
@@ -165,7 +155,7 @@ Create a map of South Holland as follows:
 2. Plot it and adjust line width as necessary.
 3. Layer the boundary of Delft onto the plot.
 4. Add a title.
-5. Add a legend that shows both the province boundaries (as a line) and the boundary of Delft (as a filled polygon).
+5. Add a legend that shows both the municipal boundaries (as a line) and the boundary of Delft (as a filled polygon).
 
 ::: solution
 
@@ -180,17 +170,14 @@ boundary_ZH <- municipal_boundary_NL %>%
 ggplot() +
     geom_sf(data = boundary_ZH, 
             aes(color ="color"), 
-            show.legend = "line"
-            ) +
+            show.legend = "line") +
     scale_color_manual(name = "", 
                        labels = "Municipal Boundaries in South Holland", 
-                       values = c("color" = "gray18")
-                       ) +
+                       values = c("color" = "gray18")) +
     geom_sf(data = boundary_Delft, 
             aes(shape = "shape"), 
             color = "purple", 
-            fill = "purple"
-            ) +
+            fill = "purple") +
     scale_shape_manual(name = "", 
                        labels = "Municipality of Delft", 
                        values = c("shape" = 19)
@@ -200,7 +187,7 @@ ggplot() +
     coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/12-handling-spatial-projection-and-crs-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-handling-spatial-projection-and-crs-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
 
 :::
 
@@ -219,8 +206,6 @@ st_write(leisure_locations_selection,
          driver = "ESRI Shapefile"
          )
 ```
-
-
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
