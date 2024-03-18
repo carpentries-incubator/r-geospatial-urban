@@ -10,14 +10,14 @@ on:
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  example_matrix:
-    runs-on: ubuntu-latest
+  installation_setup:
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        version: [10, 12]
+        os: [ubuntu-latest, macos-latest]
     steps:
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.version }}
+      - name: say hello
+        shell: bash
+        run: echo "HELLO"
 
     
