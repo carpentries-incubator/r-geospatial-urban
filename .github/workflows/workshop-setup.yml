@@ -21,13 +21,6 @@ jobs:
         with:
           r-version: ${{matrix.R}}
           rtools-version: '4.3.x' 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          cache-version: 1
-          extra-packages: |
-            any::tidyverse
-            any::terra
-            any:sf
       - run: Rscript -e 'print("hello")'
       - name: Install GDAL, GEOS, and PROJ.4
         if: matrix.os == 'macos-latest'
@@ -51,4 +44,11 @@ jobs:
         run: |
          sudo apt-get install libudunits2-dev -y
         shell: bash
-          
+      - name: Geospatial Packages
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 1
+          extra-packages: |
+            any::tidyverse
+            any::terra
+            any:sf
