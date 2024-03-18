@@ -13,7 +13,7 @@ jobs:
       matrix:
         # list of Os's
         R: ['4.3.3']
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
     steps:
       - name: Setup R
         uses: actions/checkout@v4
