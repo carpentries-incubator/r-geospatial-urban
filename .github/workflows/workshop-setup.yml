@@ -34,15 +34,15 @@ jobs:
       - name: Install GDAL, GEOS, and PROJ.4
         if: matrix.os == 'ubuntu-latest'
         run: | 
-          add-apt-repository ppa:ubuntugis
+          add-apt-repository ppa:ubuntugis -y
           apt-get update
-          apt-get install libgdal-dev libgeos-dev libproj-dev
+          apt-get install libgdal-dev libgeos-dev libproj-dev -y
         shell: bash
         # Include Fedora and Arch?
       - name: UDUNITS
         if: matrix.os == 'ubuntu-latest'
         run: |
-         apt-get install libudunits2-dev
+         apt-get install libudunits2-dev -y
         shell: bash
           
       
