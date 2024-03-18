@@ -22,3 +22,9 @@ jobs:
           r-version: ${{matrix.R}}
           rtools-version: '4.3.x' 
       - run: Rscript -e 'print("hello")'
+      - name: Install GDAL, GEOS, and PROJ.4
+        if: matrix.os == 'macos-latest'
+        run: |
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        shell: bash
+        
