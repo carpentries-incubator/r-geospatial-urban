@@ -30,7 +30,6 @@ library(tidyverse)
 library(sf)
 library(osmdata)
 library(leaflet)
-library(nominatimlite)
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 
 ```
@@ -50,8 +49,7 @@ Let's focus on old buildings and imagine we're in charge of their conservation. 
 Let's select them and see where they are.
 
 ```{r}
-nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle, NL", points_only = FALSE)
-bb <- sf::st_bbox(nominatim_polygon)
+bb <- getbb("Brielle, NL")
 x <- opq(bbox = bb) %>%
    add_osm_feature(key = 'building') %>%
     osmdata_sf()
