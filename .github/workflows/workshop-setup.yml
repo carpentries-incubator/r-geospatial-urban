@@ -1,6 +1,6 @@
 # A workflow for testing the workshop setup in different operating systems
 
-name: Test Workshop Setup OS 
+name: Test Workshop Setup 
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 on:
