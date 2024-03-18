@@ -24,6 +24,26 @@ jobs:
       - run: Rscript -e 'print("hello")'
       - name: Install GDAL, GEOS, and PROJ.4
         if: matrix.os == 'macos-latest'
-        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        run: | 
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew tap osgeo/osgeo4mac && brew tap --repair
+          brew install proj
+          brew install geos
+          brew install gdal
         shell: bash
+      - name: Install GDAL, GEOS, and PROJ.4
+        if: matrix.os == 'ubuntu-latest'
+        run: | 
+          add-apt-repository ppa:ubuntugis
+          apt-get update
+          apt-get install libgdal-dev libgeos-dev libproj-dev
+        shell: bash
+        # Include Fedora and Arch?
+      - name: UDUNITS
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+         apt-get install libudunits2-dev
+        shell: bash
+          
+      
         
