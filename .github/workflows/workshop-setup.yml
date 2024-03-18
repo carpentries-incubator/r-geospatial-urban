@@ -51,4 +51,4 @@ jobs:
           extra-packages: |
             any::tidyverse
             any::terra
-            any:sf
+
