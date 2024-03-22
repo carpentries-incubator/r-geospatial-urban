@@ -192,9 +192,8 @@ p <- ggplot() +
 
  p 
   
-ggsave(filename = "fig/ConservationBrielle", 
-       plot = p, 
-       device = "pdf")
+ggsave(filename = "fig/ConservationBrielle.png", 
+       plot = p)
  
 ```
  
@@ -243,7 +242,7 @@ centroid_by_buffer <- centroids_buffers %>%
 single_buffer <- single_old_buffer %>% 
   mutate(n_buildings = centroid_by_buffer$n)
  
-ggplot() + 
+pnew <- ggplot() + 
     geom_sf(data = buildings) +
     geom_sf(data = single_buffer, aes(fill = n_buildings), colour = NA) +
     scale_fill_viridis_c(alpha = 0.6,
@@ -253,7 +252,10 @@ ggplot() +
                          option = "B")  +
     coord_sf(datum = st_crs(28992))
   
+  pnew 
   
+ggsave(filename = "fig/ConservationBrielle_newrules.png", 
+       plot = pnew)
 ```
 ::::::::::::::::::::::::
 
