@@ -50,13 +50,7 @@ assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 
 The first thing to do is to define the area within which you want to retrieve data, aka the *bounding box*. This can be defined easily using a place name and the package `nominatimlite` to access the free Nominatim API provided by OpenStreetMap. 
 
-We are going to look at *Brielle* together, but you can also work with the small cities of *Naarden*, *Geertruidenberg*, *Gorinchem*, *Enkhuizen* or *Dokkum*.
-
-
-
-
-
-We first geocode our spatial text search and extract the corresponding polygon (`geo_lite_sf`) and then extract its bounding box (`st_bbox`).
+We are going to look at *Brielle* together. We first geocode our spatial text search and extract the corresponding polygon (`geo_lite_sf`) and then extract its bounding box (`st_bbox`).
 
 ```{r}
 #install.packages("nominatimlite")
@@ -199,6 +193,36 @@ So this reveals the historical centre of Brielle (or the city you chose) and the
 Anything odd? What? Around the centre? Why these limits / isolated points?
 
 
+## Replicability
+
+We have produced a proof a concept on Brielle, but can we factorise our work to be replicable with other small fortified cities? You can use any of the following cities: *Naarden*, *Geertruidenberg*, *Gorinchem*, *Enkhuizen* or *Dokkum*.
+
+We might replace the name in the first line and run everything again. Or we can create a function.
+```{r reproducibility}
+extract_buildings <- function(cityname, year=1900){
+nominatim_polygon <- geo_lite_sf(address = cityname, points_only = FALSE)
+bb <- st_bbox(nominatim_polygon)
+x <- opq(bbox = bb) %>%
+   add_osm_feature(key = 'building') %>%
+   osmdata_sf()
+buildings <- x$osm_polygons %>%
+  st_transform(.,crs=28992)
+start_date <- as.numeric(buildings$start_date)
+buildings$build_date <- if_else(start_date < year, year, start_date)
+ ggplot(data = buildings) +
+   geom_sf(aes(fill = build_date, colour=build_date))  +
+   scale_fill_viridis_c(option = "viridis")+
+   scale_colour_viridis_c(option = "viridis") +
+   ggtitle(paste0("Old buildings in ",cityname))
+}
+
+#test on Brielle
+extract_buildings("Brielle, NL")
+
+#test on Naarden
+extract_buildings("Naarden, NL")
+
+```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -230,6 +254,7 @@ leaflet(buildings2) %>%
   highlightOptions = highlightOptions(color = "white", weight = 2,
     bringToFront = TRUE))
 ```
+
 
 :::::::::::::::::::::::::::::::::
 
