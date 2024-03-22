@@ -65,6 +65,11 @@ library(nominatimlite)
 nominatim_polygon <- geo_lite_sf(address = "Brielle", points_only = FALSE)
 bb <- st_bbox(nominatim_polygon)
 bb
+
+### OR
+#install.packages("osmdata")
+# library(osmdata)
+# bb <- getbb("Brielle")
 ```
 
 ::::::::::::::::::::::::::::::::::::: callout
