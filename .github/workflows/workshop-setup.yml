@@ -22,7 +22,7 @@ jobs:
           r-version: ${{matrix.R}}
           rtools-version: '43' 
       - run: Rscript -e 'print("R was installed successfully")'
-      - name: Install GDAL, GEOS, and PROJ.4
+      - name: Install GDAL, GEOS, and PROJ.4 (macOS)
         if: matrix.os == 'macos-latest'
         run: | 
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -32,7 +32,7 @@ jobs:
           brew install geos
           brew install gdal
         shell: bash
-      - name: Install GDAL, GEOS, and PROJ.4
+      - name: Install GDAL, GEOS, and PROJ.4 (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
         run: | 
           sudo add-apt-repository ppa:ubuntugis -y
