@@ -26,6 +26,7 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: | 
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew update
           brew tap osgeo/osgeo4mac && brew tap --repair
           brew install proj
           brew install geos
@@ -53,3 +54,7 @@ jobs:
             any::tidyverse
             any::terra
             any::sf
+      - name: Test Lessons
+        run: | 
+          echo "code to test lessons"
+        shell: bash
