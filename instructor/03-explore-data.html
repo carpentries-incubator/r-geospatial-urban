@@ -350,7 +350,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Exploring Data Frames &amp; Data frame Manipulation with dplyr</h1>
-        <p>Last updated on 2024-04-09 |
+        <p>Last updated on 2024-04-10 |
         
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/03-explore-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -490,7 +490,7 @@ examples:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span> <span class="co"># basic statistical information about each column. </span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span> <span class="co"># basic statistical information about each column.</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -545,9 +545,9 @@ specific columns.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># This notation means: From dataset gapminder, give me column country. You can </span></span>
-<span><span class="co"># see that the column accessed in this way is just a vector of characters. </span></span>
-<span><span class="va">country_vec</span> <span class="op">&lt;-</span> <span class="va">gapminder</span><span class="op">$</span><span class="va">country</span> </span>
+<code class="sourceCode R"><span><span class="co"># This notation means: From dataset gapminder, give me column country. You can</span></span>
+<span><span class="co"># see that the column accessed in this way is just a vector of characters.</span></span>
+<span><span class="va">country_vec</span> <span class="op">&lt;-</span> <span class="va">gapminder</span><span class="op">$</span><span class="va">country</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">country_vec</span><span class="op">)</span></span></code></pre>
 </div>
@@ -574,7 +574,7 @@ interested in, using the <code>select()</code> function from the
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">year_country_gdp</span> <span class="op">&lt;-</span> <span class="fu">select</span><span class="op">(</span><span class="va">gapminder</span>, <span class="va">year</span>, <span class="va">country</span>, <span class="va">gdpPercap</span><span class="op">)</span> </span>
+<code class="sourceCode R"><span><span class="va">year_country_gdp</span> <span class="op">&lt;-</span> <span class="fu">select</span><span class="op">(</span><span class="va">gapminder</span>, <span class="va">year</span>, <span class="va">country</span>, <span class="va">gdpPercap</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">year_country_gdp</span><span class="op">)</span></span></code></pre>
 </div>
@@ -606,8 +606,8 @@ that:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">year_country_gdp</span> <span class="op">&lt;-</span> <span class="va">gapminder</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">year</span>,<span class="va">country</span>,<span class="va">gdpPercap</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">year_country_gdp</span> <span class="op">&lt;-</span> <span class="va">gapminder</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">year</span>, <span class="va">country</span>, <span class="va">gdpPercap</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">year_country_gdp</span><span class="op">)</span></span></code></pre>
 </div>
@@ -638,8 +638,8 @@ from outside of Europe for the 21st century.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">year_country_gdp_euro</span> <span class="op">&lt;-</span> <span class="va">gapminder</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">continent</span> <span class="op">!=</span> <span class="st">"Europe"</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2000</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">year_country_gdp_euro</span> <span class="op">&lt;-</span> <span class="va">gapminder</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">continent</span> <span class="op">!=</span> <span class="st">"Europe"</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2000</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">year</span>, <span class="va">country</span>, <span class="va">gdpPercap</span><span class="op">)</span></span>
 <span><span class="co"># '&amp;' operator (AND) - both conditions must be met</span></span>
 <span></span>
@@ -682,9 +682,9 @@ data frame have and why?</p>
 <h3 class="code-label">R BG-INFO<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">year_country_gdp_eurasia</span> <span class="op">&lt;-</span> <span class="va">gapminder</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">continent</span> <span class="op">==</span> <span class="st">"Europe"</span> <span class="op">|</span> <span class="va">continent</span> <span class="op">==</span> <span class="st">"Asia"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">year</span>, <span class="va">country</span>, <span class="va">gdpPercap</span><span class="op">)</span> </span>
+<code class="sourceCode R"><span><span class="va">year_country_gdp_eurasia</span> <span class="op">&lt;-</span> <span class="va">gapminder</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">continent</span> <span class="op">==</span> <span class="st">"Europe"</span> <span class="op">|</span> <span class="va">continent</span> <span class="op">==</span> <span class="st">"Asia"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">year</span>, <span class="va">country</span>, <span class="va">gdpPercap</span><span class="op">)</span></span>
 <span><span class="co"># '|' operator (OR) - one of the conditions must be met</span></span>
 <span></span>
 <span><span class="fu">nrow</span><span class="op">(</span><span class="va">year_country_gdp_eurasia</span><span class="op">)</span></span></code></pre>
@@ -753,10 +753,10 @@ functions to find minimum and maximum.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gapminder</span> <span class="op">%&gt;%</span></span>
-<span>   <span class="fu">group_by</span><span class="op">(</span><span class="va">country</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>   <span class="fu">summarize</span><span class="op">(</span>avg_lifeExp<span class="op">=</span><span class="fu">mean</span><span class="op">(</span><span class="va">lifeExp</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>   <span class="fu">filter</span><span class="op">(</span><span class="va">avg_lifeExp</span> <span class="op">==</span> <span class="fu">min</span><span class="op">(</span><span class="va">avg_lifeExp</span><span class="op">)</span> <span class="op">|</span> </span>
-<span>            <span class="va">avg_lifeExp</span> <span class="op">==</span> <span class="fu">max</span><span class="op">(</span><span class="va">avg_lifeExp</span><span class="op">)</span> <span class="op">)</span></span></code></pre>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">country</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>avg_lifeExp <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">lifeExp</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">avg_lifeExp</span> <span class="op">==</span> <span class="fu">min</span><span class="op">(</span><span class="va">avg_lifeExp</span><span class="op">)</span> <span class="op">|</span></span>
+<span>    <span class="va">avg_lifeExp</span> <span class="op">==</span> <span class="fu">max</span><span class="op">(</span><span class="va">avg_lifeExp</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -808,14 +808,14 @@ groups:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gdp_pop_bycontinents_byyear</span> <span class="op">&lt;-</span> <span class="va">gapminder</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">continent</span>,<span class="va">year</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">continent</span>, <span class="va">year</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">summarize</span><span class="op">(</span></span>
 <span>    avg_gdpPercap <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">gdpPercap</span><span class="op">)</span>,</span>
 <span>    sd_gdpPercap <span class="op">=</span> <span class="fu">sd</span><span class="op">(</span><span class="va">gdpPercap</span><span class="op">)</span>,</span>
 <span>    avg_pop <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">pop</span><span class="op">)</span>,</span>
 <span>    sd_pop <span class="op">=</span> <span class="fu">sd</span><span class="op">(</span><span class="va">pop</span><span class="op">)</span>,</span>
 <span>    n_obs <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span></code></pre>
+<span>  <span class="op">)</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -828,8 +828,8 @@ groups:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gapminder</span> <span class="op">%&gt;%</span></span>
-<span>    <span class="fu">group_by</span><span class="op">(</span><span class="va">continent</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>    <span class="fu">count</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">continent</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">count</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -856,7 +856,7 @@ into Billions. For this, we’ll use <code>mutate()</code>.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gapminder_gdp</span> <span class="op">&lt;-</span> <span class="va">gapminder</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>gdpBillion <span class="op">=</span> <span class="va">gdpPercap</span><span class="op">*</span><span class="va">pop</span><span class="op">/</span><span class="fl">10</span><span class="op">^</span><span class="fl">9</span><span class="op">)</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>gdpBillion <span class="op">=</span> <span class="va">gdpPercap</span> <span class="op">*</span> <span class="va">pop</span> <span class="op">/</span> <span class="fl">10</span><span class="op">^</span><span class="fl">9</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">gapminder_gdp</span><span class="op">)</span></span></code></pre>
 </div>
@@ -956,9 +956,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/03-explore-data.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/03-explore-data.html",
-  "dateCreated": "2024-03-20",
-  "dateModified": "2024-04-09",
-  "datePublished": "2024-04-09"
+  "dateCreated": "2024-04-10",
+  "dateModified": "2024-04-10",
+  "datePublished": "2024-04-10"
 }
 
   </script><script>
