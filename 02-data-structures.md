@@ -283,11 +283,13 @@ You can reorder the categories using `factor()` function. This can be useful, fo
 
 ```r
 nordic_cat <- factor(
-  nordic_cat, levels = c(
-    'Norway', 
-    'Denmark', 
-    'Sweden'
-  )) 
+  nordic_cat,
+  levels = c(
+    "Norway",
+    "Denmark",
+    "Sweden"
+  )
+)
 
 # now Norway will be the first category, Denmark second and Sweden third
 nordic_cat
@@ -308,12 +310,12 @@ we will use `fct_relevel()` function from `forcats` package to do the reordering
 library(forcats)
 
 nordic_cat <- fct_relevel(
-  nordic_cat, 
-  'Norway' , 
-  'Denmark', 
-  'Sweden'
-  ) # With this, Norway will be  first category, 
-    # Denmark second and Sweden third
+  nordic_cat,
+  "Norway",
+  "Denmark",
+  "Sweden"
+) # With this, Norway will be  first category,
+# Denmark second and Sweden third
 
 nordic_cat
 ```
@@ -359,13 +361,13 @@ nordic_str
 
 ```r
 nordic_cat2 <- factor(
-  nordic_str, 
-  levels = c('Norway', 'Denmark')
-  )
+  nordic_str,
+  levels = c("Norway", "Denmark")
+)
 
-# because we did not include Sweden in the list of 
+# because we did not include Sweden in the list of
 # factor levels, it has become NA.
-nordic_cat2 
+nordic_cat2
 ```
 
 ```{.output}

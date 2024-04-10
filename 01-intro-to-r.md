@@ -85,11 +85,11 @@ In the console type:
 
 
 ```r
-dir.create('data')
-dir.create('data_output')
-dir.create('documents')
-dir.create('fig_output')
-dir.create('scripts')
+dir.create("data")
+dir.create("data_output")
+dir.create("documents")
+dir.create("fig_output")
+dir.create("scripts")
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -198,7 +198,7 @@ script and type:
 
 
 ```r
-install.packages('here')
+install.packages("here")
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
@@ -294,8 +294,10 @@ In the script, we will write:
 
 ```r
 # Download the data
-download.file('https://bit.ly/geospatial_data', 
-              here('data','gapminder_data.csv'))
+download.file(
+  "https://bit.ly/geospatial_data",
+  here("data", "gapminder_data.csv")
+)
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
@@ -320,9 +322,9 @@ You can use R as calculator, you can for example write:
 
 
 ```r
-1+100
-1*100
-1/100
+1 + 100
+1 * 100
+1 / 100
 ```
 
 
@@ -334,7 +336,7 @@ We using the assignment operator `<-`, like this:
 
 
 ```r
-x <- 1/40
+x <- 1 / 40
 ```
 
 Notice that assignment does not print a value. Instead, we've stored it for later 
