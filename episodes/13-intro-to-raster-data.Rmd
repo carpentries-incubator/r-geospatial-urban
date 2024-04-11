@@ -38,7 +38,7 @@ After completing this episode, participants should be able to…
 
 See the [setup instructions](../learners/setup.md) for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
 
-<!-- This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before loading it with `library(terra)`. -->
+This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before loading it with `library(terra)`.
 
 :::
 
@@ -64,7 +64,7 @@ In this and lesson, we will use:
 
 ## View Raster File Attributes
 
-We will be working with a series of GeoTIFF files in this lesson. The GeoTIFF format contains a set of embedded tags with metadata about the raster data. We can use the function `describe()` from the `terra` package to get information about our raster data before we read that data into R. It is recommended to do this before importing your data. We first examine the file `tud-dsm-5m.tif`.
+We will be working with a series of GeoTIFF files in this lesson. The GeoTIFF format contains a set of embedded tags with metadata about the raster data. We can use the function `describe()` from the `terra` package to get information about our raster. It is recommended to do this before importing the data. We first examine the file `tud-dsm-5m.tif`.
 
 ```{r attr}
 describe("data/tud-dsm-5m.tif")
@@ -73,20 +73,22 @@ We will be using this information throughout this episode. By the end of the epi
 
 ## Open a Raster in R
 
-Now that we've previewed the metadata for our GeoTIFF, let's import this raster dataset into R and explore its metadata more closely. We can use the `rast()` function to import a raster file in R.
+Now that we've previewed the metadata for our GeoTIFF, let's import this raster file into R and explore its metadata more closely. We can use the `rast()` function to import a raster file in R.
 
 ::: callout
 # Data tip - Object names  
 To improve code readability, use file and object names that make it clear what is in the file. The raster data for this episode contain the TU Delft campus and its surroundings so we’ll use a naming convention of `datatype_TUD`. The first object is a Digital Surface Model (DSM) in GeoTIFF format stored in a file `tud-dsm-5m.tif` which we will load into an object named according to our naming convention `DSM_TUD`.
 :::
 
-First we will load our raster file into R and view the data structure.
+Let's load our raster file into R and view its data structure.
 
 ```{r}
 DSM_TUD <- rast("data/tud-dsm-5m.tif")
 DSM_TUD
 ```
-The information above includes a report on dimension, resolution, extent and CRS, but no information about the values. Similar to other data structures in R like vectors and data frame columns, descriptive statistics for raster data can be retrieved with the `summary()` function.
+The information above includes a report on dimension, resolution, extent and CRS, but no information about the values. 
+
+Similar to other data structures in R like vectors and data frame columns, descriptive statistics for raster data can be retrieved with the `summary()` function.
 
 ```{r, warning=TRUE}
 summary(DSM_TUD)
@@ -100,7 +102,7 @@ summary(values(DSM_TUD))
 
 With a summary on all cells of the raster, the values range from a smaller minimum of `-5.3907` to a higher maximum of `92.0910`.
 
-To visualise the DSM in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has the built-in function `as.data.frame()` for conversion to a data frame.
+To visualise the DSM in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has the built-in method `as.data.frame()` for conversion to a data frame.
 
 ```{r}
 DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
@@ -124,7 +126,7 @@ ggplot() +
 ::: callout
 # Plotting tip
 
-More information about the viridis palette used above at [viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
+More information about the viridis palette used above can be found in the [viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
 :::
 
 ::: callout
@@ -133,11 +135,11 @@ More information about the viridis palette used above at [viridis package docume
 For faster previews, you can use the `plot()` function on a `terra` object.
 :::
 
-This map shows our Digital Surface Model, that is, the elevation of our study site including buildings and vegetation. From the legend we can confirm that the maximum elevation is around 90, but we cannot tell whether this is 90 feet or 90 meters because the legend doesn’t show us the units. We can look at the metadata of our object to see what the units are. Much of the metadata that we’re interested in is part of the CRS.
+This map shows our Digital Surface Model (DSM), that is, the elevation of our study site including buildings and vegetation. From the legend we can confirm that the maximum elevation is around 90, but we cannot tell whether this is 90 feet or 90 meters because the legend doesn’t show us the units. We can look at the metadata of our object to see what the units are. Much of the metadata that we’re interested in is part of the CRS.
 
-Now we will see how features of the CRS appear in our data file and what meanings they have.
+Now we will see how features of the CRS appear in our data file and what meaning they have.
 
-## View Raster Coordinate Reference System (CRS) in R
+## View Raster Coordinate Reference System (CRS)
 
 We can view the CRS string associated with our R object using the `crs()` function.
 
@@ -209,32 +211,13 @@ nlyr(DSM_TUD)
 This dataset has only 1 band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode](../episodes/17-work-with-multi-band-rasters.Rmd).
 
 
+::: callout
 
 ## Creating a histogram of raster values
 
-A histogram can be used to inspect the distribution of raster values visually. It can show if there are values above the max or below the min of the expected range. 
+A histogram can be used to inspect the distribution of raster values visually. It can show if there are values above the max or below the min of the expected range. We can inspect the distribution of values contained in a raster using the `ggplot2` function `geom_histogram()`. Histograms are often useful in identifying outliers and bad data values in our raster data. Read more on the use of histograms in [this lesson](https://datacarpentry.org/r-raster-vector-geospatial/01-raster-structure.html#create-a-histogram-of-raster-values)
 
-We can inspect the distribution of values contained in a raster using the `ggplot2` function `geom_histogram()`. Histograms are often useful in identifying outliers and bad data values in our raster data.
-
-```{r rast-hist, message=TRUE}
-ggplot() +
-  geom_histogram(data = DSM_TUD_df, aes(`tud-dsm-5m`))
-```
-
-Notice that a message is displayed when R creates the histogram:
-
-```
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-This message is caused by a default setting in `geom_histogram()` enforcing that there are 30 bins for the data. We can define the number of bins we want in the histogram by giving another value to the `bins` argument. 60 bins, for instance, will give a more detailed histogram of the same distribution:
-
-```{r}
-ggplot() +
-  geom_histogram(data = DSM_TUD_df, aes(`tud-dsm-5m`), bins = 60)
-```
-
-Note that the shape of this histogram looks similar to the previous one that was created using the default of 30 bins. The distribution of elevation values for our Digital Surface Model (DSM) looks reasonable. It is likely that there are no bad data values in this particular raster.
+:::
 
 ::: challenge
 
