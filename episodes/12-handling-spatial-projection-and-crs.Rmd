@@ -147,7 +147,7 @@ st_write(leisure_locations_selection,
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - `ggplot2` automatically converts all objects in a plot to the same CRS.
-- Still be aware of the CRS and extent for each object.
+- For geoprocessing purposes, you still need to reproject the layers you use to the same CRS.
 - You can export an `sf` object to a shapefile with `st_write()`.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
