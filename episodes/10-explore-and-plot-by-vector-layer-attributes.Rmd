@@ -146,7 +146,7 @@ factor(point_Delft$leisure) %>%
   head(n = 3)   
 ```
 
-3. To see a list of all attribute names and answer the last wuestion, we can use the `names()` function.
+3. To see a list of all attribute names and answer the last question, we can use the `names()` function.
 
 ```{r}
 names(point_Delft)
