@@ -177,7 +177,6 @@ Correct answer: b. EPSG:28992
 
 -   Each location on the Earth has its geographical latitude and longitude, which can be transformed on a plane using a map projection.
 
--   Depending on the research question, we need a global, regional, or local CRS suitable properties.
-
+-   Depending on the research question, we need a global, regional, or local CRS with suitable properties such as the least possible distortion and an appropriate measurement unit.
  
 :::
