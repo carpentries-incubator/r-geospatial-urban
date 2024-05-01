@@ -97,7 +97,7 @@ abcd_vector
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-### Exercise 
+### Challenge: combining vectors 
 
 Combine the `abcd_vector` with the `numeric_vector` in R. What is the data type of this new vector and why?
 
