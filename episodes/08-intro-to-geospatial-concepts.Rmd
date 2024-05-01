@@ -25,13 +25,13 @@ After completing this episode, participants should be able to…
 
 The shape of the Earth is approximately a sphere which is slightly wider than it is tall, and which is called **ellipsoid**. The true shape of the Earth is an irregular ellipsoid, the so-called **geoid**, as illustrated in the image below.
 
-```{r fig.cap="The shape of the Earth. Source: United Nations Statistics Division and International Cartographic Association (2012a).", echo=FALSE}
+```{r fig-earth, fig.cap="The shape of the Earth. Source: United Nations Statistics Division and International Cartographic Association (2012a).", echo=FALSE}
 knitr::include_graphics("https://unstats.un.org/unsd/geoinfo/ungegn/docs/_data_icacourses/_ImagesModules/_selfstudy/S06_images/S06_03_a00.jpg")
 ```
 
 The most common and basic representation of the position of points on the Earth is the combination of the **geographical latitude and longitude**, as shown below.
 
-```{r fig.cap="Geographical latitude and longitude. Source: van der Marel (2014).", echo=FALSE}
+```{r fig-latlon, fig.cap="Geographical latitude and longitude. Source: van der Marel (2014).", echo=FALSE}
 knitr::include_graphics("fig/latlon.png")
 ```
 
@@ -43,13 +43,13 @@ The black lines in the figure above show the equator and the prime meridian runn
 
 **Map projection** is a systematic transformation of the latitudes and longitudes of locations on the surface of an ellipsoid into locations on a plane. It is a transformation of the three-dimensional Earth’s surface into its two-dimensional representation on a sheet of paper or computer screen (see the image below for a comparison with flattening an orange peel).
 
-```{r fig.cap="Map projection represented as flattening an orange peel. Source: Data Carpentry (2023).", echo=FALSE}
+```{r fig-orange, fig.cap="Map projection represented as flattening an orange peel. Source: Data Carpentry (2023).", echo=FALSE}
 knitr::include_graphics("https://datacarpentry.org/organization-geospatial/fig/orange-peel-earth.jpg")
 ```
 
 Many different map projections are in use for different purposes. Generally, they can be categorised into the following groups: cylindrical, conic, and azimuthal.
 
-```{r fig.cap="Cylindrical, conic, and azimuthal map projections. Source: Knippers (2009).", echo=FALSE}
+```{r fig-projections, fig.cap="Cylindrical, conic, and azimuthal map projections. Source: Knippers (2009).", echo=FALSE}
 knitr::include_graphics("https://kartoweb.itc.nl/geometrics/Bitmaps/Intro%201.9a.gif")
 ```
 
@@ -91,7 +91,7 @@ In this workshop, we use the following two CRS:
 
 The figure below shows the same city (Rotterdam) in these two CRS.
     
-```{r fig.cap="Rotterdam in two different CRS", echo=FALSE}
+```{r fig-crs, fig.cap="Rotterdam in two different CRS", echo=FALSE}
 knitr::include_graphics("fig/rotterdam-crs.png")
 ```
 

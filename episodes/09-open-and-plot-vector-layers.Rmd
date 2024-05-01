@@ -56,7 +56,7 @@ library(sf)         # work with spatial vector data
 
 Let's start by opening a shapefile. Shapefiles are a common file format to store spatial vector data used in GIS software. Note that a shapefile consists of multiple files and it is important to keep them all together in the same location. We will read a shapefile with the administrative boundary of Delft with the function `st_read()` from the `sf` package. 
 
-```{r}
+```{r read-boundary}
 boundary_Delft <- st_read("data/delft-boundary.shp", quiet = TRUE)
 ```
 
@@ -75,19 +75,19 @@ Note that all functions from the `sf` package start with the standard prefix `st
 
 By default (with `quiet = FALSE`), the `st_read()` function provides a message with a summary of metadata about the file that was read in.
 
-```{r}
+```{r read-boundary-loud}
 st_read("data/delft-boundary.shp")
 ```
 
 To examine the metadata in more detail, we can use other, more specialised, functions from the `sf` package. The `st_geometry_type()` function, for instance, gives us information about the geometry type, which in this case is `POLYGON`.
 
-```{r}
+```{r geom-type}
 st_geometry_type(boundary_Delft)
 ```
 
 The `st_crs()` function returns the coordinate reference system (CRS) used by the shapefile, which in this case is ``r st_crs(boundary_Delft)$Name`` and has the unique reference code ``r paste0("EPSG: ", st_crs(boundary_Delft)$epsg)``. 
 
-```{r}
+```{r crs}
 st_crs(boundary_Delft)
 ```
 
@@ -97,7 +97,7 @@ st_crs(boundary_Delft)
 
 As the output of `st_crs()` can be long, you can use `$Name` and `$epsg` after the `crs()` call to extract the projection name and EPSG code respectively. 
 
-```{r}
+```{r crs2}
 st_crs(boundary_Delft)$Name
 st_crs(boundary_Delft)$epsg
 ```
@@ -109,14 +109,14 @@ The `$` operator is used to extract a specific part of an object. We used it in 
 The `st_bbox()` function shows the extent of the layer.  
 
 
-```{r}
+```{r bbox}
 st_bbox(boundary_Delft)
 ```
 
 As `WGS 84` is a **geographic CRS**, the extent of the shapefile is displayed in degrees. We need a **projected CRS**, which in the case of the Netherlands is the `Amersfoort / RD New` projection. To reproject our shapefile, we will use the `st_transform()` function. For the `crs` argument we can use the EPSG code of the CRS we want to use, which is `28992` for the `Amersfort / RD New` projection. 
 To check the EPSG code of any CRS, we can check this website: https://epsg.io/
 
-```{r}
+```{r projected-crs}
 boundary_Delft <- st_transform(boundary_Delft, crs = 28992)
 st_crs(boundary_Delft)$Name
 st_crs(boundary_Delft)$epsg
@@ -124,14 +124,14 @@ st_crs(boundary_Delft)$epsg
 
 Notice that the bounding box is measured in meters after the transformation. The `$units_gdal` named element confirms that the new CRS uses metric units.
 
-```{r}
+```{r units}
 st_bbox(boundary_Delft)
 st_crs(boundary_Delft)$units_gdal
 ```
 
 We confirm the transformation by examining the reprojected shapefile.
 
-```{r}
+```{r check-boundary}
 boundary_Delft
 ```
 
@@ -147,7 +147,7 @@ Read more about Coordinate Reference Systems [here](https://datacarpentry.org/or
 
 Now, let's plot this shapefile. You are already familiar with the `ggplot2` package from [Introduction to Visualisation](../episodes/04-intro-to-visualisation.Rmd). `ggplot2` has special `geom_` functions for spatial data. We will use the `geom_sf()` function for `sf` data. We use `coord_sf()` to ensure that the coordinates shown on the two axes are displayed in meters.
 
-```{r}
+```{r plot-boundary}
 ggplot(data = boundary_Delft) +
   geom_sf(size = 3, color = "black", fill = "cyan1") +
   labs(title = "Delft Administrative Boundary") +
@@ -166,28 +166,28 @@ Read in `delft-streets.shp` and `delft-leisure.shp` and assign them to `lines_De
 
 :::::::::::::::::::::::: solution 
 
-```{r results='hide'}
+```{r lp-read, results='hide'}
 lines_Delft <- st_read("data/delft-streets.shp")
 points_Delft <- st_read("data/delft-leisure.shp")
 ```
 
 We can check the type of type of geometry with the `st_geometry_type()` function. `lines_Delft` contains `"LINESTRING"` geometry and `points_Delft` is made of `"POINT"` geometries. 
 
-```{r}
+```{r lp-geom-type}
 st_geometry_type(lines_Delft)[1]
 st_geometry_type(points_Delft)[2]
 ```
 
 Both `lines_Delft` and `points_Delft` are in `EPSG:28992`.
 
-```{r}
+```{r lp-crs}
 st_crs(lines_Delft)$epsg
 st_crs(points_Delft)$epsg
 ```
 
 When looking at the bounding boxes with the `st_bbox()` function, we see the spatial extent of the two objects in a projected CRS using meters as units. `lines_Delft()` and `points_Delft` have similar extents.
 
-```{r}
+```{r lp-bbox}
 st_bbox(lines_Delft)
 st_bbox(points_Delft)
 ```

@@ -54,7 +54,7 @@ We will create a plot that combines our leisure locations (`point_Delft`), munic
 
 To begin, we create a plot with the site boundary as the first layer. Then layer the leisure locations and street data on top in consecutive calls to `geom_sf()`.
 
-```{r}
+```{r plot-multiple}
 ggplot() + 
   geom_sf(data = boundary_Delft, 
           fill = "lightgrey", 
@@ -73,7 +73,7 @@ Next, let’s build a custom legend using the functions `scale_color_manual()` a
 
 We also need to customise the shape of the points with the `shape` aesthetic if we want to determine the colours inside the points. `shape = 21` will show the points as circles with a custom fill.
 
-```{r}
+```{r plot-multiple2}
 point_Delft$leisure <- factor(point_Delft$leisure)
 levels(point_Delft$leisure) %>% length()
 leisure_colors <- rainbow(15)
@@ -102,7 +102,7 @@ ggplot() +
 
 ::: challenge
 
-# Customizing point shapes
+# Challenge: Customizing point shapes
 
 What value of `shape` will display points as squares with custom fills?
 
@@ -110,7 +110,7 @@ What value of `shape` will display points as squares with custom fills?
 
 `shape = 22` will display points as squares with custom fills. Our previous plot would look like this:
 
-```{r}
+```{r plot-multiple3}
 ggplot() +
   geom_sf(data = boundary_Delft, 
           fill = "lightgrey", 
@@ -151,20 +151,20 @@ Tip: You can call `scale_` functions multiple times for the same layer, for any 
 
 :::::::::::::::::::::::: solution 
 
-```{r}
+```{r leisure-locations}
 leisure_locations_selection <- st_read("data/delft-leisure.shp") %>% 
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 
-```{r}
+```{r leisure-locations2}
 factor(leisure_locations_selection$leisure) %>% levels()
 ```
 
-```{r}
+```{r leisure-locations3}
 blue_orange <- c("cornflowerblue", "darkorange")
 ```
 
-```{r}
+```{r plot-leisure-locations}
 ggplot() + 
   geom_sf(data = lines_Delft_selection, 
           aes(color = highway)) + 

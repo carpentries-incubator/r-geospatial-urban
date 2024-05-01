@@ -30,11 +30,11 @@ After completing this episode, participants should be able to…
 
 ## Working with spatial data from different sources
 
-```{r}
+```{r minicipal-boundary}
 municipal_boundary_NL <- st_read("data/nl-gemeenten.shp")
 ```
 
-```{r}
+```{r plot-minicipal-boundary}
 ggplot() +
   geom_sf(data = municipal_boundary_NL) +
   labs(title = "Map of Contiguous NL Municipal Boundaries") +
@@ -43,11 +43,11 @@ ggplot() +
 
 We can add a country boundary layer to make it look nicer. If we specify a thicker line width using size = 2 for the country boundary layer, it will make our map pop!
 
-```{r}
+```{r country-boundary}
 country_boundary_NL <- st_read("data/nl-boundary.shp")
 ```
 
-```{r}
+```{r plot-boundaries}
 ggplot() +
   geom_sf(data = country_boundary_NL, 
           color = "gray18", 
@@ -58,21 +58,21 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-```{r}
+```{r minicipal-boundary-crs}
 st_crs(municipal_boundary_NL)$epsg
 ```
 
-```{r}
+```{r country-boundary-crs}
 st_crs(country_boundary_NL)$epsg
 ```
 
-```{r}
+```{r municipal-boundary-crs-2}
 boundary_Delft <- st_read("data/delft-boundary.shp")
 st_crs(boundary_Delft)$epsg
 boundary_Delft <- st_transform(boundary_Delft, 28992)
 ```
 
-```{r}
+```{r plot-boundaries2}
 ggplot() +
   geom_sf(data = country_boundary_NL, 
           linewidth = 2, 
@@ -101,12 +101,12 @@ Create a map of South Holland as follows:
 
 ::: solution
 
-```{r}
+```{r boundary-zh}
 boundary_ZH <- municipal_boundary_NL %>% 
   filter(ligtInPr_1 == "Zuid-Holland")
 ```
 
-```{r}
+```{r plot-boundary-zh}
 ggplot() +
     geom_sf(data = boundary_ZH, 
             aes(color ="color"), 
@@ -137,7 +137,7 @@ ggplot() +
 
 To save a file, use the `st_write()` function from the `sf` package. Although `sf` guesses the driver needed for a specified output file name from its extension, this can be made explicitly via the `driver` argument. In our case `driver = "ESRI Shapefile"` ensures that the output is correctly saved as a `.shp` file.
 
-```{r, eval=FALSE}
+```{r write-leisure-locations, eval=FALSE}
 st_write(leisure_locations_selection,
          "data/leisure_locations_selection.shp", 
          driver = "ESRI Shapefile"
