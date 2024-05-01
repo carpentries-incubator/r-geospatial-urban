@@ -5,9 +5,9 @@ exercises: 20
 ---
 
 ```{r setup, include=FALSE}
-library(tidyverse)  # tools for wrangling, reshaping and visualizing data
-library(here)       # managing paths
-library(sf)         # work with spatial vector data
+library(tidyverse) # tools for wrangling, reshaping and visualizing data
+library(here) # managing paths
+library(sf) # work with spatial vector data
 
 boundary_Delft <- st_read("data/delft-boundary.shp")
 lines_Delft <- st_read("data/delft-streets.shp")
@@ -270,8 +270,8 @@ If we look at all the unique values of the highway field of our street network w
 ```{r highway-types}
 road_types <- c("motorway", "primary", "secondary", "cycleway")
 
-lines_Delft_selection <- lines_Delft %>% 
-  filter(highway %in% road_types) %>% 
+lines_Delft_selection <- lines_Delft %>%
+  filter(highway %in% road_types) %>%
   mutate(highway = factor(highway, levels = road_types))
 ```
 
@@ -285,7 +285,7 @@ We can use the defined colour palette in a ggplot.
 
 ```{r plot-highway-types}
 ggplot(data = lines_Delft_selection) +
-  geom_sf(aes(color = highway)) + 
+  geom_sf(aes(color = highway)) +
   scale_color_manual(values = road_colors) +
   labs(color = "Road Type",
        title = "Mobility Network of Delft", 
@@ -348,27 +348,28 @@ levels(factor(lines_Delft$highway))
 ```{r plot-cycleways2}
 # First, create a data frame with only roads where bicycles 
 # are allowed
-lines_Delft_bicycle <- lines_Delft %>% 
+lines_Delft_bicycle <- lines_Delft %>%
   filter(highway == "cycleway")
 
 # Next, visualise it using ggplot
 ggplot(data = lines_Delft) +
   geom_sf() +
-  geom_sf(data = lines_Delft_bicycle, 
-          aes(color = highway), 
-          linewidth = 1
-          ) +
+  geom_sf(
+    data = lines_Delft_bicycle,
+    aes(color = highway),
+    linewidth = 1
+  ) +
   scale_color_manual(values = "magenta") +
-  labs(title = "Mobility network in Delft", 
-       subtitle = "Roads dedicated to Bikes"
-       ) +
+  labs(
+    title = "Mobility network in Delft",
+    subtitle = "Roads dedicated to Bikes"
+  ) +
   coord_sf(datum = st_crs(28992))
 ```
 
 :::
 
 :::
-
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

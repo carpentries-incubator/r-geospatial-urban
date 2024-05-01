@@ -9,7 +9,7 @@ library(tidyverse)  # tools for wrangling, reshaping and visualizing data
 library(here)       # managing paths
 library(sf)         # work with spatial vector data
 
-leisure_locations_selection <- st_read("data/delft-leisure.shp") %>% 
+leisure_locations_selection <- st_read("data/delft-leisure.shp") %>%
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 
@@ -139,9 +139,9 @@ To save a file, use the `st_write()` function from the `sf` package. Although `s
 
 ```{r write-leisure-locations, eval=FALSE}
 st_write(leisure_locations_selection,
-         "data/leisure_locations_selection.shp", 
-         driver = "ESRI Shapefile"
-         )
+  "data/leisure_locations_selection.shp",
+  driver = "ESRI Shapefile"
+)
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
