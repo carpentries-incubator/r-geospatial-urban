@@ -76,12 +76,12 @@ numeric_vector
 
 ```r
 # vector of words - or strings of characters- character data type
-character_vector <- c('banana', 'apple', 'orange') 
+character_vector <- c('Amsterdam', 'London', 'Delft') 
 character_vector
 ```
 
 ```{.output}
-[1] "banana" "apple"  "orange"
+[1] "Amsterdam" "London"    "Delft"    
 ```
 
 ```r
