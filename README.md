@@ -34,7 +34,7 @@ This lesson was developed by:
 - [Manuel Garcia](https://github.com/manuGil)
 - [Selin Kubilay](https://github.com/Selkubi)
 
-Large parts of it were adapted from:
+Large parts of the lesson were adapted from:
 
 - Jemma Stachelek, Serah Njambi, Mike Mahoney, sheila, Andrea T. Thomaz, Annajiat Alim Rasel, David Pérez-Suárez, Erika Koontz, Joe Molloy, Jon Jablonski, Juan Fung, Katrin Leinweber, Matthew Sisk, Richard Detomasi, Sarah LR Stevens, Shamar Stewart, Susan Chen, & Wartini Ng. (2023). datacarpentry/r-intro-geospatial: Introduction to R for Geospatial Data 2023-05 (2023.05). Zenodo. https://doi.org/10.5281/zenodo.7897052
 
