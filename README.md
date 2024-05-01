@@ -26,6 +26,7 @@ Please see the [CONTRIBUTING page](https://github.com/carpentries-incubator/r-ge
 - [Kyri Janssen](https://github.com/KyriJanssen)
 - [Selin Kubilay](https://github.com/Selkubi)
 - [Ana Petrovic](https://github.com/ana-5r)
+- [Javier San Millán Tejedor](https://github.com/javisanmillan)
 - [Aleksandra Wilczynska](https://github.com/alwil)
 
 ## Citation
