@@ -1,8 +1,11 @@
 # Geospatial Data Carpentry for Urbanism
 
-This lesson is a template lesson that uses [The Carpentries Workbench][workbench].
-
 ## Lesson Description
+
+This lesson is an introduction to working with raster and vector data in R for 
+researchers in urbanism or related fields. After a brief introduction to R, it 
+focuses on vector and raster data and their use in practical GIS operations on
+urban datasets.
 
 ## Rendered Version of This Lesson
 
@@ -10,13 +13,15 @@ Version 1.0
 
 ## Contact Information
 
-[Rbanism Community](mailto:rbanism@tudelf.nl)
+[Rbanism Community](mailto:rbanism@tudelft.nl)
 
 ## Contributing Information
 
-Please see the [CONTRIBUTING page](https://github.com/carpentries-incubator/r-geospatial-urban/blob/main/CONTRIBUTING.md) for guidance on how to contribute to this lessom.
+Please see the [CONTRIBUTING page](https://github.com/carpentries-incubator/r-geospatial-urban/blob/main/CONTRIBUTING.md) for guidance on how to contribute to this lesson.
 
 ## Credits / Acknowledgements
+
+This lesson was developed by:
 
 - [Daniele Cannatella](https://github.com/dcannatella)
 - [Clémentine Cottineau](https://github.com/ClementineCttn)
@@ -29,75 +34,23 @@ Please see the [CONTRIBUTING page](https://github.com/carpentries-incubator/r-ge
 - [Javier San Millán Tejedor](https://github.com/javisanmillan)
 - [Aleksandra Wilczynska](https://github.com/alwil)
 
+And it was adapted from:
+
+- Jemma Stachelek, Serah Njambi, Mike Mahoney, sheila, Andrea T. Thomaz, Annajiat Alim Rasel, David Pérez-Suárez, Erika Koontz, Joe Molloy, Jon Jablonski, Juan Fung, Katrin Leinweber, Matthew Sisk, Richard Detomasi, Sarah LR Stevens, Shamar Stewart, Susan Chen, & Wartini Ng. (2023). datacarpentry/r-intro-geospatial: Introduction to R for Geospatial Data 2023-05 (2023.05). Zenodo. https://doi.org/10.5281/zenodo.7897052
+
+- Jemma Stachelek, & Kunal Marwaha. (2023). datacarpentry/organization-geospatial: Data Carpentry: Introduction to Geospatial Concepts 2023-05 (2023.05). Zenodo. https://doi.org/10.5281/zenodo.7897047
+
+- Jemma Stachelek, Erin Alison Becker, Drake Asberry, Matt Strimas-Mackey, Annajiat Alim Rasel, Angela Li, Ryan Avery, kcarini, Kunal Marwaha, mneilson-usgs, Adam H. Sparks, bart1, Christian Boldsen Knudsen, Daniel Kerchner, Darya P Vanichkina, Pérez-Suárez, Jon Jablonski, Michael Liou, Natalia Morandeira, & Rob Williams. (2023). datacarpentry/r-raster-vector-geospatial: Data Carpentry: Introduction to Geospatial Raster and Vector Data with R, February 2023 (v2023.02.06). Zenodo. https://doi.org/10.5281/zenodo.7612769
+
 ## Citation
+
+Please see the [CITATION page](https://github.com/carpentries-incubator/r-geospatial-urban/blob/main/CITATION.cff) for guidance on how to cite this lesson.
 
 ## License
 
-The R Geospatial Urban lesson, like most other software provided by The Carpentries, are made available under the OSI-approved MIT license. Please see the [LICENSE page](https://github.com/carpentries-incubator/r-geospatial-urban/blob/main/LICENSE.md) for further information.
-
-To use this template to
-start a new lesson repository,
-make sure you're logged into Github.  
-Visit https://github.com/carpentries/workbench-template-rmd/generate
-and follow the instructions.
-Checking the 'Include all branches' option will save some time waiting for the first website build
-when your new repository is initialised.
-
-If you have any questions, contact [@zkamvar](https://github.com/zkamvar)
+The Geospatial Data Carpentry for Urbanism lesson, like most other software provided by The Carpentries, are made available under the OSI-approved MIT license. Please see the [LICENSE page](https://github.com/carpentries-incubator/r-geospatial-urban/blob/main/LICENSE.md) for further information.
 
 ## Rendered Version of This Lesson
 
-Follow the steps below to
-complete the initial configuration of a new lesson repository built from this template:
+https://carpentries-incubator.github.io/r-geospatial-urban/
 
-1. **Make sure GitHub Pages is activated:**
-   navigate to _Settings_,
-   select _Pages_ from the left sidebar,
-   and make sure that `gh-pages` is selected as the branch to build from.
-   If no `gh-pages` branch is available, check _Actions_ to see if the first
-   website build workflows are still running.
-   The branch should become available when those have completed.
-1. **Adjust the `config.yaml` file:**
-   this file contains global parameters for your lesson site.
-   Individual fields within the file are documented with comments (beginning with `#`)
-   At minimum, you should adjust all the fields marked 'FIXME':
-   - `title`
-   - `created`
-   - `keywords`
-   - `life_cycle` (the default, _pre-alpha_, is the appropriate for brand new lessons)
-   - `contact`
-1. **Annotate the repository** with site URL and topic tags:
-   navigate back to the repository landing page and
-   click on the gear wheel/cog icon (similar to ⚙️)
-   at the top-right of the _About_ box.
-   Check the "Use your GitHub Pages website" option,
-   and [add some keywords and other annotations to describe your lesson](https://cdh.carpentries.org/the-carpentries-incubator.html#topic-tags)
-   in the _Topics_ field.
-   At minimum, these should include:
-   - `lesson`
-   - the life cycle of the lesson (e.g. `pre-alpha`)
-   - the human language the lesson is written in (e.g. `deutsch`)
-1. **Adjust the name of the `.Rproj` file.**
-   It is simplest to make this match the name of the repository.
-1. **Adjust the
-   `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, and `LICENSE.md` files**
-   as appropriate for your project.
-   - `CODE_OF_CONDUCT.md`:
-     if you are using this template for a project outside The Carpentries,
-     you should adjust this file to describe
-     who should be contacted with Code of Conduct reports,
-     and how those reports will be handled.
-   - `CONTRIBUTING.md`:
-     depending on the current state and maturity of your project,
-     the contents of the template Contributing Guide may not be appropriate.
-     You should adjust the file to help guide contributors on how best
-     to get involved and make an impact on your lesson.
-   - `LICENSE.md`:
-     in line with the terms of the CC-BY license,
-     you should ensure that the copyright information
-     provided in the license file is accurate for your project.
-1. **Update this README with
-   [relevant information about your lesson](https://carpentries.github.io/lesson-development-training/collaborating-newcomers.html#readme)**
-   and delete this section.
-
-[workbench]: https://carpentries.github.io/sandpaper-docs/
