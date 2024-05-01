@@ -23,18 +23,18 @@ Please see the [CONTRIBUTING page](https://github.com/carpentries-incubator/r-ge
 
 This lesson was developed by:
 
-- [Daniele Cannatella](https://github.com/dcannatella)
-- [Clémentine Cottineau](https://github.com/ClementineCttn)
 - [Claudiu Forgaci](https://github.com/cforgaci)
-- [Jerome Francisco Conceicao](https://github.com/fcjerome)
-- [Manuel Garcia](https://github.com/manuGil)
-- [Kyri Janssen](https://github.com/KyriJanssen)
-- [Selin Kubilay](https://github.com/Selkubi)
-- [Ana Petrovic](https://github.com/ana-5r)
-- [Javier San Millán Tejedor](https://github.com/javisanmillan)
+- [Clémentine Cottineau](https://github.com/ClementineCttn)
 - [Aleksandra Wilczynska](https://github.com/alwil)
+- [Ana Petrovic](https://github.com/ana-5r)
+- [Daniele Cannatella](https://github.com/dcannatella)
+- [Javier San Millán Tejedor](https://github.com/javisanmillan)
+- [Jerome Francisco Conceicao](https://github.com/fcjerome)
+- [Kyri Janssen](https://github.com/KyriJanssen)
+- [Manuel Garcia](https://github.com/manuGil)
+- [Selin Kubilay](https://github.com/Selkubi)
 
-And it was adapted from:
+Large parts of it were adapted from:
 
 - Jemma Stachelek, Serah Njambi, Mike Mahoney, sheila, Andrea T. Thomaz, Annajiat Alim Rasel, David Pérez-Suárez, Erika Koontz, Joe Molloy, Jon Jablonski, Juan Fung, Katrin Leinweber, Matthew Sisk, Richard Detomasi, Sarah LR Stevens, Shamar Stewart, Susan Chen, & Wartini Ng. (2023). datacarpentry/r-intro-geospatial: Introduction to R for Geospatial Data 2023-05 (2023.05). Zenodo. https://doi.org/10.5281/zenodo.7897052
 
