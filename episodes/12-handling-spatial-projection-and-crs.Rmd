@@ -15,7 +15,7 @@ leisure_locations_selection <- st_read("data/delft-leisure.shp") %>%
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What do I do when vector data don’t line up?
+- What do I do when vector data do not line up?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
