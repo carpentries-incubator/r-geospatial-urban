@@ -242,7 +242,7 @@ head(year_country_gdp_euro)
 
 ::: challenge
 
-##  Exercise 1
+##  Challenge: filtered data frame
 
 Write a single command (which can span multiple lines and includes pipes) that will produce a data frame that has the values for life expectancy, country and year, only for Eurasia. How many rows does your data frame have and why? 
 
@@ -289,7 +289,7 @@ gapminder %>% # select the dataset
 
 ::: challenge
 
-## Exercise 2
+## Challenge: longest and shortest life expectancy
 
 Calculate the average life expectancy per country. Which country has the longest average life expectancy and which has the shortest average life expectancy?
 
