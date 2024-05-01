@@ -46,7 +46,7 @@ library(sf)         # work with spatial vector data
 
 ::: callout
 
-# The `sf` package  
+# The 'sf' package  
 
 `sf` stands for Simple Features which is a standard defined by the Open Geospatial Consortium for storing and accessing geospatial vector data. Read more about simple features and its implementation in R [here](https://r-spatial.github.io/sf/articles/sf1.html).
 
@@ -62,7 +62,7 @@ boundary_Delft <- st_read("data/delft-boundary.shp", quiet = TRUE)
 
 ::: callout
 
-# All `sf` functions start with `st_`
+# All 'sf' functions start with 'st_'
 
 Note that all functions from the `sf` package start with the standard prefix `st_` which stands for Spatial Type. This is helpful in at least two ways:  
 
@@ -93,7 +93,7 @@ st_crs(boundary_Delft)
 
 ::: callout
 
-# Examining the output of `st_crs()`
+# Examining the output of 'st_crs()'
 
 As the output of `st_crs()` can be long, you can use `$Name` and `$epsg` after the `crs()` call to extract the projection name and EPSG code respectively. 
 
