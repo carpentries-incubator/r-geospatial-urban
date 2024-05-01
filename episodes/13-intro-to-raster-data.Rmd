@@ -82,19 +82,19 @@ To improve code readability, use file and object names that make it clear what i
 
 Let's load our raster file into R and view its data structure.
 
-```{r}
+```{r read-dsm}
 DSM_TUD <- rast("data/tud-dsm-5m.tif")
 DSM_TUD
 ```
 The information above includes a report on dimension, resolution, extent and CRS, but no information about the values. Similar to other data structures in R like vectors and data frames, descriptive statistics for raster data can be retrieved with the `summary()` function.
 
-```{r, warning=TRUE}
+```{r dsm-summary, warning=TRUE}
 summary(DSM_TUD)
 ```
 
 This output gives us information about the range of values in the DSM. We can see, for instance, that the lowest elevation is `-5.2235`, the highest is `89.7838`. But note the warning. Unless you force R to calculate these statistics using every cell in the raster, it will take a random sample of 100,000 cells and calculate from them instead. To force calculation all the values, you can use the function `values`:
 
-```{r}
+```{r dsm-summary2}
 summary(values(DSM_TUD))
 ```
 
@@ -102,13 +102,13 @@ With a summary on all cells of the raster, the values range from a smaller minim
 
 To visualise the DSM in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has the built-in method `as.data.frame()` for conversion to a data frame.
 
-```{r}
+```{r dsm-df}
 DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
 ```
 
 Now when we view the structure of our data, we will see a standard data frame format in which every row is a cell from the raster, each containing information about the `x` and `y` coordinates and the raster value stored in the `tud-dsm-5m` column.
 
-```{r}
+```{r dsm-df-str}
 str(DSM_TUD_df)
 ```
 
@@ -132,7 +132,7 @@ The `"turbo"` scale in our code provides a good contrasting scale for our raster
 
 For faster previews, you can use the `plot()` function on a `terra` object.
 
-```{r}
+```{r dsm-plot}
 plot(DSM_TUD)
 ```
 
@@ -146,12 +146,13 @@ Now we will see how features of the CRS appear in our data file and what meaning
 
 We can view the CRS string associated with our R object using the `crs()` function.
 
-```{r}
+```{r dsm-crs}
 crs(DSM_TUD, proj = TRUE)
 ```
 
 ::: challenge
-What units are our data in?
+
+# Challenge: What units are our data in?
 
 ::: solution
 
@@ -173,7 +174,7 @@ See more about CRS and PROJ.4 strings in [this lesson](https://datacarpentry.org
 It is useful to know the minimum and maximum values of a raster dataset. In this case, as we are working with elevation data, these values represent the minimum-to-maximum elevation range at our site.
 
 Raster statistics are often calculated and embedded in a GeoTIFF for us. We can view these values:
-```{r}
+```{r dsm-minmax}
 minmax(DSM_TUD)
 ```
 
@@ -182,18 +183,18 @@ minmax(DSM_TUD)
 
 If the `min` and `max` values are `Inf` and `-Inf` respectively, it means that they haven't been calculated. We can calculate them using the `setMinMax()` function.
 
-```{r}
+```{r dsm-setminmax}
 DSM_TUD <- setMinMax(DSM_TUD)
 ```
 :::
 
 A call to `minmax(DSM_TUD)` will now give us the correct values. Alternatively, `min(values())` and `max(values())` will return the minimum and maximum values respectively.
 
-```{r}
+```{r dsm-min}
 min(values(DSM_TUD))
 ```
 
-```{r}
+```{r dsm-max}
 max(values(DSM_TUD))
 ```
 
@@ -205,7 +206,7 @@ The Digital Surface Model object (`DSM_TUD`) that we have been working with is a
 
 We can view the number of bands in a raster using the `nlyr()` function.
 
-```{r}
+```{r dsm-nlyr}
 nlyr(DSM_TUD)
 ```
 
@@ -232,7 +233,7 @@ Note that this file is a hillshade raster. We will learn about hillshades in the
 
 ::: solution
 
-```{r}
+```{r dsm-describe}
 describe("data/tud-dsm-5m-hill.tif")
 ```
 

@@ -60,13 +60,13 @@ Let's say we are interested in mapping the heights of trees and buildings across
 For this episode, we will use the DTM and DSM data which we already have loaded from previous episodes.
 
 We use the `describe()` function to view information about the DTM and DSM data files. 
-```{r}
+```{r dtm-dsm-describe}
 describe("data/tud-dtm-5m.tif")
 describe("data/tud-dsm-5m.tif")
 ```
 
 We have already loaded and worked with these two data files in earlier episodes. Let’s plot them each once more to remind ourselves what this data looks like. First we plot the DTM elevation data:
-```{r}
+```{r plot-dtm}
  ggplot() +
       geom_raster(data = DTM_TUD_df , 
               aes(x = x, y = y, fill = `tud-dtm-5m`)) +
@@ -75,7 +75,7 @@ We have already loaded and worked with these two data files in earlier episodes.
 ```
 
 And then the DSM elevation data:
-```{r}
+```{r plot-dsm}
  ggplot() +
       geom_raster(data = DSM_TUD_df , 
               aes(x = x, y = y, fill = `tud-dsm-5m`)) +
@@ -90,13 +90,13 @@ We can perform raster calculations by subtracting (or adding, multiplying, etc.)
 Let’s subtract the DTM from the DSM to create a Canopy Height Model. After subtracting, let’s create a data frame so we can plot with `ggplot`.
 
 
-```{r}
+```{r chm}
 CHM_TUD <- DSM_TUD - DTM_TUD
 CHM_TUD_df <- as.data.frame(CHM_TUD, xy = TRUE)
 ```
 
 We can now plot the output CHM.
-```{r}
+```{r plot-chm}
  ggplot() +
    geom_raster(data = CHM_TUD_df , 
                aes(x = x, y = y, fill = `tud-dsm-5m`)) + 
@@ -105,7 +105,7 @@ We can now plot the output CHM.
 ```
 
 Let’s have a look at the distribution of values in our newly created Canopy Height Model (CHM).
-```{r}
+```{r chm-hist}
 ggplot(CHM_TUD_df) +
     geom_histogram(aes(`tud-dsm-5m`))
 ```
@@ -123,7 +123,7 @@ It is often a good idea to explore the range of values in a raster dataset just 
 
 ::: solution
 
-```{r}
+```{r chm-challenge}
 min(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 max(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 
@@ -168,7 +168,7 @@ Now that we have created a new raster, let’s export the data as a GeoTIFF file
 When we write this raster object to a GeoTIFF file we name it `CHM_TUD.tiff`. This name allows us to quickly remember both what the data contains (CHM data) and for where (TU Delft campus and surroundings). The `writeRaster()` function by default writes the output file to your working directory unless you specify a full file path.
 
 We will specify the output format `"GTiff"` and tell R to overwrite any data that is already in a file of the same name.
-```{r}
+```{r chm-write}
 writeRaster(CHM_TUD, "fig/CHM_TUD.tiff",
             filetype = "GTiff",
             overwrite = TRUE)

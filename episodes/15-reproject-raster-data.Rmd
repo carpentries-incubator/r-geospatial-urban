@@ -65,19 +65,19 @@ Read more about layering rasters [here](https://datacarpentry.org/r-raster-vecto
 
 First, we need to import the DTM and DTM hillshade data.
 
-```{r}
+```{r dtm-hill-read}
 DTM_TUD <- rast("data/tud-dtm-5m.tif")
 DTM_hill_TUD <- rast("data/tud-dtm-5m-hill-WGS84.tif")
 ```
 
 Next, we will convert each of these datasets to a data frame for plotting with `ggplot`.
-```{r}
+```{r dtm-hill-df}
 DTM_TUD_df <- as.data.frame(DTM_TUD, xy = TRUE)
 DTM_hill_TUD_df <- as.data.frame(DTM_hill_TUD, xy = TRUE)
 ```
 
 Now we can create a map of the DTM layered over the hillshade.
-```{r}
+```{r plot-dtm-hill}
 ggplot() +
      geom_raster(data = DTM_TUD_df , 
                  aes(x = x, y = y, 
@@ -90,7 +90,7 @@ ggplot() +
 ```
 Our results are curious - neither the DTM (`DTM_TUD_df`) nor the hillshade (`DTM_hill_TUD_df`) are plotted. Let’s try to plot the DTM on its own to make sure the data are there.
 
-```{r}
+```{r plot-dtm}
 ggplot() +
   geom_raster(data = DTM_TUD_df,
               aes(x = x, y = y,
@@ -103,7 +103,7 @@ Our DTM seems to contain data and plots just fine.
 
 Next we plot the DTM Hillshade on its own to see whether everything is OK.
 
-```{r}
+```{r plot-hill}
 ggplot() +
   geom_raster(data = DTM_hill_TUD_df,
               aes(x = x, y = y,
@@ -115,17 +115,17 @@ If we look at the axes, we can see that the units, and therefore the projections
 
 ::: challenge
 
-# Exercise
+# Challenge: check the CRS
 
 View the CRS for each of these two datasets. What projection does each use?
 
 ::: solution
 
-```{r}
+```{r dtm-crs}
 crs(DTM_TUD, parse = TRUE)
 ```
 
-```{r}
+```{r hill-crs}
 crs(DTM_hill_TUD, parse = TRUE)
 ```
 
@@ -159,19 +159,19 @@ The syntax is `project(RasterObject, crs)`
 We want the CRS of our hillshade to match the `DTM_TUD` raster. We can thus assign the CRS of our `DTM_TUD` to our hillshade within the `project()` function as follows: `crs(DTM_TUD)`. Note that we are using the `project()` function on the raster object, not the `data.frame()` we use for plotting with `ggplot`.
 
 First we will reproject our `DTM_hill_TUD` raster data to match the `DTM_TUD` raster CRS:
-```{r}
+```{r hill-projected}
 DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD,
                                   crs(DTM_TUD))
 ```
 
 Now we can compare the CRS of our original DTM hillshade and our new DTM hillshade, to see how they are different.
-```{r}
+```{r hill-projected-crs}
 crs(DTM_hill_EPSG28992_TUD, parse = TRUE)
 crs(DTM_hill_TUD, parse = TRUE)
 ```
 
 We can also compare the extent of the two objects.
-```{r}
+```{r hill-projected-ext}
 ext(DTM_hill_EPSG28992_TUD)
 ext(DTM_hill_TUD)
 ```
@@ -180,34 +180,34 @@ ext(DTM_hill_TUD)
 
 Let’s next have a look at the resolution of our reprojected hillshade versus our original data.
 
-```{r}
+```{r hill-projected-res}
 res(DTM_hill_EPSG28992_TUD)
 ```
 
-```{r}
+```{r dtm-res}
 res(DTM_TUD)
 ```
 
 These two resolutions are different, but they represent the same data. We can tell R to force our newly reprojected raster to be the same as `DTM_TUD` by adding a line of code `res = res(DTM_TUD)` within the `project()` function.
-```{r}
+```{r hill-projected-crs-res}
 DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD, 
                                   crs(DTM_TUD),
                                   res = res(DTM_TUD))
 ```
 
 Now both our resolutions and our CRSs match, so we can plot these two data sets together. Let’s double-check our resolution to be sure:
-```{r}
+```{r dtm-hill-res}
 res(DTM_hill_EPSG28992_TUD)
 res(DTM_TUD)
 ```
 
 For plotting with `ggplot()`, we will need to create a data frame from our newly reprojected raster.
-```{r}
+```{r hill-df2}
 DTM_hill_TUD_2_df <- as.data.frame(DTM_hill_EPSG28992_TUD, xy = TRUE)
 ```
 
 We can now create a plot of this data.
-```{r}
+```{r plot-dtm-hill-projected}
 ggplot() +
      geom_raster(data = DTM_TUD_df , 
                  aes(x = x, y = y, 
