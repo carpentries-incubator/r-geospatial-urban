@@ -41,11 +41,11 @@ After completing this episode, participants should be able to…
 
 See the [setup instructions](../learners/setup.md) for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
 
-This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before loading it with `library(terra)`.
+This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before attaching it with `library(terra)`.
 
 :::
 
-In this part, we will plot our raster object using `ggplot2` with customized colouring schemes. We will continue working with the Digital Surface Model (DSM) raster from the [previous episode](../episodes/13-intro-to-raster-data.Rmd).
+In this part, we will plot our raster object using `ggplot2` with customized colour schemes. We will continue working with the Digital Surface Model (DSM) raster from the [previous episode](../episodes/13-intro-to-raster-data.Rmd).
 
 ## Plotting Data Using Breaks
 
@@ -87,7 +87,7 @@ levels(DSM_TUD_df$fct_elevation_cb)
 
 Note that 4 break values will result in 3 bins of data.
 
-The bin intervals are shown using `(` to mean exclusive and `]` to mean inclusive. For example: (0, 10] means “from 0 through 10”.
+The bin intervals are shown using `(` to mean exclusive and `]` to mean inclusive. For example: (0, 5] means “from 0 through 5”.
 
 :::
 
@@ -107,9 +107,9 @@ We can use those groups to plot our raster data, with each group being a differe
 ```{r}
 ggplot() +
   geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = fct_elevation_cb)) + 
-  coord_quickmap()
+  coord_equal()
 ```
-The plot above uses the default colours inside `ggplot2` for raster objects. We can specify our own colours to make the plot look a little nicer. R has a built in set of colours for plotting terrain, which are built in to the `terrain.colors()` function. Since we have three bins, we want to create a 3-colour palette:
+The plot above uses the default colours inside `ggplot2` for raster objects. We can specify our own colours to make the plot look a little nicer. R has a built in set of colours for plotting terrain available through the `terrain.colors()` function. Since we have three bins, we want to create a 3-colour palette:
 
 ```{r}
 terrain.colors(3)
@@ -120,7 +120,7 @@ The `terrain.colors()` function returns hex colours - each of these character st
 ggplot() +
  geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = fct_elevation_cb)) + 
     scale_fill_manual(values = terrain.colors(3)) + 
-    coord_quickmap()
+    coord_equal()
 ```
 
 ## More Plot Formatting
@@ -135,16 +135,16 @@ ggplot() +
  geom_raster(data = DSM_TUD_df , aes(x = x, y = y,
                                       fill = fct_elevation_cb)) + 
     scale_fill_manual(values = my_col, name = "Elevation") + 
-    coord_quickmap()
+    coord_equal()
 ```
-The axis labels x and y are not necessary, so we can turn them off by passing `element_blank()` to the `axis.title` argumnet in the `theme()` function.
+The axis labels x and y are not necessary, so we can turn them off by passing `element_blank()` to the `axis.title` argument in the `theme()` function.
 ```{r}
 ggplot() +
  geom_raster(data = DSM_TUD_df , aes(x = x, y = y,
                                       fill = fct_elevation_cb)) + 
     scale_fill_manual(values = my_col, name = "Elevation") +
     theme(axis.title = element_blank()) + 
-    coord_quickmap()
+    coord_equal()
 ```
 
 
@@ -171,7 +171,7 @@ ggplot() +
   geom_raster(data = DSM_TUD_df, aes(x = x, y = y,
                                        fill = fct_elevation_6)) +
   scale_fill_manual(values = my_col, name = "Elevation") +
-  coord_quickmap() +
+  coord_equal() +
   labs(title = "Elevation Classes of the Digital Surface Model (DSM)")
 ```
 

@@ -43,15 +43,15 @@ See the [setup instructions](../learners/setup.md) for detailed information abou
 
 :::
 
-Sometimes we encounter raster datasets that do not “line up” when plotted or analysed. Rasters that don’t line up are most often in different Coordinate Reference Systems (CRS). This episode explains how to deal with rasters in different CRS. It will walk through reprojecting rasters in R using the `project()` function in the `terra` package.
+Sometimes we encounter raster datasets that do not “line up” when plotted or analysed. Rasters that do not line up are most often in different Coordinate Reference Systems (CRS). This episode explains how to deal with rasters in different CRS. It will walk through reprojecting rasters in R using the `project()` function in the `terra` package.
 
 
 
 ## Raster Projection
 
-For this episode, we will be working with the Digital Terrain Model data. This differs from the surface model data we’ve been working with so far in that the digital surface model (DSM) includes the tops of trees and buildings, while the digital terrain model (DTM) shows the ground level.
+For this episode, we will be working with Digital Terrain Model data. This differs from the surface model data we have been working with so far in that the digital surface model (DSM) includes the tops of trees and buildings, while the digital terrain model (DTM) shows the ground level.
 
-We’ll be looking at another model (the canopy/building height model, or CHM) in [a later episode](../episodes/16-raster-calculations.Rmd) and will see how to calculate the CHM from the DSM and DTM. Here, we will create a map of the Digital Terrain Model (`DTM_TUD`) of TU Delft and its surrounding draped (or layered) on top of the hillshade (`DTM_hill_TUD`). 
+We will be looking at another model (the canopy/building height model, or CHM) in [a later episode](../episodes/16-raster-calculations.Rmd) and will see how to calculate the CHM from the DSM and DTM. Here, we will create a map of the Digital Terrain Model (`DTM_TUD`) of TU Delft and its surrounding draped (or layered) on top of the hillshade (`DTM_hill_TUD`). 
 
 :::::::::::::::::::::::::::::::::::::: callout
 
@@ -59,7 +59,7 @@ We’ll be looking at another model (the canopy/building height model, or CHM) i
 
 We can layer a raster on top of a hillshade raster for the same area, and use a transparency factor to create a 3-dimensional shaded effect. A hillshade is a raster that maps the terrain using light and shadow to create a 3D-looking image that you would see from above when viewing the terrain. We will add a custom colour, making the plot grey.
 
-Read more about layering raster [here](https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-raster-plot.html#layering-rasters).
+Read more about layering rasters [here](https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-raster-plot.html#layering-rasters).
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -86,9 +86,9 @@ ggplot() +
                  aes(x = x, y = y, 
                    alpha = `tud-dtm-5m-hill`)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-     coord_quickmap()
+     coord_equal()
 ```
-Our results are curious - neither the Digital Terrain Model (`DTM_TUD_df`) nor the DTM Hillshade (`DTM_hill_TUD_df`) plotted. Let’s try to plot the DTM on its own to make sure there are data there.
+Our results are curious - neither the DTM (`DTM_TUD_df`) nor the hillshade (`DTM_hill_TUD_df`) are plotted. Let’s try to plot the DTM on its own to make sure the data are there.
 
 ```{r}
 ggplot() +
@@ -96,7 +96,7 @@ ggplot() +
               aes(x = x, y = y,
                   fill = `tud-dtm-5m`)) +
   scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-  coord_quickmap()
+  coord_equal()
 ```
 
 Our DTM seems to contain data and plots just fine.
@@ -108,10 +108,10 @@ ggplot() +
   geom_raster(data = DTM_hill_TUD_df,
               aes(x = x, y = y,
                   alpha = `tud-dtm-5m-hill`)) +
-  coord_quickmap()
+  coord_equal()
 ```
 
-If we look at the axes, we can see that the units, and therefore the projections, of the two rasters are different. When this is the case, `ggplot2` won’t render the image. It won’t even throw an error message to tell you something has gone wrong. We can look at Coordinate Reference Systems (CRSs) of the DTM and the hillshade data to see how they differ.
+If we look at the axes, we can see that the units, and therefore the projections, of the two rasters are different. When this is the case, `ggplot2` will not render the image. It will not even throw an error message to tell you something has gone wrong. We can look at Coordinate Reference Systems (CRSs) of the DTM and the hillshade data to see how they differ.
 
 ::: challenge
 
@@ -128,13 +128,14 @@ crs(DTM_TUD, parse = TRUE)
 ```{r}
 crs(DTM_hill_TUD, parse = TRUE)
 ```
+
 `DTM_TUD` is in the Amersfoort / RD New projection, whereas `DTM_hill_TUD` is in WGS 84.
 
 :::
 
 :::
 
-Because the two rasters are in different CRS, they don’t line up when plotted in R. We need to reproject (or change the projection of) `DTM_hill_TUD` into the Amersfoort / RD New CRS.
+Because the two rasters are in different CRS, they do not line up when plotted in R. We need to reproject (or change the projection of) `DTM_hill_TUD` into the Amersfoort / RD New CRS.
 
 ## Reproject Rasters
 
@@ -187,7 +188,7 @@ res(DTM_hill_EPSG28992_TUD)
 res(DTM_TUD)
 ```
 
-These two resolutions are different, but they’re representing the same data. We can tell R to force our newly reprojected raster to be the same as `DTM_TUD` by adding a line of code `res = res(DTM_TUD)` within the `project()` function.
+These two resolutions are different, but they represent the same data. We can tell R to force our newly reprojected raster to be the same as `DTM_TUD` by adding a line of code `res = res(DTM_TUD)` within the `project()` function.
 ```{r}
 DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD, 
                                   crs(DTM_TUD),

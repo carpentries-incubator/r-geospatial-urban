@@ -51,7 +51,7 @@ We often want to combine values of and perform calculations on rasters to create
 
 ## Raster calculations in R
 
-We often want to perform calculations on two or more rasters to create a new output raster. For example, if we are interested in mapping the heights of trees and buildings across an entire field site, we might want to calculate the difference between the Digital Surface Model (DSM, tops of trees and buildings) and the Digital Terrain Model (DTM, ground level). The resulting dataset is referred to as a Canopy Height Model (CHM) and represents the actual height of trees, buildings, etc. with the influence of ground elevation removed.
+Let's say we are interested in mapping the heights of trees and buildings across an entire urban area. To that end, we can calculate the difference between the Digital Surface Model (DSM, tops of trees and buildings) and the Digital Terrain Model (DTM, ground level). The resulting dataset is referred to as a Canopy Height Model (CHM) and represents the actual height of trees, buildings, etc. with the influence of ground elevation removed.
 
 ![Source: National Ecological Observatory Network (NEON).](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/lidarTree-height.png)
 
@@ -65,13 +65,13 @@ describe("data/tud-dtm-5m.tif")
 describe("data/tud-dsm-5m.tif")
 ```
 
-We’ve already loaded and worked with these two data files in earlier episodes. Let’s plot them each once more to remind ourselves what this data looks like. First we’ll plot the DTM elevation data:
+We have already loaded and worked with these two data files in earlier episodes. Let’s plot them each once more to remind ourselves what this data looks like. First we plot the DTM elevation data:
 ```{r}
  ggplot() +
       geom_raster(data = DTM_TUD_df , 
               aes(x = x, y = y, fill = `tud-dtm-5m`)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_quickmap()
+     coord_equal()
 ```
 
 And then the DSM elevation data:
@@ -80,7 +80,7 @@ And then the DSM elevation data:
       geom_raster(data = DSM_TUD_df , 
               aes(x = x, y = y, fill = `tud-dsm-5m`)) +
      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_quickmap()
+     coord_equal()
 ```
 
 ## Raster math and Canopy Height Models
@@ -101,7 +101,7 @@ We can now plot the output CHM.
    geom_raster(data = CHM_TUD_df , 
                aes(x = x, y = y, fill = `tud-dsm-5m`)) + 
    scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-   coord_quickmap()
+   coord_equal()
 ```
 
 Let’s have a look at the distribution of values in our newly created Canopy Height Model (CHM).
@@ -115,11 +115,11 @@ Notice that the range of values for the output CHM starts right below 0 and rang
 
 ### Challenge: Explore CHM Raster Values
 
-It’s often a good idea to explore the range of values in a raster dataset just like we might explore a dataset that we collected in the field.
+It is often a good idea to explore the range of values in a raster dataset just like we might explore a dataset that we collected in the field.
 
 1. What is the minimum and maximum value for the Canopy Height Model `CHM_TUD` that we just created?
 2. What is the distribution of all the pixel values in the CHM?
-3. Plot the `CHM_TUD` raster using breaks that make sense for the data. Include an appropriate colour palette for the data, plot title and no axes ticks / labels.
+3. Plot the `CHM_TUD` raster using breaks that make sense for the data.
 
 ::: solution
 
@@ -151,7 +151,7 @@ ggplot() +
 
 We can calculate the difference between two rasters in two different ways:
 
-- by directly subtracting the two rasters in R using raster math,
+- by directly subtracting the two rasters in R using raster math, as we did above,
 
 or for more efficient processing, particularly if our rasters are large and/or the calculations we are performing are complex:
 
@@ -163,16 +163,15 @@ See how `lapp()` is used in [this lesson](https://datacarpentry.org/r-raster-vec
 
 ## Export a GeoTIFF
 
-Now that we’ve created a new raster, let’s export the data as a GeoTIFF file using the `writeRaster()` function.
+Now that we have created a new raster, let’s export the data as a GeoTIFF file using the `writeRaster()` function.
 
-When we write this raster object to a GeoTIFF file we’ll name it `CHM_TUD.tiff`. This name allows us to quickly remember both what the data contains (CHM data) and for where (TU Delft campus and surroundings). The `writeRaster()` function by default writes the output file to your working directory unless you specify a full file path.
+When we write this raster object to a GeoTIFF file we name it `CHM_TUD.tiff`. This name allows us to quickly remember both what the data contains (CHM data) and for where (TU Delft campus and surroundings). The `writeRaster()` function by default writes the output file to your working directory unless you specify a full file path.
 
-We will specify the output format (“GTiff”), the no data value `NAflag = -9999`. We will also tell R to overwrite any data that is already in a file of the same name.
+We will specify the output format `"GTiff"` and tell R to overwrite any data that is already in a file of the same name.
 ```{r}
 writeRaster(CHM_TUD, "fig/CHM_TUD.tiff",
-            filetype="GTiff",
-            overwrite=TRUE,
-            NAflag=-9999)
+            filetype = "GTiff",
+            overwrite = TRUE)
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
