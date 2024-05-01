@@ -8,10 +8,10 @@ exercises: 5
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How to find your way around RStudio?
-- How to manage projects in R?
-- How to install packages?
-- How to interact with R?
+- How can I find my way around RStudio?
+- How can I manage projects in R?
+- How can I install packages?
+- How can I interact with R?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
