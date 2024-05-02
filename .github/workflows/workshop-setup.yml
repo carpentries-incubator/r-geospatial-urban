@@ -56,5 +56,4 @@ jobs:
             any::sf
       - name: Test Lessons
         run: | 
-          echo "code to test lessons"
-        shell: bash
+          Rscript -e 'nc <- sf::st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE); if (sf::st_crs(sf::st_transform(nc, 4326))$epsg == 4326) print("`sf` works as expected"); if (nrow(dplyr::filter(nc, AREA > 0.2)) == 11) print("`tidyverse` works as expected")'
