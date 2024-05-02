@@ -5,9 +5,9 @@ exercises: 5
 ---
 
 ```{r setup, include=FALSE}
-library(tidyverse)  # tools for wrangling, reshaping and visualizing data
-library(here)       # managing paths
-library(sf)         # work with spatial vector data
+library(tidyverse) # tools for wrangling, reshaping and visualizing data
+library(here) # managing paths
+library(sf) # work with spatial vector data
 
 boundary_Delft <- st_read("data/delft-boundary.shp")
 lines_Delft <- st_read("data/delft-streets.shp")
@@ -16,8 +16,8 @@ point_Delft <- st_read("data/delft-leisure.shp")
 road_types <- c("motorway", "primary", "secondary", "cycleway")
 road_colors <- c("blue", "green", "navy", "purple")
 
-lines_Delft_selection <- lines_Delft %>% 
-  filter(highway %in% road_types) %>% 
+lines_Delft_selection <- lines_Delft %>%
+  filter(highway %in% road_types) %>%
   mutate(highway = factor(highway, levels = road_types))
 ```
 
@@ -65,7 +65,7 @@ ggplot() +
           size = 1
           ) +
   geom_sf(data = point_Delft) +
-  labs(title = "Mobility network of Delft") + 
+  labs(title = "Mobility network of Delft") +
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -78,25 +78,31 @@ point_Delft$leisure <- factor(point_Delft$leisure)
 levels(point_Delft$leisure) %>% length()
 leisure_colors <- rainbow(15)
 
-ggplot() + 
-  geom_sf(data = boundary_Delft, 
-          fill = "lightgrey", 
-          color = "lightgrey"
-          ) +
-  geom_sf(data = lines_Delft_selection, 
-          aes(color = highway), 
-          size = 1
-          ) + 
-  geom_sf(data = point_Delft, 
-          aes(fill = leisure), 
-          shape = 21) +
-  scale_color_manual(values = road_colors, 
-                     name = "Road Type"
-                     ) + 
-  scale_fill_manual(values = leisure_colors, 
-                    name = "Lesiure Location"
-                    ) + 
-  labs(title = "Mobility network and leisure in Delft") + 
+ggplot() +
+  geom_sf(
+    data = boundary_Delft,
+    fill = "lightgrey",
+    color = "lightgrey"
+  ) +
+  geom_sf(
+    data = lines_Delft_selection,
+    aes(color = highway),
+    size = 1
+  ) +
+  geom_sf(
+    data = point_Delft,
+    aes(fill = leisure),
+    shape = 21
+  ) +
+  scale_color_manual(
+    values = road_colors,
+    name = "Road Type"
+  ) +
+  scale_fill_manual(
+    values = leisure_colors,
+    name = "Lesiure Location"
+  ) +
+  labs(title = "Mobility network and leisure in Delft") +
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -112,25 +118,30 @@ What value of `shape` will display points as squares with custom fills?
 
 ```{r plot-multiple3}
 ggplot() +
-  geom_sf(data = boundary_Delft, 
-          fill = "lightgrey", 
-          color = "lightgrey"
-          ) +
-  geom_sf(data = lines_Delft_selection, 
-          aes(color = highway), 
-          size = 1
-          ) +
-  geom_sf(data = point_Delft, 
-          aes(fill = leisure), 
-          shape = 22
-          ) +
-  scale_color_manual(values = road_colors, 
-                     name = "Line Type"
-                     ) +
-  scale_fill_manual(values = leisure_colors, 
-                    name = "Leisure Location"
-                    ) +
-  labs(title = "Mobility network and leisure in Delft") + 
+  geom_sf(
+    data = boundary_Delft,
+    fill = "lightgrey",
+    color = "lightgrey"
+  ) +
+  geom_sf(
+    data = lines_Delft_selection,
+    aes(color = highway),
+    size = 1
+  ) +
+  geom_sf(
+    data = point_Delft,
+    aes(fill = leisure),
+    shape = 22
+  ) +
+  scale_color_manual(
+    values = road_colors,
+    name = "Line Type"
+  ) +
+  scale_fill_manual(
+    values = leisure_colors,
+    name = "Leisure Location"
+  ) +
+  labs(title = "Mobility network and leisure in Delft") +
   coord_sf(datum = st_crs(28992))
 ```
 
