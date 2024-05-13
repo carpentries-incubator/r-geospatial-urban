@@ -197,12 +197,18 @@ Anything odd? What? Around the centre? Why these limits / isolated points?
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge: import an interactive basemap layer under the buildings with `Leaflet` (20min)
 
-- Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/)
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge: import an interactive basemap layer under the buildings with 'Leaflet' (20min)
+
+Leaflet is a ["open-source JavaScript library for mobile-friendly interactive maps"](https://leafletjs.com/). Within R, the `leaflet` package allows you to build such interactive maps. As with `ggplot2`, you build a map with a collection of layers. In this case, you will have the leaflet basemap, some tiles, and shapes on top (such as markers, polygons, etc.). 
+
+- Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/) and [GDCU cheatsheet]().
 - Plot a basemap in Leaflet and try different tiles in the [basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
 - Transform the buildings into WGS84 projection and add them to the basemap layer with the `addPolygons()` function.
-- Have the `fillColor` of these polygons represent the `build_date` variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) for use of colors. Tip: use the examples given in the documentation and replace the variable names where needed.
+- Have the `fillColor` of these polygons represent the `build_date` variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) and [GDCU cheatsheet]() for how use to use fill colors in polygons. Tip: use the examples given in the documentation and replace the variable names where needed.
 
 :::::::::::::::::::::::: solution 
 
