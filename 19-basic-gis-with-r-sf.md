@@ -17,7 +17,7 @@ After completing this episode, participants should be able to…
 - Perform geoprocessing operations such as unions, joins and intersections with dedicated functions from the `sf` package
 - Compute the area of spatial polygons
 - Create buffers and centroids 
-- Map the results
+- Map and save the results
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -30,6 +30,8 @@ library(sf)
 library(osmdata)
 library(leaflet)
 library(nominatimlite)
+library(lwgeom)
+library(here)
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 ```
 
@@ -74,7 +76,9 @@ buildings$start_date <- as.numeric(buildings$start_date)
 old_buildings <- buildings %>%
   filter(start_date <= old)
 
- ggplot(data = old_buildings) + geom_sf(colour="red")
+ ggplot(data = old_buildings) + 
+   geom_sf(colour="red") +
+   coord_sf(datum = st_crs(28992))
 ```
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
@@ -153,7 +157,9 @@ PROJCRS["Amersfoort / RD New",
 buffer_old_buildings <- 
   st_buffer(x = old_buildings, dist = distance)
  
-ggplot(data = buffer_old_buildings) + geom_sf()
+ggplot(data = buffer_old_buildings) + 
+  geom_sf() +   
+  coord_sf(datum = st_crs(28992))
 ```
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
@@ -189,7 +195,8 @@ centroids_old <- st_centroid(old_buildings) %>%
 
 ggplot() + 
     geom_sf(data = single_old_buffer, aes(fill=ID)) +
-    geom_sf(data = centroids_old)
+    geom_sf(data = centroids_old) +
+    coord_sf(datum = st_crs(28992))
 ```
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
@@ -218,7 +225,8 @@ Now, we would like to distinguish conservation areas based on the number of hist
                         begin = 0.6,
                         end = 1,
                         direction = -1,
-                        option = "B")
+                        option = "B") +
+      coord_sf(datum = st_crs(28992))
 ```
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
@@ -229,21 +237,29 @@ We aggregate them by ID number (`group_by(ID)`) and sum the variable `n` to know
 
 ### Final output:
 
-Let's map this layer over the initial map of individual buildings.
+Let's map this layer over the initial map of individual buildings, and save the result.
 
 
 ```r
-ggplot() + 
+p <- ggplot() + 
    geom_sf(data = buildings) +
    geom_sf(data = single_buffer, aes(fill=n_buildings), colour = NA) +
    scale_fill_viridis_c(alpha = 0.6,
                         begin = 0.6,
                         end = 1,
                         direction = -1,
-                        option = "B") 
+                        option = "B") +
+    coord_sf(datum = st_crs(28992))
+
+ p 
 ```
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
+
+```r
+ggsave(filename = "fig/ConservationBrielle.png", 
+       plot = p)
+```
  
 ::::::::::::::::::::::::::::::::::::: challenge 
  
@@ -289,17 +305,26 @@ centroid_by_buffer <- centroids_buffers %>%
   
 single_buffer <- single_old_buffer %>% 
   mutate(n_buildings = centroid_by_buffer$n)
-  ggplot() + 
+ 
+pnew <- ggplot() + 
     geom_sf(data = buildings) +
     geom_sf(data = single_buffer, aes(fill = n_buildings), colour = NA) +
     scale_fill_viridis_c(alpha = 0.6,
                          begin = 0.6,
                          end = 1,
                          direction = -1,
-                         option = "B")    
+                         option = "B")  +
+    coord_sf(datum = st_crs(28992))
+  
+  pnew 
 ```
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+
+```r
+ggsave(filename = "fig/ConservationBrielle_newrules.png", 
+       plot = pnew)
+```
 ::::::::::::::::::::::::
 
 
@@ -314,21 +339,9 @@ single_buffer <- single_old_buffer %>%
 ```r
 single_buffer$area <- sf::st_area(single_buffer)  %>% 
   units::set_units(., km^2)
-```
 
-```{.error}
-Error in st_area.sfc(st_geometry(x), ...): package lwgeom required, please install it first
-```
-
-```r
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
-```
 
-```{.error}
-Error in `[[<-.data.frame`(`*tmp*`, i, value = numeric(0)): replacement has 0 rows, data has 159
-```
-
-```r
  ggplot() + 
    geom_sf(data = buildings) +
    geom_sf(data = single_buffer, aes(fill=old_buildings_per_km2), colour = NA) +
@@ -339,13 +352,7 @@ Error in `[[<-.data.frame`(`*tmp*`, i, value = numeric(0)): replacement has 0 ro
                         option = "B") 
 ```
 
-```{.error}
-Error in `geom_sf()`:
-! Problem while computing aesthetics.
-ℹ Error occurred in the 2nd layer.
-Caused by error:
-! object 'old_buildings_per_km2' not found
-```
+<img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
 
 
 
