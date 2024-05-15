@@ -368,7 +368,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Basic GIS operations with R and sf</h1>
-        <p>Last updated on 2024-05-14 |
+        <p>Last updated on 2024-05-15 |
         
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/19-basic-gis-with-r-sf.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -402,7 +402,7 @@ intersections with dedicated functions from the <code>sf</code>
 package</li>
 <li>Compute the area of spatial polygons</li>
 <li>Create buffers and centroids</li>
-<li>Map the results</li>
+<li>Map and save the results</li>
 </ul></div>
 </div>
 </div>
@@ -417,6 +417,8 @@ package</li>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">osmdata</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">leaflet</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">nominatimlite</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">lwgeom</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">here</span><span class="op">)</span></span>
 <span><span class="fu">assign</span><span class="op">(</span><span class="st">"has_internet_via_proxy"</span>, <span class="cn">TRUE</span>, <span class="fu">environment</span><span class="op">(</span><span class="fu">curl</span><span class="fu">::</span><span class="va">has_internet</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <section id="why-sf-for-gis"><h2 class="section-heading">Why <code>sf</code> for GIS?<a class="anchor" aria-label="anchor" href="#why-sf-for-gis"></a>
@@ -467,7 +469,9 @@ a non-construction zone of 100m around pre-1800 buildings.</p>
 <span><span class="va">old_buildings</span> <span class="op">&lt;-</span> <span class="va">buildings</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">start_date</span> <span class="op">&lt;=</span> <span class="va">old</span><span class="op">)</span></span>
 <span></span>
-<span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">old_buildings</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_sf</span><span class="op">(</span>colour<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code></pre>
+<span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">old_buildings</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>   <span class="fu">geom_sf</span><span class="op">(</span>colour<span class="op">=</span><span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="callout1" class="callout">
 <div class="callout-square">
@@ -563,7 +567,9 @@ PROJCRS["Amersfoort / RD New",
 <span><span class="va">buffer_old_buildings</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">st_buffer</span><span class="op">(</span>x <span class="op">=</span> <span class="va">old_buildings</span>, dist <span class="op">=</span> <span class="va">distance</span><span class="op">)</span></span>
 <span> </span>
-<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buffer_old_buildings</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buffer_old_buildings</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>   </span>
+<span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section id="union"><h2 class="section-heading">Union<a class="anchor" aria-label="anchor" href="#union"></a>
 </h2>
@@ -610,7 +616,8 @@ rather than their actual footprint. This operation means defining their
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_old_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">ID</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">centroids_old</span><span class="op">)</span></span></code></pre>
+<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">centroids_old</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section id="intersection"><h2 class="section-heading">Intersection<a class="anchor" aria-label="anchor" href="#intersection"></a>
 </h2>
@@ -642,7 +649,8 @@ layer of points and the corresponding function is
 <span>                        begin <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>                        end <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                        direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
-<span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span></span></code></pre>
+<span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p><code>st_intersection</code> here adds the attributes of the
 intersected polygon buffers to the data table of the centroids. This
@@ -655,22 +663,32 @@ the variable <code>n</code> to know how many centroids are contained in
 each polygon-buffer.</p>
 <div class="section level3">
 <h3 id="final-output">Final output:<a class="anchor" aria-label="anchor" href="#final-output"></a></h3>
-<p>Let’s map this layer over the initial map of individual
-buildings.</p>
+<p>Let’s map this layer over the initial map of individual buildings,
+and save the result.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">n_buildings</span><span class="op">)</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>                        begin <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>                        end <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                        direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
-<span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> </span></code></pre>
+<span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span> <span class="va">p</span> </span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-conservation-rules-have-changed." class="callout challenge">
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggsave</span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"fig/ConservationBrielle.png"</span>, </span>
+<span>       plot <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span></code></pre>
+</div>
+<div id="challenge-conservation-rules-have-changed." class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -692,7 +710,7 @@ of all buildings per 10m fused buffer?</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -729,16 +747,27 @@ of all buildings per 10m fused buffer?</p>
 <span>  </span>
 <span><span class="va">single_buffer</span> <span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>n_buildings <span class="op">=</span> <span class="va">centroid_by_buffer</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span> </span>
+<span><span class="va">pnew</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">n_buildings</span><span class="op">)</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>                         begin <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>                         end <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                         direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
-<span>                         option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span>    </span></code></pre>
+<span>                         option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>    <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">pnew</span> </span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggsave</span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"fig/ConservationBrielle_newrules.png"</span>, </span>
+<span>       plot <span class="op">=</span> <span class="va">pnew</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -748,34 +777,16 @@ compute the density of old buildings per buffer zone.</em></p>
 </div>
 </section><section id="area"><h2 class="section-heading">Area<a class="anchor" aria-label="anchor" href="#area"></a>
 </h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb14">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span>  <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in st_area.sfc(st_geometry(x), ...): package lwgeom required, please install it first</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in `[[&lt;-.data.frame`(`*tmp*`, i, value = numeric(0)): replacement has 0 rows, data has 159</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb18">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
+<span></span>
+<span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">old_buildings_per_km2</span><span class="op">)</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
@@ -784,16 +795,7 @@ compute the density of old buildings per buffer zone.</em></p>
 <span>                        direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
 <span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> </span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in `geom_sf()`:
-! Problem while computing aesthetics.
-ℹ Error occurred in the 2nd layer.
-Caused by error:
-! object 'old_buildings_per_km2' not found</code></pre>
-</div>
-<div id="keypoints1" class="callout keypoints">
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -871,9 +873,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/19-basic-gis-with-r-sf.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/19-basic-gis-with-r-sf.html",
-  "dateCreated": "2024-05-02",
-  "dateModified": "2024-05-14",
-  "datePublished": "2024-05-14"
+  "dateCreated": "2024-05-15",
+  "dateModified": "2024-05-15",
+  "datePublished": "2024-05-15"
 }
 
   </script><script>
