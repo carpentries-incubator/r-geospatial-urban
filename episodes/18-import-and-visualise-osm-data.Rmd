@@ -27,7 +27,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ## What is OpenStreetMap?
 
-OpenStreetMap (OSM) is a collaborative project which aims at mapping the world and sharing geospatial data in an open way. Anyone can contribute, by mapping geographical objects they encounter, by adding topical information on existing map objects (their name, function, capacity, etc.), or by mapping buildings and roads from satellite imagery (cf. [HOT: Humanitarian OpenStreetMap Team](https://www.hotosm.org/)).
+OpenStreetMap (OSM) is a collaborative project which aims at mapping the world and sharing geospatial data in an open way. Anyone can contribute, by mapping geographical objects they encounter, by adding topical information on existing map objects (their name, function, capacity, etc.), or by mapping buildings and roads from satellite imagery.
 
 This information is then validated by other users and eventually added to the common "map" or information system. This ensures that the information is accessible, open, verified, accurate and up-to-date.
 
@@ -50,10 +50,13 @@ assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 
 The first thing to do is to define the area within which you want to retrieve data, aka the *bounding box*. This can be defined easily using a place name and the package `nominatimlite` to access the free Nominatim API provided by OpenStreetMap. 
 
-We are going to look at *Brielle* together, but you can also work with the small cities of *Naarden*, *Geertruidenberg*, *Gorinchem*, *Enkhuizen* or *Dokkum*.
+We are going to look at *Brielle* together. 
 
+::::::::::::::::::::::::::::::::::::: callout
 
+Beware that downloading and analysing the data for larger cities might be long, slow and cumbersome on your machine. If you choose another location to work with, please try to choose a city of similar size!
 
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 We first geocode our spatial text search and extract the corresponding polygon (`geo_lite_sf`) and then extract its bounding box (`st_bbox`).
@@ -65,6 +68,11 @@ library(nominatimlite)
 nominatim_polygon <- geo_lite_sf(address = "Brielle", points_only = FALSE)
 bb <- st_bbox(nominatim_polygon)
 bb
+
+### OR
+#install.packages("osmdata")
+# library(osmdata)
+# bb <- getbb("Brielle")
 ```
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -187,22 +195,62 @@ buildings$build_date <- if_else(start_date < 1900, 1900, start_date)
  ggplot(data = buildings) +
    geom_sf(aes(fill = build_date, colour=build_date))  +
    scale_fill_viridis_c(option = "viridis")+
-   scale_colour_viridis_c(option = "viridis")
+   scale_colour_viridis_c(option = "viridis") +
+   coord_sf(datum = st_crs(28992))
 ```
 
 So this reveals the historical centre of Brielle (or the city you chose) and the various urban extensions through time.
 Anything odd? What? Around the centre? Why these limits / isolated points?
 
 
+## Replicability
+
+We have produced a proof a concept on Brielle, but can we factorise our work to be replicable with other small fortified cities? You can use any of the following cities: *Naarden*, *Geertruidenberg*, *Gorinchem*, *Enkhuizen* or *Dokkum*.
+
+We might replace the name in the first line and run everything again. Or we can create a function.
+```{r reproducibility}
+extract_buildings <- function(cityname, year=1900){
+  nominatim_polygon <- geo_lite_sf(address = cityname, points_only = FALSE)
+  bb <- st_bbox(nominatim_polygon)
+  
+  x <- opq(bbox = bb) %>%
+     add_osm_feature(key = 'building') %>%
+     osmdata_sf()
+     
+  buildings <- x$osm_polygons %>%
+    st_transform(.,crs=28992)
+    
+  start_date <- as.numeric(buildings$start_date)
+  
+  buildings$build_date <- if_else(start_date < year, year, start_date)
+   ggplot(data = buildings) +
+     geom_sf(aes(fill = build_date, colour=build_date))  +
+     scale_fill_viridis_c(option = "viridis")+
+     scale_colour_viridis_c(option = "viridis") +
+     ggtitle(paste0("Old buildings in ",cityname)) +
+     coord_sf(datum = st_crs(28992))
+}
+
+#test on Brielle
+extract_buildings("Brielle, NL")
+
+#test on Naarden
+extract_buildings("Naarden, NL")
+
+```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge: import an interactive basemap layer under the buildings with `Leaflet` (20min)
 
-- Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/)
-- Plot a basemap in Leaflet and try different tiles in the [basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
-- Transform the buildings into WGS84 projection and add them to the basemap layer with the `addPolygons()` function.
-- Have the `fillColor` of these polygons represent the `build_date` variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) for use of colors. Tip: use the examples given in the documentation and replace the variable names where needed.
+Leaflet is a ["open-source JavaScript library for mobile-friendly interactive maps"](https://leafletjs.com/). Within R, the `leaflet` package allows you to build such interactive maps. As with `ggplot2`, you build a map with a collection of layers. In this case, you will have the leaflet basemap, some tiles, and shapes on top (such as markers, polygons, etc.). 
+
+- Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/) and GDCU cheatsheet.
+- Plot a basemap using `leaflet`
+- Add a layer of tiles, for instance provider tiles [basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
+- Transform the buildings into WGS84 projection
+- Add the building layer to your leaflet map using the `addPolygons()` function.
+- Use the `fillColor` of these polygons represent the `build_date` variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) DCU cheatsheet for how to use of colors in polygons. 
 
 :::::::::::::::::::::::: solution 
 
@@ -216,8 +264,13 @@ library(leaflet)
 buildings2 <- buildings %>%
   st_transform(.,crs=4326)
 
+# leaflet(buildings2) %>%
+#  addTiles() %>%
+#   addPolygons(fillColor = ~colorQuantile("YlGnBu", -build_date)(-build_date))
+
+ # For a better visual rendering, try:
+  
 leaflet(buildings2) %>%
-# addTiles()
   addProviderTiles(providers$CartoDB.Positron) %>%
   addPolygons(color = "#444444", weight = 0.1, smoothFactor = 0.5,
   opacity = 0.2, fillOpacity = 0.8,
@@ -225,6 +278,7 @@ leaflet(buildings2) %>%
   highlightOptions = highlightOptions(color = "white", weight = 2,
     bringToFront = TRUE))
 ```
+
 
 :::::::::::::::::::::::::::::::::
 
