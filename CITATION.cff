@@ -1,0 +1,71 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Geospatial Data Carpentry for Urbanism
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Claudiu
+    family-names: Forgaci
+    email: C.Forgaci@tudelft.nl
+    affiliation: Delft University of Technology
+    orcid: 'https://orcid.org/0000-0003-3218-5102'
+  - given-names: Clémentine
+    family-names: Cottineau
+    email: C.Cottineau@tudelft.nl
+    affiliation: Delft University of Technology
+    orcid: 'https://orcid.org/0000-0002-2452-3901'
+  - given-names: Kyri Maaike Joey
+    family-names: Janssen
+    email: K.M.J.Janssen@tudelft.nl
+    affiliation: Delft University of Technology
+    orcid: 'https://orcid.org/0000-0002-4606-9332'
+  - given-names: Jérôme
+    family-names: Francisco Conceicao
+    email: J.FranciscoConceicao@tudelft.nl
+    affiliation: Delft University of Technology
+    orcid: 'https://orcid.org/0000-0002-7023-5636'
+  - given-names: Manuel Garcia
+    family-names: Alvarez
+    email: M.G.GarciaAlvarez@tudelft.nl
+    affiliation: Delft University of Technology
+  - given-names: Ana
+    family-names: Petrović
+    email: A.Petrovic@tudelft.nl
+    affiliation: Delft University of Technology
+  - given-names: Selin
+    family-names: Kubilay
+    email: D.S.Kubilay@tudelft.nl
+    orcid: 'https://orcid.org/0009-0002-5263-1333'
+    affiliation: Delft University of Technology
+  - given-names: Daniele
+    family-names: Cannatella
+    email: D.Cannatella@tudelft.nl
+    affiliation: Delft University of Technology
+    orcid: 'https://orcid.org/0000-0003-1810-2032'
+  - given-names: 'Javier '
+    orcid: 'https://orcid.org/0000-0002-8369-556X'
+    family-names: San Millán Tejedor
+    email: J.SanMillanTejedor@tudelft.nl
+    affiliation: Delft University of Technology
+  - given-names: Aleksandra
+    family-names: Wilczynska
+    affiliation: 4TU.ResearchData
+  - name: Rbanism Community
+    city: Delft
+    country: NL
+    website: 'https://rbanism.org'
+repository-code: >-
+  https://github.com/carpentries-incubator/r-geospatial-urban
+url: >-
+  https://carpentries-incubator.github.io/r-geospatial-urban/
+keywords:
+  - r
+  - geospatial-data
+  - lesson
+  - urban-data-science
+  - carpentries
+license: CC-BY-4.0

@@ -2,7 +2,7 @@
 site: sandpaper::sandpaper_site
 ---
 
-This is a new lesson built with [The Carpentries Workbench][workbench].
+This lesson is an introduction to working with raster and vector data in R for researchers in urbanism or related fields. After a brief introduction to R, it focuses on vector and raster data and their use in practical GIS operations on urban datasets.
 
 The content of the workshop was adapted from the three lessons of Data Carpentry Geospatial workshop, as follows:
 
