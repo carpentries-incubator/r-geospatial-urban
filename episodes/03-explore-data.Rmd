@@ -91,11 +91,11 @@ In each line after a `$` sign, we see the name of each column, its type and firs
 There are multiple ways to explore a data set. Here are just a few examples:
 
 
-```{r}
+```{r examine-data}
 
 head(gapminder) # shows first 6  rows of the data set
 
-summary(gapminder) # basic statistical information about each column. 
+summary(gapminder) # basic statistical information about each column.
 # Information format differes by data type.
 
 nrow(gapminder) # returns number of rows in a dataset
@@ -110,9 +110,9 @@ When you're analyzing a data set, you often need to access its specific columns.
 
 One handy way to access a column is using it's name and a dollar sign `$`: 
 ```{r subset-dollar-sign}
-# This notation means: From dataset gapminder, give me column country. You can 
-# see that the column accessed in this way is just a vector of characters. 
-country_vec <- gapminder$country 
+# This notation means: From dataset gapminder, give me column country. You can
+# see that the column accessed in this way is just a vector of characters.
+country_vec <- gapminder$country
 
 head(country_vec)
 
@@ -128,7 +128,7 @@ Let's start manipulating the data.
 First, we will adapt our data set, by keeping only the columns we're interested in, using the `select()` function from the `dplyr` package:
 
 ```{r dplyr-select}
-year_country_gdp <- select(gapminder, year, country, gdpPercap) 
+year_country_gdp <- select(gapminder, year, country, gdpPercap)
 
 head(year_country_gdp)
 
@@ -145,8 +145,8 @@ The `select()` statement with pipe would look like that:
 
 ```{r dplyr-pipe}
 
-year_country_gdp <- gapminder %>% 
-  select(year,country,gdpPercap)
+year_country_gdp <- gapminder %>%
+  select(year, country, gdpPercap)
 
 head(year_country_gdp)
 
@@ -159,9 +159,9 @@ First we define data set, then - with the use of pipe we pass it on to the `sele
 We already know how to select only the needed columns. But now, we also want to filter the rows of our data set via certain conditions with `filter()` function. Instead of doing it in separate steps, we can do it all together. 
 
 In the `gapminder` data set, we want to see the results from outside of Europe for the 21st century. 
-```{r}
-year_country_gdp_euro <- gapminder %>% 
-  filter(continent != "Europe" & year >= 2000) %>% 
+```{r filter-data}
+year_country_gdp_euro <- gapminder %>%
+  filter(continent != "Europe" & year >= 2000) %>%
   select(year, country, gdpPercap)
 # '&' operator (AND) - both conditions must be met
 
@@ -170,16 +170,16 @@ head(year_country_gdp_euro)
 
 ::: challenge
 
-##  Exercise 1
+##  Challenge: filtered data frame
 
 Write a single command (which can span multiple lines and includes pipes) that will produce a data frame that has the values for life expectancy, country and year, only for Eurasia. How many rows does your data frame have and why? 
 
 ::: solution
 
 ```{r ex5, class.source="bg-info"}
-year_country_gdp_eurasia <- gapminder %>% 
-  filter(continent == "Europe" | continent == "Asia") %>% 
-  select(year, country, gdpPercap) 
+year_country_gdp_eurasia <- gapminder %>%
+  filter(continent == "Europe" | continent == "Asia") %>%
+  select(year, country, gdpPercap)
 # '|' operator (OR) - one of the conditions must be met
 
 nrow(year_country_gdp_eurasia)
@@ -201,7 +201,7 @@ gapminder %>% # select the dataset
 
 ::: challenge
 
-## Exercise 2
+## Challenge: longest and shortest life expectancy
 
 Calculate the average life expectancy per country. Which country has the longest average life expectancy and which has the shortest average life expectancy?
 
@@ -211,10 +211,10 @@ Calculate the average life expectancy per country. Which country has the longest
 
 ```{r ex6 , class.source="bg-info"}
 gapminder %>%
-   group_by(country) %>%
-   summarize(avg_lifeExp=mean(lifeExp)) %>%
-   filter(avg_lifeExp == min(avg_lifeExp) | 
-            avg_lifeExp == max(avg_lifeExp) )
+  group_by(country) %>%
+  summarize(avg_lifeExp = mean(lifeExp)) %>%
+  filter(avg_lifeExp == min(avg_lifeExp) |
+    avg_lifeExp == max(avg_lifeExp))
 ```
 
 :::
@@ -235,14 +235,14 @@ gapminder %>%
 On top of this, you can also make multiple summaries of those groups:
 ```{r dplyr-summ}
 gdp_pop_bycontinents_byyear <- gapminder %>%
-  group_by(continent,year) %>%
+  group_by(continent, year) %>%
   summarize(
     avg_gdpPercap = mean(gdpPercap),
     sd_gdpPercap = sd(gdpPercap),
     avg_pop = mean(pop),
     sd_pop = sd(pop),
     n_obs = n()
-    )
+  )
 
 ```
 
@@ -252,8 +252,8 @@ If you need only a number of observations per group, you can use the `count()` f
 ```{r dplyr-count}
 
 gapminder %>%
-    group_by(continent) %>%
-    count()
+  group_by(continent) %>%
+  count()
 ```
  
 
@@ -263,7 +263,7 @@ Frequently you’ll want to create new columns based on the values in existing c
 
 ```{r dplyr-mutate}
 gapminder_gdp <- gapminder %>%
-  mutate(gdpBillion = gdpPercap*pop/10^9)
+  mutate(gdpBillion = gdpPercap * pop / 10^9)
 
 head(gapminder_gdp)
 

@@ -1,0 +1,59 @@
+# A workflow for testing the workshop setup in different operating systems
+
+name: Test Workshop Setup 
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+on:
+  workflow_dispatch:
+    
+jobs:
+  workshop_setup:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        # list of Os's
+        R: ['4.3.3']
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{matrix.R}}
+          rtools-version: '43' 
+      - run: Rscript -e 'print("R was installed successfully")'
+      - name: Install GDAL, GEOS, and PROJ.4 (macOS)
+        if: matrix.os == 'macos-latest'
+        run: | 
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew update
+          brew tap osgeo/osgeo4mac && brew tap --repair
+          brew install proj
+          brew install geos
+          brew install gdal
+        shell: bash
+      - name: Install GDAL, GEOS, and PROJ.4 (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: | 
+          sudo add-apt-repository ppa:ubuntugis -y
+          sudo apt-get update
+          sudo apt-get install libgdal-dev libgeos-dev libproj-dev -y
+        shell: bash
+        # Include Fedora and Arch?
+      - name: UDUNITS
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+         sudo apt-get install libudunits2-dev -y
+        shell: bash
+      - name: Geospatial Packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 2
+          packages: |
+            any::sessioninfo 
+            any::tidyverse
+            any::terra
+            any::sf
+      - name: Test Lessons
+        run: | 
+          Rscript -e 'nc <- sf::st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE); if (sf::st_crs(sf::st_transform(nc, 4326))$epsg == 4326) print("`sf` works as expected"); if (nrow(dplyr::filter(nc, AREA > 0.2)) == 11) print("`tidyverse` works as expected")'

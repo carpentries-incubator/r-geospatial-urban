@@ -29,10 +29,10 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How to find your way around RStudio?
-- How to manage projects in R?
-- How to install packages?
-- How to interact with R?
+- How can I find my way around RStudio?
+- How can I manage projects in R?
+- How can I install packages?
+- How can I interact with R?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -105,11 +105,11 @@ An alternative solution is to create the folders using R command `dir.create()`.
 In the console type: 
 
 ```{r create-directories}
-dir.create('data')
-dir.create('data_output')
-dir.create('documents')
-dir.create('fig_output')
-dir.create('scripts')
+dir.create("data")
+dir.create("data_output")
+dir.create("documents")
+dir.create("fig_output")
+dir.create("scripts")
 
 ```
 
@@ -218,7 +218,7 @@ We will however need to install the `here` package. To do so, please go to your
 script and type:
 
 ```{r install-here-package, eval=FALSE}
-install.packages('here')
+install.packages("here")
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
@@ -311,8 +311,10 @@ In the script, we will write:
 
 ```{r download-files}
 # Download the data
-download.file('https://bit.ly/geospatial_data', 
-              here('data','gapminder_data.csv'))
+download.file(
+  "https://bit.ly/geospatial_data",
+  here("data", "gapminder_data.csv")
+)
 
 ```
 
@@ -337,9 +339,9 @@ will not cover these in the workshop.
 You can use R as calculator, you can for example write:
 
 ```{r calculator}
-1+100
-1*100
-1/100
+1 + 100
+1 * 100
+1 / 100
 
 ```
 
@@ -351,7 +353,7 @@ use them whenever we need to.
 We using the assignment operator `<-`, like this:
 
 ```{r asignment-operator}
-x <- 1/40
+x <- 1 / 40
 ```
 
 Notice that assignment does not print a value. Instead, we've stored it for later 

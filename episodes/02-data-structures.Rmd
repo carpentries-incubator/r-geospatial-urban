@@ -70,7 +70,7 @@ numeric_vector <- c(2, 6, 3)
 numeric_vector
 
 # vector of words - or strings of characters- character data type
-character_vector <- c('banana', 'apple', 'orange') 
+character_vector <- c('Amsterdam', 'London', 'Delft') 
 character_vector
 
 # vector of logical values (is something true or false?)- logical data type.
@@ -97,7 +97,7 @@ abcd_vector
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-### Exercise 
+### Challenge: combining vectors 
 
 Combine the `abcd_vector` with the `numeric_vector` in R. What is the data type of this new vector and why?
 
@@ -211,11 +211,13 @@ You can reorder the categories using `factor()` function. This can be useful, fo
 
 ```{r factor-reorder1}
 nordic_cat <- factor(
-  nordic_cat, levels = c(
-    'Norway', 
-    'Denmark', 
-    'Sweden'
-  )) 
+  nordic_cat,
+  levels = c(
+    "Norway",
+    "Denmark",
+    "Sweden"
+  )
+)
 
 # now Norway will be the first category, Denmark second and Sweden third
 nordic_cat
@@ -230,12 +232,12 @@ we will use `fct_relevel()` function from `forcats` package to do the reordering
 library(forcats)
 
 nordic_cat <- fct_relevel(
-  nordic_cat, 
-  'Norway' , 
-  'Denmark', 
-  'Sweden'
-  ) # With this, Norway will be  first category, 
-    # Denmark second and Sweden third
+  nordic_cat,
+  "Norway",
+  "Denmark",
+  "Sweden"
+) # With this, Norway will be  first category,
+# Denmark second and Sweden third
 
 nordic_cat
 ```
@@ -263,13 +265,13 @@ outside of this set, it will become an unknown/missing value detonated by
 ```{r factor-missing-level}
 nordic_str
 nordic_cat2 <- factor(
-  nordic_str, 
-  levels = c('Norway', 'Denmark')
-  )
+  nordic_str,
+  levels = c("Norway", "Denmark")
+)
 
-# because we did not include Sweden in the list of 
+# because we did not include Sweden in the list of
 # factor levels, it has become NA.
-nordic_cat2 
+nordic_cat2
 ```
 ::::::::::::::::::::::::::::::::::::::::::::::::::::
 

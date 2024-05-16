@@ -14,7 +14,7 @@ carpentry: 'incubator'
 title: 'Geospatial Data Carpentry for Urbanism'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 
+created:
 
 # Comma-separated list of keywords for the lesson
 keywords: 'software, data, lesson, The Carpentries, geospatial'

@@ -39,7 +39,7 @@ knitr::opts_chunk$set(
 
 # Intro to raster data
 
-## The `raster` package
+## The `terra` package
 
 ![A plot showing the green band of an RGB aerial image of the TU Delft library](fig/tudlib-green.png){fig-align="center"}
 

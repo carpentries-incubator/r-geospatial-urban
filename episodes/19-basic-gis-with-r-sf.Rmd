@@ -17,7 +17,7 @@ After completing this episode, participants should be able to…
 - Perform geoprocessing operations such as unions, joins and intersections with dedicated functions from the `sf` package
 - Compute the area of spatial polygons
 - Create buffers and centroids 
-- Map the results
+- Map and save the results
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 ```{r setup, include=FALSE} 
@@ -67,7 +67,9 @@ buildings$start_date <- as.numeric(buildings$start_date)
 old_buildings <- buildings %>%
   filter(start_date <= old)
 
- ggplot(data = old_buildings) + geom_sf(colour="red")
+ ggplot(data = old_buildings) + 
+   geom_sf(colour="red") +
+   coord_sf(datum = st_crs(28992))
  
 ```
 
@@ -97,7 +99,9 @@ st_crs(old_buildings)
 buffer_old_buildings <- 
   st_buffer(x = old_buildings, dist = distance)
  
-ggplot(data = buffer_old_buildings) + geom_sf()
+ggplot(data = buffer_old_buildings) + 
+  geom_sf() +   
+  coord_sf(datum = st_crs(28992))
   
 ```
 
@@ -132,7 +136,8 @@ centroids_old <- st_centroid(old_buildings) %>%
 
 ggplot() + 
     geom_sf(data = single_old_buffer, aes(fill=ID)) +
-    geom_sf(data = centroids_old)
+    geom_sf(data = centroids_old) +
+    coord_sf(datum = st_crs(28992))
 ```
 
 ## Intersection
@@ -158,7 +163,8 @@ Now, we would like to distinguish conservation areas based on the number of hist
                         begin = 0.6,
                         end = 1,
                         direction = -1,
-                        option = "B")
+                        option = "B") +
+      coord_sf(datum = st_crs(28992))
 ```
 
 `st_intersection` here adds the attributes of the intersected polygon buffers to the data table of the centroids. This means we will now know about each centroid, the ID of its intersected polygon-buffer, and a variable called "n" which is population with 1 for everyone. This means that all centroids will have the same weight when aggregated.
@@ -167,18 +173,24 @@ We aggregate them by ID number (`group_by(ID)`) and sum the variable `n` to know
 
 ### Final output:
 
-Let's map this layer over the initial map of individual buildings.
+Let's map this layer over the initial map of individual buildings, and save the result.
 
 ```{r}
-ggplot() + 
+p <- ggplot() + 
    geom_sf(data = buildings) +
    geom_sf(data = single_buffer, aes(fill=n_buildings), colour = NA) +
    scale_fill_viridis_c(alpha = 0.6,
                         begin = 0.6,
                         end = 1,
                         direction = -1,
-                        option = "B") 
+                        option = "B") +
+    coord_sf(datum = st_crs(28992))
 
+ p 
+  
+ggsave(filename = "fig/ConservationBrielle.png", 
+       plot = p)
+ 
 ```
  
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -225,14 +237,21 @@ centroid_by_buffer <- centroids_buffers %>%
   
 single_buffer <- single_old_buffer %>% 
   mutate(n_buildings = centroid_by_buffer$n)
-  ggplot() + 
+ 
+pnew <- ggplot() + 
     geom_sf(data = buildings) +
     geom_sf(data = single_buffer, aes(fill = n_buildings), colour = NA) +
     scale_fill_viridis_c(alpha = 0.6,
                          begin = 0.6,
                          end = 1,
                          direction = -1,
-                         option = "B")    
+                         option = "B")  +
+    coord_sf(datum = st_crs(28992))
+  
+  pnew 
+  
+ggsave(filename = "fig/ConservationBrielle_newrules.png", 
+       plot = pnew)
 ```
 ::::::::::::::::::::::::
 
