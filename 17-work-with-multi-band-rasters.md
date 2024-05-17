@@ -101,7 +101,7 @@ Let’s preview the attributes of our stack object:
 RGB_stack_TUD
 ```
 
-```{.output}
+```output
 class       : SpatRaster 
 dimensions  : 4988, 4866, 3  (nrow, ncol, nlyr)
 resolution  : 0.08, 0.08  (x, y)
@@ -117,7 +117,7 @@ We can view the attributes of each band in the stack in a single output. For exa
 RGB_stack_TUD[[2]]
 ```
 
-```{.output}
+```output
 class       : SpatRaster 
 dimensions  : 4988, 4866, 1  (nrow, ncol, nlyr)
 resolution  : 0.08, 0.08  (x, y)
@@ -139,7 +139,7 @@ Each band in our RasterStack gets its own column in the data frame. Thus we have
 str(RGB_stack_TUD_df)
 ```
 
-```{.output}
+```output
 'data.frame':	24271608 obs. of  5 variables:
  $ x           : num  85272 85272 85272 85272 85272 ...
  $ y           : num  446694 446694 446694 446694 446694 ...

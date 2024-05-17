@@ -28,7 +28,7 @@ After completing this episode, participants should be able to…
 municipal_boundary_NL <- st_read("data/nl-gemeenten.shp")
 ```
 
-```{.output}
+```output
 Reading layer `nl-gemeenten' from data source 
   `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/nl-gemeenten.shp' 
   using driver `ESRI Shapefile'
@@ -56,7 +56,7 @@ We can add a country boundary layer to make it look nicer. If we specify a thick
 country_boundary_NL <- st_read("data/nl-boundary.shp")
 ```
 
-```{.output}
+```output
 Reading layer `nl-boundary' from data source 
   `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/nl-boundary.shp' 
   using driver `ESRI Shapefile'
@@ -95,7 +95,7 @@ ggplot() +
 st_crs(municipal_boundary_NL)$epsg
 ```
 
-```{.output}
+```output
 [1] 28992
 ```
 
@@ -104,7 +104,7 @@ st_crs(municipal_boundary_NL)$epsg
 st_crs(country_boundary_NL)$epsg
 ```
 
-```{.output}
+```output
 [1] 28992
 ```
 
@@ -113,7 +113,7 @@ st_crs(country_boundary_NL)$epsg
 boundary_Delft <- st_read("data/delft-boundary.shp")
 ```
 
-```{.output}
+```output
 Reading layer `delft-boundary' from data source 
   `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-boundary.shp' 
   using driver `ESRI Shapefile'
@@ -128,7 +128,7 @@ Geodetic CRS:  WGS 84
 st_crs(boundary_Delft)$epsg
 ```
 
-```{.output}
+```output
 [1] 4326
 ```
 

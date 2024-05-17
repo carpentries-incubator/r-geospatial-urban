@@ -70,7 +70,7 @@ numeric_vector <- c(2, 6, 3)
 numeric_vector
 ```
 
-```{.output}
+```output
 [1] 2 6 3
 ```
 
@@ -80,7 +80,7 @@ character_vector <- c('Amsterdam', 'London', 'Delft')
 character_vector
 ```
 
-```{.output}
+```output
 [1] "Amsterdam" "London"    "Delft"    
 ```
 
@@ -90,7 +90,7 @@ logical_vector <- c(TRUE, FALSE, TRUE)
 logical_vector
 ```
 
-```{.output}
+```output
 [1]  TRUE FALSE  TRUE
 ```
 
@@ -104,7 +104,7 @@ ab_vector <- c('a', 'b')
 ab_vector
 ```
 
-```{.output}
+```output
 [1] "a" "b"
 ```
 
@@ -113,7 +113,7 @@ abcd_vector <- c(ab_vector, 'c', 'd')
 abcd_vector
 ```
 
-```{.output}
+```output
 [1] "a" "b" "c" "d"
 ```
 
@@ -151,7 +151,7 @@ First, let's try to calculate mean for the values in this vector
 mean(with_na) # mean() function cannot interpret the missing values
 ```
 
-```{.output}
+```output
 [1] NA
 ```
 
@@ -161,7 +161,7 @@ mean(with_na) # mean() function cannot interpret the missing values
 mean(with_na, na.rm = T) 
 ```
 
-```{.output}
+```output
 [1] 1.6
 ```
 
@@ -175,7 +175,7 @@ with `is.na()` function.
 is.na(with_na) # This will produce a vector of logical values, 
 ```
 
-```{.output}
+```output
 [1] FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE
 ```
 
@@ -186,7 +186,7 @@ is.na(with_na) # This will produce a vector of logical values,
 !is.na(with_na) # The ! operator means negation, i.e. not is.na(with_na)
 ```
 
-```{.output}
+```output
 [1]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE
 ```
 
@@ -202,7 +202,7 @@ without_na <- with_na[ !is.na(with_na) ] # this notation will return only
 without_na
 ```
 
-```{.output}
+```output
 [1] 1 2 1 1 3
 ```
 
@@ -229,7 +229,7 @@ nordic_str <- c('Norway', 'Sweden', 'Norway', 'Denmark', 'Sweden')
 nordic_str # regular character vectors printed out
 ```
 
-```{.output}
+```output
 [1] "Norway"  "Sweden"  "Norway"  "Denmark" "Sweden" 
 ```
 
@@ -239,7 +239,7 @@ nordic_cat <- factor(nordic_str)
 nordic_cat # With factors, R prints out additional information - 'Levels'
 ```
 
-```{.output}
+```output
 [1] Norway  Sweden  Norway  Denmark Sweden 
 Levels: Denmark Norway Sweden
 ```
@@ -255,7 +255,7 @@ You can inspect and adapt levels of the factor.
 levels(nordic_cat) # returns all levels of a factor vector.  
 ```
 
-```{.output}
+```output
 [1] "Denmark" "Norway"  "Sweden" 
 ```
 
@@ -263,7 +263,7 @@ levels(nordic_cat) # returns all levels of a factor vector.
 nlevels(nordic_cat) # returns number of levels in a vector
 ```
 
-```{.output}
+```output
 [1] 3
 ```
 
@@ -295,7 +295,7 @@ nordic_cat <- factor(
 nordic_cat
 ```
 
-```{.output}
+```output
 [1] Norway  Sweden  Norway  Denmark Sweden 
 Levels: Norway Denmark Sweden
 ```
@@ -320,7 +320,7 @@ nordic_cat <- fct_relevel(
 nordic_cat
 ```
 
-```{.output}
+```output
 [1] Norway  Sweden  Norway  Denmark Sweden 
 Levels: Norway Denmark Sweden
 ```
@@ -336,7 +336,7 @@ You can also see the structure in the environment tab of RStudio.
 str(nordic_cat) 
 ```
 
-```{.output}
+```output
  Factor w/ 3 levels "Norway","Denmark",..: 1 3 1 2 3
 ```
 
@@ -355,7 +355,7 @@ outside of this set, it will become an unknown/missing value detonated by
 nordic_str
 ```
 
-```{.output}
+```output
 [1] "Norway"  "Sweden"  "Norway"  "Denmark" "Sweden" 
 ```
 
@@ -370,7 +370,7 @@ nordic_cat2 <- factor(
 nordic_cat2
 ```
 
-```{.output}
+```output
 [1] Norway  <NA>    Norway  Denmark <NA>   
 Levels: Norway Denmark
 ```

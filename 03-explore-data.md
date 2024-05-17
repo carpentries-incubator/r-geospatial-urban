@@ -68,7 +68,7 @@ It is important to see if all the variables (columns) have the data type that we
 str(gapminder) 
 ```
 
-```{.output}
+```output
 'data.frame':	1704 obs. of  6 variables:
  $ country  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
@@ -92,7 +92,7 @@ There are multiple ways to explore a data set. Here are just a few examples:
 head(gapminder) # shows first 6  rows of the data set
 ```
 
-```{.output}
+```output
       country year      pop continent lifeExp gdpPercap
 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
@@ -106,7 +106,7 @@ head(gapminder) # shows first 6  rows of the data set
 summary(gapminder) # basic statistical information about each column.
 ```
 
-```{.output}
+```output
    country               year           pop             continent        
  Length:1704        Min.   :1952   Min.   :6.001e+04   Length:1704       
  Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Class :character  
@@ -129,7 +129,7 @@ summary(gapminder) # basic statistical information about each column.
 nrow(gapminder) # returns number of rows in a dataset
 ```
 
-```{.output}
+```output
 [1] 1704
 ```
 
@@ -137,7 +137,7 @@ nrow(gapminder) # returns number of rows in a dataset
 ncol(gapminder) # returns number of columns in a dataset
 ```
 
-```{.output}
+```output
 [1] 6
 ```
 
@@ -155,7 +155,7 @@ country_vec <- gapminder$country
 head(country_vec)
 ```
 
-```{.output}
+```output
 [1] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan"
 [6] "Afghanistan"
 ```
@@ -176,7 +176,7 @@ year_country_gdp <- select(gapminder, year, country, gdpPercap)
 head(year_country_gdp)
 ```
 
-```{.output}
+```output
   year     country gdpPercap
 1 1952 Afghanistan  779.4453
 2 1957 Afghanistan  820.8530
@@ -203,7 +203,7 @@ year_country_gdp <- gapminder %>%
 head(year_country_gdp)
 ```
 
-```{.output}
+```output
   year     country gdpPercap
 1 1952 Afghanistan  779.4453
 2 1957 Afghanistan  820.8530
@@ -230,7 +230,7 @@ year_country_gdp_euro <- gapminder %>%
 head(year_country_gdp_euro)
 ```
 
-```{.output}
+```output
   year     country gdpPercap
 1 2002 Afghanistan  726.7341
 2 2007 Afghanistan  974.5803
@@ -258,7 +258,7 @@ year_country_gdp_eurasia <- gapminder %>%
 nrow(year_country_gdp_eurasia)
 ```
 
-```{.output}
+```output
 [1] 756
 ```
 
@@ -276,7 +276,7 @@ gapminder %>% # select the dataset
   summarize(avg_gdpPercap = mean(gdpPercap)) # create basic stats
 ```
 
-```{.output}
+```output
 # A tibble: 5 × 2
   continent avg_gdpPercap
   <chr>             <dbl>
@@ -306,7 +306,7 @@ gapminder %>%
     avg_lifeExp == max(avg_lifeExp))
 ```
 
-```{.output}
+```output
 # A tibble: 2 × 2
   country      avg_lifeExp
   <chr>              <dbl>
@@ -328,7 +328,7 @@ gapminder %>%
   summarize(avg_gdpPercap = mean(gdpPercap))
 ```
 
-```{.output}
+```output
 # A tibble: 60 × 3
 # Groups:   continent [5]
    continent  year avg_gdpPercap
@@ -370,7 +370,7 @@ gapminder %>%
   count()
 ```
 
-```{.output}
+```output
 # A tibble: 5 × 2
 # Groups:   continent [5]
   continent     n
@@ -395,7 +395,7 @@ gapminder_gdp <- gapminder %>%
 head(gapminder_gdp)
 ```
 
-```{.output}
+```output
       country year      pop continent lifeExp gdpPercap gdpBillion
 1 Afghanistan 1952  8425333      Asia  28.801  779.4453   6.567086
 2 Afghanistan 1957  9240934      Asia  30.332  820.8530   7.585449

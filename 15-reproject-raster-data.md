@@ -124,7 +124,7 @@ View the CRS for each of these two datasets. What projection does each use?
 crs(DTM_TUD, parse = TRUE)
 ```
 
-```{.output}
+```output
  [1] "PROJCRS[\"Amersfoort / RD New\","                                                                                      
  [2] "    BASEGEOGCRS[\"Amersfoort\","                                                                                       
  [3] "        DATUM[\"Amersfoort\","                                                                                         
@@ -170,7 +170,7 @@ crs(DTM_TUD, parse = TRUE)
 crs(DTM_hill_TUD, parse = TRUE)
 ```
 
-```{.output}
+```output
  [1] "GEOGCRS[\"WGS 84\","                                   
  [2] "    DATUM[\"World Geodetic System 1984\","             
  [3] "        ELLIPSOID[\"WGS 84\",6378137,298.257223563,"   
@@ -228,7 +228,7 @@ Now we can compare the CRS of our original DTM hillshade and our new DTM hillsha
 crs(DTM_hill_EPSG28992_TUD, parse = TRUE)
 ```
 
-```{.output}
+```output
  [1] "PROJCRS[\"Amersfoort / RD New\","                                                                                      
  [2] "    BASEGEOGCRS[\"Amersfoort\","                                                                                       
  [3] "        DATUM[\"Amersfoort\","                                                                                         
@@ -273,7 +273,7 @@ crs(DTM_hill_EPSG28992_TUD, parse = TRUE)
 crs(DTM_hill_TUD, parse = TRUE)
 ```
 
-```{.output}
+```output
  [1] "GEOGCRS[\"WGS 84\","                                   
  [2] "    DATUM[\"World Geodetic System 1984\","             
  [3] "        ELLIPSOID[\"WGS 84\",6378137,298.257223563,"   
@@ -296,7 +296,7 @@ We can also compare the extent of the two objects.
 ext(DTM_hill_EPSG28992_TUD)
 ```
 
-```{.output}
+```output
 SpatExtent : 83537.3768729672, 87200.5199626113, 445202.584641046, 447230.395994242 (xmin, xmax, ymin, ymax)
 ```
 
@@ -304,7 +304,7 @@ SpatExtent : 83537.3768729672, 87200.5199626113, 445202.584641046, 447230.395994
 ext(DTM_hill_TUD)
 ```
 
-```{.output}
+```output
 SpatExtent : 4.34674898644234, 4.39970436836596, 51.9910492930106, 52.0088368700157 (xmin, xmax, ymin, ymax)
 ```
 
@@ -317,7 +317,7 @@ Let’s next have a look at the resolution of our reprojected hillshade versus o
 res(DTM_hill_EPSG28992_TUD)
 ```
 
-```{.output}
+```output
 [1] 5.03179 5.03179
 ```
 
@@ -326,7 +326,7 @@ res(DTM_hill_EPSG28992_TUD)
 res(DTM_TUD)
 ```
 
-```{.output}
+```output
 [1] 5 5
 ```
 
@@ -344,7 +344,7 @@ Now both our resolutions and our CRSs match, so we can plot these two data sets 
 res(DTM_hill_EPSG28992_TUD)
 ```
 
-```{.output}
+```output
 [1] 5 5
 ```
 
@@ -352,7 +352,7 @@ res(DTM_hill_EPSG28992_TUD)
 res(DTM_TUD)
 ```
 
-```{.output}
+```output
 [1] 5 5
 ```
 

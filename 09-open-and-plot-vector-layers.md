@@ -85,7 +85,7 @@ The `st_geometry_type()` function, for instance, gives us information about the 
 st_geometry_type(boundary_Delft)
 ```
 
-```{.output}
+```output
 [1] POLYGON
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
 ```
@@ -97,7 +97,7 @@ The `st_crs()` function returns the coordinate reference system (CRS) used by th
 st_crs(boundary_Delft)
 ```
 
-```{.output}
+```output
 Coordinate Reference System:
   User input: WGS 84 
   wkt:
@@ -133,7 +133,7 @@ The `st_bbox()` function shows the extent of the layer. As `WGS 84` is a **geogr
 st_bbox(boundary_Delft)
 ```
 
-```{.output}
+```output
      xmin      ymin      xmax      ymax 
  4.320218 51.966316  4.407911 52.032599 
 ```
@@ -147,7 +147,7 @@ boundary_Delft <- st_transform(boundary_Delft, 28992)
 st_crs(boundary_Delft)$Name
 ```
 
-```{.output}
+```output
 [1] "Amersfoort / RD New"
 ```
 
@@ -155,7 +155,7 @@ st_crs(boundary_Delft)$Name
 st_crs(boundary_Delft)$epsg
 ```
 
-```{.output}
+```output
 [1] 28992
 ```
 
@@ -166,7 +166,7 @@ Notice that the bounding box is measured in meters after the transformation.
 st_bbox(boundary_Delft)
 ```
 
-```{.output}
+```output
      xmin      ymin      xmax      ymax 
  81743.00 442446.21  87703.78 449847.95 
 ```
@@ -175,7 +175,7 @@ st_bbox(boundary_Delft)
 st_crs(boundary_Delft)$units_gdal
 ```
 
-```{.output}
+```output
 [1] "metre"
 ```
 
@@ -186,7 +186,7 @@ We confirm the transformation by examining the reprojected shapefile.
 boundary_Delft
 ```
 
-```{.output}
+```output
 Simple feature collection with 1 feature and 1 field
 Geometry type: POLYGON
 Dimension:     XY
@@ -244,7 +244,7 @@ We can check the type of type of geometry with the `st_geometry_type()` function
 st_geometry_type(lines_Delft)[1]
 ```
 
-```{.output}
+```output
 [1] LINESTRING
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
 ```
@@ -253,7 +253,7 @@ st_geometry_type(lines_Delft)[1]
 st_geometry_type(points_Delft)[2]
 ```
 
-```{.output}
+```output
 [1] POINT
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
 ```
@@ -265,7 +265,7 @@ st_geometry_type(points_Delft)[2]
 st_crs(lines_Delft)$epsg
 ```
 
-```{.output}
+```output
 [1] 28992
 ```
 
@@ -273,7 +273,7 @@ st_crs(lines_Delft)$epsg
 st_crs(points_Delft)$epsg
 ```
 
-```{.output}
+```output
 [1] 28992
 ```
 
@@ -284,7 +284,7 @@ When looking at the bounding boxes with the `st_bbox()` function, we see the spa
 st_bbox(lines_Delft)
 ```
 
-```{.output}
+```output
      xmin      ymin      xmax      ymax 
  81759.58 441223.13  89081.41 449845.81 
 ```
@@ -293,7 +293,7 @@ st_bbox(lines_Delft)
 st_bbox(points_Delft)
 ```
 
-```{.output}
+```output
      xmin      ymin      xmax      ymax 
  81863.21 442621.15  87370.15 449345.08 
 ```

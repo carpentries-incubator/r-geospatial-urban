@@ -148,7 +148,7 @@ leisure_locations_selection <- st_read("data/delft-leisure.shp") %>%
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 
-```{.output}
+```output
 Reading layer `delft-leisure' from data source 
   `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-leisure.shp' 
   using driver `ESRI Shapefile'
@@ -164,7 +164,7 @@ Projected CRS: Amersfoort / RD New
 levels(factor(leisure_locations_selection$leisure))
 ```
 
-```{.output}
+```output
 [1] "picnic_table" "playground"  
 ```
 

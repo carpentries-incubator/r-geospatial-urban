@@ -53,7 +53,7 @@ To see the cut-off values for the groups, we can ask for the levels of `fct_elev
 levels(DSM_TUD_df$fct_elevation)
 ```
 
-```{.output}
+```output
 [1] "(-5.49,27.1]" "(27.1,59.6]"  "(59.6,92.2]" 
 ```
 
@@ -64,7 +64,7 @@ DSM_TUD_df %>%
   count(fct_elevation)
 ```
 
-```{.output}
+```output
   fct_elevation      n
 1  (-5.49,27.1] 277100
 2   (27.1,59.6]   1469
@@ -83,7 +83,7 @@ DSM_TUD_df <- DSM_TUD_df %>%
 levels(DSM_TUD_df$fct_elevation_cb)
 ```
 
-```{.output}
+```output
 [1] "(-10,0]" "(0,5]"   "(5,100]"
 ```
 
@@ -113,7 +113,7 @@ DSM_TUD_df %>%
   count(fct_elevation_cb)
 ```
 
-```{.output}
+```output
   fct_elevation_cb      n
 1          (-10,0] 113877
 2            (0,5] 101446
@@ -136,7 +136,7 @@ The plot above uses the default colours inside `ggplot2` for raster objects. We 
 terrain.colors(3)
 ```
 
-```{.output}
+```output
 [1] "#00A600" "#ECB176" "#F2F2F2"
 ```
 
@@ -201,7 +201,7 @@ DSM_TUD_df <- DSM_TUD_df %>%
 levels(DSM_TUD_df$fct_elevation_6)
 ```
 
-```{.output}
+```output
 [1] "(-5.49,10.9]" "(10.9,27.1]"  "(27.1,43.3]"  "(43.3,59.6]"  "(59.6,75.8]" 
 [6] "(75.8,92.2]" 
 ```

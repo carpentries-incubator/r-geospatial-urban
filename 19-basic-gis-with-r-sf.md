@@ -63,7 +63,7 @@ buildings <- x$osm_polygons %>%
 summary(buildings$start_date)
 ```
 
-```{.output}
+```output
    Length     Class      Mode 
     10625 character character 
 ```
@@ -108,7 +108,7 @@ distance <- 100 # in meters
 st_crs(old_buildings)
 ```
 
-```{.output}
+```output
 Coordinate Reference System:
   User input: EPSG:28992 
   wkt:

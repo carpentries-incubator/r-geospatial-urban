@@ -49,7 +49,7 @@ We use the `describe()` function to view information about the DTM and DSM data 
 describe("data/tud-dtm-5m.tif")
 ```
 
-```{.output}
+```output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
  [2] "Files: data/tud-dtm-5m.tif"                                                                                            
  [3] "Size is 722, 386"                                                                                                      
@@ -112,7 +112,7 @@ describe("data/tud-dtm-5m.tif")
 describe("data/tud-dsm-5m.tif")
 ```
 
-```{.output}
+```output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
  [2] "Files: data/tud-dsm-5m.tif"                                                                                            
  [3] "Size is 722, 386"                                                                                                      
@@ -247,7 +247,7 @@ It’s often a good idea to explore the range of values in a raster dataset just
 min(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 ```
 
-```{.output}
+```output
 [1] -3.638057
 ```
 
@@ -255,7 +255,7 @@ min(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 max(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 ```
 
-```{.output}
+```output
 [1] 92.08102
 ```
 

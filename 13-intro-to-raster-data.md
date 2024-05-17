@@ -62,7 +62,7 @@ We will be working with a series of GeoTIFF files in this lesson. The GeoTIFF fo
 describe("data/tud-dsm-5m.tif")
 ```
 
-```{.output}
+```output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
  [2] "Files: data/tud-dsm-5m.tif"                                                                                            
  [3] "Size is 722, 386"                                                                                                      
@@ -139,7 +139,7 @@ DSM_TUD <- rast("data/tud-dsm-5m.tif")
 DSM_TUD
 ```
 
-```{.output}
+```output
 class       : SpatRaster 
 dimensions  : 386, 722, 1  (nrow, ncol, nlyr)
 resolution  : 5, 5  (x, y)
@@ -155,11 +155,11 @@ The information above includes a report on dimension, resolution, extent and CRS
 summary(DSM_TUD)
 ```
 
-```{.warning}
+```warning
 Warning: [summary] used a sample
 ```
 
-```{.output}
+```output
    tud.dsm.5m     
  Min.   :-5.2235  
  1st Qu.:-0.7007  
@@ -176,7 +176,7 @@ This output gives us information about the range of values in the DSM. We can se
 summary(values(DSM_TUD))
 ```
 
-```{.output}
+```output
    tud-dsm-5m     
  Min.   :-5.3907  
  1st Qu.:-0.7008  
@@ -202,7 +202,7 @@ Now when we view the structure of our data, we will see a standard data frame fo
 str(DSM_TUD_df)
 ```
 
-```{.output}
+```output
 'data.frame':	278692 obs. of  3 variables:
  $ x         : num  83568 83572 83578 83582 83588 ...
  $ y         : num  447178 447178 447178 447178 447178 ...
@@ -249,7 +249,7 @@ We can view the CRS string associated with our R object using the `crs()` functi
 crs(DSM_TUD, proj = TRUE)
 ```
 
-```{.output}
+```output
 [1] "+proj=sterea +lat_0=52.1561605555556 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs"
 ```
 
@@ -281,7 +281,7 @@ Raster statistics are often calculated and embedded in a GeoTIFF for us. We can 
 minmax(DSM_TUD)
 ```
 
-```{.output}
+```output
     tud-dsm-5m
 min        Inf
 max       -Inf
@@ -303,7 +303,7 @@ DSM_TUD <- setMinMax(DSM_TUD)
 min(values(DSM_TUD))
 ```
 
-```{.output}
+```output
 [1] -5.39069
 ```
 
@@ -312,7 +312,7 @@ min(values(DSM_TUD))
 max(values(DSM_TUD))
 ```
 
-```{.output}
+```output
 [1] 92.08102
 ```
 
@@ -334,7 +334,7 @@ A raster dataset can contain one or more bands. We can view the number of bands 
 nlyr(DSM_TUD)
 ```
 
-```{.output}
+```output
 [1] 1
 ```
 This dataset has only 1 band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode](../episodes/17-work-with-multi-band-rasters.Rmd).
@@ -353,7 +353,7 @@ ggplot() +
   geom_histogram(data = DSM_TUD_df, aes(`tud-dsm-5m`))
 ```
 
-```{.output}
+```output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
@@ -397,7 +397,7 @@ Note that this file is a hillshade raster. We will learn about hillshades in the
 describe("data/tud-dsm-5m-hill.tif")
 ```
 
-```{.output}
+```output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
  [2] "Files: data/tud-dsm-5m-hill.tif"                                                                                       
  [3] "Size is 722, 386"                                                                                                      

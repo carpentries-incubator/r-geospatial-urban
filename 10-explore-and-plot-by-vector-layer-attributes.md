@@ -34,7 +34,7 @@ Let's have a look at the content of the loaded data, starting with `lines_Delft`
 lines_Delft
 ```
 
-```{.output}
+```output
 Simple feature collection with 11244 features and 2 fields
 Geometry type: LINESTRING
 Dimension:     XY
@@ -61,7 +61,7 @@ This means that we can examine and manipulate them as data frames. For instance,
 ncol(lines_Delft)
 ```
 
-```{.output}
+```output
 [1] 3
 ```
 
@@ -72,7 +72,7 @@ In the case of `point_Delft` those columns are `"osm_id"`, `"highway"` and `"geo
 names(lines_Delft)
 ```
 
-```{.output}
+```output
 [1] "osm_id"   "highway"  "geometry"
 ```
 
@@ -92,7 +92,7 @@ We can also preview the content of the object by looking at the first 6 rows wit
 head (lines_Delft)
 ```
 
-```{.output}
+```output
 Simple feature collection with 6 features and 2 fields
 Geometry type: LINESTRING
 Dimension:     XY
@@ -119,7 +119,7 @@ We can see the contents of the `highway` field of our lines feature:
 head(lines_Delft$highway, 10)
 ```
 
-```{.output}
+```output
  [1] "cycleway" "cycleway" "cycleway" "footway"  "footway"  "footway" 
  [7] "service"  "steps"    "footway"  "footway" 
 ```
@@ -131,7 +131,7 @@ To see only unique values within the `highway` field, we can use the `unique()` 
 unique(lines_Delft$highway)
 ```
 
-```{.output}
+```output
  [1] "cycleway"       "footway"        "service"        "steps"         
  [5] "residential"    "unclassified"   "construction"   "secondary"     
  [9] "busway"         "living_street"  "motorway_link"  "tertiary"      
@@ -150,7 +150,7 @@ R is also able to handle categorical variables called factors. With factors, we 
 levels(factor(lines_Delft$highway))
 ```
 
-```{.output}
+```output
  [1] "bridleway"      "busway"         "construction"   "cycleway"      
  [5] "footway"        "living_street"  "motorway"       "motorway_link" 
  [9] "path"           "pedestrian"     "platform"       "primary"       
@@ -185,7 +185,7 @@ Explore the attributes associated with the `point_Delft` spatial object.
 ncol(point_Delft)
 ```
 
-```{.output}
+```output
 [1] 3
 ```
 
@@ -198,7 +198,7 @@ Using the `head()` function which displays 6 rows by default, we only see two va
 head(point_Delft)
 ```
 
-```{.output}
+```output
 Simple feature collection with 6 features and 2 fields
 Geometry type: POINT
 Dimension:     XY
@@ -220,7 +220,7 @@ We can increase the number of rows with the n argument (e.g., `head(n = 10)` to 
 head(point_Delft, 10)
 ```
 
-```{.output}
+```output
 Simple feature collection with 10 features and 2 fields
 Geometry type: POINT
 Dimension:     XY
@@ -250,7 +250,7 @@ We have our answer (`sports_centre` is the third value), but in general this is 
 head(na.omit(point_Delft$leisure)) # this is better
 ```
 
-```{.output}
+```output
 [1] "picnic_table"  "marina"        "marina"        "sports_centre"
 [5] "sports_centre" "playground"   
 ```
@@ -262,7 +262,7 @@ To show only unique values, we can use the `levels()` function on a factor to on
 head(levels(factor(point_Delft$leisure)), n = 3)
 ```
 
-```{.output}
+```output
 [1] "dance"       "dog_park"    "escape_game"
 ```
 
@@ -277,7 +277,7 @@ head(levels(factor(point_Delft$leisure)), n = 3)
 names(point_Delft)
 ```
 
-```{.output}
+```output
 [1] "osm_id"   "leisure"  "geometry"
 ```
 
@@ -303,7 +303,7 @@ Our subsetting operation reduces the number of features from 11244 to 1397.
 nrow(lines_Delft)
 ```
 
-```{.output}
+```output
 [1] 11244
 ```
 
@@ -311,7 +311,7 @@ nrow(lines_Delft)
 nrow(cycleway_Delft)
 ```
 
-```{.output}
+```output
 [1] 1397
 ```
 
@@ -326,7 +326,7 @@ cycleway_Delft %>%
   summarise(total_length = sum(length))
 ```
 
-```{.output}
+```output
 Simple feature collection with 1 feature and 1 field
 Geometry type: MULTILINESTRING
 Dimension:     XY
@@ -374,7 +374,7 @@ Challenge: Now with motorways (and pedestrian streets)
 unique(lines_Delft$highway)
 ```
 
-```{.output}
+```output
  [1] "cycleway"       "footway"        "service"        "steps"         
  [5] "residential"    "unclassified"   "construction"   "secondary"     
  [9] "busway"         "living_street"  "motorway_link"  "tertiary"      
@@ -393,7 +393,7 @@ motorway_Delft <- lines_Delft %>%
 motorway_Delft
 ```
 
-```{.output}
+```output
 Simple feature collection with 48 features and 2 fields
 Geometry type: LINESTRING
 Dimension:     XY
@@ -430,7 +430,7 @@ motorway_Delft_length <- motorway_Delft %>%
 nrow(motorway_Delft)
 ```
 
-```{.output}
+```output
 [1] 48
 ```
 
@@ -462,7 +462,7 @@ pedestrian_Delft %>%
   summarise(total_length = sum(length))
 ```
 
-```{.output}
+```output
 Simple feature collection with 1 feature and 1 field
 Geometry type: MULTILINESTRING
 Dimension:     XY
@@ -476,7 +476,7 @@ Projected CRS: Amersfoort / RD New
 nrow(pedestrian_Delft)
 ```
 
-```{.output}
+```output
 [1] 234
 ```
 
@@ -506,7 +506,7 @@ Let's say that we want to color different road types with different colors and t
 unique(lines_Delft$highway)
 ```
 
-```{.output}
+```output
  [1] "cycleway"       "footway"        "service"        "steps"         
  [5] "residential"    "unclassified"   "construction"   "secondary"     
  [9] "busway"         "living_street"  "motorway_link"  "tertiary"      
@@ -597,7 +597,7 @@ Let’s create another plot where we show the different line types with the foll
 levels(factor(lines_Delft_selection$highway))
 ```
 
-```{.output}
+```output
 [1] "motorway"  "primary"   "secondary" "cycleway" 
 ```
 
@@ -681,7 +681,7 @@ Create a plot that emphasizes only roads where bicycles are allowed. To emphasiz
 class(lines_Delft_selection$highway)
 ```
 
-```{.output}
+```output
 [1] "factor"
 ```
 
@@ -690,7 +690,7 @@ class(lines_Delft_selection$highway)
 levels(factor(lines_Delft$highway))
 ```
 
-```{.output}
+```output
  [1] "bridleway"      "busway"         "construction"   "cycleway"      
  [5] "footway"        "living_street"  "motorway"       "motorway_link" 
  [9] "path"           "pedestrian"     "platform"       "primary"       
@@ -743,7 +743,7 @@ Create a map of the municipal boundaries in the Netherlands using the data locat
 municipal_boundaries_NL <- st_read("data/nl-gemeenten.shp")
 ```
 
-```{.output}
+```output
 Reading layer `nl-gemeenten' from data source 
   `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/nl-gemeenten.shp' 
   using driver `ESRI Shapefile'
@@ -759,7 +759,7 @@ Projected CRS: Amersfoort / RD New
 str(municipal_boundaries_NL)
 ```
 
-```{.output}
+```output
 Classes 'sf' and 'data.frame':	344 obs. of  7 variables:
  $ identifica: chr  "GM0014" "GM0034" "GM0037" "GM0047" ...
  $ naam      : chr  "Groningen" "Almere" "Stadskanaal" "Veendam" ...
@@ -780,7 +780,7 @@ Classes 'sf' and 'data.frame':	344 obs. of  7 variables:
 levels(factor(municipal_boundaries_NL$ligtInPr_1))
 ```
 
-```{.output}
+```output
  [1] "Drenthe"       "Flevoland"     "Fryslân"       "Gelderland"   
  [5] "Groningen"     "Limburg"       "Noord-Brabant" "Noord-Holland"
  [9] "Overijssel"    "Utrecht"       "Zeeland"       "Zuid-Holland" 
