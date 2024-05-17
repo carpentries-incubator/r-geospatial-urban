@@ -416,9 +416,7 @@ package</li>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">sf</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">osmdata</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">leaflet</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">nominatimlite</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">lwgeom</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">here</span><span class="op">)</span></span>
 <span><span class="fu">assign</span><span class="op">(</span><span class="st">"has_internet_via_proxy"</span>, <span class="cn">TRUE</span>, <span class="fu">environment</span><span class="op">(</span><span class="fu">curl</span><span class="fu">::</span><span class="va">has_internet</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <section id="why-sf-for-gis"><h2 class="section-heading">Why <code>sf</code> for GIS?<a class="anchor" aria-label="anchor" href="#why-sf-for-gis"></a>
@@ -441,8 +439,7 @@ a non-construction zone of 100m around pre-1800 buildings.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nominatim_polygon</span> <span class="op">&lt;-</span> <span class="fu">nominatimlite</span><span class="fu">::</span><span class="fu">geo_lite_sf</span><span class="op">(</span>address <span class="op">=</span> <span class="st">"Brielle, NL"</span>, points_only <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">nominatim_polygon</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu">osmdata</span><span class="fu">::</span><span class="fu">getbb</span><span class="op">(</span><span class="st">"Brielle, NL"</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">opq</span><span class="op">(</span>bbox <span class="op">=</span> <span class="va">bb</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>   <span class="fu">add_osm_feature</span><span class="op">(</span>key <span class="op">=</span> <span class="st">'building'</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>    <span class="fu">osmdata_sf</span><span class="op">(</span><span class="op">)</span></span>
@@ -473,12 +470,13 @@ a non-construction zone of 100m around pre-1800 buildings.</p>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>colour<span class="op">=</span><span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="callout1" class="callout">
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-recap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="overpass-query-unavailable-without-internet" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
+<div id="overpass-query-unavailable-without-internet" class="callout-inner">
+<h3 class="callout-title">Overpass query unavailable without
+internet<a class="anchor" aria-label="anchor" href="#overpass-query-unavailable-without-internet"></a>
 </h3>
 <div class="callout-content">
 <p>If you encounter an error linked to your internet proxy (“Error:
@@ -571,7 +569,7 @@ PROJCRS["Amersfoort / RD New",
 <span>  <span class="fu">geom_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>   </span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section id="union"><h2 class="section-heading">Union<a class="anchor" aria-label="anchor" href="#union"></a>
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-buffer-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section id="union"><h2 class="section-heading">Union<a class="anchor" aria-label="anchor" href="#union"></a>
 </h2>
 <hr class="half-width"><p>Now, we have a lot of overlapping buffers. We would rather create a
 unique conservation zone rather than overlapping ones in that case. So
@@ -619,7 +617,7 @@ rather than their actual footprint. This operation means defining their
 <span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">centroids_old</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section id="intersection"><h2 class="section-heading">Intersection<a class="anchor" aria-label="anchor" href="#intersection"></a>
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-centroids-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section id="intersection"><h2 class="section-heading">Intersection<a class="anchor" aria-label="anchor" href="#intersection"></a>
 </h2>
 <hr class="half-width"><p>Now, we would like to distinguish conservation areas based on the
 number of historic buildings they contain. In GIS terms, we would like
@@ -652,7 +650,7 @@ layer of points and the corresponding function is
 <span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p><code>st_intersection</code> here adds the attributes of the
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-intersection-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p><code>st_intersection</code> here adds the attributes of the
 intersected polygon buffers to the data table of the centroids. This
 means we will now know about each centroid, the ID of its intersected
 polygon-buffer, and a variable called “n” which is population with 1 for
@@ -681,7 +679,7 @@ and save the result.</p>
 <span></span>
 <span> <span class="va">p</span> </span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb13">
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-mapping-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -708,7 +706,7 @@ of all buildings per 10m fused buffer?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -760,7 +758,7 @@ of all buildings per 10m fused buffer?</p>
 <span>  </span>
 <span>  <span class="va">pnew</span> </span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb15">
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -795,7 +793,7 @@ compute the density of old buildings per buffer zone.</em></p>
 <span>                        direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
 <span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> </span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="keypoints1" class="callout keypoints">
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
