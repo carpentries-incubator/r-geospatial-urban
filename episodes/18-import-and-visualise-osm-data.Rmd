@@ -48,7 +48,7 @@ assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 
 ### Bounding box
 
-The first thing to do is to define the area within which you want to retrieve data, aka the *bounding box*. This can be defined easily using a place name to access the free Nominatim API provided by OpenStreetMap. 
+The first thing to do is to define the area within which you want to retrieve data, aka the *bounding box*. This can be defined easily using a place name and the package `osmdata` to access the free Nominatim API provided by OpenStreetMap. 
 
 We are going to look at *Brielle* together. 
 
@@ -58,20 +58,18 @@ Beware that downloading and analysing the data for larger cities might be long, 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+We first geocode our spatial text search and extract the corresponding bounding box (`getbb`).
 
-We first geocode our spatial text search and extract the corresponding polygon (`geo_lite_sf`) and then extract its bounding box (`st_bbox`).
+```{r nominatim}
+library(osmdata)
 
-```{r}
-bb <- getbb("Brielle")
+bb <- osmdata::getbb("Brielle")
 bb
-
-### OR
-#install.packages("osmdata")
-# library(osmdata)
-# bb <- getbb("Brielle")
 ```
 
 ::::::::::::::::::::::::::::::::::::: callout
+
+### Overpass query unavailable without internet
 
 If you encounter an error linked to your internet proxy ("Error: Overpass query unavailable without internet R"), run this line of code. It might not be needed, but ensures that your machine knows it has internet.
 
@@ -93,7 +91,7 @@ For example: Brielle (Netherlands) and Brielle (New Jersey)
 
 By default, `getbb()` from the `osmdata` package returns the first item. This means that regardless of the number of returned locations with the given name, the function will return a bounding box and it might be that we are not looking for the first item. We should therefore try to be as unambiguous as possible by adding a country code or district name.
 
-```{r}
+```{r bbox}
 bb <- getbb("Brielle, NL")
 bb
 ```
@@ -130,11 +128,7 @@ It appears that there is a function to extract features, using the Overpass API.
 On this page we can read about the arguments needed for each function: a bounding box for `opq()` and some `key` and `value` for `add_osm_feature()`. Thanks to the examples provided, we can assume that these keys and values correspond to different levels of tags from the OSM classification. In our case, we will keep it at the first level of classification, with "buildings" as `key`, and no value. We also see from the examples that another function is needed when working with the `sf` package: `osmdata_sf()`. This ensures that the type of object is suited for `sf`. With these tips and examples, we can write our feature extraction function as follows:
 
 
-```{r}
-#install.packages("osmdata")
-library(osmdata)
-
-
+```{r osm}
 x <- opq(bbox = bb) %>%
    add_osm_feature(key = 'building') %>%
    osmdata_sf()
@@ -148,7 +142,7 @@ What is this `x` object made of? It is a data frame of all the buildings contain
 
 
 
-```{r}
+```{r strbuildings}
 str(x$osm_polygons)
 ```
 
@@ -164,7 +158,7 @@ Let's map the building age of post-1900 Brielle buildings.
 
 First, we are going to select the polygons and reproject them with the Amersfoort/RD New projection, suited for maps centred on the Netherlands. This code for this projection is: 28992.
 
-```{r}
+```{r transform}
 buildings <- x$osm_polygons %>%
   st_transform(.,crs=28992)
 ```
@@ -183,7 +177,7 @@ Then we create a new variable using the threshold at 1900. Every date before 190
 
 Then we use the `ggplot()` function to visualise the buildings by age. The specific function to represent information as a map is `geom_sf()`. The rest works like other graphs and visualisation, with `aes()` for the aesthetics.
 
-```{r}
+```{r map}
 start_date <- as.numeric(buildings$start_date)
 buildings$build_date <- if_else(start_date < 1900, 1900, start_date)
 
@@ -236,22 +230,20 @@ extract_buildings("Naarden, NL")
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge: import an interactive basemap layer under the buildings with `Leaflet` (20min)
+## Challenge: import an interactive basemap layer under the buildings with 'Leaflet' (20min)
 
 Leaflet is a ["open-source JavaScript library for mobile-friendly interactive maps"](https://leafletjs.com/). Within R, the `leaflet` package allows you to build such interactive maps. As with `ggplot2`, you build a map with a collection of layers. In this case, you will have the leaflet basemap, some tiles, and shapes on top (such as markers, polygons, etc.). 
 
-- Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/) and GDCU cheatsheet.
-- Plot a basemap using `leaflet`
-- Add a layer of tiles, for instance provider tiles [basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
-- Transform the buildings into WGS84 projection
-- Add the building layer to your leaflet map using the `addPolygons()` function.
-- Use the `fillColor` of these polygons represent the `build_date` variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) DCU cheatsheet for how to use of colors in polygons. 
+- Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/) and [GDCU cheatsheet](https://github.com/ClementineCttn/r-geospatial-urban/blob/main/instructors/cheatsheet/GDCU_cheatsheet.pdf).
+- Plot a basemap in Leaflet and try different tiles in the [basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
+- Transform the buildings into WGS84 projection and add them to the basemap layer with the `addPolygons()` function.
+- Have the `fillColor` of these polygons represent the `build_date` variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) and [GDCU cheatsheet](https://github.com/ClementineCttn/r-geospatial-urban/blob/main/instructors/cheatsheet/GDCU_cheatsheet.pdf) for how use to use fill colors in polygons. Tip: use the examples given in the documentation and replace the variable names where needed.
 
 :::::::::::::::::::::::: solution 
 
 ## One solution
  
-```{r}
+```{r leaflet}
 #install.packages("leaflet")
 library(leaflet)
 
