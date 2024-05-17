@@ -12,9 +12,9 @@ Download the [data zip file](https://surfdrive.surf.nl/files/index.php/s/G2zgWK7
 
 ## Software
 
-We provide quick instructions below for installing the various software needed for this workshop. They assume minimal familiarity with the command line and with installation in general. As there are different operating systems and many different versions of operating systems and environments, these may not work on your computer. If an installation doesn't work for you, please refer to the installation instructions for that software listed in the table above.
+We provide quick instructions below for installing the various software needed for this workshop. They assume minimal familiarity with the command line and with installation in general. As there are different operating systems and many different versions of operating systems and environments, these may not work on your computer. If an installation doesn't work for you, please refer to the installation instructions for that software listed in the table on the bottom of this page.
 
-If you have previously installed these software on your computer, please make sure the versions used in the workshop matches with your installation. Using the latest versions of R, RStudio, R packages and external dependencies indicated in the setup instructions will ensure that the software we use behaves the same way on all computers during the workshop.
+If you have previously installed these software on your computer, please make sure the versions used in the workshop match your installation. Using the latest versions of R, RStudio, R packages and external dependencies indicated in the setup instructions will ensure that the software we use behaves the same way on all computers during the workshop.
 
 Note for MacOS users: The workshop is only testes for macOS 11 and above. If you have an older version please contact the workshop providers prior to the start of the workshop. 
 
@@ -215,7 +215,7 @@ The downloaded binary packages are in
 
 You are now ready for the workshop!
 
-Below is a summary of what have been installed in your machine at the end of the above instructions. Please DO NOT install the software in the table individually before reading through the instructions.If you have installed Rtools as a windows user, you do not have to install the GDAL, GEOS and PROJ.4 libaries individually. For other OS users, please see the instructions above and the installation manuals in the table below.
+Below is a summary table of what have been installed in your machine after following the instructions above. Please use this summary for reference and DO NOT install the software from it unless you encounter issues with the installation above. The links in the table provide more detailed software- and platform-specific information.
 
 | Software | Install | Manual | Available for         | Description                                                   | 
 | -------- | ------- | ------ | --------------------- | ------------------------------------------------------------- |
