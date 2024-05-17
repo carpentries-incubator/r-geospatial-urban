@@ -29,9 +29,7 @@ library(tidyverse)
 library(sf)
 library(osmdata)
 library(leaflet)
-library(nominatimlite)
 library(lwgeom)
-library(here)
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 ```
 
@@ -51,8 +49,7 @@ Let's select them and see where they are.
 
 
 ```r
-nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle, NL", points_only = FALSE)
-bb <- sf::st_bbox(nominatim_polygon)
+bb <- osmdata::getbb("Brielle, NL")
 x <- opq(bbox = bb) %>%
    add_osm_feature(key = 'building') %>%
     osmdata_sf()
@@ -81,9 +78,11 @@ old_buildings <- buildings %>%
    coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+<img src="fig/19-basic-gis-with-r-sf-rendered-recap-1.png" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::::::::::::: callout
+
+### Overpass query unavailable without internet
 
 If you encounter an error linked to your internet proxy ("Error: Overpass query unavailable without internet R"), run this line of code. It might not be needed, but ensures that your machine knows it has internet.
 
@@ -162,7 +161,7 @@ ggplot(data = buffer_old_buildings) +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="fig/19-basic-gis-with-r-sf-rendered-buffer-1.png" style="display: block; margin: auto;" />
 
 ## Union
 
@@ -199,7 +198,7 @@ ggplot() +
     coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
+<img src="fig/19-basic-gis-with-r-sf-rendered-centroids-1.png" style="display: block; margin: auto;" />
 
 ## Intersection
 Now, we would like to distinguish conservation areas based on the number of historic buildings they contain. In GIS terms, we would like to know how many centroids each fused buffer polygon contains. This operation means _intersecting_ the layer of polygons with the layer of points and the corresponding function is `st_intersection()`.
@@ -229,7 +228,7 @@ Now, we would like to distinguish conservation areas based on the number of hist
       coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="fig/19-basic-gis-with-r-sf-rendered-intersection-1.png" style="display: block; margin: auto;" />
 
 `st_intersection` here adds the attributes of the intersected polygon buffers to the data table of the centroids. This means we will now know about each centroid, the ID of its intersected polygon-buffer, and a variable called "n" which is population with 1 for everyone. This means that all centroids will have the same weight when aggregated.
 
@@ -254,7 +253,7 @@ p <- ggplot() +
  p 
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
+<img src="fig/19-basic-gis-with-r-sf-rendered-mapping-1.png" style="display: block; margin: auto;" />
 
 ```r
 ggsave(filename = "fig/ConservationBrielle.png", 
@@ -319,7 +318,7 @@ pnew <- ggplot() +
   pnew 
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+<img src="fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" />
 
 ```r
 ggsave(filename = "fig/ConservationBrielle_newrules.png", 
@@ -352,7 +351,7 @@ single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / si
                         option = "B") 
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
+<img src="fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" />
 
 
 
