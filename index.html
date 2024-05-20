@@ -376,11 +376,11 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  --><section id="setup"><div class="section level1">
 <h1 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a></h1>
-<p>This workshop is designed to be run on your local machine. First, you
-will need to download the data we use in the workshop. Then, you need to
-set up your machine with the software required to analyse and process
-geospatial data. We provide installation instructions below for all
-components.</p>
+<p>This workshop is designed to be run on your local machine. For this,
+you need to (i) download the geospatial data we use in the workshop and
+(ii) set up your machine with the software required to analyse and
+process the data. We provide installation instructions below for these
+steps. Please read carefully before installing anything!</p>
 <div class="section level2">
 <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a></h2>
 <p>Download the <a href="https://surfdrive.surf.nl/files/index.php/s/G2zgWK7SrHsSOSh" class="external-link">data
@@ -388,53 +388,23 @@ zip file</a> and unzip it to your Desktop. The file is 67.5 MB.</p>
 </div>
 <div class="section level2">
 <h2 id="software">Software<a class="anchor" aria-label="anchor" href="#software"></a></h2>
-<table class="table"><colgroup><col width="7%"><col width="6%"><col width="5%"><col width="20%"><col width="59%"></colgroup><thead><tr class="header"><th>Software</th>
-<th>Install</th>
-<th>Manual</th>
-<th>Available for</th>
-<th>Description</th>
-</tr></thead><tbody><tr class="odd"><td><a href="https://www.gdal.org" class="external-link">GDAL</a></td>
-<td><a href="https://gdal.org/download.html" class="external-link">Link</a></td>
-<td><a href="https://gdal.org" class="external-link">Link</a></td>
-<td>Linux, MacOS, Windows</td>
-<td>Geospatial model for reading and writing a variety of formats</td>
-</tr><tr class="even"><td><a href="https://trac.osgeo.org/geos" class="external-link">GEOS</a></td>
-<td><a href="https://trac.osgeo.org/geos" class="external-link">Link</a></td>
-<td><a href="https://geos.osgeo.org/doxygen/" class="external-link">Link</a></td>
-<td>Linux, MacOS, Windows</td>
-<td>Geometry models and operations</td>
-</tr><tr class="odd"><td><a href="https://proj4.org" class="external-link">PROJ.4</a></td>
-<td><a href="https://proj4.org/install.html" class="external-link">Link</a></td>
-<td><a href="https://proj4.org/index.html" class="external-link">Link</a></td>
-<td>Linux, MacOS, Windows</td>
-<td>Coordinate reference system transformations</td>
-</tr><tr class="even"><td><a href="https://www.r-project.org" class="external-link">R</a></td>
-<td><a href="https://cloud.r-project.org" class="external-link">Link</a></td>
-<td><a href="https://cloud.r-project.org" class="external-link">Link</a></td>
-<td>Linux, MacOS, Windows</td>
-<td>Software environment for statistical and scientific computing</td>
-</tr><tr class="odd"><td><a href="https://www.rstudio.com" class="external-link">RStudio</a></td>
-<td><a href="https://www.rstudio.com/products/rstudio/download/#download" class="external-link">Link</a></td>
-<td></td>
-<td>Linux, MacOS, Windows</td>
-<td>GUI for R</td>
-</tr><tr class="even"><td><a href="https://www.unidata.ucar.edu/software/udunits/" class="external-link">UDUNITS</a></td>
-<td><a href="https://www.unidata.ucar.edu/downloads/udunits/index.jsp" class="external-link">Link</a></td>
-<td><a href="https://www.unidata.ucar.edu/software/udunits/#documentation" class="external-link">Link</a></td>
-<td>Linux, MacOS, Windows</td>
-<td>Unit conversions</td>
-</tr></tbody></table><p>We provide quick instructions below for installing the various
-software needed for this workshop. At points, they assume familiarity
-with the command line and with installation in general. As there are
+<p>We provide quick instructions below for installing the various
+software needed for this workshop. They assume minimal familiarity with
+the command line and with installation in general. As there are
 different operating systems and many different versions of operating
 systems and environments, these may not work on your computer. If an
 installation doesn’t work for you, please refer to the installation
-instructions for that software listed in the table above.</p>
+instructions for that software listed in the table on the bottom of this
+page.</p>
 <p>If you have previously installed these software on your computer,
-please make sure to update your installations. Using the latest versions
-of R, RStudio, R packages and external dependencies indicated in the
-setup instructions will ensure that the software we use behaves the same
-way on all computers during the workshop.</p>
+please make sure the versions used in the workshop match your
+installation. Using the latest versions of R, RStudio, R packages and
+external dependencies indicated in the setup instructions will ensure
+that the software we use behaves the same way on all computers during
+the workshop.</p>
+<p>Note for MacOS users: The workshop is only testes for macOS 11 and
+above. If you have an older version please contact the workshop
+providers prior to the start of the workshop.</p>
 <div id="gdal-geos-and-proj.4" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -446,7 +416,11 @@ way on all computers during the workshop.</p>
 <p>The installation of the geospatial libraries GDAL, GEOS, and PROJ.4
 varies significantly based on operating system. These are all
 dependencies for <code>sf</code>, the <code>R</code> package that we
-will be using for spatial data operations throughout this workshop.</p>
+will be using for spatial data operations throughout this workshop. If
+you already have one of these libaries in your system, please make sure
+to uninstall it before following the instructions below. Otherwise you
+might have conflicts between your libraries. If uninstallation is not
+possible, please join to the pre-workshop installation meeting.</p>
 </div>
 </div>
 </div>
@@ -457,7 +431,8 @@ will be using for spatial data operations throughout this workshop.</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<p>To install the geospatial libraries, install the latest version <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">RTools</a></p>
+<p>To install the geospatial libraries GDAL, GEOS, and PROJ.4, install
+Rtools version 4.4 <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">RTools</a></p>
 </div>
 </div>
 </div>
@@ -469,8 +444,9 @@ will be using for spatial data operations throughout this workshop.</p>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<p>Install the geospatial libraries individually using <a href="https://brew.sh" class="external-link">homebrew</a>. Open Terminal.app and run the
-following commands:</p>
+<p>Install the geospatial libraries GDAL, GEOS, and PROJ.4 individually
+using <a href="https://brew.sh" class="external-link">homebrew</a>. Open Terminal.app and run
+the following commands:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -586,7 +562,16 @@ Linux you are using. These instructions are adapted from the <a href="https://gi
 </h3>
 <div class="callout-content">
 <p>Participants who do not already have <code>R</code> installed should
-download and install it.</p>
+download and install the latest version. For those who already have R
+installed, make sure to have at least version 4.4.0. If not, please
+upgrade. You can check your R version by typing the following code in
+your R console.</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">version</span><span class="op">[[</span><span class="st">'version.string'</span><span class="op">]</span><span class="op">]</span></span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -670,16 +655,20 @@ greater).</em></p>
 geospatial lessons.</p>
 <ul><li>
 <a href="https://cran.r-project.org/package=tidyverse" class="external-link"><code>tidyverse</code></a>
-- this is a collection of packages for data science that contains the
-<code>dplyr</code> and <code>ggplot2</code> packages we will use
+v.2.0 - this is a collection of packages for data science that contains
+the <code>dplyr</code> and <code>ggplot2</code> packages we will use
 throughout the lessons.</li>
-<li><a href="https://cran.r-project.org/package=terra" class="external-link"><code>terra</code></a></li>
-<li><a href="https://cran.r-project.org/package=sf" class="external-link"><code>sf</code></a></li>
+<li>
+<a href="https://cran.r-project.org/package=terra" class="external-link"><code>terra</code></a>
+v.1.7</li>
+<li>
+<a href="https://cran.r-project.org/package=sf" class="external-link"><code>sf</code></a>
+v1.0</li>
 </ul><p>To install these packages in RStudio, do the following:<br>
 1. Open RStudio by double-clicking the RStudio application icon. You
 should see something like this:</p>
 <figure><img src="https://raw.githubusercontent.com/datacarpentry/geospatial-workshop/main/fig/01-rstudio.png" alt="RStudio layout" class="figure mx-auto d-block"></figure><p>2. Type the following into the console and hit enter.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -716,11 +705,50 @@ like:</p>
 </div>
 </div>
 <p>You are now ready for the workshop!</p>
-<!-- 
+<p>Below is a summary table of what have been installed in your machine
+after following the instructions above. Please use this summary for
+reference and DO NOT install the software from it unless you encounter
+issues with the installation above. The links in the table provide more
+detailed software- and platform-specific information.</p>
+<table class="table"><colgroup><col width="7%"><col width="6%"><col width="5%"><col width="20%"><col width="59%"></colgroup><thead><tr class="header"><th>Software</th>
+<th>Install</th>
+<th>Manual</th>
+<th>Available for</th>
+<th>Description</th>
+</tr></thead><tbody><tr class="odd"><td><a href="https://www.gdal.org" class="external-link">GDAL</a></td>
+<td><a href="https://gdal.org/download.html" class="external-link">Link</a></td>
+<td><a href="https://gdal.org" class="external-link">Link</a></td>
+<td>Linux, MacOS, Windows</td>
+<td>Geospatial model for reading and writing a variety of formats</td>
+</tr><tr class="even"><td><a href="https://trac.osgeo.org/geos" class="external-link">GEOS</a></td>
+<td><a href="https://trac.osgeo.org/geos" class="external-link">Link</a></td>
+<td><a href="https://geos.osgeo.org/doxygen/" class="external-link">Link</a></td>
+<td>Linux, MacOS, Windows</td>
+<td>Geometry models and operations</td>
+</tr><tr class="odd"><td><a href="https://proj4.org" class="external-link">PROJ.4</a></td>
+<td><a href="https://proj4.org/install.html" class="external-link">Link</a></td>
+<td><a href="https://proj4.org/index.html" class="external-link">Link</a></td>
+<td>Linux, MacOS, Windows</td>
+<td>Coordinate reference system transformations</td>
+</tr><tr class="even"><td><a href="https://www.r-project.org" class="external-link">R</a></td>
+<td><a href="https://cloud.r-project.org" class="external-link">Link</a></td>
+<td><a href="https://cloud.r-project.org" class="external-link">Link</a></td>
+<td>Linux, MacOS, Windows</td>
+<td>Software environment for statistical and scientific computing</td>
+</tr><tr class="odd"><td><a href="https://www.rstudio.com" class="external-link">RStudio</a></td>
+<td><a href="https://www.rstudio.com/products/rstudio/download/#download" class="external-link">Link</a></td>
+<td></td>
+<td>Linux, MacOS, Windows</td>
+<td>GUI for R</td>
+</tr><tr class="even"><td><a href="https://www.unidata.ucar.edu/software/udunits/" class="external-link">UDUNITS</a></td>
+<td><a href="https://www.unidata.ucar.edu/downloads/udunits/index.jsp" class="external-link">Link</a></td>
+<td><a href="https://www.unidata.ucar.edu/software/udunits/#documentation" class="external-link">Link</a></td>
+<td>Linux, MacOS, Windows</td>
+<td>Unit conversions</td>
+</tr></tbody></table><!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
- -->
-</div>
+ --></div>
 </div>
 
       </section></main><nav class="bottom-pagination mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
@@ -771,9 +799,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/index.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/index.html",
-  "dateCreated": "2024-05-17",
-  "dateModified": "2024-05-17",
-  "datePublished": "2024-05-17"
+  "dateCreated": "2024-05-20",
+  "dateModified": "2024-05-20",
+  "datePublished": "2024-05-20"
 }
 
   </script><script>
