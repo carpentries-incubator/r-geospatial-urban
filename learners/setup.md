@@ -30,7 +30,7 @@ The installation of the geospatial libraries GDAL, GEOS, and PROJ.4 varies signi
 
 ### Windows
 
-To install the geospatial libraries GDAL, GEOS, and PROJ.4, install Rtools version 4.3 [RTools](https://cran.r-project.org/bin/windows/Rtools/)
+To install the geospatial libraries GDAL, GEOS, and PROJ.4, install Rtools version 4.4 [RTools](https://cran.r-project.org/bin/windows/Rtools/)
 
 :::::::::::::::::::::::::
 
@@ -123,7 +123,7 @@ $ sudo apt-get install -y libudunits2-dev
 
 ### R
 
-Participants who do not already have `R` installed should download and install the latest version. For those who already have R installed, make sure to have at least version 4.3.3. If not, please upgrade. You can check your R version by typing the following code in your R console. 
+Participants who do not already have `R` installed should download and install the latest version. For those who already have R installed, make sure to have at least version 4.4.0. If not, please upgrade. You can check your R version by typing the following code in your R console. 
 ```R
 version[['version.string']]
 ``` 
