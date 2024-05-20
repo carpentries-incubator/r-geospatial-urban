@@ -94,7 +94,7 @@ summary(DSM_TUD)
 
 This output gives us information about the range of values in the DSM. We can see, for instance, that the lowest elevation is `-5.2235`, the highest is `89.7838`. But note the warning. Unless you force R to calculate these statistics using every cell in the raster, it will take a random sample of 100,000 cells and calculate from them instead. To force calculation all the values, you can use the function `values`:
 
-```{r dsm-summary2}
+```{r dsm-summary-values}
 summary(values(DSM_TUD))
 ```
 

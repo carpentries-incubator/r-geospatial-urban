@@ -121,7 +121,7 @@ To render a final three-band, coloured image in R, we use the `plotRGB()` functi
 
 This function allows us to:
 
-- Identify what bands we want to render in the red, green and blue regions. The `plotRGB()` function defaults to a 1=red, 2=green, and 3=blue band order. However, you can define what bands you would like to plot manually. Manual definition of bands is useful if you have, for example a near-infrared band and want to create a colour infrared image.
+- Identify what bands we want to render in the red, green and blue regions. The `plotRGB()` function defaults to a 1=red, 2=green, and 3=blue band order. However, you can define what bands you would like to plot manually. Manual definition of bands is useful if you have, for example, a near-infrared band and want to create a colour infrared image.
 - Adjust the stretch of the image to increase or decrease contrast.
 
 Let’s plot our 3-band image. Note that we can use the `plotRGB()` function directly with our raster stack object (we do not need a data frame as this function is not part of the `ggplot2` package).
