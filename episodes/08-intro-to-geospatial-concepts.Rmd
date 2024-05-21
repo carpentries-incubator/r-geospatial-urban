@@ -21,7 +21,7 @@ After completing this episode, participants should be able to…
 
 The shape of the Earth is approximately a sphere which is slightly wider than it is tall, and which is called **ellipsoid**. The true shape of the Earth is an irregular ellipsoid, the so-called **geoid**, as illustrated in the image below.
 
-```{r fig-earth, fig.cap="The shape of the Earth. Source: United Nations Statistics Division and International Cartographic Association (2012a).", echo=FALSE}
+```{r fig-earth, fig.cap="The shape of the Earth. Source: United Nations Statistics Division and International Cartographic Association (2012).", echo=FALSE}
 knitr::include_graphics("https://unstats.un.org/unsd/geoinfo/ungegn/docs/_data_icacourses/_ImagesModules/_selfstudy/S06_images/S06_03_a00.jpg")
 ```
 
