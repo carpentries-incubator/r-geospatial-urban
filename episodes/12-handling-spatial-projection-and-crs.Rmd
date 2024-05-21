@@ -30,6 +30,9 @@ After completing this episode, participants should be able to…
 
 ## Working with spatial data from different sources
 
+In this episode, we will work with a different dataset containing Dutch municipal 
+boundaries. We start by reading the data and plotting it.
+
 ```{r minicipal-boundary}
 municipal_boundary_NL <- st_read("data/nl-gemeenten.shp")
 ```
