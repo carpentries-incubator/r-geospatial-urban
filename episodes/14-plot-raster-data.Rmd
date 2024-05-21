@@ -41,7 +41,7 @@ After completing this episode, participants should be able to…
 
 See the [setup instructions](../learners/setup.md) for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
 
-This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before attaching it with `library(terra)`.
+This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before loading it with `library(terra)`.
 
 :::
 
