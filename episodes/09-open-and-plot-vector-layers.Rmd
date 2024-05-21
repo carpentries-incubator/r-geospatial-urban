@@ -102,7 +102,7 @@ st_crs(boundary_Delft)$Name
 st_crs(boundary_Delft)$epsg
 ```
 
-The `$` operator is used to extract a specific part of an object. We used it in a [previous episode]() to subset a data frame by column name. In this case, it is used to extract named elements stored in a `crs` object. For more information, see [the documentation of the `st_crs` function](https://r-spatial.github.io/sf/reference/st_crs.html#details).
+The `$` operator is used to extract a specific part of an object. We used it in a [previous episode](../episodes/03-explore-data.Rmd) to subset a data frame by column name. In this case, it is used to extract named elements stored in a `crs` object. For more information, see [the documentation of the `st_crs` function](https://r-spatial.github.io/sf/reference/st_crs.html#details).
 
 :::
 
