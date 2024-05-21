@@ -44,7 +44,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-We can add a country boundary layer to make it look nicer. If we specify a thicker line width using size = 2 for the country boundary layer, it will make our map pop!
+We can add a country boundary layer to make it look nicer. If we specify a thicker line width using size = 2 for the country boundary layer, it will make our map pop! We read the country boundary from a different file.
 
 ```{r country-boundary}
 country_boundary_NL <- st_read("data/nl-boundary.shp")
@@ -61,6 +61,8 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
+We confirm that the CRS of both boundaries is 28992.
+
 ```{r minicipal-boundary-crs}
 st_crs(municipal_boundary_NL)$epsg
 ```
@@ -68,6 +70,9 @@ st_crs(municipal_boundary_NL)$epsg
 ```{r country-boundary-crs}
 st_crs(country_boundary_NL)$epsg
 ```
+
+We read the municipal boundary of Delft and make sure that it is in the same CRS
+as the country-level municipal boundaries and country boundary layers.
 
 ```{r municipal-boundary-crs-2}
 boundary_Delft <- st_read("data/delft-boundary.shp")
