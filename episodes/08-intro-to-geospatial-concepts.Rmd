@@ -102,7 +102,7 @@ In addition to using different CRS, these two maps of Rotterdam also have differ
 | Fraction: | 1:25000                            |
 | Graphic:  | ![](fig/scalebar.png){width="75%"} |
 
-## Map scale
+## Types of geospatial data
 
 The map of Rotterdam in the figure above shows the area of the city as a discrete feature with precise boundaries. This type of data is called vector. Vector data can have the form of points, lines and polygons (areas).
 
