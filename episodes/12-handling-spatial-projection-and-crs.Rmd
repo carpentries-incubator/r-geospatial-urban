@@ -139,7 +139,13 @@ ggplot() +
 
 :::
 
+::: callout
 
+# Projecting layers
+
+Note that `ggplot2` may reproject the layers on the fly for visualisation purposes, but for geoprocessing purposes, you still need to reproject the layers explicitly with `st_transform()`. This will become clear in a [later episode](../episodes/19-basic-gis-with-r-sf.Rmd) when we perform GIS operations.
+
+:::
 
 ## Export a shapefile
 
