@@ -65,11 +65,6 @@ library(osmdata)
 
 bb <- osmdata::getbb("Brielle")
 bb
-
-### OR
-#install.packages("osmdata")
-# library(osmdata)
-# bb <- getbb("Brielle")
 ```
 
 ::::::::::::::::::::::::::::::::::::: callout
