@@ -37,7 +37,7 @@ In this lesson, we will work with raster data. We will start with an introductio
 We continue to work with the `tidyverse` package and we will use the `terra` package to work with raster data. Make sure that you have those packages loaded.
 
 
-```r
+``` r
 library(tidyverse)
 library(terra)
 ```
@@ -58,11 +58,11 @@ In this and lesson, we will use:
 We will be working with a series of GeoTIFF files in this lesson. The GeoTIFF format contains a set of embedded tags with metadata about the raster data. We can use the function `describe()` from the `terra` package to get information about our raster data before we read that data into R. It is recommended to do this before importing your data. We first examine the file `tud-dsm-5m.tif`.
 
 
-```r
+``` r
 describe("data/tud-dsm-5m.tif")
 ```
 
-```output
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
  [2] "Files: data/tud-dsm-5m.tif"                                                                                            
  [3] "Size is 722, 386"                                                                                                      
@@ -134,12 +134,12 @@ To improve code readability, use file and object names that make it clear what i
 First we will load our raster file into R and view the data structure.
 
 
-```r
+``` r
 DSM_TUD <- rast("data/tud-dsm-5m.tif")
 DSM_TUD
 ```
 
-```output
+``` output
 class       : SpatRaster 
 dimensions  : 386, 722, 1  (nrow, ncol, nlyr)
 resolution  : 5, 5  (x, y)
@@ -151,15 +151,15 @@ name        : tud-dsm-5m
 The information above includes a report on dimension, resolution, extent and CRS, but no information about the values. Similar to other data structures in R like vectors and data frame columns, descriptive statistics for raster data can be retrieved with the `summary()` function.
 
 
-```r
+``` r
 summary(DSM_TUD)
 ```
 
-```warning
+``` warning
 Warning: [summary] used a sample
 ```
 
-```output
+``` output
    tud.dsm.5m     
  Min.   :-5.2235  
  1st Qu.:-0.7007  
@@ -172,11 +172,11 @@ Warning: [summary] used a sample
 This output gives us information about the range of values in the DSM. We can see, for instance, that the lowest elevation is `-5.2235`, the highest is `89.7838`. But note the warning. Unless you force R to calculate these statistics using every cell in the raster, it will take a random sample of 100,000 cells and calculate from them instead. To force calculation all the values, you can use the function `values`:
 
 
-```r
+``` r
 summary(values(DSM_TUD))
 ```
 
-```output
+``` output
    tud-dsm-5m     
  Min.   :-5.3907  
  1st Qu.:-0.7008  
@@ -191,18 +191,18 @@ With a summary on all cells of the raster, the values range from a smaller minim
 To visualise the DSM in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has the built-in function `as.data.frame()` for conversion to a data frame.
 
 
-```r
+``` r
 DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
 ```
 
 Now when we view the structure of our data, we will see a standard data frame format.
 
 
-```r
+``` r
 str(DSM_TUD_df)
 ```
 
-```output
+``` output
 'data.frame':	278692 obs. of  3 variables:
  $ x         : num  83568 83572 83578 83582 83588 ...
  $ y         : num  447178 447178 447178 447178 447178 ...
@@ -212,7 +212,7 @@ str(DSM_TUD_df)
 We can use `ggplot()` to plot this data with a specific `geom_` function called `geom_raster()`. We will make the colour scale in our plot colour-blindness friendly with `scale_fill_viridis_c`, introduced in an [earlier lesson](../episodes/04-intro-to-visualisation.Rmd). We will also use the `coord_quickmap()` function to use an approximate Mercator projection for our plots. This approximation is suitable for small areas that are not too close to the poles. Other coordinate systems are available in `ggplot2` if needed, you can learn about them at their help page `?coord_map`.
 
 
-```r
+``` r
 ggplot() +
     geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = `tud-dsm-5m`)) +
     scale_fill_viridis_c(option = "H") +  # `option = "H"` provides a contrasting colour scale
@@ -245,11 +245,11 @@ Now we will see how features of the CRS appear in our data file and what meaning
 We can view the CRS string associated with our R object using the `crs()` function.
 
 
-```r
+``` r
 crs(DSM_TUD, proj = TRUE)
 ```
 
-```output
+``` output
 [1] "+proj=sterea +lat_0=52.1561605555556 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs"
 ```
 
@@ -277,11 +277,11 @@ It is useful to know the minimum and maximum values of a raster dataset. In this
 
 Raster statistics are often calculated and embedded in a GeoTIFF for us. We can view these values:
 
-```r
+``` r
 minmax(DSM_TUD)
 ```
 
-```output
+``` output
     tud-dsm-5m
 min        Inf
 max       -Inf
@@ -293,26 +293,26 @@ max       -Inf
 If the `min` and `max` values are `Inf` and `-Inf` respectively, it means that they haven't been calculated. We can calculate them using the `setMinMax()` function.
 
 
-```r
+``` r
 DSM_TUD <- setMinMax(DSM_TUD)
 ```
 :::
 
 
-```r
+``` r
 min(values(DSM_TUD))
 ```
 
-```output
+``` output
 [1] -5.39069
 ```
 
 
-```r
+``` r
 max(values(DSM_TUD))
 ```
 
-```output
+``` output
 [1] 92.08102
 ```
 
@@ -330,11 +330,11 @@ The Digital Surface Model object (`DSM_TUD`) that we’ve been working with is a
 A raster dataset can contain one or more bands. We can view the number of bands in a raster using the `nlyr()` function.
 
 
-```r
+``` r
 nlyr(DSM_TUD)
 ```
 
-```output
+``` output
 [1] 1
 ```
 This dataset has only 1 band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode](../episodes/17-work-with-multi-band-rasters.Rmd).
@@ -348,12 +348,12 @@ A histogram can be used to inspect the distribution of raster values visually. I
 We can inspect the distribution of values contained in a raster using the `ggplot2` function `geom_histogram()`. Histograms are often useful in identifying outliers and bad data values in our raster data.
 
 
-```r
+``` r
 ggplot() +
   geom_histogram(data = DSM_TUD_df, aes(`tud-dsm-5m`))
 ```
 
-```output
+``` output
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
@@ -368,7 +368,7 @@ Notice that a message is displayed when R creates the histogram:
 This message is caused by a default setting in `geom_histogram()` enforcing that there are 30 bins for the data. We can define the number of bins we want in the histogram by giving another value to the `bins` argument. 60 bins, for instance, will give a more detailed histogram of the same distribution:
 
 
-```r
+``` r
 ggplot() +
   geom_histogram(data = DSM_TUD_df, aes(`tud-dsm-5m`), bins = 60)
 ```
@@ -393,11 +393,11 @@ Note that this file is a hillshade raster. We will learn about hillshades in the
 ::: solution
 
 
-```r
+``` r
 describe("data/tud-dsm-5m-hill.tif")
 ```
 
-```output
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
  [2] "Files: data/tud-dsm-5m-hill.tif"                                                                                       
  [3] "Size is 722, 386"                                                                                                      

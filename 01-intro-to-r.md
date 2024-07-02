@@ -84,7 +84,7 @@ An alternative solution is to create the folders using R command `dir.create()`.
 In the console type: 
 
 
-```r
+``` r
 dir.create("data")
 dir.create("data_output")
 dir.create("documents")
@@ -197,7 +197,7 @@ We will however need to install the `here` package. To do so, please go to your
 script and type:
 
 
-```r
+``` r
 install.packages("here")
 ```
 
@@ -210,7 +210,7 @@ of installed packages. If not, you will need to install it by writing in
 the script:
 
 
-```r
+``` r
 install.packages('tidyverse')
 ```
 
@@ -231,7 +231,7 @@ execution. Thanks to this feature, you can annotate your code.
 Let's adapt our script by changing the first lines into comments: 
 
 
-```r
+``` r
 # install.packages('here')
 # install.packages('tidyverse')
 ```
@@ -243,7 +243,7 @@ Installing packages is not sufficient to work with them. You will need to load
 them each time you want to use them. To do that you use `library()` command:
 
 
-```r
+``` r
 # Load packages
 library(tidyverse)
 library(here)
@@ -275,7 +275,7 @@ It might be confusing, so let's see how it works. We will use the `here()` funct
 from the `here` package. In the console, we write:
 
 
-```r
+``` r
 here()
 here('data')
 ```
@@ -292,7 +292,7 @@ We will save it in the `data/` folder, where the **raw** data should go.
 In the script, we will write: 
 
 
-```r
+``` r
 # Download the data
 download.file(
   "https://bit.ly/geospatial_data",
@@ -321,7 +321,7 @@ will not cover these in the workshop.
 You can use R as calculator, you can for example write:
 
 
-```r
+``` r
 1 + 100
 1 * 100
 1 / 100
@@ -335,14 +335,14 @@ use them whenever we need to.
 We using the assignment operator `<-`, like this:
 
 
-```r
+``` r
 x <- 1 / 40
 ```
 
 Notice that assignment does not print a value. Instead, we've stored it for later 
 in something called a variable. `x` variable now contains the value `0.025`:
 
-```r
+``` r
 x
 ```
 
@@ -352,21 +352,21 @@ Our variable `x` can be used in place of a number in any calculation that expect
 a number, e.g. when calculating a square root:
 
 
-```r
+``` r
 sqrt(x)
 ```
 
 Variables can be also reassigned. This means that we can assign a new value to 
 variable `x`:
 
-```r
+``` r
 x <- 100
 x
 ```
 
 You can use one variable to create a new one:
 
-```r
+``` r
 y <- sqrt(x) # you can use value stored in object x to create y
 y
 ```

@@ -64,33 +64,33 @@ Note that vector data in the geospatial context is different from vector data ty
 You can create a vector with a `c()` function. 
 
 
-```r
+``` r
 # vector of numbers - numeric data type.
 numeric_vector <- c(2, 6, 3) 
 numeric_vector
 ```
 
-```output
+``` output
 [1] 2 6 3
 ```
 
-```r
+``` r
 # vector of words - or strings of characters- character data type
 character_vector <- c('Amsterdam', 'London', 'Delft') 
 character_vector
 ```
 
-```output
+``` output
 [1] "Amsterdam" "London"    "Delft"    
 ```
 
-```r
+``` r
 # vector of logical values (is something true or false?)- logical data type.
 logical_vector <- c(TRUE, FALSE, TRUE) 
 logical_vector
 ```
 
-```output
+``` output
 [1]  TRUE FALSE  TRUE
 ```
 
@@ -99,21 +99,21 @@ logical_vector
 The combine function, `c()`, will also append things to an existing vector:
 
 
-```r
+``` r
 ab_vector <- c('a', 'b')
 ab_vector
 ```
 
-```output
+``` output
 [1] "a" "b"
 ```
 
-```r
+``` r
 abcd_vector <- c(ab_vector, 'c', 'd')
 abcd_vector
 ```
 
-```output
+``` output
 [1] "a" "b" "c" "d"
 ```
 
@@ -141,27 +141,27 @@ A common operation you want to perform is to remove all the missing values
 (in R denoted as `NA`). Let's have a look how to do it: 
 
 
-```r
+``` r
 with_na <- c(1, 2, 1, 1, NA, 3, NA ) # vector including missing value
 ```
 
 First, let's try to calculate mean for the values in this vector
 
-```r
+``` r
 mean(with_na) # mean() function cannot interpret the missing values
 ```
 
-```output
+``` output
 [1] NA
 ```
 
-```r
+``` r
 # You can add the argument na.rm=TRUE to calculate the result while
 # ignoring the missing values.
 mean(with_na, na.rm = T) 
 ```
 
-```output
+``` output
 [1] 1.6
 ```
 
@@ -171,22 +171,22 @@ For this you need to identify which elements of the vector hold missing values
 with `is.na()` function. 
 
 
-```r
+``` r
 is.na(with_na) # This will produce a vector of logical values, 
 ```
 
-```output
+``` output
 [1] FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE
 ```
 
-```r
+``` r
 # stating if a statement 'This element of the vector is a missing value'
 # is true or not
 
 !is.na(with_na) # The ! operator means negation, i.e. not is.na(with_na)
 ```
 
-```output
+``` output
 [1]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE
 ```
 
@@ -195,14 +195,14 @@ Now we need to retrieve the subset of the `with_na` vector that is not `NA`.
 Sub-setting in `R` is done with square brackets`[ ]`. 
 
 
-```r
+``` r
 without_na <- with_na[ !is.na(with_na) ] # this notation will return only
 # the elements that have TRUE on their respective positions
 
 without_na
 ```
 
-```output
+``` output
 [1] 1 2 1 1 3
 ```
 
@@ -224,22 +224,22 @@ Once created, factors can only contain a pre-defined set of values,
 known as levels. 
 
 
-```r
+``` r
 nordic_str <- c('Norway', 'Sweden', 'Norway', 'Denmark', 'Sweden')
 nordic_str # regular character vectors printed out
 ```
 
-```output
+``` output
 [1] "Norway"  "Sweden"  "Norway"  "Denmark" "Sweden" 
 ```
 
-```r
+``` r
 # factor() function converts a vector to factor data type
 nordic_cat <- factor(nordic_str)
 nordic_cat # With factors, R prints out additional information - 'Levels'
 ```
 
-```output
+``` output
 [1] Norway  Sweden  Norway  Denmark Sweden 
 Levels: Denmark Norway Sweden
 ```
@@ -251,19 +251,19 @@ This can come in handy when performing statistical analysis.
 You can inspect and adapt levels of the factor. 
 
 
-```r
+``` r
 levels(nordic_cat) # returns all levels of a factor vector.  
 ```
 
-```output
+``` output
 [1] "Denmark" "Norway"  "Sweden" 
 ```
 
-```r
+``` r
 nlevels(nordic_cat) # returns number of levels in a vector
 ```
 
-```output
+``` output
 [1] 3
 ```
 
@@ -281,7 +281,7 @@ displayed in a plot or which category is taken as a baseline in a statistical mo
 You can reorder the categories using `factor()` function. This can be useful, for instance, to select a reference category (first level) in a regression model or for ordering legend items in a plot, rather than using the default category systematically (i.e. based on alphabetical order).
 
 
-```r
+``` r
 nordic_cat <- factor(
   nordic_cat,
   levels = c(
@@ -295,7 +295,7 @@ nordic_cat <- factor(
 nordic_cat
 ```
 
-```output
+``` output
 [1] Norway  Sweden  Norway  Denmark Sweden 
 Levels: Norway Denmark Sweden
 ```
@@ -306,7 +306,7 @@ There is more than one way to reorder factors. Later in the lesson,
 we will use `fct_relevel()` function from `forcats` package to do the reordering.
 
 
-```r
+``` r
 library(forcats)
 
 nordic_cat <- fct_relevel(
@@ -320,7 +320,7 @@ nordic_cat <- fct_relevel(
 nordic_cat
 ```
 
-```output
+``` output
 [1] Norway  Sweden  Norway  Denmark Sweden 
 Levels: Norway Denmark Sweden
 ```
@@ -332,11 +332,11 @@ it shows the underlying values of each category.
 You can also see the structure in the environment tab of RStudio.
 
 
-```r
+``` r
 str(nordic_cat) 
 ```
 
-```output
+``` output
  Factor w/ 3 levels "Norway","Denmark",..: 1 3 1 2 3
 ```
 
@@ -351,15 +351,15 @@ outside of this set, it will become an unknown/missing value detonated by
 
 
 
-```r
+``` r
 nordic_str
 ```
 
-```output
+``` output
 [1] "Norway"  "Sweden"  "Norway"  "Denmark" "Sweden" 
 ```
 
-```r
+``` r
 nordic_cat2 <- factor(
   nordic_str,
   levels = c("Norway", "Denmark")
@@ -370,7 +370,7 @@ nordic_cat2 <- factor(
 nordic_cat2
 ```
 
-```output
+``` output
 [1] Norway  <NA>    Norway  Denmark <NA>   
 Levels: Norway Denmark
 ```

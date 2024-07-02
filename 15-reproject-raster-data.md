@@ -53,21 +53,21 @@ Read more about layering raster [here](https://datacarpentry.org/r-raster-vector
 First, we need to import the DTM and DTM hillshade data.
 
 
-```r
+``` r
 DTM_TUD <- rast("data/tud-dtm-5m.tif")
 DTM_hill_TUD <- rast("data/tud-dtm-5m-hill-WGS84.tif")
 ```
 
 Next, we will convert each of these datasets to a data frame for plotting with `ggplot`.
 
-```r
+``` r
 DTM_TUD_df <- as.data.frame(DTM_TUD, xy = TRUE)
 DTM_hill_TUD_df <- as.data.frame(DTM_hill_TUD, xy = TRUE)
 ```
 
 Now we can create a map of the DTM layered over the hillshade.
 
-```r
+``` r
 ggplot() +
      geom_raster(data = DTM_TUD_df , 
                  aes(x = x, y = y, 
@@ -83,7 +83,7 @@ ggplot() +
 Our results are curious - neither the Digital Terrain Model (`DTM_TUD_df`) nor the DTM Hillshade (`DTM_hill_TUD_df`) plotted. Let’s try to plot the DTM on its own to make sure there are data there.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = DTM_TUD_df,
               aes(x = x, y = y,
@@ -99,7 +99,7 @@ Our DTM seems to contain data and plots just fine.
 Next we plot the DTM Hillshade on its own to see whether everything is OK.
 
 
-```r
+``` r
 ggplot() +
   geom_raster(data = DTM_hill_TUD_df,
               aes(x = x, y = y,
@@ -120,11 +120,11 @@ View the CRS for each of these two datasets. What projection does each use?
 ::: solution
 
 
-```r
+``` r
 crs(DTM_TUD, parse = TRUE)
 ```
 
-```output
+``` output
  [1] "PROJCRS[\"Amersfoort / RD New\","                                                                                      
  [2] "    BASEGEOGCRS[\"Amersfoort\","                                                                                       
  [3] "        DATUM[\"Amersfoort\","                                                                                         
@@ -166,11 +166,11 @@ crs(DTM_TUD, parse = TRUE)
 ```
 
 
-```r
+``` r
 crs(DTM_hill_TUD, parse = TRUE)
 ```
 
-```output
+``` output
  [1] "GEOGCRS[\"WGS 84\","                                   
  [2] "    DATUM[\"World Geodetic System 1984\","             
  [3] "        ELLIPSOID[\"WGS 84\",6378137,298.257223563,"   
@@ -217,18 +217,18 @@ We want the CRS of our hillshade to match the `DTM_TUD` raster. We can thus assi
 
 First we will reproject our `DTM_hill_TUD` raster data to match the `DTM_TUD` raster CRS:
 
-```r
+``` r
 DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD,
                                   crs(DTM_TUD))
 ```
 
 Now we can compare the CRS of our original DTM hillshade and our new DTM hillshade, to see how they are different.
 
-```r
+``` r
 crs(DTM_hill_EPSG28992_TUD, parse = TRUE)
 ```
 
-```output
+``` output
  [1] "PROJCRS[\"Amersfoort / RD New\","                                                                                      
  [2] "    BASEGEOGCRS[\"Amersfoort\","                                                                                       
  [3] "        DATUM[\"Amersfoort\","                                                                                         
@@ -269,11 +269,11 @@ crs(DTM_hill_EPSG28992_TUD, parse = TRUE)
 [38] "    ID[\"EPSG\",28992]]"                                                                                               
 ```
 
-```r
+``` r
 crs(DTM_hill_TUD, parse = TRUE)
 ```
 
-```output
+``` output
  [1] "GEOGCRS[\"WGS 84\","                                   
  [2] "    DATUM[\"World Geodetic System 1984\","             
  [3] "        ELLIPSOID[\"WGS 84\",6378137,298.257223563,"   
@@ -292,19 +292,19 @@ crs(DTM_hill_TUD, parse = TRUE)
 
 We can also compare the extent of the two objects.
 
-```r
+``` r
 ext(DTM_hill_EPSG28992_TUD)
 ```
 
-```output
+``` output
 SpatExtent : 83537.3768729672, 87200.5199626113, 445202.584641046, 447230.395994242 (xmin, xmax, ymin, ymax)
 ```
 
-```r
+``` r
 ext(DTM_hill_TUD)
 ```
 
-```output
+``` output
 SpatExtent : 4.34674898644234, 4.39970436836596, 51.9910492930106, 52.0088368700157 (xmin, xmax, ymin, ymax)
 ```
 
@@ -313,26 +313,26 @@ SpatExtent : 4.34674898644234, 4.39970436836596, 51.9910492930106, 52.0088368700
 Let’s next have a look at the resolution of our reprojected hillshade versus our original data.
 
 
-```r
+``` r
 res(DTM_hill_EPSG28992_TUD)
 ```
 
-```output
+``` output
 [1] 5.03179 5.03179
 ```
 
 
-```r
+``` r
 res(DTM_TUD)
 ```
 
-```output
+``` output
 [1] 5 5
 ```
 
 These two resolutions are different, but they’re representing the same data. We can tell R to force our newly reprojected raster to be the same as `DTM_TUD` by adding a line of code `res = res(DTM_TUD)` within the `project()` function.
 
-```r
+``` r
 DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD, 
                                   crs(DTM_TUD),
                                   res = res(DTM_TUD))
@@ -340,31 +340,31 @@ DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD,
 
 Now both our resolutions and our CRSs match, so we can plot these two data sets together. Let’s double-check our resolution to be sure:
 
-```r
+``` r
 res(DTM_hill_EPSG28992_TUD)
 ```
 
-```output
+``` output
 [1] 5 5
 ```
 
-```r
+``` r
 res(DTM_TUD)
 ```
 
-```output
+``` output
 [1] 5 5
 ```
 
 For plotting with `ggplot()`, we will need to create a data frame from our newly reprojected raster.
 
-```r
+``` r
 DTM_hill_TUD_2_df <- as.data.frame(DTM_hill_EPSG28992_TUD, xy = TRUE)
 ```
 
 We can now create a plot of this data.
 
-```r
+``` r
 ggplot() +
      geom_raster(data = DTM_TUD_df , 
                  aes(x = x, y = y, 
