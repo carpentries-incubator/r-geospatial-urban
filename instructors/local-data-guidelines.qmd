@@ -3,6 +3,12 @@ title: Guidelines for local workshop data
 output: html
 ---
 
-## Heading 1
-text
+## Using alternative datasets for other countries
+
+For the parts of the workshop using OpenStreetMap data, you can use data for other countries from the same source, but keep in mind that the OpenStreetMap data is not the same for all countries. If the variables listed above are not available for your country, you can use other variables from the OpenStreetMap if they fit in the lesson plan. Or you may find the same variables as in the Dutch OpenStreetMap data, but from another source available in your country. In any case, please make sure that the types of the variables are the same and that the missing values are coded in the same way.
+
+For Part 1, using the data from the Statistics Netherlands, you can search for alternative sources from your country, such as the national statistics office or other governmental institutions. Possibly, data from your own or your colleagues’ research can be used.  
+
+After choosing and adjusting your alternative dataset, and before running the workshop, data needs to be tested. Please follow the lesson plan to see if you can execute all the commands. Also, pay attention that the results you get fit within the programme of the lesson – that you can continue with the next steps without disruption. 
+
 
