@@ -37,7 +37,7 @@ In this part, we will plot our raster object using `ggplot2` with customized col
 In the previous plot, our DSM was coloured with a continuous colour range. For clarity and visibility, we may prefer to view the data “symbolized” or coloured according to ranges of values. This is comparable to a “classified” map. For that, we need to tell `ggplot()` how many groups to break our data into and where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use `dplyr`’s `mutate()` function combined with `cut()` to split the data into 3 bins.
 
 
-```r
+``` r
 DSM_TUD_df <- DSM_TUD_df %>%
   mutate(fct_elevation = cut(`tud-dsm-5m`, breaks = 3))
 
@@ -49,22 +49,22 @@ ggplot() +
 
 To see the cut-off values for the groups, we can ask for the levels of `fct_elevation`:
 
-```r
+``` r
 levels(DSM_TUD_df$fct_elevation)
 ```
 
-```output
+``` output
 [1] "(-5.49,27.1]" "(27.1,59.6]"  "(59.6,92.2]" 
 ```
 
 And we can get the count of values (that is, number of pixels) in each group using `dplyr`’s `count()` function:
 
-```r
+``` r
 DSM_TUD_df %>% 
   count(fct_elevation)
 ```
 
-```output
+``` output
   fct_elevation      n
 1  (-5.49,27.1] 277100
 2   (27.1,59.6]   1469
@@ -74,7 +74,7 @@ DSM_TUD_df %>%
 We might prefer to customize the cut-off values for these groups. Lets round the cut-off values so that we have groups for the ranges of -10 - 0m, 0 - 5m, and 5 - 100m. To implement this we will give `cut()` a numeric vector of break points instead of the number of breaks we want.
 
 
-```r
+``` r
 custom_bins <- c(-10, 0, 5, 100)
 
 DSM_TUD_df <- DSM_TUD_df %>%
@@ -83,7 +83,7 @@ DSM_TUD_df <- DSM_TUD_df %>%
 levels(DSM_TUD_df$fct_elevation_cb)
 ```
 
-```output
+``` output
 [1] "(-10,0]" "(0,5]"   "(5,100]"
 ```
 
@@ -99,7 +99,7 @@ The bin intervals are shown using `(` to mean exclusive and `]` to mean inclusiv
 
 And now we can plot our bar plot again, using the new groups:
 
-```r
+``` r
 ggplot() +
   geom_bar(data = DSM_TUD_df, aes(fct_elevation_cb))
 ```
@@ -108,12 +108,12 @@ ggplot() +
 
 And we can get the count of values in each group in the same way we did before:
 
-```r
+``` r
 DSM_TUD_df %>% 
   count(fct_elevation_cb)
 ```
 
-```output
+``` output
   fct_elevation_cb      n
 1          (-10,0] 113877
 2            (0,5] 101446
@@ -122,7 +122,7 @@ DSM_TUD_df %>%
 
 We can use those groups to plot our raster data, with each group being a different colour:
 
-```r
+``` r
 ggplot() +
   geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = fct_elevation_cb)) + 
   coord_quickmap()
@@ -132,17 +132,17 @@ ggplot() +
 The plot above uses the default colours inside `ggplot2` for raster objects. We can specify our own colours to make the plot look a little nicer. R has a built in set of colours for plotting terrain, which are built in to the `terrain.colors()` function. Since we have three bins, we want to create a 3-colour palette:
 
 
-```r
+``` r
 terrain.colors(3)
 ```
 
-```output
+``` output
 [1] "#00A600" "#ECB176" "#F2F2F2"
 ```
 
 The `terrain.colors()` function returns hex colours - each of these character strings represents a colour. To use these in our map, we pass them across using the `scale_fill_manual()` function.
 
-```r
+``` r
 ggplot() +
  geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = fct_elevation_cb)) + 
     scale_fill_manual(values = terrain.colors(3)) + 
@@ -157,7 +157,7 @@ If we need to create multiple plots using the same colour palette, we can create
 
 We can give the legend a more meaningful title by passing a value to the `name` argument of the `scale_fill_manual()` function.
 
-```r
+``` r
 my_col <- terrain.colors(3)
 
 ggplot() +
@@ -170,7 +170,7 @@ ggplot() +
 <img src="fig/14-plot-raster-data-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
 The axis labels x and y are not necessary, so we can turn them off by passing `element_blank()` to the relevant part of the `theme()` function.
 
-```r
+``` r
 ggplot() +
  geom_raster(data = DSM_TUD_df , aes(x = x, y = y,
                                       fill = fct_elevation_cb)) + 
@@ -194,19 +194,19 @@ Create a plot of the TU Delft Digital Surface Model (`DSM_TUD`) that has:
 ::: solution
 
 
-```r
+``` r
 DSM_TUD_df <- DSM_TUD_df %>%
   mutate(fct_elevation_6 = cut(`tud-dsm-5m`, breaks = 6))
 
 levels(DSM_TUD_df$fct_elevation_6)
 ```
 
-```output
+``` output
 [1] "(-5.49,10.9]" "(10.9,27.1]"  "(27.1,43.3]"  "(43.3,59.6]"  "(59.6,75.8]" 
 [6] "(75.8,92.2]" 
 ```
 
-```r
+``` r
 my_col <- terrain.colors(6)
 
 ggplot() +

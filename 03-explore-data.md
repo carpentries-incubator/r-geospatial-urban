@@ -54,7 +54,7 @@ For example, here is a figure depicting a data frame comprising a numeric, a cha
 We're gonna read in the `gapminder` data set with information about countries' size, GDP and average life expectancy in different years.
 
 
-```r
+``` r
 gapminder <- read.csv("data/gapminder_data.csv")
 ```
 
@@ -64,11 +64,11 @@ Let’s investigate the `gapminder` data frame a bit; the first thing we should 
 It is important to see if all the variables (columns) have the data type that we require. For instance, a column might have numbers stored as characters, which would not allow us to make calculations with those numbers.
 
 
-```r
+``` r
 str(gapminder) 
 ```
 
-```output
+``` output
 'data.frame':	1704 obs. of  6 variables:
  $ country  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
@@ -88,11 +88,11 @@ There are multiple ways to explore a data set. Here are just a few examples:
 
 
 
-```r
+``` r
 head(gapminder) # shows first 6  rows of the data set
 ```
 
-```output
+``` output
       country year      pop continent lifeExp gdpPercap
 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
@@ -102,11 +102,11 @@ head(gapminder) # shows first 6  rows of the data set
 6 Afghanistan 1977 14880372      Asia  38.438  786.1134
 ```
 
-```r
+``` r
 summary(gapminder) # basic statistical information about each column.
 ```
 
-```output
+``` output
    country               year           pop             continent        
  Length:1704        Min.   :1952   Min.   :6.001e+04   Length:1704       
  Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Class :character  
@@ -123,21 +123,21 @@ summary(gapminder) # basic statistical information about each column.
  Max.   :82.60   Max.   :113523.1  
 ```
 
-```r
+``` r
 # Information format differes by data type.
 
 nrow(gapminder) # returns number of rows in a dataset
 ```
 
-```output
+``` output
 [1] 1704
 ```
 
-```r
+``` r
 ncol(gapminder) # returns number of columns in a dataset
 ```
 
-```output
+``` output
 [1] 6
 ```
 
@@ -147,7 +147,7 @@ When you're analyzing a data set, you often need to access its specific columns.
 
 One handy way to access a column is using it's name and a dollar sign `$`: 
 
-```r
+``` r
 # This notation means: From dataset gapminder, give me column country. You can
 # see that the column accessed in this way is just a vector of characters.
 country_vec <- gapminder$country
@@ -155,7 +155,7 @@ country_vec <- gapminder$country
 head(country_vec)
 ```
 
-```output
+``` output
 [1] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan"
 [6] "Afghanistan"
 ```
@@ -170,13 +170,13 @@ Let's start manipulating the data.
 First, we will adapt our data set, by keeping only the columns we're interested in, using the `select()` function from the `dplyr` package:
 
 
-```r
+``` r
 year_country_gdp <- select(gapminder, year, country, gdpPercap)
 
 head(year_country_gdp)
 ```
 
-```output
+``` output
   year     country gdpPercap
 1 1952 Afghanistan  779.4453
 2 1957 Afghanistan  820.8530
@@ -196,14 +196,14 @@ In newer installation of `R` you can also find a notation `|>` . This pipe works
 The `select()` statement with pipe would look like that:
 
 
-```r
+``` r
 year_country_gdp <- gapminder %>%
   select(year, country, gdpPercap)
 
 head(year_country_gdp)
 ```
 
-```output
+``` output
   year     country gdpPercap
 1 1952 Afghanistan  779.4453
 2 1957 Afghanistan  820.8530
@@ -221,7 +221,7 @@ We already know how to select only the needed columns. But now, we also want to 
 
 In the `gapminder` data set, we want to see the results from outside of Europe for the 21st century. 
 
-```r
+``` r
 year_country_gdp_euro <- gapminder %>%
   filter(continent != "Europe" & year >= 2000) %>%
   select(year, country, gdpPercap)
@@ -230,7 +230,7 @@ year_country_gdp_euro <- gapminder %>%
 head(year_country_gdp_euro)
 ```
 
-```output
+``` output
   year     country gdpPercap
 1 2002 Afghanistan  726.7341
 2 2007 Afghanistan  974.5803
@@ -258,7 +258,7 @@ year_country_gdp_eurasia <- gapminder %>%
 nrow(year_country_gdp_eurasia)
 ```
 
-```output
+``` output
 [1] 756
 ```
 
@@ -270,13 +270,13 @@ nrow(year_country_gdp_eurasia)
 So far, we have provided summary statistics on the whole dataset, selected columns, and filtered the observations. But often instead of doing that, we would like to know statistics about all of the continents, presented by group.
 
 
-```r
+``` r
 gapminder %>% # select the dataset
   group_by(continent) %>% # group by continent
   summarize(avg_gdpPercap = mean(gdpPercap)) # create basic stats
 ```
 
-```output
+``` output
 # A tibble: 5 × 2
   continent avg_gdpPercap
   <chr>             <dbl>
@@ -306,7 +306,7 @@ gapminder %>%
     avg_lifeExp == max(avg_lifeExp))
 ```
 
-```output
+``` output
 # A tibble: 2 × 2
   country      avg_lifeExp
   <chr>              <dbl>
@@ -322,13 +322,13 @@ gapminder %>%
 You can also group by multiple columns:
 
 
-```r
+``` r
 gapminder %>%
   group_by(continent, year) %>%
   summarize(avg_gdpPercap = mean(gdpPercap))
 ```
 
-```output
+``` output
 # A tibble: 60 × 3
 # Groups:   continent [5]
    continent  year avg_gdpPercap
@@ -348,7 +348,7 @@ gapminder %>%
 
 On top of this, you can also make multiple summaries of those groups:
 
-```r
+``` r
 gdp_pop_bycontinents_byyear <- gapminder %>%
   group_by(continent, year) %>%
   summarize(
@@ -364,13 +364,13 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
 
 If you need only a number of observations per group, you can use the `count()` function
 
-```r
+``` r
 gapminder %>%
   group_by(continent) %>%
   count()
 ```
 
-```output
+``` output
 # A tibble: 5 × 2
 # Groups:   continent [5]
   continent     n
@@ -388,14 +388,14 @@ gapminder %>%
 Frequently you’ll want to create new columns based on the values in existing columns. For example, instead of only having the GDP per capita, we might want to create a new GDP variable and convert its units into Billions. For this, we’ll use `mutate()`.
 
 
-```r
+``` r
 gapminder_gdp <- gapminder %>%
   mutate(gdpBillion = gdpPercap * pop / 10^9)
 
 head(gapminder_gdp)
 ```
 
-```output
+``` output
       country year      pop continent lifeExp gdpPercap gdpBillion
 1 Afghanistan 1952  8425333      Asia  28.801  779.4453   6.567086
 2 Afghanistan 1957  9240934      Asia  30.332  820.8530   7.585449

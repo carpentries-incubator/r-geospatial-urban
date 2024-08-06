@@ -24,11 +24,11 @@ After completing this episode, participants should be able to…
 ## Working with spatial data from different sources
 
 
-```r
+``` r
 municipal_boundary_NL <- st_read("data/nl-gemeenten.shp")
 ```
 
-```output
+``` output
 Reading layer `nl-gemeenten' from data source 
   `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/nl-gemeenten.shp' 
   using driver `ESRI Shapefile'
@@ -40,7 +40,7 @@ Projected CRS: Amersfoort / RD New
 ```
 
 
-```r
+``` r
 ggplot() +
   geom_sf(data = municipal_boundary_NL) +
   labs(title = "Map of Contiguous NL Municipal Boundaries") +
@@ -52,11 +52,11 @@ ggplot() +
 We can add a country boundary layer to make it look nicer. If we specify a thicker line width using size = 2 for the country boundary layer, it will make our map pop!
 
 
-```r
+``` r
 country_boundary_NL <- st_read("data/nl-boundary.shp")
 ```
 
-```output
+``` output
 Reading layer `nl-boundary' from data source 
   `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/nl-boundary.shp' 
   using driver `ESRI Shapefile'
@@ -68,7 +68,7 @@ Projected CRS: Amersfoort / RD New
 ```
 
 
-```r
+``` r
 ggplot() +
   geom_sf(
     data = country_boundary_NL,
@@ -86,34 +86,34 @@ ggplot() +
 <img src="fig/12-handling-spatial-projection-and-crs-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 
-```r
+``` r
 # st_crs(point_Delft)
 ```
 
 
-```r
+``` r
 st_crs(municipal_boundary_NL)$epsg
 ```
 
-```output
+``` output
 [1] 28992
 ```
 
 
-```r
+``` r
 st_crs(country_boundary_NL)$epsg
 ```
 
-```output
+``` output
 [1] 28992
 ```
 
 
-```r
+``` r
 boundary_Delft <- st_read("data/delft-boundary.shp")
 ```
 
-```output
+``` output
 Reading layer `delft-boundary' from data source 
   `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-boundary.shp' 
   using driver `ESRI Shapefile'
@@ -124,20 +124,20 @@ Bounding box:  xmin: 4.320218 ymin: 51.96632 xmax: 4.407911 ymax: 52.0326
 Geodetic CRS:  WGS 84
 ```
 
-```r
+``` r
 st_crs(boundary_Delft)$epsg
 ```
 
-```output
+``` output
 [1] 4326
 ```
 
-```r
+``` r
 boundary_Delft <- st_transform(boundary_Delft, 28992)
 ```
 
 
-```r
+``` r
 ggplot() +
   geom_sf(
     data = country_boundary_NL,
@@ -175,13 +175,13 @@ Create a map of South Holland as follows:
 ::: solution
 
 
-```r
+``` r
 boundary_ZH <- municipal_boundary_NL %>%
   filter(ligtInPr_1 == "Zuid-Holland")
 ```
 
 
-```r
+``` r
 ggplot() +
   geom_sf(
     data = boundary_ZH,
@@ -222,7 +222,7 @@ ggplot() +
 To save a file, use the `st_write()` function from the `sf` package. Although `sf` guesses the driver needed for a specified output file name from its extension, this can be made explicitly via the `driver` argument. In our case `driver = "ESRI Shapefile"` ensures that the output is correctly saved as a `.shp` file.
 
 
-```r
+``` r
 st_write(leisure_locations_selection,
   "data/leisure_locations_selection.shp",
   driver = "ESRI Shapefile"

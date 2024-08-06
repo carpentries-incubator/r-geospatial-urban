@@ -41,7 +41,7 @@ In this lesson you will work with the `sf` package. Note that the `sf` package h
 First we need to load the packages we will use in this lesson. We will use the `tidyverse` package with which you are already familiar from the previous lesson. In addition, we need to load the [`sf`](https://r-spatial.github.io/sf/) package for working with spatial vector data. 
 
 
-```r
+``` r
 library(tidyverse)  # wrangle, reshape and visualize data
 library(sf)         # work with spatial vector data
 ```
@@ -59,7 +59,7 @@ library(sf)         # work with spatial vector data
 Let's start by opening a shapefile. Shapefiles are a common file format to store spatial vector data used in GIS software. Note that a shapefile consists of multiple files and it is important to keep them all together in the same location. We will read a shapefile with the administrative boundary of Delft with the function `st_read()` from the `sf` package. 
 
 
-```r
+``` r
 boundary_Delft <- st_read("data/delft-boundary.shp", quiet = TRUE)
 ```
 
@@ -81,11 +81,11 @@ By default (with `quiet = FALSE`), the `st_read()` function provides a message w
 The `st_geometry_type()` function, for instance, gives us information about the geometry type, which in this case is `POLYGON`.
 
 
-```r
+``` r
 st_geometry_type(boundary_Delft)
 ```
 
-```output
+``` output
 [1] POLYGON
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
 ```
@@ -93,11 +93,11 @@ st_geometry_type(boundary_Delft)
 The `st_crs()` function returns the coordinate reference system (CRS) used by the shapefile, which in this case is `WGS 84` and has the unique reference code `EPSG: 4326`. 
 
 
-```r
+``` r
 st_crs(boundary_Delft)
 ```
 
-```output
+``` output
 Coordinate Reference System:
   User input: WGS 84 
   wkt:
@@ -129,11 +129,11 @@ The `st_bbox()` function shows the extent of the layer. As `WGS 84` is a **geogr
 
 
 
-```r
+``` r
 st_bbox(boundary_Delft)
 ```
 
-```output
+``` output
      xmin      ymin      xmax      ymax 
  4.320218 51.966316  4.407911 52.032599 
 ```
@@ -142,51 +142,51 @@ We need a **projected CRS**, which in the case of the Netherlands is typically t
 To check the EPSG code of any CRS, we can check this website: https://epsg.io/
 
 
-```r
+``` r
 boundary_Delft <- st_transform(boundary_Delft, 28992)
 st_crs(boundary_Delft)$Name
 ```
 
-```output
+``` output
 [1] "Amersfoort / RD New"
 ```
 
-```r
+``` r
 st_crs(boundary_Delft)$epsg
 ```
 
-```output
+``` output
 [1] 28992
 ```
 
 Notice that the bounding box is measured in meters after the transformation.
 
 
-```r
+``` r
 st_bbox(boundary_Delft)
 ```
 
-```output
+``` output
      xmin      ymin      xmax      ymax 
  81743.00 442446.21  87703.78 449847.95 
 ```
 
-```r
+``` r
 st_crs(boundary_Delft)$units_gdal
 ```
 
-```output
+``` output
 [1] "metre"
 ```
 
 We confirm the transformation by examining the reprojected shapefile.
 
 
-```r
+``` r
 boundary_Delft
 ```
 
-```output
+``` output
 Simple feature collection with 1 feature and 1 field
 Geometry type: POLYGON
 Dimension:     XY
@@ -209,7 +209,7 @@ Read more about Coordinate Reference Systems [here](https://datacarpentry.org/or
 Now, let's plot this shapefile. You are already familiar with the `ggplot2` package from [Introduction to Visualisation](../episodes/04-intro-to-visualisation.Rmd). `ggplot2` has special `geom_` functions for spatial data. We will use the `geom_sf()` function for `sf` data.
 
 
-```r
+``` r
 ggplot(data = boundary_Delft) +
   geom_sf(size = 3, color = "black", fill = "cyan1") +
   labs(title = "Delft Administrative Boundary") +
@@ -232,7 +232,7 @@ Read in `delft-streets.shp` and `delft-leisure.shp` and assign them to `lines_De
 :::::::::::::::::::::::: solution 
 
 
-```r
+``` r
 lines_Delft <- st_read("data/delft-streets.shp")
 points_Delft <- st_read("data/delft-leisure.shp")
 ```
@@ -240,20 +240,20 @@ points_Delft <- st_read("data/delft-leisure.shp")
 We can check the type of type of geometry with the `st_geometry_type()` function. `lines_Delft` contains `"LINESTRING"` geometry and `points_Delft` is made of `"POINT"` geometries. 
 
 
-```r
+``` r
 st_geometry_type(lines_Delft)[1]
 ```
 
-```output
+``` output
 [1] LINESTRING
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
 ```
 
-```r
+``` r
 st_geometry_type(points_Delft)[2]
 ```
 
-```output
+``` output
 [1] POINT
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
 ```
@@ -261,39 +261,39 @@ st_geometry_type(points_Delft)[2]
 `lines_Delft` and `points_Delft` are in the correct CRS.
 
 
-```r
+``` r
 st_crs(lines_Delft)$epsg
 ```
 
-```output
+``` output
 [1] 28992
 ```
 
-```r
+``` r
 st_crs(points_Delft)$epsg
 ```
 
-```output
+``` output
 [1] 28992
 ```
 
 When looking at the bounding boxes with the `st_bbox()` function, we see the spatial extent of the two objects in a projected CRS using meters as units. `lines_Delft()` and `points_Delft` have similar extents.
 
 
-```r
+``` r
 st_bbox(lines_Delft)
 ```
 
-```output
+``` output
      xmin      ymin      xmax      ymax 
  81759.58 441223.13  89081.41 449845.81 
 ```
 
-```r
+``` r
 st_bbox(points_Delft)
 ```
 
-```output
+``` output
      xmin      ymin      xmax      ymax 
  81863.21 442621.15  87370.15 449345.08 
 ```
