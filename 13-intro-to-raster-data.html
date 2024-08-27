@@ -367,10 +367,10 @@
               </div>
             </div>
 
-            <hr class="half-width"><div class="accordion accordion-flush resources" id="accordionFlush12">
+            <hr class="half-width"><div class="accordion accordion-flush lesson-resources" id="accordionFlush12">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingTwelve">
-                  <button class="accordion-button collapsed" id="resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
+                  <button class="accordion-button collapsed" id="lesson-resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
                     RESOURCES
                   </button>
                 </h2>
@@ -390,7 +390,7 @@
                 </div>
               </div>
             </div>
-            <hr class="half-width resources"><a href="aio.html">See all in one page</a>
+            <hr class="half-width lesson-resources"><a href="aio.html">See all in one page</a>
 
 
             <hr class="d-none d-sm-block d-md-none"><div class="d-grid gap-1">
@@ -421,7 +421,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Intro to Raster Data</h1>
-        <p>Last updated on 2024-08-20 |
+        <p>Last updated on 2024-08-27 |
 
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/13-intro-to-raster-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -464,8 +464,7 @@
 <i class="callout-icon" data-feather="check"></i>
 </div>
 <div id="things-youll-need-to-complete-this-episode" class="callout-inner">
-<h3 class="callout-title">Things you’ll need to complete this episode<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-episode"></a>
-</h3>
+<h3 class="callout-title">Things you’ll need to complete this episode</h3>
 <div class="callout-content">
 <p>See the <a href="index.html#setup">setup instructions</a> for detailed
 information about the software, data, and other prerequisites you will
@@ -494,8 +493,7 @@ sure that you have those packages loaded.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="the-data-used-in-this-lesson" class="callout-inner">
-<h3 class="callout-title">The data used in this lesson<a class="anchor" aria-label="anchor" href="#the-data-used-in-this-lesson"></a>
-</h3>
+<h3 class="callout-title">The data used in this lesson</h3>
 <div class="callout-content">
 <p>In this and lesson, we will use:</p>
 <ul><li>data extracted from the <a href="https://www.ahn.nl/" class="external-link">AHN digital
@@ -507,8 +505,7 @@ Nederland</a>.</li>
 </ul></div>
 </div>
 </div>
-<section><h2 class="section-heading" id="view-raster-file-attributes">View Raster File Attributes<a class="anchor" aria-label="anchor" href="#view-raster-file-attributes"></a>
-<a class="anchor" aria-label="anchor" href="#view-raster-file-attributes"></a></h2>
+<section><h2 class="section-heading" id="view-raster-file-attributes">View Raster File Attributes<a class="anchor" aria-label="anchor" href="#view-raster-file-attributes"></a></h2>
 <hr class="half-width"><p>We will be working with a series of GeoTIFF files in this lesson. The
 GeoTIFF format contains a set of embedded tags with metadata about the
 raster data. We can use the function <code>describe()</code> from the
@@ -585,8 +582,7 @@ importing your data. We first examine the file
 <p>We will be using this information throughout this episode. By the end
 of the episode, you will be able to explain and understand the output
 above.</p>
-</section><section><h2 class="section-heading" id="open-a-raster-in-r">Open a Raster in R<a class="anchor" aria-label="anchor" href="#open-a-raster-in-r"></a>
-<a class="anchor" aria-label="anchor" href="#open-a-raster-in-r"></a></h2>
+</section><section><h2 class="section-heading" id="open-a-raster-in-r">Open a Raster in R<a class="anchor" aria-label="anchor" href="#open-a-raster-in-r"></a></h2>
 <hr class="half-width"><p>Now that we’ve previewed the metadata for our GeoTIFF, let’s import
 this raster dataset into R and explore its metadata more closely. We can
 use the <code>rast()</code> function to import a raster file in R.</p>
@@ -595,8 +591,7 @@ use the <code>rast()</code> function to import a raster file in R.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip---object-names" class="callout-inner">
-<h3 class="callout-title">Data tip - Object names<a class="anchor" aria-label="anchor" href="#data-tip---object-names"></a>
-</h3>
+<h3 class="callout-title">Data tip - Object names</h3>
 <div class="callout-content">
 <p>To improve code readability, use file and object names that make it
 clear what is in the file. The raster data for this episode contain the
@@ -733,8 +728,7 @@ Raster plot with <code>ggplot2</code> using the viridis color scale
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="plotting-tip" class="callout-inner">
-<h3 class="callout-title">Plotting tip<a class="anchor" aria-label="anchor" href="#plotting-tip"></a>
-</h3>
+<h3 class="callout-title">Plotting tip</h3>
 <div class="callout-content">
 <p>More information about the viridis palette used above at <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html" class="external-link">viridis
 package documentation</a>.</p>
@@ -746,8 +740,7 @@ package documentation</a>.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="plotting-tip-1" class="callout-inner">
-<h3 class="callout-title">Plotting tip<a class="anchor" aria-label="anchor" href="#plotting-tip-1"></a>
-</h3>
+<h3 class="callout-title">Plotting tip</h3>
 <div class="callout-content">
 <p>For faster previews, you can use the <code>plot()</code> function on
 a <code>terra</code> object.</p>
@@ -763,8 +756,7 @@ units are. Much of the metadata that we’re interested in is part of the
 CRS.</p>
 <p>Now we will see how features of the CRS appear in our data file and
 what meanings they have.</p>
-</section><section><h2 class="section-heading" id="view-raster-coordinate-reference-system-crs-in-r">View Raster Coordinate Reference System (CRS) in R<a class="anchor" aria-label="anchor" href="#view-raster-coordinate-reference-system-crs-in-r"></a>
-<a class="anchor" aria-label="anchor" href="#view-raster-coordinate-reference-system-crs-in-r"></a></h2>
+</section><section><h2 class="section-heading" id="view-raster-coordinate-reference-system-crs-in-r">View Raster Coordinate Reference System (CRS) in R<a class="anchor" aria-label="anchor" href="#view-raster-coordinate-reference-system-crs-in-r"></a></h2>
 <hr class="half-width"><p>We can view the CRS string associated with our R object using the
 <code>crs()</code> function.</p>
 <div class="codewrapper sourceCode" id="cb15">
@@ -783,8 +775,7 @@ what meanings they have.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge1"></a>
-</h3>
+<h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
 <p>What units are our data in?</p>
 </div>
@@ -795,7 +786,7 @@ what meanings they have.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p><code>+units=m</code> in the output of the code above tells us that
 our data is in meters (m).</p>
@@ -808,8 +799,7 @@ our data is in meters (m).</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="understanding-crs-in-proj.4-format" class="callout-inner">
-<h3 class="callout-title">Understanding CRS in PROJ.4 format<a class="anchor" aria-label="anchor" href="#understanding-crs-in-proj.4-format"></a>
-</h3>
+<h3 class="callout-title">Understanding CRS in PROJ.4 format</h3>
 <div class="callout-content">
 <p>The CRS for our data is given to us by R in PROJ.4 format. Let’s
 break down the pieces of a PROJ.4 string. The string contains all of the
@@ -823,8 +813,7 @@ lesson</a>.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="calculate-raster-min-and-max-values">Calculate Raster Min and Max values<a class="anchor" aria-label="anchor" href="#calculate-raster-min-and-max-values"></a>
-<a class="anchor" aria-label="anchor" href="#calculate-raster-min-and-max-values"></a></h2>
+</section><section><h2 class="section-heading" id="calculate-raster-min-and-max-values">Calculate Raster Min and Max values<a class="anchor" aria-label="anchor" href="#calculate-raster-min-and-max-values"></a></h2>
 <hr class="half-width"><p>It is useful to know the minimum and maximum values of a raster
 dataset. In this case, as we are working with elevation data, these
 values represent the min/max elevation range at our site.</p>
@@ -848,8 +837,7 @@ max       -Inf</code></pre>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="data-tip---set-min-and-max-values" class="callout-inner">
-<h3 class="callout-title">Data tip - Set min and max values<a class="anchor" aria-label="anchor" href="#data-tip---set-min-and-max-values"></a>
-</h3>
+<h3 class="callout-title">Data tip - Set min and max values</h3>
 <div class="callout-content">
 <p>If the <code>min</code> and <code>max</code> values are
 <code>Inf</code> and <code>-Inf</code> respectively, it means that they
@@ -888,8 +876,7 @@ haven’t been calculated. We can calculate them using the
 </div>
 <p>We can see that the elevation at our site ranges from
 <code>-5.39069</code>m to <code>92.08102</code>m.</p>
-</section><section><h2 class="section-heading" id="raster-bands">Raster bands<a class="anchor" aria-label="anchor" href="#raster-bands"></a>
-<a class="anchor" aria-label="anchor" href="#raster-bands"></a></h2>
+</section><section><h2 class="section-heading" id="raster-bands">Raster bands<a class="anchor" aria-label="anchor" href="#raster-bands"></a></h2>
 <hr class="half-width"><p>The Digital Surface Model object (<code>DSM_TUD</code>) that we’ve
 been working with is a single band raster. This means that there is only
 one dataset stored in the raster: surface elevation in meters for one
@@ -913,8 +900,7 @@ multi-band, meaning that one raster file contains data for more than one
 variable or time period for each cell. We will discuss multi-band raster
 data in a <a href="17-work-with-multi-band-rasters.html">later
 episode</a>.</p>
-</section><section><h2 class="section-heading" id="creating-a-histogram-of-raster-values">Creating a histogram of raster values<a class="anchor" aria-label="anchor" href="#creating-a-histogram-of-raster-values"></a>
-<a class="anchor" aria-label="anchor" href="#creating-a-histogram-of-raster-values"></a></h2>
+</section><section><h2 class="section-heading" id="creating-a-histogram-of-raster-values">Creating a histogram of raster values<a class="anchor" aria-label="anchor" href="#creating-a-histogram-of-raster-values"></a></h2>
 <hr class="half-width"><p>A histogram can be used to inspect the distribution of raster values
 visually. It can show if there are values above the max or below the min
 of the expected range.</p>
@@ -959,8 +945,7 @@ raster.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-explore-raster-metadata" class="callout-inner">
-<h3 class="callout-title">Challenge: Explore raster metadata<a class="anchor" aria-label="anchor" href="#challenge-explore-raster-metadata"></a>
-</h3>
+<h3 class="callout-title">Challenge: Explore raster metadata</h3>
 <div class="callout-content">
 <p>Use <code>describe()</code> to determine the following about the
 <code>tud-dsm-hill.tif</code> file:</p>
@@ -979,7 +964,7 @@ with Multi-band Rasters in R</a> episode.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1057,8 +1042,7 @@ with Multi-band Rasters in R</a> episode.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="more-resources" class="callout-inner">
-<h3 class="callout-title">More resources<a class="anchor" aria-label="anchor" href="#more-resources"></a>
-</h3>
+<h3 class="callout-title">More resources</h3>
 <div class="callout-content">
 <ul><li>See the manual and tutorials of the <code>terra</code> package on <a href="https://rspatial.org/" class="external-link">https://rspatial.org/</a>.</li>
 </ul></div>
@@ -1069,8 +1053,7 @@ with Multi-band Rasters in R</a> episode.</p>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>The GeoTIFF file format includes metadata about the raster
 data.</li>
@@ -1121,7 +1104,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.5" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.3" class="external-link">varnish (1.0.3)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.6" class="external-link">sandpaper (0.16.6)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.4" class="external-link">varnish (1.0.4)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1143,8 +1126,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/13-intro-to-raster-data.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/13-intro-to-raster-data.html",
   "dateCreated": "2024-07-30",
-  "dateModified": "2024-08-20",
-  "datePublished": "2024-08-20"
+  "dateModified": "2024-08-27",
+  "datePublished": "2024-08-27"
 }
 
   </script><script>
