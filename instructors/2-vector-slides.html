@@ -27,12 +27,12 @@
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
       width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -107,11 +107,11 @@
 
   .callout {
     margin-top: 1em;
-    margin-bottom: 1em;  
+    margin-bottom: 1em;
     border-radius: .25rem;
   }
 
-  .callout.callout-style-simple { 
+  .callout.callout-style-simple {
     padding: 0em 0.5em;
     border-left: solid #acacac .3rem;
     border-right: solid 1px silver;
@@ -162,7 +162,7 @@
     margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
-    
+
   .callout.callout-titled.callout-style-simple .callout-content  p {
     margin-top: 0;
   }
@@ -213,7 +213,7 @@
   .callout-title {
     display: flex
   }
-    
+
   .callout-icon::before {
     margin-top: 1rem;
     padding-right: .5rem;
@@ -224,8 +224,7 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    padding-bottom: 0.5rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -326,12 +325,12 @@
     }
     .reveal .footnotes ol {
       counter-reset: ol;
-      list-style-type: none; 
+      list-style-type: none;
       margin-left: 0;
     }
     .reveal .footnotes ol li:before {
       counter-increment: ol;
-      content: counter(ol) ". "; 
+      content: counter(ol) ". ";
     }
     .reveal .footnotes ol li > p:first-child {
       display: inline-block;
@@ -373,19 +372,19 @@
     .reveal .slide > img.r-stretch.quarto-figure-center {
       display: block;
       margin-left: auto;
-      margin-right: auto; 
+      margin-right: auto;
     }
     .reveal .slide > img.stretch.quarto-figure-left,
     .reveal .slide > img.r-stretch.quarto-figure-left  {
       display: block;
       margin-left: 0;
-      margin-right: auto; 
+      margin-right: auto;
     }
     .reveal .slide > img.stretch.quarto-figure-right,
     .reveal .slide > img.r-stretch.quarto-figure-right  {
       display: block;
       margin-left: auto;
-      margin-right: 0; 
+      margin-right: 0;
     }
   </style>
   <link href="2-vector-slides_files/libs/countdown-0.4.0/countdown.css" rel="stylesheet">
@@ -401,12 +400,12 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Ana Petrović 
+Ana Petrović
 </div>
 </div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Claudiu Forgaci 
+Claudiu Forgaci
 </div>
 </div>
 </div>
@@ -612,7 +611,15 @@ Claudiu Forgaci
 </tbody>
 </table>
 </div>
-</section></section>
+</section>
+<section id="types-of-geospatial-data" class="slide level2">
+<h2>Types of geospatial data</h2>
+
+<img data-src="fig/raster-vector.jpg" class="r-stretch"></section>
+<section id="raster-and-vector-representations" class="slide level2">
+<h2>Raster and vector representations</h2>
+
+<img data-src="fig/raster-vector-data-types.png" class="r-stretch quarto-figure-center"><p class="caption">Source: Saab, 2003</p></section></section>
 <section>
 <section id="geospatial-vector-data-in-r" class="title-slide slide level1 center">
 <h1>Geospatial Vector Data in R</h1>
@@ -621,7 +628,7 @@ Claudiu Forgaci
 <section id="the-sf-package" class="slide level2">
 <h2>The <code>sf</code> package</h2>
 
-<img data-src="https://user-images.githubusercontent.com/520851/50280460-e35c1880-044c-11e9-9ed7-cc46754e49db.jpg" class="quarto-figure quarto-figure-center r-stretch"><p class="caption">Illustration (c) 2018 by <a href="https://twitter.com/allison_horst/status/1071456081308614656">Allison Horst</a></p></section>
+<img data-src="https://user-images.githubusercontent.com/520851/50280460-e35c1880-044c-11e9-9ed7-cc46754e49db.jpg" class="r-stretch quarto-figure-center"><p class="caption">Illustration (c) 2018 by <a href="https://twitter.com/allison_horst/status/1071456081308614656">Allison Horst</a></p></section>
 <section id="the-sf-package-1" class="slide level2">
 <h2>The <code>sf</code> package</h2>
 <ul>
@@ -629,7 +636,15 @@ Claudiu Forgaci
 <li class="fragment">represents simple features as records in a data frame with a <code>geometry</code> column</li>
 <li class="fragment">function names start with a prefix <code>st_</code> (“st” stands for spatial type), which is also handy for auto-completion in RStudio</li>
 </ul>
-</section></section>
+</section>
+<section id="geometry-in-qgis" class="slide level2">
+<h2>Geometry in QGIS</h2>
+
+<img data-src="fig/geometry-qgis.png" class="r-stretch"></section>
+<section id="geometry-in-r" class="slide level2">
+<h2>Geometry in R</h2>
+
+<img data-src="fig/geometry-r.png" class="r-stretch"></section></section>
 <section>
 <section id="open-and-plot-shapefiles" class="title-slide slide level1 center">
 <h1>Open and Plot Shapefiles</h1>
@@ -655,17 +670,17 @@ Claudiu Forgaci
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>lines_Delft <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"delft-streets.shp"</span>))</span>
-<span id="cb1-2"><a href=""></a>point_Delft <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"delft-leisure.shp"</span>))</span>
-<span id="cb1-3"><a href=""></a></span>
-<span id="cb1-4"><a href=""></a><span class="fu">st_geometry_type</span>(lines_Delft)</span>
-<span id="cb1-5"><a href=""></a><span class="fu">st_geometry_type</span>(point_Delft)</span>
-<span id="cb1-6"><a href=""></a></span>
-<span id="cb1-7"><a href=""></a><span class="fu">st_crs</span>(lines_Delft)</span>
-<span id="cb1-8"><a href=""></a><span class="fu">st_crs</span>(point_Delft)</span>
-<span id="cb1-9"><a href=""></a></span>
-<span id="cb1-10"><a href=""></a><span class="fu">st_bbox</span>(lines_Delft)</span>
-<span id="cb1-11"><a href=""></a><span class="fu">st_bbox</span>(point_Delft)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>lines_Delft <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"delft-streets.shp"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2"></a>point_Delft <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"delft-leisure.shp"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">st_geometry_type</span>(lines_Delft)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">st_geometry_type</span>(point_Delft)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">st_crs</span>(lines_Delft)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">st_crs</span>(point_Delft)</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">st_bbox</span>(lines_Delft)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">st_bbox</span>(point_Delft)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section></section>
@@ -696,15 +711,15 @@ Claudiu Forgaci
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">ncol</span>(point_Delft)</span>
-<span id="cb2-2"><a href=""></a><span class="fu">ncol</span>(boundary_Delft)</span>
-<span id="cb2-3"><a href=""></a></span>
-<span id="cb2-4"><a href=""></a><span class="fu">head</span>(point_Delft)</span>
-<span id="cb2-5"><a href=""></a><span class="fu">head</span>(point_Delft, <span class="dv">10</span>)</span>
-<span id="cb2-6"><a href=""></a></span>
-<span id="cb2-7"><a href=""></a>point_Delft</span>
-<span id="cb2-8"><a href=""></a></span>
-<span id="cb2-9"><a href=""></a><span class="fu">names</span>(point_Delft)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">ncol</span>(point_Delft)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">ncol</span>(boundary_Delft)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">head</span>(point_Delft)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">head</span>(point_Delft, <span class="dv">10</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>point_Delft</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">names</span>(point_Delft)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -727,22 +742,22 @@ Claudiu Forgaci
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">levels</span>(<span class="fu">factor</span>(lines_Delft<span class="sc">$</span>highway))</span>
-<span id="cb3-2"><a href=""></a></span>
-<span id="cb3-3"><a href=""></a>motorway_Delft <span class="ot">&lt;-</span> lines_Delft <span class="sc">%&gt;%</span> </span>
-<span id="cb3-4"><a href=""></a>  <span class="fu">filter</span>(highway <span class="sc">==</span> <span class="st">"motorway"</span>)</span>
-<span id="cb3-5"><a href=""></a></span>
-<span id="cb3-6"><a href=""></a>motorway_Delft <span class="sc">%&gt;%</span> </span>
-<span id="cb3-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">length =</span> <span class="fu">st_length</span>(.)) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-8"><a href=""></a>  <span class="fu">select</span>(<span class="fu">everything</span>(), geometry) <span class="sc">%&gt;%</span></span>
-<span id="cb3-9"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">total_length =</span> <span class="fu">sum</span>(length))</span>
-<span id="cb3-10"><a href=""></a></span>
-<span id="cb3-11"><a href=""></a><span class="fu">nrow</span>(motorway_Delft)</span>
-<span id="cb3-12"><a href=""></a></span>
-<span id="cb3-13"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> motorway_Delft) <span class="sc">+</span></span>
-<span id="cb3-14"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb3-15"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Mobility network of Delft"</span>, <span class="at">subtitle =</span> <span class="st">"Motorways"</span>) <span class="sc">+</span></span>
-<span id="cb3-16"><a href=""></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">levels</span>(<span class="fu">factor</span>(lines_Delft<span class="sc">$</span>highway))</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>motorway_Delft <span class="ot">&lt;-</span> lines_Delft <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">filter</span>(highway <span class="sc">==</span> <span class="st">"motorway"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a>motorway_Delft <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">mutate</span>(<span class="at">length =</span> <span class="fu">st_length</span>(.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">select</span>(<span class="fu">everything</span>(), geometry) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">summarise</span>(<span class="at">total_length =</span> <span class="fu">sum</span>(length))</span>
+<span id="cb3-10"><a href="#cb3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="fu">nrow</span>(motorway_Delft)</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="fu">ggplot</span>(<span class="at">data =</span> motorway_Delft) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  <span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="fu">ggtitle</span>(<span class="st">"Mobility network of Delft"</span>, <span class="at">subtitle =</span> <span class="st">"Motorways"</span>) <span class="sc">+</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -766,16 +781,16 @@ Claudiu Forgaci
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">levels</span>(<span class="fu">factor</span>(lines_Delft<span class="sc">$</span>highway))</span>
-<span id="cb4-2"><a href=""></a></span>
-<span id="cb4-3"><a href=""></a>line_widths <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)</span>
-<span id="cb4-4"><a href=""></a></span>
-<span id="cb4-5"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> lines_Delft_selection) <span class="sc">+</span></span>
-<span id="cb4-6"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">size =</span> highway)) <span class="sc">+</span></span>
-<span id="cb4-7"><a href=""></a>  <span class="fu">scale_size_manual</span>(<span class="at">values =</span> line_widths) <span class="sc">+</span></span>
-<span id="cb4-8"><a href=""></a>  <span class="fu">labs</span>(<span class="at">size =</span> <span class="st">"Road Size"</span>) <span class="sc">+</span></span>
-<span id="cb4-9"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Mobility network of Delft"</span>, <span class="at">subtitle =</span> <span class="st">"Roads &amp; Cycleways - Line width varies"</span>) <span class="sc">+</span></span>
-<span id="cb4-10"><a href=""></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">levels</span>(<span class="fu">factor</span>(lines_Delft<span class="sc">$</span>highway))</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>line_widths <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> lines_Delft_selection) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">size =</span> highway)) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">scale_size_manual</span>(<span class="at">values =</span> line_widths) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">labs</span>(<span class="at">size =</span> <span class="st">"Road Size"</span>) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">ggtitle</span>(<span class="st">"Mobility network of Delft"</span>, <span class="at">subtitle =</span> <span class="st">"Roads &amp; Cycleways - Line width varies"</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -797,16 +812,16 @@ Claudiu Forgaci
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">levels</span>(<span class="fu">factor</span>(lines_Delft_selection<span class="sc">$</span>highway))</span>
-<span id="cb5-2"><a href=""></a></span>
-<span id="cb5-3"><a href=""></a>lines_Delft_bicycle <span class="ot">&lt;-</span> lines_Delft <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href=""></a>  <span class="fu">filter</span>(highway <span class="sc">==</span> <span class="st">"cycleway"</span>)</span>
-<span id="cb5-5"><a href=""></a></span>
-<span id="cb5-6"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb5-7"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lines_Delft) <span class="sc">+</span></span>
-<span id="cb5-8"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lines_Delft_bicycle, <span class="at">color =</span> <span class="st">"magenta"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb5-9"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Mobility network of Delft"</span>, <span class="at">subtitle =</span> <span class="st">"Roads dedicated to bikes"</span>) <span class="sc">+</span></span>
-<span id="cb5-10"><a href=""></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">levels</span>(<span class="fu">factor</span>(lines_Delft_selection<span class="sc">$</span>highway))</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>lines_Delft_bicycle <span class="ot">&lt;-</span> lines_Delft <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">filter</span>(highway <span class="sc">==</span> <span class="st">"cycleway"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lines_Delft) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lines_Delft_bicycle, <span class="at">color =</span> <span class="st">"magenta"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="fu">ggtitle</span>(<span class="st">"Mobility network of Delft"</span>, <span class="at">subtitle =</span> <span class="st">"Roads dedicated to bikes"</span>) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -828,14 +843,14 @@ Claudiu Forgaci
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>municipal_boundaries_NL <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"nl-gemeenten.shp"</span>))</span>
-<span id="cb6-2"><a href=""></a><span class="fu">str</span>(municipal_boundaries_NL)</span>
-<span id="cb6-3"><a href=""></a><span class="fu">levels</span>(<span class="fu">factor</span>(municipal_boundaries_NL<span class="sc">$</span>ligtInPr_1))</span>
-<span id="cb6-4"><a href=""></a></span>
-<span id="cb6-5"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> municipal_boundaries_NL) <span class="sc">+</span></span>
-<span id="cb6-6"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> ligtInPr_1), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Contiguous NL Municipal Boundaries"</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a href=""></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>municipal_boundaries_NL <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"nl-gemeenten.shp"</span>))</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">str</span>(municipal_boundaries_NL)</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">levels</span>(<span class="fu">factor</span>(municipal_boundaries_NL<span class="sc">$</span>ligtInPr_1))</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> municipal_boundaries_NL) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">color =</span> ligtInPr_1), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">ggtitle</span>(<span class="st">"Contiguous NL Municipal Boundaries"</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section></section>
@@ -863,24 +878,24 @@ Claudiu Forgaci
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>leisure_locations_selection <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"delft-leisure.shp"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href=""></a>  <span class="fu">filter</span>(leisure <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"playground"</span>, <span class="st">"picnic_table"</span>))</span>
-<span id="cb7-3"><a href=""></a></span>
-<span id="cb7-4"><a href=""></a>blue_orange <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cornflowerblue"</span>, <span class="st">"darkorange"</span>)</span>
-<span id="cb7-5"><a href=""></a></span>
-<span id="cb7-6"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb7-7"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lines_Delft_selection, <span class="fu">aes</span>(<span class="at">color =</span> highway)) <span class="sc">+</span> </span>
-<span id="cb7-8"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">"Line Type"</span>, <span class="at">values =</span> road_colors) <span class="sc">+</span></span>
-<span id="cb7-9"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Road network and leisure"</span>)</span>
-<span id="cb7-10"><a href=""></a></span>
-<span id="cb7-11"><a href=""></a>p <span class="sc">+</span></span>
-<span id="cb7-12"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> leisure_locations_selection, <span class="fu">aes</span>(<span class="at">fill =</span> leisure), <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
-<span id="cb7-13"><a href=""></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">"Leisure Type"</span>, <span class="at">values =</span> blue_orange)</span>
-<span id="cb7-14"><a href=""></a></span>
-<span id="cb7-15"><a href=""></a>p <span class="sc">+</span> </span>
-<span id="cb7-16"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> leisure_locations_selection, <span class="fu">aes</span>(<span class="at">fill =</span> leisure, <span class="at">shape =</span> leisure), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb7-17"><a href=""></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">"Leisure Type"</span>, <span class="at">values =</span> blue_orange) <span class="sc">+</span></span>
-<span id="cb7-18"><a href=""></a>  <span class="fu">scale_shape_manual</span>(<span class="at">name =</span> <span class="st">"Leisure Type"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">22</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>leisure_locations_selection <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="fu">here</span>(<span class="st">"episodes"</span>, <span class="st">"data"</span>, <span class="st">"delft-leisure.shp"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">filter</span>(leisure <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"playground"</span>, <span class="st">"picnic_table"</span>))</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a>blue_orange <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cornflowerblue"</span>, <span class="st">"darkorange"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> lines_Delft_selection, <span class="fu">aes</span>(<span class="at">color =</span> highway)) <span class="sc">+</span> </span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">"Line Type"</span>, <span class="at">values =</span> road_colors) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">ggtitle</span>(<span class="st">"Road network and leisure"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a>p <span class="sc">+</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> leisure_locations_selection, <span class="fu">aes</span>(<span class="at">fill =</span> leisure), <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">"Leisure Type"</span>, <span class="at">values =</span> blue_orange)</span>
+<span id="cb7-14"><a href="#cb7-14"></a></span>
+<span id="cb7-15"><a href="#cb7-15"></a>p <span class="sc">+</span> </span>
+<span id="cb7-16"><a href="#cb7-16"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> leisure_locations_selection, <span class="fu">aes</span>(<span class="at">fill =</span> leisure, <span class="at">shape =</span> leisure), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">"Leisure Type"</span>, <span class="at">values =</span> blue_orange) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">name =</span> <span class="st">"Leisure Type"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">22</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section></section>
@@ -909,22 +924,20 @@ Claudiu Forgaci
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>boundary_ZH <span class="ot">&lt;-</span> municipal_boundary_NL <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href=""></a>  <span class="fu">filter</span>(ligtInPr_1 <span class="sc">==</span> <span class="st">"Zuid-Holland"</span>)</span>
-<span id="cb8-3"><a href=""></a></span>
-<span id="cb8-4"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb8-5"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> boundary_ZH, <span class="fu">aes</span>(<span class="at">color =</span><span class="st">"color"</span>), <span class="at">show.legend =</span> <span class="st">"line"</span>) <span class="sc">+</span></span>
-<span id="cb8-6"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">labels =</span> <span class="st">"Municipal Boundaries"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"color"</span> <span class="ot">=</span> <span class="st">"gray18"</span>)) <span class="sc">+</span></span>
-<span id="cb8-7"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> boundary_Delft, <span class="fu">aes</span>(<span class="at">shape =</span> <span class="st">"shape"</span>), <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">fill =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
-<span id="cb8-8"><a href=""></a>  <span class="fu">scale_shape_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">labels =</span> <span class="st">"Municipality of Delft"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"shape"</span> <span class="ot">=</span> <span class="dv">19</span>)) <span class="sc">+</span></span>
-<span id="cb8-9"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Delft location in South Holland"</span>) <span class="sc">+</span></span>
-<span id="cb8-10"><a href=""></a>  <span class="fu">theme</span>(<span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="cn">NA</span>)) <span class="sc">+</span></span>
-<span id="cb8-11"><a href=""></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>boundary_ZH <span class="ot">&lt;-</span> municipal_boundary_NL <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">filter</span>(ligtInPr_1 <span class="sc">==</span> <span class="st">"Zuid-Holland"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> boundary_ZH, <span class="fu">aes</span>(<span class="at">color =</span><span class="st">"color"</span>), <span class="at">show.legend =</span> <span class="st">"line"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">labels =</span> <span class="st">"Municipal Boundaries"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"color"</span> <span class="ot">=</span> <span class="st">"gray18"</span>)) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> boundary_Delft, <span class="fu">aes</span>(<span class="at">shape =</span> <span class="st">"shape"</span>), <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">fill =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">name =</span> <span class="st">""</span>, <span class="at">labels =</span> <span class="st">"Municipality of Delft"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"shape"</span> <span class="ot">=</span> <span class="dv">19</span>)) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">ggtitle</span>(<span class="st">"Delft location in South Holland"</span>) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="fu">theme</span>(<span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">coord_sf</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
-</div>
 </div>
 </div>
 </section></section>
@@ -940,7 +953,7 @@ Claudiu Forgaci
   <script src="2-vector-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="2-vector-slides_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="2-vector-slides_files/libs/revealjs/plugin/quarto-support/support.js"></script>
-  
+
 
   <script src="2-vector-slides_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="2-vector-slides_files/libs/revealjs/plugin/search/search.js"></script>
@@ -955,6 +968,7 @@ Claudiu Forgaci
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
+'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -962,7 +976,7 @@ Claudiu Forgaci
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'smaller': false,
- 
+
         // Display controls in the bottom right corner
         controls: false,
 
@@ -1140,7 +1154,7 @@ Claudiu Forgaci
         ]
       });
     </script>
-    
+
     <script>
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
@@ -1197,14 +1211,14 @@ Claudiu Forgaci
           toggleBodyColorMode(bsSheetEl);
         }
       }
-      toggleBodyColorPrimary();  
+      toggleBodyColorPrimary();
       const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
       tabsets.forEach(function(tabset) {
         const tabby = new Tabby('#' + tabset.id);
       });
       const isCodeAnnotation = (el) => {
         for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
+          if (clz.startsWith('code-annotation-')) {
             return true;
           }
         }
@@ -1235,11 +1249,11 @@ Claudiu Forgaci
           button.setAttribute("data-bs-toggle", "tooltip");
           button.setAttribute("data-bs-placement", "left");
           button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
+          tooltip = new bootstrap.Tooltip(button,
+            { trigger: "manual",
               customClass: "code-copy-button-tooltip",
               offset: [0, -8]});
-          tooltip.show();    
+          tooltip.show();
         }
         setTimeout(function() {
           if (tooltip) {
@@ -1254,9 +1268,10 @@ Claudiu Forgaci
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
+          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1266,20 +1281,11 @@ Claudiu Forgaci
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start',
+          placement: 'bottom-start'
         };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
-        window.tippy(el, config); 
+        window.tippy(el, config);
       }
       const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
       for (var i=0; i<noterefs.length; i++) {
@@ -1332,6 +1338,6 @@ Claudiu Forgaci
       }
     });
     </script>
-    
+
 
 </body></html>

@@ -202,6 +202,14 @@ It can be expressed as:
 
 :::
 
+## Types of geospatial data
+
+![](fig/raster-vector.jpg)
+
+## Raster and vector representations 
+
+![Source: Saab, 2003](fig/raster-vector-data-types.png)
+
 # Geospatial Vector Data in R
 
 ## The `sf` package
@@ -213,6 +221,14 @@ It can be expressed as:
 - `sf` provides [simple features access](https://en.wikipedia.org/wiki/Simple_Features) to R
 - represents simple features as records in a data frame with a `geometry` column
 - function names start with a prefix `st_` ("st" stands for spatial type), which is also handy for auto-completion in RStudio
+
+## Geometry in QGIS 
+
+![](fig/geometry-qgis.png)
+
+## Geometry in R 
+
+![](fig/geometry-r.png)
 
 # Open and Plot Shapefiles
 
