@@ -1,6 +1,6 @@
 ---
 title: "Lesson 4: OSM Data & GIS operation"
-author: "Clémentine Cottineau"
+author: "Clémentine Cottineau, Ignacio Urria Yañez, Daniele Cannatella"
 format: 
   revealjs:
     footer: "Geospatial Data Carpentry for Urbanism"
@@ -10,10 +10,6 @@ editor:
   markdown: 
     wrap: 72
 ---
-
-## Recorded session for teacher training
-
-![](fig/UTQ.png){width="65%"} ![](fig/zoomGDCU_UTQ.png){width="25%"}
 
 ## Recap of the previous lessons:
 
@@ -39,19 +35,17 @@ By the end of this lesson, you should be able to...
 
 -   Visualise OSM vector data in `R`
 
+-   Navigate package documentations to find the functions you need.
+
 -   Use the `Leaflet` package to create interactive maps
 
 ```{r}
 #| label: setup
 #| include: false
 # install.packages("devtools")
+# devtools::install_github("hadley/emo")
 
-
-library(dplyr)
-library(sf)
-library(ggplot2)
-library(osmdata)
-library(leaflet)
+library(emo)
 
 
 knitr::opts_chunk$set(
@@ -62,7 +56,7 @@ knitr::opts_chunk$set(
   )
 ```
 
-## What is OpenStreetMap?
+## What is OpenStreetMap? `r emo::ji("map")`
 
 ::: columns
 ::: {.column width="60%"}
@@ -78,7 +72,7 @@ knitr::opts_chunk$set(
 :::
 :::
 
-## What is OpenStreetMap?
+## What is OpenStreetMap? `r emo::ji("map")`
 
 Anyone can contribute, by:
 
@@ -90,7 +84,7 @@ Anyone can contribute, by:
 -   checking and validating data. This ensures that the information is
     **accessible**, **open**, **accurate** and **up-to-date**.
 
-## OSM
+## OSM `r emo::ji("map")`
 
 The OSM information system relies on :
 
@@ -105,33 +99,36 @@ The OSM information system relies on :
 Define the **area** in which to retrieve data = *bounding box*.
 
 This can be done using a place name and the `Nominatim` API (through the
-R package `nominatimlite`)
+R package `osmdata`)
 
 We are going to look at *Brielle* together.
 
 You can also try with *Naarden*, *Geertruidenberg*, *Gorinchem*,
 *Enkhuizen* or *Dokkum* if you prefer.
 
-## The Bounding Box 
+
+## The Bounding Box `r emo::ji("square")`
 
 We first geocode our spatial text search and extract the corresponding
-polygon (`geo_lite_sf`) and then extract its bounding box (`st_bbox`).
+bounding box with the `getbb()` function
 
 ```{r osm-bounding-box}
-nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle", points_only = FALSE)
-bb <- sf::st_bbox(nominatim_polygon)
+library(tidyverse)
+library(sf)
+library(osmdata)
+
+bb <- osmdata::getbb("Brielle")
 bb
 ```
 
-## The Bounding Box 
+## The Bounding Box `r emo::ji("square")`
 
 A Problem with download? Try:
 
 ```{r proxy}
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 
-nominatim_polygon <- nominatimlite::geo_lite_sf(address = "Brielle", points_only = FALSE)
-bb <- sf::st_bbox(nominatim_polygon)
+bb <- osmdata::getbb("Brielle")
 bb
 ```
 
@@ -146,18 +143,13 @@ or ![Brielle, New Jersey](fig/Brielle_NJ.jpeg){width="30%"}
 
 ## Which Brielle?
 
-By default, `nominatimlite::geo_lite_sf()` returns the first item.
+By default, `osmdata::getbb()` returns the first item.
 
 Try to be as unambiguous as possible by adding a country code or
 district name.
 
 ```{r osm-bounding-box2}
-nominatim_polygon <- nominatimlite::geo_lite_sf(
-  address = "Brielle, NL", 
-  points_only = FALSE
-  )
-
-bb <- sf::st_bbox(nominatim_polygon)
+bb <- getbb("Brielle, NL")
 bb
 ```
 
@@ -177,7 +169,7 @@ are represented on the map.
 ::: columns
 ::: {.column width="40%"}
 Let's say we want to download data from OpenStreetMap and we know there
-is a package for it named `osmdata`, but we don't know which function to
+is a package for it (`osmdata`), but we don't know which function to
 use and what arguments are needed. Where should we start?
 :::
 
@@ -221,7 +213,7 @@ What is this x object made of?
 
 ```{r osm-feature-preview}
 
-head(x$osm_polygons)
+str(x$osm_polygons)
 
 ```
 
@@ -271,11 +263,12 @@ buildings <- x$osm_polygons %>%
 start_date <- as.numeric(buildings$start_date)
 buildings$build_date <- if_else(start_date < 1900, 1900, start_date)
 
- ggplot(data = buildings) +
+  ggplot(data = buildings) +
    geom_sf(aes(fill = build_date, colour=build_date))  +
    scale_fill_viridis_c(option = "viridis")+
-   scale_colour_viridis_c(option = "viridis")
-
+   scale_colour_viridis_c(option = "viridis") +
+   coord_sf(datum = st_crs(28992))
+  
 ```
 
 ## Mapping urbanisation in Brielle
@@ -286,15 +279,14 @@ buildings$build_date <- if_else(start_date < 1900, 1900, start_date)
 :::
 
 ::: {.column width="40%"}
-So this reveals the historical centre of \[city\] and the various
-extensions. Anything odd? what? around the centre? Why these limits /
-isolated points?
+So this reveals the historical centre of Brielle (or the city you chose) and the various urban extensions through time. Anything odd? What? Around the centre? Why these limits / isolated points?
+
 :::
 :::
 
-##  Challenge
+## `r emo::ji("alarm")` Challenge
 
-Import an interactive basemap layer under the buildings with `Leaflet`
+Import an interactive basemap layer under the buildings with [Leaflet](https://rstudio.github.io/leaflet/), using the package documentation.
 
 ```{r}
 #| echo: false
@@ -302,32 +294,27 @@ Import an interactive basemap layer under the buildings with `Leaflet`
 countdown::countdown(minutes = 20)
 ```
 
--   Check out the [leaflet package
-    documentation](https://rstudio.github.io/leaflet/)
-
--   Plot a basemap in Leaflet and try different tiles. [Basemap
-    documentation](https://rstudio.github.io/leaflet/basemaps.html)
+-   Plot a [Basemap](https://rstudio.github.io/leaflet/basemaps.html) and try different tiles. 
 
 -   Transform the buildings into WGS84 projection and add them to the
-    basemap layer with the `addPolygons` function.
+    basemap layer (`addPolygons` function).
 
 -   Have the `fillColor` of these polygons represent the `build_date`
-    variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) for use of colors. Tip: use the examples given in the documentation and replace the variable names where needed.
+    variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) for use of colors. 
 
 ![](fig/leafletBrielle.png){fig-align="center"}
 
-## To submit your work in Zoom:
+## `r emo::ji("alarm")` To submit your work in Zoom:
 
 ![](fig/zoomGDCU_UTQ.png)
 
-## One solution
+## `r emo::ji("alarm")` One solution
 
 ```{r}
+library(leaflet)
 buildings2 <- buildings %>%
   st_transform(.,crs=4326)
-
 leaflet(buildings2) %>%
-# addTiles()
   addProviderTiles(providers$CartoDB.Positron) %>%
   addPolygons(color = "#444444", weight = 0.1, smoothFactor = 0.5,
   opacity = 0.2, fillOpacity = 0.8,
@@ -345,21 +332,14 @@ In short:
 
 -   Use the `Nominatim` and `OverPass` APIs within R
 
--   Use the `osmdata` and `nominatimlite` packages to retrieve
+-   Use the `osmdata` packages to retrieve
     geospatial data
 
 -   Select features and attributes among OSM tags
 
 -   Use the `ggplot`, `sf` and `leaflet` packages to map data
 
-## Before the break
 
--   Stop the zoom recording
-
--   Please fill out this feedback survey for Teacher Training purposes,
-    at vevox.app (Code: `149-763-370`) or:
-
-![](fig/qrcode_vevoxapp.png)
 
 # Part 2. How to perform basic GIS operations with the `sf` package?
 
@@ -375,42 +355,27 @@ By the end of this session, you should be able to:
 
 -   **Map** the results
 
-## the 'sf' package
-
--   `sf`: ["a standardized way to encode spatial vector
-    data."](https://cran.r-project.org/web/packages/sf/sf.pdf).
-
--   Contains traditional GIS functions: change the coordinate system,
-    join layers, intersect or fuse polygons, create buffers and
-    centroids, etc.
-
--   [cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/sf.pdf).
-
-## the 'sf' cheatsheet
+## the 'sf' package `r emo::ji("box")`
 
 ![](fig/sf_cheatsheet1.png){fig-align="center"}
 
-## the 'sf' cheatsheet
+## the 'sf' cheatsheet `r emo::ji("map")`
 
 ![](fig/sf_cheatsheet2.png){fig-align="center"}
 
-## Conservation in Brielle, NL
+## Conservation in Brielle, NL `r emo::ji("building")`
 
 Let's focus on old buildings and imagine we're in charge of their
 conservation. We want to know how much of the city would be affected by
 a non-construction zone of 100m around pre-1800 buildings.
 
-Let's select them and see where they are.
+If you were using pen&paper or a traditional GIS software, what would your workflow be?
 
-## Conservation in Brielle, NL
+## Conservation in Brielle, NL `r emo::ji("building")`
 
 ```{r old-buildings}
-old <- 1800 # year prior to which you consider a building old
 
-
-nominatim_polygon <- nominatimlite::geo_lite_sf(
-  address = "Brielle, NL", points_only = FALSE)
-bb <- sf::st_bbox(nominatim_polygon)
+bb <- osmdata::getbb("Brielle, NL")
 x <- opq(bbox = bb) %>%
    add_osm_feature(key = 'building') %>%
     osmdata_sf()
@@ -422,16 +387,19 @@ summary(buildings$start_date)
 
 ```
 
-## Conservation in Brielle, NL
+## Conservation in Brielle, NL `r emo::ji("building")`
 
 ```{r }
+old <- 1800 # year prior to which you consider a building old
+
 buildings$start_date <- as.numeric(as.character(buildings$start_date))
 
 old_buildings <- buildings %>%
   filter(start_date <= old)
 
- ggplot(data = old_buildings) + geom_sf(colour="red")
- 
+ggplot(data = old_buildings) + 
+   geom_sf(colour="red") +
+   coord_sf(datum = st_crs(28992)) 
 ```
 
 ## Basic GIS operations
@@ -468,39 +436,44 @@ st_crs(old_buildings)
 buffer_old_buildings <- 
   st_buffer(x = old_buildings, dist = distance)
  
- ggplot(data = buffer_old_buildings) + geom_sf()
- 
+ggplot(data = buffer_old_buildings) + 
+  geom_sf() +   
+  coord_sf(datum = st_crs(28992))
+
 ```
 
 ## Union
 
 Now, we have overlapping buffers.
 
-To fuse (or dissolve) them into a **unique** conservation zone/polygon,
-we use `sf::st_union` with `st_cast()` to explicit the type of object
-(*POLYGON* instead of the default *MULTIPOLYGON*), and `st_as_sf()` to
-transform the polygon into an `sf` object.
+We would rather create a **unique** conservation zone rather than overlapping ones in that case. So we have to fuse the overlapping buffers into one polygon. This operation is called union and the corresponding function is st_union().
 
 ```{r union}
 single_old_buffer <- st_union(buffer_old_buildings) %>%
    st_cast(to = "POLYGON") %>%
   st_as_sf() 
+```
 
+
+## Union
+
+We also used `st_cast()` to explicit the type of the resulting object (*POLYGON* instead of the default *MULTIPOLYGON*) and `st_as_sf()` to transform the polygon into an sf object. With this function, we ensure that we end up with an sf object, which was not the case after we forced the union of old buildings into a *POLYGON* format.
+
+Then we create unique IDs to identify the new polygons.
+
+```{r union2}
 single_old_buffer<- single_old_buffer %>%
   mutate("ID"=as.factor(1:nrow(single_old_buffer))) %>%
   st_transform(.,crs=28992) 
   
 ```
 
-We create unique IDs to identify the new polygons.
 
 ## Centroids
 
-For speed, we might want to represent buildings by a single point (for
-instance: their geometric centre) rather than footprint.
+For the sake of visualisation speed, we would like to represent buildings by a single point (for instance: their geometric centre) rather than their actual footprint. 
 
-This operation means defining their centroid and the corresponding
-function is `st_centroid`.
+This operation means defining their *centroid* and the corresponding function is `st_centroid()`.
 
 ## Centroids
 
@@ -512,52 +485,44 @@ centroids_old <- st_centroid(old_buildings) %>%
 
 ggplot() + 
     geom_sf(data = single_old_buffer, aes(fill=ID)) +
-    geom_sf(data = centroids_old)
+    geom_sf(data = centroids_old) +
+    coord_sf(datum = st_crs(28992))
 ```
 
 ## Intersection
 
-To distinguish conservation areas based on the number of historic
-buildings they contain, we need to know how many **centroids** each
-fused buffer polygon contains.
+Now, we would like to distinguish conservation areas based on the number of historic buildings they contain. In GIS terms, we would like to know how many centroids each fused buffer polygon contains. 
 
-This means intersecting the layer of polygons with the layer of points.
-`st_intersection` adds the attributes of the intersected polygon buffers
-(e.g. ID) to the data table of the centroids.
+This operation means intersecting the layer of polygons with the layer of points and the corresponding function is `st_intersection()`.
 
 ## Intersection
 
-To distinguish conservation areas based on the number of historic
-buildings they contain, we need to know how many **centroids** each
-fused buffer polygon contains.
-
-This means intersecting the layer of polygons with the layer of points.
-`st_intersection` adds the attributes of the intersected polygon buffers
-(e.g. ID) to the data table of the centroids.
-
-We then aggregate them by ID number (`group_by(ID)`) and sum the
-variable `n` to know how many centroids are contained in each
-polygon-buffer.
-
-## Intersection
+`st_intersection` here adds the attributes of the intersected polygon buffers to the data table of the centroids. This means we will now know about each centroid, the ID of its intersected polygon-buffer, and a variable called “n” which is population with 1 for everyone. This means that all centroids will have the same weight when aggregated.
 
 ```{r }
+centroids_buffers <- 
+  st_intersection(centroids_old,single_old_buffer) %>%
+  mutate(n = 1)
 
- centroids_buffers <- 
-  st_intersection(
-    centroids_old,
-    single_old_buffer
-    ) %>%
-   mutate(n=1)
+```
 
+
+## Intersection
+
+We aggregate them by ID number (group_by(ID)) and sum the variable n to know how many centroids are contained in each polygon-buffer.
+
+```{r}
 centroid_by_buffer <- centroids_buffers %>%
    group_by(ID) %>%
    summarise(n = sum(n))
  
  single_buffer <- single_old_buffer %>%
    mutate(n_buildings = centroid_by_buffer$n)
+```
 
- 
+## Mapping the number of buildings
+
+```{r} 
   ggplot() + 
    geom_sf(data = single_buffer, aes(fill=n_buildings)) +
    scale_fill_viridis_c(alpha = 0.8,
@@ -568,28 +533,58 @@ centroid_by_buffer <- centroids_buffers %>%
 
 ```
 
+Problem: there are many pre-war buildings and the buffers are large so the number of old buildings is not very meaningful. Let’s compute the density of old buildings per buffer zone.
+
+## Area
+
+Let's compute the **density** of old buildings per buffer zone (= number
+of buildings / area of buffer).
+
+```{r area}
+single_buffer$area <- sf::st_area(single_buffer)  %>% 
+  units::set_units(., km^2)
+
+single_buffer$old_buildings_per_km2 <- as.numeric(
+  single_buffer$n_buildings / single_buffer$area
+  )
+```
+
+
 ## Final Output
 
-Let's map this layer over the initial map of individual buildings.
+Let’s map this layer over the initial map of individual buildings and save the result.
 
 ```{r visu-1800}
-ggplot() + 
+p <- ggplot() + 
    geom_sf(data = buildings) +
-   geom_sf(data = single_buffer, aes(fill=n_buildings), colour = NA) +
+   geom_sf(data = single_buffer, 
+           aes(fill=old_buildings_per_km2),
+           colour = NA) +
    scale_fill_viridis_c(alpha = 0.6,
                         begin = 0.6,
                         end = 1,
                         direction = -1,
                         option = "B") 
 
+ggsave(filename = "fig/ConservationBrielle.png", 
+       plot = p)
+
 ```
 
-## Challenge: Conservation rules have changed!
+
+
+## Final Output
+
+```{r visu-final}
+ p 
+```
+
+## `r emo::ji("alarm")`Challenge: Conservation rules have changed!
 
 The historical threshold now applies to all **pre-WWII** buildings, but
 the distance to these building is reduced to **10m**.
 
-Can you map the number of all buildings per 10m fused buffer?
+Can you map the density of old buildings per 10m fused buffer?
 
 ```{r}
 #| echo: false
@@ -598,6 +593,8 @@ countdown::countdown(minutes = 10)
 ```
 
 ## One solution
+
+
 
 ```{r intersection_viz}
 
@@ -634,68 +631,28 @@ centroid_by_buffer <- centroids_buffers %>%
   
 single_buffer <- single_old_buffer %>% 
   mutate(n_buildings = centroid_by_buffer$n)
-  ggplot() + 
-    geom_sf(data = buildings) +
-    geom_sf(data = single_buffer, 
-            aes(fill = n_buildings), colour = NA) +
-    scale_fill_viridis_c(alpha = 0.6,
-                         begin = 0.6,
-                         end = 1,
-                         direction = -1,
-                         option = "B")    
-
-```
-
-## Problem
-
-::: columns
-::: {.column width="30%"}
-*Problem: there are many pre-war buildings and the buffers are large so
-the number of old buildings is not very meaningful. Let's compute the
-density of old buildings per buffer zone.*
-:::
-
-::: {.column width="70%"}
-![](fig/rmd-04prewar-replication-1.png){fig-align="center"}
-:::
-:::
-
-## Challenge: visualise the density of old buildings
-
-```{r}
-#| echo: false
-#| cache: false
-countdown::countdown(minutes = 10)
-```
-
-Let's compute the **density** of old buildings per buffer zone (= number
-of buildings / area of buffer).
-
-## Solution
-
-Let's map this layer over the initial map of individual buildings.
-
-```{r area}
+  
 single_buffer$area <- sf::st_area(single_buffer)  %>% 
   units::set_units(., km^2)
+single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
-single_buffer$old_buildings_per_km2 <- as.numeric(
-  single_buffer$n_buildings / single_buffer$area
-  )
-
- ggplot() + 
+p <- ggplot() + 
    geom_sf(data = buildings) +
-   geom_sf(data = single_buffer, 
-           aes(fill=old_buildings_per_km2),
-           colour = NA) +
+   geom_sf(data = single_buffer, aes(fill=old_buildings_per_km2), colour = NA) +
    scale_fill_viridis_c(alpha = 0.6,
                         begin = 0.6,
                         end = 1,
                         direction = -1,
                         option = "B") 
- 
- 
+  
 ```
+
+## One solution
+
+```{r}
+p
+```
+
 
 ## Summary and keypoints
 
@@ -710,30 +667,15 @@ In short:
 
 -   Compute the area of spatial polygons with `st_area()`
 
-## What's next?
 
--   Workshop material and links to other resources will be shared
 
--   [R Café](https://delft-rcafe.github.io/home/Index.html)
-
--   The [DCC](https://www.tudelft.nl/index.php?id=67120&L=1/) and the
-    [TU Delft
-    Library](https://www.tudelft.nl/en/library/research-data-management/r/training-events/training-for-researchers)
-    are there to help
-
-## A few words of caution
+## `r emo::ji("talk")` A few words of caution
 
 We have taught you to think, type, try, test, read the documentation.
 This is not only the *old fashion way*, but the **foundation.**
 
 When you encounter a bug, a challenge, a question that we have not
-covered, you could always make use of:
-
--   StackOverflow
--   chatGPT
--   `< include name of future AI here >`
-
-## A few words of caution
+covered, you could always make use of search engines and AI... but!
 
 Be careful to keep it as a *help, tool and support* whose quality you
 can still assess.
@@ -742,11 +684,6 @@ They can provide fixes that you do not understand, answers that don't
 make sense, and even wrong answers! So build yourself some
 **foundations** before you get into them.
 
-## The end... wait!
-
-![](fig/Thats_all_folks.svg.png){fig-align="center"}
-
-Any questions?
 
 ## Feedback
 
@@ -766,25 +703,20 @@ Any questions?
 :::
 :::
 
-## Thank you
-
--   the **workshop team**: Aleks, Ana, Claudiu, Clémentine, Daniele,
-    Javi, Jérôme, Kyri, Manuel, Paula, Selin + TU Library & BK Faculty
-
--   **you**: the active, team-playing and motivated participants
-
 ## Time for rewards
 
 -   for PhD Candidates: some **GS Credits**!
 
 -   for the competing teams...
 
-## Rbanism
+## What's next?
 
+Workshop material and links to other resources will be shared
 
 ::: columns
 ::: {.column width="55%"}
-A TUD **community** that promotes open-source software and
+
+A new **community** awaits that promotes open-source software and
 **open-science** practices in the field of **urbanism.**
 
 
@@ -800,15 +732,15 @@ Join the community!
 :::
 :::
 
-## Call for helpers!
+## Thank you
 
-This workshop is offered on a yearly basis.
+-   the **workshop team**: Aleks, Ana, Claudiu, Clémentine, Daniele,
+    Javi, Jérôme, Kyri, Manuel, Paula, Selin + TU Library & BK Faculty
 
-You are welcome to join the team for future events as *helpers* and/then
-as *instructors*.
+-   **you**: the active, team-playing and motivated participants... 
 
-This strengthens the community... and it can bring you GS Credits.
+This workshop is offered on a yearly basis. You are welcome to join the team for future events as *helpers* and/then as *instructors*. This strengthens the community... and it can bring you GS Credits.
 
-## The end... for real!
+## `r emo::ji("rabbit")`The end... 
 
 ![](fig/Thats_all_folks.svg.png){fig-align="center"}

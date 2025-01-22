@@ -175,33 +175,50 @@ Now, we would like to distinguish conservation areas based on the number of hist
 
 We aggregate them by ID number (`group_by(ID)`) and sum the variable `n` to know how many centroids are contained in each polygon-buffer.
 
-### Final output:
+### Maps of the number of buildings per zone:
 
-Let's map this layer over the initial map of individual buildings, and save the result.
+Let's map this layer over the initial map of individual buildings.
 
 ```{r mapping}
-p <- ggplot() + 
+ggplot() + 
    geom_sf(data = buildings) +
    geom_sf(data = single_buffer, aes(fill=n_buildings), colour = NA) +
    scale_fill_viridis_c(alpha = 0.6,
                         begin = 0.6,
                         end = 1,
                         direction = -1,
-                        option = "B") +
-    coord_sf(datum = st_crs(28992))
+                        option = "B") 
 
- p 
-  
-ggsave(filename = "fig/ConservationBrielle.png", 
-       plot = p)
+```
+ 
+## Area
+
+*Problem: there are many pre-war buildings and the buffers are large so the number of old buildings is not very meaningful. Let's compute the density of old buildings per buffer zone.*
+
+```{r area}
+single_buffer$area <- sf::st_area(single_buffer)  %>% 
+  units::set_units(., km^2)
+
+single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
+
+ ggplot() + 
+   geom_sf(data = buildings) +
+   geom_sf(data = single_buffer, aes(fill=old_buildings_per_km2), colour = NA) +
+   scale_fill_viridis_c(alpha = 0.6,
+                        begin = 0.6,
+                        end = 1,
+                        direction = -1,
+                        option = "B") 
  
 ```
+
+
  
 ::::::::::::::::::::::::::::::::::::: challenge 
  
 ## Challenge: Conservation rules have changed. 
 
-The historical threshold now applies to all pre-war buildings, but the distance to these building is reduced to 10m. Can you map the number of all buildings per 10m fused buffer?
+The historical threshold now applies to all pre-war buildings, but the distance to these building is reduced to 10m. Can you map the density of all buildings per 10m fused buffer?
 
 
 :::::::::::::::::::::::: solution 
@@ -241,36 +258,9 @@ centroid_by_buffer <- centroids_buffers %>%
   
 single_buffer <- single_old_buffer %>% 
   mutate(n_buildings = centroid_by_buffer$n)
- 
-pnew <- ggplot() + 
-    geom_sf(data = buildings) +
-    geom_sf(data = single_buffer, aes(fill = n_buildings), colour = NA) +
-    scale_fill_viridis_c(alpha = 0.6,
-                         begin = 0.6,
-                         end = 1,
-                         direction = -1,
-                         option = "B")  +
-    coord_sf(datum = st_crs(28992))
-  
-  pnew 
-  
-ggsave(filename = "fig/ConservationBrielle_newrules.png", 
-       plot = pnew)
-```
-::::::::::::::::::::::::
 
-
-:::::::::::::::::::::::::::::::::::::
-
-
-*Problem: there are many pre-war buildings and the buffers are large so the number of old buildings is not very meaningful. Let's compute the density of old buildings per buffer zone.*
-
-## Area
-
-```{r area}
 single_buffer$area <- sf::st_area(single_buffer)  %>% 
   units::set_units(., km^2)
-
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
  ggplot() + 
@@ -281,8 +271,11 @@ single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / si
                         end = 1,
                         direction = -1,
                         option = "B") 
- 
 ```
+::::::::::::::::::::::::
+
+
+:::::::::::::::::::::::::::::::::::::
 
 
 
