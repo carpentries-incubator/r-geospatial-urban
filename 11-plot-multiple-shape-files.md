@@ -41,7 +41,7 @@ We will create a plot that combines our leisure locations (`point_Delft`), munic
 To begin, we will create a plot with the site boundary as the first layer. Then layer the leisure locations and street data on top using `+`.
 
 
-```r
+``` r
 ggplot() +
   geom_sf(
     data = boundary_Delft,
@@ -63,7 +63,7 @@ ggplot() +
 Next, let’s build a custom legend using the functions `scale_color_manual()` and `scale_fill_manual()`.
 
 
-```r
+``` r
 leisure_colors <- rainbow(15)
 point_Delft$leisure <- factor(point_Delft$leisure)
 
@@ -98,7 +98,7 @@ ggplot() +
 <img src="fig/11-plot-multiple-shape-files-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
 
 
-```r
+``` r
 ggplot() +
   geom_sf(
     data = boundary_Delft,
@@ -143,12 +143,12 @@ Modify the plot above. Tell R to plot each point, using a different symbol of sh
 :::::::::::::::::::::::: solution 
 
 
-```r
+``` r
 leisure_locations_selection <- st_read("data/delft-leisure.shp") %>%
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 
-```output
+``` output
 Reading layer `delft-leisure' from data source 
   `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-leisure.shp' 
   using driver `ESRI Shapefile'
@@ -160,21 +160,21 @@ Projected CRS: Amersfoort / RD New
 ```
 
 
-```r
+``` r
 levels(factor(leisure_locations_selection$leisure))
 ```
 
-```output
+``` output
 [1] "picnic_table" "playground"  
 ```
 
 
-```r
+``` r
 blue_orange <- c("cornflowerblue", "darkorange")
 ```
 
 
-```r
+``` r
 ggplot() +
   geom_sf(
     data = lines_Delft_selection,
@@ -209,7 +209,7 @@ ggplot() +
 <img src="fig/11-plot-multiple-shape-files-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
 
-```r
+``` r
 ggplot() +
   geom_sf(
     data = lines_Delft_selection,

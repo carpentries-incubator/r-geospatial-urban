@@ -24,7 +24,7 @@ After completing this episode, participants should be able to…
 
 
 
-```r
+``` r
 library(tidyverse)
 library(sf)
 library(osmdata)
@@ -48,7 +48,7 @@ Let's focus on old buildings and imagine we're in charge of their conservation. 
 Let's select them and see where they are.
 
 
-```r
+``` r
 bb <- osmdata::getbb("Brielle, NL")
 x <- opq(bbox = bb) %>%
    add_osm_feature(key = 'building') %>%
@@ -60,12 +60,12 @@ buildings <- x$osm_polygons %>%
 summary(buildings$start_date)
 ```
 
-```output
+``` output
    Length     Class      Mode 
     10702 character character 
 ```
 
-```r
+``` r
 old <- 1800  # year prior to which you consider a building old
 
 buildings$start_date <- as.numeric(buildings$start_date)
@@ -87,7 +87,7 @@ old_buildings <- buildings %>%
 If you encounter an error linked to your internet proxy ("Error: Overpass query unavailable without internet R"), run this line of code. It might not be needed, but ensures that your machine knows it has internet.
 
 
-```r
+``` r
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 ```
 
@@ -100,14 +100,14 @@ As conservationists, we want to create a zone around historical buildings where 
 Let's say the conservation zone should be 100 meters. In GIS terms, we want to create a _buffer_ around polygons. The corresponding `sf` function is `st_buffer()`, with 2 arguments: the polygons around which to create buffers, and the radius of the buffer.
 
 
-```r
+``` r
 distance <- 100 # in meters 
  
 #First, we check that the "old_buildings" layer projection is measured in meters:
 st_crs(old_buildings)
 ```
 
-```output
+``` output
 Coordinate Reference System:
   User input: EPSG:28992 
   wkt:
@@ -151,7 +151,7 @@ PROJCRS["Amersfoort / RD New",
     ID["EPSG",28992]]
 ```
 
-```r
+``` r
 #then we use `st_buffer()`
 buffer_old_buildings <- 
   st_buffer(x = old_buildings, dist = distance)
@@ -168,7 +168,7 @@ ggplot(data = buffer_old_buildings) +
 Now, we have a lot of overlapping buffers. We would rather create a unique conservation zone rather than overlapping ones in that case. So we have to fuse the overlapping buffers into one polygon. This operation is called _union_ and the corresponding function is `st_union()`.
 
 
-```r
+``` r
 single_old_buffer <- st_union(buffer_old_buildings) %>%
   st_cast(to = "POLYGON") %>%
   st_as_sf() 
@@ -186,7 +186,7 @@ We create unique IDs to identify the new polygons.
 For the sake of visualisation speed, we would like to represent buildings by a single point (for instance: their geometric centre) rather than their actual footprint. This operation means defining their _centroid_ and the corresponding function is `st_centroid()`.
 
 
-```r
+``` r
 sf::sf_use_s2(FALSE)  # s2 works with geographic projections, so to calculate centroids in projected CRS units (meters), we need to disable it.
 
 centroids_old <- st_centroid(old_buildings) %>%
@@ -205,7 +205,7 @@ Now, we would like to distinguish conservation areas based on the number of hist
 
 
 
-```r
+``` r
  centroids_buffers <- 
   st_intersection(centroids_old,single_old_buffer) %>%
   mutate(n = 1)
@@ -239,7 +239,7 @@ We aggregate them by ID number (`group_by(ID)`) and sum the variable `n` to know
 Let's map this layer over the initial map of individual buildings, and save the result.
 
 
-```r
+``` r
 p <- ggplot() + 
    geom_sf(data = buildings) +
    geom_sf(data = single_buffer, aes(fill=n_buildings), colour = NA) +
@@ -255,7 +255,7 @@ p <- ggplot() +
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-mapping-1.png" style="display: block; margin: auto;" />
 
-```r
+``` r
 ggsave(filename = "fig/ConservationBrielle.png", 
        plot = p)
 ```
@@ -270,7 +270,7 @@ The historical threshold now applies to all pre-war buildings, but the distance 
 :::::::::::::::::::::::: solution 
  
 
-```r
+``` r
 old <- 1939 
 distance <- 10
 
@@ -320,7 +320,7 @@ pnew <- ggplot() +
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" />
 
-```r
+``` r
 ggsave(filename = "fig/ConservationBrielle_newrules.png", 
        plot = pnew)
 ```
@@ -335,7 +335,7 @@ ggsave(filename = "fig/ConservationBrielle_newrules.png",
 ## Area
 
 
-```r
+``` r
 single_buffer$area <- sf::st_area(single_buffer)  %>% 
   units::set_units(., km^2)
 

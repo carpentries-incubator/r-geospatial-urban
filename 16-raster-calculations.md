@@ -45,11 +45,11 @@ For this episode, we will use the DTM and DSM data which we already have loaded 
 
 We use the `describe()` function to view information about the DTM and DSM data files. 
 
-```r
+``` r
 describe("data/tud-dtm-5m.tif")
 ```
 
-```output
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
  [2] "Files: data/tud-dtm-5m.tif"                                                                                            
  [3] "Size is 722, 386"                                                                                                      
@@ -108,11 +108,11 @@ describe("data/tud-dtm-5m.tif")
 [56] "Band 1 Block=722x2 Type=Float32, ColorInterp=Gray"                                                                     
 ```
 
-```r
+``` r
 describe("data/tud-dsm-5m.tif")
 ```
 
-```output
+``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
  [2] "Files: data/tud-dsm-5m.tif"                                                                                            
  [3] "Size is 722, 386"                                                                                                      
@@ -173,7 +173,7 @@ describe("data/tud-dsm-5m.tif")
 
 We’ve already loaded and worked with these two data files in earlier episodes. Let’s plot them each once more to remind ourselves what this data looks like. First we’ll plot the DTM elevation data:
 
-```r
+``` r
  ggplot() +
       geom_raster(data = DTM_TUD_df , 
               aes(x = x, y = y, fill = `tud-dtm-5m`)) +
@@ -185,7 +185,7 @@ We’ve already loaded and worked with these two data files in earlier episodes.
 
 And then the DSM elevation data:
 
-```r
+``` r
  ggplot() +
       geom_raster(data = DSM_TUD_df , 
               aes(x = x, y = y, fill = `tud-dsm-5m`)) +
@@ -203,14 +203,14 @@ Let’s subtract the DTM from the DSM to create a Canopy Height Model. After sub
 
 
 
-```r
+``` r
 CHM_TUD <- DSM_TUD - DTM_TUD
 CHM_TUD_df <- as.data.frame(CHM_TUD, xy = TRUE)
 ```
 
 We can now plot the output CHM.
 
-```r
+``` r
  ggplot() +
    geom_raster(data = CHM_TUD_df , 
                aes(x = x, y = y, fill = `tud-dsm-5m`)) + 
@@ -222,7 +222,7 @@ We can now plot the output CHM.
 
 Let’s have a look at the distribution of values in our newly created Canopy Height Model (CHM).
 
-```r
+``` r
 ggplot(CHM_TUD_df) +
     geom_histogram(aes(`tud-dsm-5m`))
 ```
@@ -243,30 +243,30 @@ It’s often a good idea to explore the range of values in a raster dataset just
 ::: solution
 
 
-```r
+``` r
 min(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 ```
 
-```output
+``` output
 [1] -3.638057
 ```
 
-```r
+``` r
 max(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 ```
 
-```output
+``` output
 [1] 92.08102
 ```
 
-```r
+``` r
 ggplot(CHM_TUD_df) +
     geom_histogram(aes(`tud-dsm-5m`))
 ```
 
 <img src="fig/16-raster-calculations-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
-```r
+``` r
 custom_bins <- c(-5, 0, 10, 20, 30, 100)
 CHM_TUD_df <- CHM_TUD_df %>%
                   mutate(canopy_discrete = cut(`tud-dsm-5m`, breaks = custom_bins))
@@ -308,7 +308,7 @@ When we write this raster object to a GeoTIFF file we’ll name it `CHM_TUD.tiff
 
 We will specify the output format (“GTiff”), the no data value `NAflag = -9999`. We will also tell R to overwrite any data that is already in a file of the same name.
 
-```r
+``` r
 writeRaster(CHM_TUD, "fig/CHM_TUD.tiff",
             filetype="GTiff",
             overwrite=TRUE,

@@ -42,13 +42,13 @@ In this episode, the multi-band data that we are working with is [Beeldmateriaal
 By using the `rast()` function along with the `lyrs` parameter, we can read specific raster bands; omitting this parameter would read instead all bands.
 
 
-```r
+``` r
 RGB_band1_TUD <- rast("data/tudlib-rgb.tif", lyrs = 1)
 ```
 
 We need to convert this data to a data frame in order to plot it with `ggplot`.
 
-```r
+``` r
 RGB_band1_TUD_df  <- as.data.frame(RGB_band1_TUD, xy = TRUE)
 
 ggplot() +
@@ -68,13 +68,13 @@ This raster contains values between 0 and 255. These values represent degrees of
 We can use the `rast()` function to import specific bands in our raster object by specifying which band we want with `lyrs = N` (N represents the band number we want to work with). To import the green band, we would use `lyrs = 2`.
 
 
-```r
+``` r
 RGB_band2_TUD <- rast("data/tudlib-rgb.tif", lyrs = 2)
 ```
 
 We can convert this data to a data frame and plot the same way we plotted the red band:
 
-```r
+``` r
 RGB_band2_TUD_df <- as.data.frame(RGB_band2_TUD, xy = TRUE)
 
 ggplot() +
@@ -91,17 +91,17 @@ Next, we will work with all three image bands (red, green and blue) as an R rast
 
 To bring in all bands of a multi-band raster, we use the `rast()` function.
 
-```r
+``` r
 RGB_stack_TUD <- rast("data/tudlib-rgb.tif")
 ```
 
 Let’s preview the attributes of our stack object:
 
-```r
+``` r
 RGB_stack_TUD
 ```
 
-```output
+``` output
 class       : SpatRaster 
 dimensions  : 4988, 4866, 3  (nrow, ncol, nlyr)
 resolution  : 0.08, 0.08  (x, y)
@@ -113,11 +113,11 @@ names       : tudlib-rgb_1, tudlib-rgb_2, tudlib-rgb_3
 ```
 We can view the attributes of each band in the stack in a single output. For example, if we had hundreds of bands, we could specify which band we’d like to view attributes for using an index value:
 
-```r
+``` r
 RGB_stack_TUD[[2]]
 ```
 
-```output
+``` output
 class       : SpatRaster 
 dimensions  : 4988, 4866, 1  (nrow, ncol, nlyr)
 resolution  : 0.08, 0.08  (x, y)
@@ -129,17 +129,17 @@ name        : tudlib-rgb_2
 We can also use `ggplot2` to plot the data in any layer of our raster object. Remember, we need to convert to a data frame first.
 
 
-```r
+``` r
 RGB_stack_TUD_df <- as.data.frame(RGB_stack_TUD, xy = TRUE)
 ```
 
 Each band in our RasterStack gets its own column in the data frame. Thus we have:
 
-```r
+``` r
 str(RGB_stack_TUD_df)
 ```
 
-```output
+``` output
 'data.frame':	24271608 obs. of  5 variables:
  $ x           : num  85272 85272 85272 85272 85272 ...
  $ y           : num  446694 446694 446694 446694 446694 ...
@@ -149,7 +149,7 @@ str(RGB_stack_TUD_df)
 ```
 Let’s create a histogram of the first band:
 
-```r
+``` r
 ggplot() +
   geom_histogram(data = RGB_stack_TUD_df, aes(`tudlib-rgb_1`))
 ```
@@ -157,7 +157,7 @@ ggplot() +
 <img src="fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
 And a raster plot of the second band:
 
-```r
+``` r
 ggplot() +
   geom_raster(data = RGB_stack_TUD_df,
               aes(x = x, y = y, alpha = `tudlib-rgb_2`)) + 
@@ -180,7 +180,7 @@ This function allows us to:
 Let’s plot our 3-band image. Note that we can use the `plotRGB()` function directly with our RasterStack object (we don’t need a data frame as this function isn’t part of the `ggplot2` package).
 
 
-```r
+``` r
 plotRGB(RGB_stack_TUD,
         r = 1, g = 2, b = 3)
 ```

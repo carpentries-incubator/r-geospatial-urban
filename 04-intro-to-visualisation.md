@@ -43,7 +43,7 @@ A fun part about `ggplot2` is that you can add layers to the plot to provide mor
 In the following parts of this workshop, you will use this package to visualize geospatial data. First, make sure that you have the following packages loaded.
 
 
-```r
+``` r
 library(tidyverse)
 library(terra)
 ```
@@ -51,7 +51,7 @@ library(terra)
 Now, lets plot the distribution of life expectancy in the `gapminder` dataset:
 
 
-```r
+``` r
 ggplot(
   data = gapminder, # data
   aes(x = lifeExp) # aesthetics layer
@@ -69,7 +69,7 @@ already learned: `%>%` ( or `|>`) and follow them by ggplot syntax.
 Let's create another plot, this time only on a subset of observations:
 
 
-```r
+``` r
 gapminder %>% # we select a data set
   filter(year == 2007 & continent == "Americas") %>% # filter to keep one year and one continent
   ggplot(aes(x = country, y = gdpPercap)) + # the x and y axes represent values of columns
@@ -82,7 +82,7 @@ Now, you can iteratively improve how the plot looks like. For example,
 you might want to flip it, to better display the labels.
 
 
-```r
+``` r
 gapminder %>%
   filter(
     year == 2007,
@@ -104,7 +104,7 @@ Now the order of the levels will depend on another variable - GDP per
 capita.
 
 
-```r
+``` r
 gapminder %>%
   filter(
     year == 2007,
@@ -122,7 +122,7 @@ Let's make things more colourful - let's represent the average life
 expectancy of a country by colour
 
 
-```r
+``` r
 gapminder %>%
   filter(
     year == 2007,
@@ -145,7 +145,7 @@ readability and colorblind-proofness are the palettes available in the
 `viridis` package.
 
 
-```r
+``` r
 gapminder %>%
   filter(
     year == 2007,
@@ -164,7 +164,7 @@ Maybe we don't need that much information about the life expectancy. We
 only want to know if it's below or above average. We will make use of the `if_else()` function inside `mutate()` to create a new column `lifeExpCat` with the value `high` if life expectancy is above average and `low` otherwise. Note the usage of the `if_else()` function: `if_else(<condition>, <value if TRUE>, <value if FALSE>)`.
 
 
-```r
+``` r
 p <- # this time let's save the plot in an object
   gapminder %>%
   filter(year == 2007 &
@@ -193,7 +193,7 @@ like with any other object in `R`, if you want to see it, you need to
 call it.
 
 
-```r
+``` r
 p
 ```
 
@@ -204,7 +204,7 @@ Now we can make use of the saved object and add things to it.
 Let's also give it a title and name the axes:
 
 
-```r
+``` r
 p <- p +
   ggtitle("GDP per capita in Americas", subtitle = "Year 2007") +
   xlab("Country") +
@@ -224,7 +224,7 @@ Once we are happy with our plot we can save it in a format of our
 choice. Remember to save it in the dedicated folder.
 
 
-```r
+``` r
 ggsave(
   plot = p,
   filename = here("fig_output", "plot_americas_2007.pdf")
@@ -240,7 +240,7 @@ exploring the help documentation. We can do that by writing directly in
 the console:
 
 
-```r
+``` r
 ?ggsave
 ```
 
@@ -256,7 +256,7 @@ your analysis, you can then load directly that data set. Let's say we want to
 save the data only for Americas:
 
 
-```r
+``` r
 gapminder_amr_2007 <- gapminder %>%
   filter(year == 2007 & continent == "Americas") %>%
   mutate(
