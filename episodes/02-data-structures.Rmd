@@ -70,7 +70,7 @@ numeric_vector <- c(2, 6, 3)
 numeric_vector
 
 # vector of words - or strings of characters- character data type
-character_vector <- c('banana', 'apple', 'orange') 
+character_vector <- c('Amsterdam', 'London', 'Delft') 
 character_vector
 
 # vector of logical values (is something true or false?)- logical data type.
@@ -97,7 +97,7 @@ abcd_vector
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-### Exercise 
+### Challenge: combining vectors 
 
 Combine the `abcd_vector` with the `numeric_vector` in R. What is the data type of this new vector and why?
 
