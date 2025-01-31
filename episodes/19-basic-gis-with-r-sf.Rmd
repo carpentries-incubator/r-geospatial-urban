@@ -31,6 +31,8 @@ library(sf)
 library(osmdata)
 library(leaflet)
 library(lwgeom)
+library(units)
+library(emo)
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 
 ```
@@ -197,7 +199,7 @@ In our analysis, we have a large number of pre-war buildings, and the buffer zon
 
 ```{r area}
 single_buffer$area <- st_area(single_buffer) %>% 
-  unit::set_units(., km^2)
+  units::set_units(., km^2)
 
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
