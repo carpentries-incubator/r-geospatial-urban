@@ -193,7 +193,7 @@ ggplot() +
  
 ## Area
 
-*Problem: there are many pre-war buildings and the buffers are large so the number of old buildings is not very meaningful. Let's compute the density of old buildings per buffer zone.*
+In our analysis, we have a large number of pre-war buildings, and the buffer zones we’re using are quite broad. As a result, the total count of old buildings within these zones doesn’t provide us with the most meaningful insight. To make our analysis more useful, we should calculate the density of pre-war buildings within each buffer zone. This will help us better understand how these buildings are distributed across the area, providing more relevant and actionable information for our project.
 
 ```{r area}
 single_buffer$area <- st_area(single_buffer) %>% 
