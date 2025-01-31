@@ -280,7 +280,9 @@ ggplot(data = buildings) +
 :::
 
 ::: {.column width="40%"}
-So this reveals the historical centre of Brielle (or the city you chose) and the various urban extensions through time. Anything odd? What? Around the centre? Why these limits / isolated points?
+So this reveals the historical centre of Brielle (or the city you chose) and the various urban extensions through time.
+Anything odd? What? Around the centre?
+Why these limits / isolated points?
 
 :::
 :::
