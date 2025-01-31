@@ -509,6 +509,11 @@ This operation means intersecting the layer of polygons with the layer of points
 
 `st_intersection` here adds the attributes of the intersected polygon buffers to the data table of the centroids. This means we will now know about each centroid, the ID of its intersected polygon-buffer, and a variable called “n” which is population with 1 for everyone. This means that all centroids will have the same weight when aggregated.
 
+<div align="center">
+    <img src="[IMAGE_URL_1](https://gisgeography.com/wp-content/uploads/2020/10/Intersect-Table-2048x1170.png)" alt="Point to Polygon" width="45%">
+    <img src="https://gisgeography.com/wp-content/uploads/2020/10/Intersect-Tool.png" alt="Polygon to Polygon" width="45%">
+</div>
+
 ```{r }
 centroids_buffers <- 
   st_intersection(centroids_old,single_old_buffer) %>%
