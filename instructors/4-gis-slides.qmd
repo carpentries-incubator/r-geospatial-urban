@@ -660,7 +660,7 @@ p
 
 ## Summary and keypoints
 
-We have seen how to create spatial buffers and centroids, how to
+We have seen how to create **spatial buffers** and **centroids**, how to merge overlapping geometries using **union**, how to **intersect** vector data, and how to **retrieve the area** of polygons. Additionally, we have explored how to **calculate density**
 intersect vector data and how retrieve the area of polygons.
 
 In short:
