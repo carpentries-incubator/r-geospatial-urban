@@ -132,10 +132,6 @@ The `"turbo"` scale in our code provides a good contrasting scale for our raster
 
 For faster previews, you can use the `plot()` function on a `terra` object.
 
-```{r dsm-plot}
-plot(DSM_TUD)
-```
-
 :::
 
 ## View Raster Coordinate Reference System (CRS)
