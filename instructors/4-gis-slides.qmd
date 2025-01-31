@@ -505,6 +505,7 @@ Now, we would like to distinguish conservation areas based on the number of hist
 
 This operation means intersecting the polygon layer with the point layer.
 The corresponding function is `st_intersection()`.
+The corresponding function is `st_intersection()`.
 
 ## Intersection
 
