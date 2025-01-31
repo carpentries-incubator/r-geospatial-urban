@@ -456,7 +456,10 @@ ggplot(data = buffer_old_buildings) +
 
 Now, we have overlapping buffers.
 
-We would rather create a **unique** conservation zone rather than overlapping ones in that case. So we have to fuse the overlapping buffers into one polygon. This operation is called union and the corresponding function is st_union().
+Instead of overlapping buffers, we want to create **continuous** conservation zones by merging adjacent areas into a single polygon.
+This process is called a **union**, and the corresponding function in `sf` is `st_union()`.
+**Union dissolves** boundaries between overlapping geometries.
+
 
 ```{r union}
 single_old_buffer <- st_union(buffer_old_buildings) %>%
