@@ -542,7 +542,7 @@ ggplot() +
 
 Problem: there are many pre-war buildings and the buffers are large so the number of old buildings is not very meaningful. Let’s compute the density of old buildings per buffer zone.
 
-## Area
+## Calculating area and density of spatial features
 
 Let's compute the **density** of old buildings per buffer zone (= number
 of buildings / area of buffer).
