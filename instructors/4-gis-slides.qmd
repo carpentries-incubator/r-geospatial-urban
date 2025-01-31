@@ -521,7 +521,8 @@ ggplot() +
 
 ## Intersection
 
-Now, we would like to distinguish conservation areas based on the number of historic buildings they contain. In GIS terms, we would like to know how many centroids each fused buffer polygon contains. 
+Now, we would like to distinguish conservation areas based on the number of historic buildings they contain.
+In GIS terms, we would like to know how many centroids each dissolved buffer polygon contains. 
 
 This operation means intersecting the polygon layer with the point layer.
 The corresponding function is `st_intersection()`.
