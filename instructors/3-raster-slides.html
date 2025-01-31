@@ -8,7 +8,7 @@
 <link href="3-raster-slides_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="3-raster-slides_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="3-raster-slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.549">
+  <meta name="generator" content="quarto-1.5.56">
 
   <meta name="author" content="Claudiu Forgaci">
   <meta name="author" content="Daniele Cannatella">
@@ -30,6 +30,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="3-raster-slides_files/libs/revealjs/dist/theme/quarto.css">
   <link href="3-raster-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -365,10 +430,10 @@ Daniele Cannatella
 <section id="the-terra-package" class="slide level2">
 <h2>The <code>terra</code> package</h2>
 
-<img data-src="fig/tudlib-green.png" class="quarto-figure quarto-figure-center r-stretch"><p class="caption">A plot showing the green band of an RGB aerial image of the TU Delft library</p></section>
+<img data-src="fig/tudlib-green.png" class="r-stretch quarto-figure-center"><p class="caption">A plot showing the green band of an RGB aerial image of the TU Delft library</p></section>
 <section id="challenge-1-2-mins" class="slide level2">
 <h2>Challenge 1: <strong>2 mins</strong></h2>
-<p>Use <code>describe()</code> to determine the following about the <code>tud-dsm-hill.tif</code> file:</p>
+<p>Use <code>describe()</code> to determine the following about the <code>tud-dsm-5m-hill.tif</code> file:</p>
 <ol type="1">
 <li class="fragment">Does this file have the same CRS as <code>DSM_TUD</code>?</li>
 <li class="fragment">What is resolution of the raster data?</li>
@@ -377,12 +442,90 @@ Daniele Cannatella
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_4a1b27fa" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_4bee9d67" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
+</section>
+<section id="challenge-1---solution" class="slide level2 smaller">
+<h2>Challenge 1 - Solution</h2>
+<div class="columns">
+<div class="column">
+<div>
+<ol type="1">
+<li>Does this file have the same CRS as <code>DSM_TUD</code>?</li>
+<li>What is resolution of the raster data?</li>
+<li>How large would a 5x5 pixel area be on the Earth’s surface?</li>
+<li>Is the file a multi- or single-band raster?</li>
+</ol>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># Replace with your own path</span></span>
+<span id="cb1-2"><a href=""></a><span class="fu">describe</span>(<span class="st">"../episodes/data/tud-dsm-5m-hill.tif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Driver: GTiff/GeoTIFF"                                                                                                 
+ [2] "Files: ../episodes/data/tud-dsm-5m-hill.tif"                                                                           
+ [3] "Size is 722, 386"                                                                                                      
+ [4] "Coordinate System is:"                                                                                                 
+ [5] "PROJCRS[\"Amersfoort / RD New\","                                                                                      
+ [6] "    BASEGEOGCRS[\"Amersfoort\","                                                                                       
+ [7] "        DATUM[\"Amersfoort\","                                                                                         
+ [8] "            ELLIPSOID[\"Bessel 1841\",6377397.155,299.1528128,"                                                        
+ [9] "                LENGTHUNIT[\"metre\",1]]],"                                                                            
+[10] "        PRIMEM[\"Greenwich\",0,"                                                                                       
+[11] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"                                                                
+[12] "        ID[\"EPSG\",4289]],"                                                                                           
+[13] "    CONVERSION[\"RD New\","                                                                                            
+[14] "        METHOD[\"Oblique Stereographic\","                                                                             
+[15] "            ID[\"EPSG\",9809]],"                                                                                       
+[16] "        PARAMETER[\"Latitude of natural origin\",52.1561605555556,"                                                    
+[17] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                 
+[18] "            ID[\"EPSG\",8801]],"                                                                                       
+[19] "        PARAMETER[\"Longitude of natural origin\",5.38763888888889,"                                                   
+[20] "            ANGLEUNIT[\"degree\",0.0174532925199433],"                                                                 
+[21] "            ID[\"EPSG\",8802]],"                                                                                       
+[22] "        PARAMETER[\"Scale factor at natural origin\",0.9999079,"                                                       
+[23] "            SCALEUNIT[\"unity\",1],"                                                                                   
+[24] "            ID[\"EPSG\",8805]],"                                                                                       
+[25] "        PARAMETER[\"False easting\",155000,"                                                                           
+[26] "            LENGTHUNIT[\"metre\",1],"                                                                                  
+[27] "            ID[\"EPSG\",8806]],"                                                                                       
+[28] "        PARAMETER[\"False northing\",463000,"                                                                          
+[29] "            LENGTHUNIT[\"metre\",1],"                                                                                  
+[30] "            ID[\"EPSG\",8807]]],"                                                                                      
+[31] "    CS[Cartesian,2],"                                                                                                  
+[32] "        AXIS[\"easting (X)\",east,"                                                                                    
+[33] "            ORDER[1],"                                                                                                 
+[34] "            LENGTHUNIT[\"metre\",1]],"                                                                                 
+[35] "        AXIS[\"northing (Y)\",north,"                                                                                  
+[36] "            ORDER[2],"                                                                                                 
+[37] "            LENGTHUNIT[\"metre\",1]],"                                                                                 
+[38] "    USAGE["                                                                                                            
+[39] "        SCOPE[\"Engineering survey, topographic mapping.\"],"                                                          
+[40] "        AREA[\"Netherlands - onshore, including Waddenzee, Dutch Wadden Islands and 12-mile offshore coastal zone.\"],"
+[41] "        BBOX[50.75,3.2,53.7,7.22]],"                                                                                   
+[42] "    ID[\"EPSG\",28992]]"                                                                                               
+[43] "Data axis to CRS axis mapping: 1,2"                                                                                    
+[44] "Origin = (83565.000000000000000,447180.000000000000000)"                                                               
+[45] "Pixel Size = (5.000000000000000,-5.000000000000000)"                                                                   
+[46] "Metadata:"                                                                                                             
+[47] "  AREA_OR_POINT=Area"                                                                                                  
+[48] "Image Structure Metadata:"                                                                                             
+[49] "  INTERLEAVE=BAND"                                                                                                     
+[50] "Corner Coordinates:"                                                                                                   
+[51] "Upper Left  (   83565.000,  447180.000) (  4d20'49.32\"E, 52d 0'33.67\"N)"                                             
+[52] "Lower Left  (   83565.000,  445250.000) (  4d20'50.77\"E, 51d59'31.22\"N)"                                             
+[53] "Upper Right (   87175.000,  447180.000) (  4d23'58.60\"E, 52d 0'35.30\"N)"                                             
+[54] "Lower Right (   87175.000,  445250.000) (  4d23'59.98\"E, 51d59'32.85\"N)"                                             
+[55] "Center      (   85370.000,  446215.000) (  4d22'24.67\"E, 52d 0' 3.27\"N)"                                             
+[56] "Band 1 Block=722x11 Type=Byte, ColorInterp=Gray"                                                                       
+[57] "  NoData Value=0"                                                                                                      </code></pre>
+</div>
+</div>
+</div></div>
 </section></section>
 <section>
 <section id="plotting-raster-data" class="title-slide slide level1 center">
@@ -398,13 +541,30 @@ Daniele Cannatella
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_9b10de6c" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_df546559" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
-</section></section>
+</section>
+<section id="challenge-2---solution" class="slide level2">
+<h2>Challenge 2 - Solution</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>DSM_TUD_df <span class="ot">&lt;-</span> DSM_TUD_df <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">fct_elevation_6 =</span> <span class="fu">cut</span>(<span class="st">`</span><span class="at">tud-dsm-5m</span><span class="st">`</span>, <span class="at">breaks =</span> <span class="dv">6</span>))</span>
+<span id="cb3-3"><a href=""></a></span>
+<span id="cb3-4"><a href=""></a>my_col <span class="ot">&lt;-</span> <span class="fu">terrain.colors</span>(<span class="dv">6</span>)</span>
+<span id="cb3-5"><a href=""></a></span>
+<span id="cb3-6"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb3-7"><a href=""></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> DSM_TUD_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y,</span>
+<span id="cb3-8"><a href=""></a>                                       <span class="at">fill =</span> fct_elevation_6)) <span class="sc">+</span></span>
+<span id="cb3-9"><a href=""></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> my_col, <span class="at">name =</span> <span class="st">"Elevation"</span>) <span class="sc">+</span></span>
+<span id="cb3-10"><a href=""></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb3-11"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Elevation Classes of the Digital Surface Model (DSM)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="3-raster-slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section></section>
 <section>
 <section id="reprojecting-raster-data" class="title-slide slide level1 center">
 <h1>Reprojecting raster data</h1>
@@ -415,12 +575,38 @@ Daniele Cannatella
 <p>View the CRS for each of these two datasets. What projection does each use?</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_91d968bc" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_bbb40686" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
+</section>
+<section id="challenge-3---solution" class="slide level2">
+<h2>Challenge 3 - Solution</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">crs</span>(DTM_TUD, <span class="at">parse =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "PROJCRS[\"Amersfoort / RD New\","                              
+[2] "    BASEGEOGCRS[\"Amersfoort\","                               
+[3] "        DATUM[\"Amersfoort\","                                 
+[4] "            ELLIPSOID[\"Bessel 1841\",6377397.155,299.1528128,"
+[5] "                LENGTHUNIT[\"metre\",1]]],"                    
+[6] "        PRIMEM[\"Greenwich\",0,"                               </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">crs</span>(DTM_hill_TUD, <span class="at">parse =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "GEOGCRS[\"WGS 84\","                                
+[2] "    DATUM[\"World Geodetic System 1984\","          
+[3] "        ELLIPSOID[\"WGS 84\",6378137,298.257223563,"
+[4] "            LENGTHUNIT[\"metre\",1]]],"             
+[5] "    PRIMEM[\"Greenwich\",0,"                        
+[6] "        ANGLEUNIT[\"degree\",0.0174532925199433]]," </code></pre>
+</div>
+</div>
+<p><code>DTM_TUD</code> is in the Amersfoort / RD New projection, whereas <code>DTM_hill_TUD</code> is in WGS 84.</p>
 </section></section>
 <section>
 <section id="raster-calculations" class="title-slide slide level1 center">
@@ -433,25 +619,91 @@ Daniele Cannatella
 <ol type="1">
 <li class="fragment">What is the min and max value for the Canopy Height Model <code>CHM_TUD</code> that we just created?</li>
 <li class="fragment">What is the distribution of all the pixel values in the CHM?</li>
-<li class="fragment">Plot the <code>CHM_TUD</code> raster using breaks that make sense for the data. Include an appropriate color palette for the data, plot title and no axes ticks / labels.</li>
+<li class="fragment">Plot the <code>CHM_TUD</code> raster using breaks that make sense for the data.</li>
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_58185bf4" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_a37e527a" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 </div>
 </div>
-</section></section>
+</section>
+<section id="challenge-4---solution-part-1" class="slide level2">
+<h2>Challenge 4 - Solution part 1</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">min</span>(CHM_TUD_df<span class="sc">$</span><span class="st">`</span><span class="at">tud-dsm-5m</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -3.638057</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">max</span>(CHM_TUD_df<span class="sc">$</span><span class="st">`</span><span class="at">tud-dsm-5m</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 92.08102</code></pre>
+</div>
+</div>
+</section>
+<section id="challenge-4---solution-part-2" class="slide level2">
+<h2>Challenge 4 - Solution part 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">ggplot</span>(CHM_TUD_df) <span class="sc">+</span></span>
+<span id="cb12-2"><a href=""></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="st">`</span><span class="at">tud-dsm-5m</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="3-raster-slides_files/figure-revealjs/chm-challenge-2-1.png" width="960" class="r-stretch"></section>
+<section id="challenge-4---solution-part-3" class="slide level2">
+<h2>Challenge 4 - Solution part 3</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>custom_bins <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">100</span>)</span>
+<span id="cb13-2"><a href=""></a>CHM_TUD_df <span class="ot">&lt;-</span> CHM_TUD_df <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">canopy_discrete =</span> <span class="fu">cut</span>(<span class="st">`</span><span class="at">tud-dsm-5m</span><span class="st">`</span>, <span class="at">breaks =</span> custom_bins))</span>
+<span id="cb13-4"><a href=""></a></span>
+<span id="cb13-5"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb13-6"><a href=""></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> CHM_TUD_df , <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y,</span>
+<span id="cb13-7"><a href=""></a>                                       <span class="at">fill =</span> canopy_discrete)) <span class="sc">+</span> </span>
+<span id="cb13-8"><a href=""></a>     <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">terrain.colors</span>(<span class="dv">5</span>)) <span class="sc">+</span> </span>
+<span id="cb13-9"><a href=""></a>     <span class="fu">coord_quickmap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="3-raster-slides_files/figure-revealjs/chm-challenge-3-1.png" width="960" class="r-stretch"></section></section>
+<section>
 <section id="working-with-multi-band-rasters" class="title-slide slide level1 center">
 <h1>Working with multi-band rasters</h1>
-<div class="quarto-auto-generated-content">
+
+</section>
+<section id="challenge-5-5-mins" class="slide level2">
+<h2>Challenge 5: <strong>5 mins</strong></h2>
+<p>We can use the <code>rast()</code> function to import specific bands in our raster object by specifying which band we want with <code>lyrs = N</code> (N represents the band number we want to work with). To import the green band, we would use <code>lyrs = 2</code>. We can convert this data to a data frame and plot the same way we plotted the red band.</p>
+<p>Import and plot the green band.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_5d3413d3" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
+</div>
+</section>
+<section id="challenge-5---solution" class="slide level2">
+<h2>Challenge 5 - Solution</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="co"># replace path with your data folder</span></span>
+<span id="cb14-2"><a href=""></a>RGB_band2_TUD <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../episodes/data/tudlib-rgb.tif"</span>, <span class="at">lyrs =</span> <span class="dv">2</span>)</span>
+<span id="cb14-3"><a href=""></a></span>
+<span id="cb14-4"><a href=""></a>RGB_band2_TUD_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(RGB_band2_TUD, <span class="at">xy =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-5"><a href=""></a></span>
+<span id="cb14-6"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb14-7"><a href=""></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> RGB_band2_TUD_df,</span>
+<span id="cb14-8"><a href=""></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">alpha =</span> <span class="st">`</span><span class="at">tudlib-rgb_2</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb14-9"><a href=""></a>  <span class="fu">coord_equal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="3-raster-slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"><div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
@@ -734,18 +986,7 @@ Daniele Cannatella
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -777,7 +1018,47 @@ Daniele Cannatella
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -814,7 +1095,11 @@ Daniele Cannatella
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
