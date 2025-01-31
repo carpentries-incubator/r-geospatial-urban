@@ -51,7 +51,7 @@ We often want to combine values of and perform calculations on rasters to create
 
 ## Raster calculations in R
 
-Let's say we are interested in mapping the heights of trees and buildings across an entire urban area. To that end, we can calculate the difference between the Digital Surface Model (DSM, tops of trees and buildings) and the Digital Terrain Model (DTM, ground level). The resulting dataset is referred to as a Canopy Height Model (CHM) and represents the actual height of trees, buildings, etc. with the influence of ground elevation removed.
+Let's say we are interested in mapping the heights of trees and buildings across an urban area. To that end, we can calculate the difference between the Digital Surface Model (DSM, tops of trees and buildings) and the Digital Terrain Model (DTM, ground level). The resulting dataset is referred to as a Canopy Height Model (CHM) and represents the actual height of trees, buildings, etc. with the influence of ground elevation removed.
 
 ![Source: National Ecological Observatory Network (NEON).](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/lidarTree-height.png)
 
@@ -163,7 +163,7 @@ See how `lapp()` is used in [this lesson](https://datacarpentry.org/r-raster-vec
 
 ## Export a GeoTIFF
 
-Now that we have created a new raster, let’s export the data as a GeoTIFF file using the `writeRaster()` function.
+Now that we have created a new raster, let’s export the data as a GeoTIFF file using the `writeRaster()` function. A GeoTIFF is a metadata standard that has the georeferencing information embedded within the image.
 
 When we write this raster object to a GeoTIFF file we name it `CHM_TUD.tiff`. This name allows us to quickly remember both what the data contains (CHM data) and for where (TU Delft campus and surroundings). The `writeRaster()` function by default writes the output file to your working directory unless you specify a full file path.
 

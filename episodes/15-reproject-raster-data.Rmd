@@ -115,11 +115,11 @@ ggplot() +
   coord_equal()
 ```
 
-If we look at the axes, we can see that the units, and therefore the projections, of the two rasters are different. When this is the case, `ggplot2` will not render the image. It will not even throw an error message to tell you something has gone wrong. We can look at Coordinate Reference Systems (CRSs) of the DTM and the hillshade data to see how they differ.
+If we examine the axes, we can see that the units (and thus the projections) of the two rasters differ. In such cases, `ggplot2` will still render the images, but they may not be visible. The function doesn't throw an error, but rather completes the rendering process, which can make it seem like nothing is wrong. To better understand this, we can compare the Coordinate Reference Systems (CRSs) of the DTM and hillshade data to see how they differ.
 
 ::: challenge
 
-# Challenge: check the CRS
+# Challenge: compare the CRSs
 
 View the CRS for each of these two datasets. What projection does each use?
 
@@ -139,7 +139,7 @@ crs(DTM_hill_TUD, parse = TRUE)
 
 :::
 
-Because the two rasters are in different CRS, they do not line up when plotted in R. We need to reproject (or change the projection of) `DTM_hill_TUD` into the Amersfoort / RD New CRS.
+Because the two rasters are in different CRSs, they do not line up when plotted in R. We need to reproject (or change the projection of) `DTM_hill_TUD` into the Amersfoort / RD New CRS (EPSG: 28992).
 
 ## Reproject Rasters
 
@@ -192,7 +192,7 @@ res(DTM_hill_EPSG28992_TUD)
 res(DTM_TUD)
 ```
 
-These two resolutions are different, but they represent the same data. We can tell R to force our newly reprojected raster to be the same as `DTM_TUD` by adding a line of code `res = res(DTM_TUD)` within the `project()` function.
+Although these two rasters have different resolutions, they represent the same data. We can tell R to force our newly reprojected raster to be the same as `DTM_TUD` by adding a line of code `res = res(DTM_TUD)` within the `project()` function.
 ```{r hill-projected-crs-res}
 DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD, 
                                   crs(DTM_TUD),

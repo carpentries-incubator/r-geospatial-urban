@@ -70,6 +70,30 @@ ggplot() +
 
 This raster contains values between 0 and 255. These values represent degrees of brightness associated with the image band. In the case of a RGB image (red, green and blue), band 1 is the red band. When we plot the red band, larger numbers (towards 255) represent pixels with more red in them (a strong red reflection). Smaller numbers (towards 0) represent pixels with less red in them (less red was reflected). To plot an RGB image, we mix red + green + blue values into one single colour to create a full colour image - similar to the colour image a digital camera creates.
 
+::: challenge
+
+## Importing a Specific Band
+
+We can use the `rast()` function to import specific bands in our raster object by specifying which band we want with `lyrs = N` (N represents the band number we want to work with). To import the green band, we would use `lyrs = 2`. We can convert this data to a data frame and plot the same way we plotted the red band.
+
+Import and plot the green band.
+
+::: solution
+
+```{r}
+RGB_band2_TUD <- rast("data/tudlib-rgb.tif", lyrs = 2)
+
+RGB_band2_TUD_df <- as.data.frame(RGB_band2_TUD, xy = TRUE)
+
+ggplot() +
+  geom_raster(data = RGB_band2_TUD_df,
+              aes(x = x, y = y, alpha = `tudlib-rgb_2`)) + 
+  coord_equal() 
+```
+
+:::
+:::
+
 ## Raster Stacks
 
 Next, we will work with all three image bands (red, green and blue) as an R raster object. We will then plot a 3-band composite, or full-colour, image.
@@ -98,13 +122,7 @@ Each band in our raster stack gets its own column in the data frame. Thus we hav
 str(RGB_stack_TUD_df)
 ```
 
-Let’s create a histogram of the first band:
-```{r plot-rgb-band1-hist}
-ggplot() +
-  geom_histogram(data = RGB_stack_TUD_df, aes(`tudlib-rgb_1`))
-```
-
-And a raster plot of the second band:
+Let’s create a raster plot of the second band:
 ```{r plot-rgb-band2}
 # Plotting this can take up to 1 minute
 ggplot() +
