@@ -8,15 +8,15 @@ exercises: 2
 
 ::: questions 
 - What is a raster dataset?
-- How do I work with and plot raster data in R?
+- How do I import, examine and plot raster data in R?
 :::
 
 ::: objectives
 
 After completing this episode, participants should be able to…
 
-- Explore raster attributes and metadata using R.
 - Import rasters into R using the `terra` package.
+- Explore raster attributes and metadata using the `terra` package.
 - Plot a raster file in R using the `ggplot2` package.
 - Describe the difference between single- and multi-band rasters.
 
@@ -28,7 +28,7 @@ After completing this episode, participants should be able to…
 
 See the [setup instructions](../learners/setup.md) for detailed information about the software, data, and other prerequisites you will need to work through the examples in this episode.
 
-<!-- This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before loading it with `library(terra)`. -->
+This lesson uses the `terra` package in particular. If you have not installed it yet, do so by running `install.packages("terra")` before loading it with `library(terra)`.
 
 :::
 
@@ -55,7 +55,7 @@ In this and lesson, we will use:
 
 ## View Raster File Attributes
 
-We will be working with a series of GeoTIFF files in this lesson. The GeoTIFF format contains a set of embedded tags with metadata about the raster data. We can use the function `describe()` from the `terra` package to get information about our raster data before we read that data into R. It is recommended to do this before importing your data. We first examine the file `tud-dsm-5m.tif`.
+We will be working with a series of GeoTIFF files in this lesson. The GeoTIFF format contains a set of embedded tags with metadata about the raster data. We can use the function `describe()` from the `terra` package to get information about our raster. It is recommended to do this before importing the data. We first examine the file `tud-dsm-5m.tif`.
 
 
 ``` r
@@ -124,14 +124,14 @@ We will be using this information throughout this episode. By the end of the epi
 
 ## Open a Raster in R
 
-Now that we've previewed the metadata for our GeoTIFF, let's import this raster dataset into R and explore its metadata more closely. We can use the `rast()` function to import a raster file in R.
+Now that we've previewed the metadata for our GeoTIFF, let's import this raster file into R and explore its metadata more closely. We can use the `rast()` function to import a raster file in R.
 
 ::: callout
 # Data tip - Object names  
-To improve code readability, use file and object names that make it clear what is in the file. The raster data for this episode contain the TU Delft campus and its surroundings so we’ll use a naming convention of `datatype_TUD`. The first object is a Digital Surface Model (DSM) in GeoTIFF format stored in a file `tud-dsm-5m.tif` which we will load into an object named according to our naming convention `DSM_TUD`.
+To improve code readability, use file and object names that make it clear what is in the file. The raster data for this episode contain the TU Delft campus and its surroundings so we will use the naming convention `<DATATYPE>_TUD`. The first object is a Digital Surface Model (DSM) in GeoTIFF format stored in a file `tud-dsm-5m.tif` which we will load into an object named according to our naming convention `DSM_TUD`.
 :::
 
-First we will load our raster file into R and view the data structure.
+Let's load our raster file into R and view its data structure.
 
 
 ``` r
@@ -148,7 +148,7 @@ coord. ref. : Amersfoort / RD New (EPSG:28992)
 source      : tud-dsm-5m.tif 
 name        : tud-dsm-5m 
 ```
-The information above includes a report on dimension, resolution, extent and CRS, but no information about the values. Similar to other data structures in R like vectors and data frame columns, descriptive statistics for raster data can be retrieved with the `summary()` function.
+The information above includes a report on dimension, resolution, extent and CRS, but no information about the values. Similar to other data structures in R like vectors and data frames, descriptive statistics for raster data can be retrieved with the `summary()` function.
 
 
 ``` r
@@ -188,14 +188,14 @@ summary(values(DSM_TUD))
 
 With a summary on all cells of the raster, the values range from a smaller minimum of `-5.3907` to a higher maximum of `92.0910`.
 
-To visualise the DSM in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has the built-in function `as.data.frame()` for conversion to a data frame.
+To visualise the DSM in R using `ggplot2`, we need to convert it to a data frame. We learned about data frames in an [earlier lesson](../episodes/03-explore-data.Rmd). The `terra` package has the built-in method `as.data.frame()` for conversion to a data frame.
 
 
 ``` r
 DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
 ```
 
-Now when we view the structure of our data, we will see a standard data frame format.
+Now when we view the structure of our data, we will see a standard data frame format in which every row is a cell from the raster, each containing information about the `x` and `y` coordinates and the raster value stored in the `tud-dsm-5m` column.
 
 
 ``` r
@@ -209,14 +209,14 @@ str(DSM_TUD_df)
  $ tud-dsm-5m: num  10.34 8.64 1.25 1.12 2.13 ...
 ```
 
-We can use `ggplot()` to plot this data with a specific `geom_` function called `geom_raster()`. We will make the colour scale in our plot colour-blindness friendly with `scale_fill_viridis_c`, introduced in an [earlier lesson](../episodes/04-intro-to-visualisation.Rmd). We will also use the `coord_quickmap()` function to use an approximate Mercator projection for our plots. This approximation is suitable for small areas that are not too close to the poles. Other coordinate systems are available in `ggplot2` if needed, you can learn about them at their help page `?coord_map`.
+We can use `ggplot()` to plot this data with a specific `geom_` function called `geom_raster()`. We will make the colour scale in our plot colour-blindness friendly with `scale_fill_viridis_c`, introduced in an [earlier lesson](../episodes/04-intro-to-visualisation.Rmd). We will also use the `coord_equal()` function to ensure that the units (meters in our case) on the two axes are equal.
 
 
 ``` r
 ggplot() +
     geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = `tud-dsm-5m`)) +
-    scale_fill_viridis_c(option = "H") +  # `option = "H"` provides a contrasting colour scale
-    coord_quickmap() 
+    scale_fill_viridis_c(option = "turbo") +
+    coord_equal() 
 ```
 
 <div class="figure" style="text-align: center">
@@ -227,20 +227,21 @@ ggplot() +
 ::: callout
 # Plotting tip
 
-More information about the viridis palette used above at [viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
+The `"turbo"` scale in our code provides a good contrasting scale for our raster, but another colour scale may be preferred when plotting other rasters. More information about the viridis palette used above can be found in the [viridis package documentation](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
 :::
 
 ::: callout
 # Plotting tip
 
 For faster previews, you can use the `plot()` function on a `terra` object.
+
 :::
 
-This map shows our Digital Surface Model, that is, the elevation of our study site including buildings and vegetation. From the legend we can confirm that the maximum elevation is around 90, but we cannot tell whether this is 90 feet or 90 meters because the legend doesn’t show us the units. We can look at the metadata of our object to see what the units are. Much of the metadata that we’re interested in is part of the CRS.
+## View Raster Coordinate Reference System (CRS)
 
-Now we will see how features of the CRS appear in our data file and what meanings they have.
+The map above shows our Digital Surface Model (DSM), that is, the elevation of our study site including buildings and vegetation. From the legend we can confirm that the maximum elevation is around 90, but we cannot tell whether that is 90 feet or 90 meters because the legend does not show us the units. We can look at the metadata of our object to see what the units are. Much of the metadata that we are interested in is part of the CRS.
 
-## View Raster Coordinate Reference System (CRS) in R
+Now we will see how features of the CRS appear in our data file and what meaning they have.
 
 We can view the CRS string associated with our R object using the `crs()` function.
 
@@ -254,7 +255,8 @@ crs(DSM_TUD, proj = TRUE)
 ```
 
 ::: challenge
-What units are our data in?
+
+# Challenge: What units are our data in?
 
 ::: solution
 
@@ -268,12 +270,12 @@ What units are our data in?
 
 The CRS for our data is given to us by R in PROJ.4 format. Let’s break down the pieces of a PROJ.4 string. The string contains all of the individual CRS elements that R or another GIS might need. Each element is specified with a `+` sign, similar to how a `.csv` file is delimited or broken up by a `,`. After each `+` we see the CRS element such as projection (`proj=`) being defined.
 
-See more about CRS and PROJ.4 strings in [this lesson](https://datacarpentry.org/organization-geospatial/03-crs).
+See more about CRS and PROJ.4 strings in [this lesson](https://datacarpentry.org/organization-geospatial/03-crs#describing-coordinate-reference-systems).
 :::
 
 ## Calculate Raster Min and Max values
 
-It is useful to know the minimum and maximum values of a raster dataset. In this case, as we are working with elevation data, these values represent the min/max elevation range at our site.
+It is useful to know the minimum and maximum values of a raster dataset. In this case, as we are working with elevation data, these values represent the minimum-to-maximum elevation range at our site.
 
 Raster statistics are often calculated and embedded in a GeoTIFF for us. We can view these values:
 
@@ -298,6 +300,8 @@ DSM_TUD <- setMinMax(DSM_TUD)
 ```
 :::
 
+A call to `minmax(DSM_TUD)` will now give us the correct values. Alternatively, `min(values())` and `max(values())` will return the minimum and maximum values respectively.
+
 
 ``` r
 min(values(DSM_TUD))
@@ -316,18 +320,13 @@ max(values(DSM_TUD))
 [1] 92.08102
 ```
 
-
 We can see that the elevation at our site ranges from `-5.39069`m to `92.08102`m.
 
 ## Raster bands
 
-The Digital Surface Model object (`DSM_TUD`) that we’ve been working with is a single band raster. This means that there is only one dataset stored in the raster: surface elevation in meters for one time period.
+The Digital Surface Model object (`DSM_TUD`) that we have been working with is a single band raster. This means that there is only one layer stored in the raster: surface elevation in meters for one time period. 
 
-![Single- and multi-band raster](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/single_multi_raster.png)
-
-
-
-A raster dataset can contain one or more bands. We can view the number of bands in a raster using the `nlyr()` function.
+We can view the number of bands in a raster using the `nlyr()` function.
 
 
 ``` r
@@ -337,45 +336,14 @@ nlyr(DSM_TUD)
 ``` output
 [1] 1
 ```
-This dataset has only 1 band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode](../episodes/17-work-with-multi-band-rasters.Rmd).
 
+![Single- and multi-band raster](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/single_multi_raster.png)
 
+Our DSM data has only one band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode](../episodes/17-work-with-multi-band-rasters.Rmd).
 
 ## Creating a histogram of raster values
 
-A histogram can be used to inspect the distribution of raster values visually. It can show if there are values above the max or below the min of the expected range. 
-
-We can inspect the distribution of values contained in a raster using the `ggplot2` function `geom_histogram()`. Histograms are often useful in identifying outliers and bad data values in our raster data.
-
-
-``` r
-ggplot() +
-  geom_histogram(data = DSM_TUD_df, aes(`tud-dsm-5m`))
-```
-
-``` output
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-<img src="fig/13-intro-to-raster-data-rendered-rast-hist-1.png" style="display: block; margin: auto;" />
-
-Notice that a message is displayed when R creates the histogram:
-
-```
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-This message is caused by a default setting in `geom_histogram()` enforcing that there are 30 bins for the data. We can define the number of bins we want in the histogram by giving another value to the `bins` argument. 60 bins, for instance, will give a more detailed histogram of the same distribution:
-
-
-``` r
-ggplot() +
-  geom_histogram(data = DSM_TUD_df, aes(`tud-dsm-5m`), bins = 60)
-```
-
-<img src="fig/13-intro-to-raster-data-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
-
-Note that the shape of this histogram looks similar to the previous one that was created using the default of 30 bins. The distribution of elevation values for our Digital Surface Model (DSM) looks reasonable. It is likely that there are no bad data values in this particular raster.
+A histogram can be used to inspect the distribution of raster values visually. It can show if there are values above the maximum or below the minimum of the expected range. We can plot a histogram using the `ggplot2` function `geom_histogram()`. Histograms are often useful in identifying outliers and bad data values in our raster data. Read more on the use of histograms in [this lesson](https://datacarpentry.org/r-raster-vector-geospatial/01-raster-structure.html#create-a-histogram-of-raster-values)
 
 ::: challenge
 
@@ -469,9 +437,9 @@ describe("data/tud-dsm-5m-hill.tif")
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- The GeoTIFF file format includes metadata about the raster data.
+- The GeoTIFF file format includes metadata about the raster data that can be inspected with the `describe()` function from the `terra` package.
 - To plot raster data with the `ggplot2` package, we need to convert them to data frames.
-- R stores CRS information in the PROJ.4 format.
+- PROJ is a widely used standard format to store, represent and transform CRS.
 - Histograms are useful to identify missing or bad data values.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
