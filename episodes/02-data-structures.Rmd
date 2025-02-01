@@ -22,7 +22,7 @@ After completing this episode, participants should be able to…
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Vectors 
-So far we've looked on individual values, such as x <- 100. Now we will move to a data structure 
+So far we've looked at individual values, such as x <- 100. Now we will move to a data structure 
 called vectors. Vectors are arrays of values of the same data type. So now we combine multiple values into one object:
 x <- c(100, 200)
 
@@ -113,6 +113,7 @@ Combine the `abcd_vector` with the `numeric_vector` in R. What is the data type 
 
 ```
 combined_vector <- c(abcd_vector, numeric_vector)
+combined_vector
 str(combined_vector)
 ```
 The combined vector is a character vector. Because vectors can only hold one data type and `abcd_vector` cannot be interpreted as numbers, the numbers in `numeric_vector` are _coerced_ into characters.
@@ -147,12 +148,12 @@ is.na(with_na) # This will produce a vector of logical values,
 # stating if a statement 'This element of the vector is a missing value'
 # is true or not
 
-#in order to see how many values are missing in our with_na vector, we can use the sum function
+# to see how many values are missing in our with_na vector, we can use the sum function
 sum(is.na(with_na))
 
-#if we want to identify the values that are not missing we write the following
+# to identify the values that are not missing we write the following
 !is.na(with_na) # The ! operator means negation, i.e. not is.na(with_na)
-#and if we want to sum all the non-missing values we write
+#and to sum all the non-missing values we write
 sum(!is.na(with_na))
 
 ```
