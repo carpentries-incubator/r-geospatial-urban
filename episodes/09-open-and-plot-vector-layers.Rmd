@@ -52,6 +52,18 @@ library(sf)         # work with spatial vector data
 
 :::
 
+::: callout
+
+# Geometry in QGIS and in R
+
+You may be familiar with GIS software using graphical interfaces like QGIS. In QGIS, you do not see the geometry in the Attribute Table but it is directly displayed in the map view. In R, however, the geometry is stored in a column called `geometry`.
+
+![Geometry in QGIS](fig/geometry-qgis.png)
+
+![Geometry in R](fig/geometry-r.png)
+
+:::
+
 ## Import shapefiles
 
 Let's start by opening a shapefile. Shapefiles are a common file format to store spatial vector data used in GIS software. Note that a shapefile consists of multiple files and it is important to keep them all together in the same location. We will read a shapefile with the administrative boundary of Delft with the function `st_read()` from the `sf` package. 
