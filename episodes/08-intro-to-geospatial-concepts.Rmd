@@ -116,11 +116,19 @@ The map of Rotterdam in the figure above shows the area of the city as a discret
 knitr::include_graphics("fig/vector-raster-1.png")
 ```
 
-We can also represent geographical features on the Earth as continuous phenomena and images of the Earth. This type of data is called raster. The figure below shows the two types of geospatial data which can be used to represent the real world, namely vector and raster. 
+We can also represent geographical features on the Earth as continuous phenomena and images of the Earth. This type of data is called raster. The figure below shows the two types of geospatial data which can be used to represent the real world, namely vector and raster.
 
 ```{r fig-vector-raster, fig.cap="Same geographical area as raster and vector data (Source: Saab, 2003)", echo=FALSE}
 knitr::include_graphics("fig/vector-raster-2.png")
 ```
+
+::: callout
+
+# Disambiguating vectors
+
+Vector data in geospatial analysis is not the same as vectors in R. In R, vectors are one-dimensional arrays of elements of the same type, while in geospatial analysis, vector data is a type of geospatial data that represents discrete features with precise boundaries.
+
+:::
 
 ::: challenge
 # Challenge: CRS for calculating areas
