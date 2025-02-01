@@ -83,6 +83,14 @@ Note that all functions from the `sf` package start with the standard prefix `st
 
 :::
 
+::: callout
+
+# Shapefiles vs. GeoPackage
+
+Shapefiles are increasingly being replaced by more modern formats like GeoPackage. An advantage of GeoPackage is that it is a single file that can store multiple layers and attributes, whereas shapefiles consist of multiple files. However, shapefiles are still widely used and are a good starting point for learning about spatial data.
+
+:::
+
 ## Spatial Metadata
 
 By default (with `quiet = FALSE`), the `st_read()` function provides a message with a summary of metadata about the file that was read in.
