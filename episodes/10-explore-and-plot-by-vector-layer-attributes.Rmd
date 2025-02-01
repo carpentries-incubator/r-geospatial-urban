@@ -85,7 +85,7 @@ unique(lines_Delft$highway)
 
 :::::::::::::::::::::::: callout 
 
-R is also able to handle categorical variables called factors. With factors, we can use the `levels()` function to show unique values. To examine unique values of the `highway` variable this way, we have to first transform it into a factor with the `factor()` function:
+R is also able to handle categorical variables called factors, introduced in [an earlier episode](../episodes/02-data-structures.Rmd). With factors, we can use the `levels()` function to show unique values. To examine unique values of the `highway` variable this way, we have to first transform it into a factor with the `factor()` function:
 
 ```{r lines-factor-levels}
 factor(lines_Delft$highway) %>% levels()
