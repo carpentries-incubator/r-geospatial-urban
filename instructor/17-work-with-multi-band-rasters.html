@@ -335,9 +335,8 @@
       <div class="accordion-body">
         <ul><li><a href="#getting-started-with-multi-band-data-in-r">Getting Started with Multi-Band Data in R</a></li>
 <li><a href="#image-raster-data-values">Image Raster Data Values</a></li>
-<li><a href="#import-a-specific-band">Import a Specific Band</a></li>
 <li><a href="#raster-stacks">Raster Stacks</a></li>
-<li><a href="#create-a-three-band-image">Create a three-band image</a></li>
+<li><a href="#plotting-a-three-band-image">Plotting a three-band image</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -420,7 +419,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Work with Multi-Band Rasters</h1>
-        <p>Last updated on 2025-01-30 |
+        <p>Last updated on 2025-01-31 |
 
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/17-work-with-multi-band-rasters.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -479,13 +478,16 @@ need to work through the examples in this episode.</p>
 <p>This episode explores how to import and plot a multi-band raster in
 R.</p>
 <section><h2 class="section-heading" id="getting-started-with-multi-band-data-in-r">Getting Started with Multi-Band Data in R<a class="anchor" aria-label="anchor" href="#getting-started-with-multi-band-data-in-r"></a></h2>
-<hr class="half-width"><p>In this episode, the multi-band data that we are working with is <a href="https://opendata.beeldmateriaal.nl/" class="external-link">Beeldmateriaal Open Data</a>
+<hr class="half-width"><p>The multi-band data that we are working with is <a href="https://opendata.beeldmateriaal.nl/" class="external-link">Beeldmateriaal Open Data</a>
 from the Netherlands. Each RGB image is a 3-band raster. The same steps
 would apply to working with a multi-spectral image with 4 or more bands
-- like Landsat imagery.</p>
+like Landsat imagery.</p>
 <p>By using the <code>rast()</code> function along with the
 <code>lyrs</code> parameter, we can read specific raster bands; omitting
-this parameter would read instead all bands.</p>
+this parameter would read instead all bands. We specify which band we
+want with <code>lyrs = N</code> (N represents the band number we want to
+work with). To import the red band, we would use
+<code>lyrs = 1</code>.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -500,12 +502,13 @@ this parameter would read instead all bands.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RGB_band1_TUD_df</span>  <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_band1_TUD</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># Plotting this can take up to 1 minute</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">RGB_band1_TUD_df</span>,</span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">`tudlib-rgb_1`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="image-raster-data-values">Image Raster Data Values<a class="anchor" aria-label="anchor" href="#image-raster-data-values"></a></h2>
+<figure><img src="../fig/17-work-with-multi-band-rasters-rendered-plot-rgb-band1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="image-raster-data-values">Image Raster Data Values<a class="anchor" aria-label="anchor" href="#image-raster-data-values"></a></h2>
 <hr class="half-width"><p>This raster contains values between 0 and 255. These values represent
 degrees of brightness associated with the image band. In the case of a
 RGB image (red, green and blue), band 1 is the red band. When we plot
@@ -515,44 +518,62 @@ represent pixels with less red in them (less red was reflected). To plot
 an RGB image, we mix red + green + blue values into one single colour to
 create a full colour image - similar to the colour image a digital
 camera creates.</p>
-</section><section><h2 class="section-heading" id="import-a-specific-band">Import a Specific Band<a class="anchor" aria-label="anchor" href="#import-a-specific-band"></a></h2>
-<hr class="half-width"><p>We can use the <code>rast()</code> function to import specific bands
+<div id="importing-a-specific-band" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="importing-a-specific-band" class="callout-inner">
+<h3 class="callout-title">Importing a Specific Band</h3>
+<div class="callout-content">
+<p>We can use the <code>rast()</code> function to import specific bands
 in our raster object by specifying which band we want with
 <code>lyrs = N</code> (N represents the band number we want to work
-with). To import the green band, we would use <code>lyrs = 2</code>.</p>
+with). To import the green band, we would use <code>lyrs = 2</code>. We
+can convert this data to a data frame and plot the same way we plotted
+the red band.</p>
+<p>Import and plot the green band.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RGB_band2_TUD</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"data/tudlib-rgb.tif"</span>, lyrs <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<p>We can convert this data to a data frame and plot the same way we
-plotted the red band:</p>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RGB_band2_TUD_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_band2_TUD</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">RGB_band2_TUD</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"data/tudlib-rgb.tif"</span>, lyrs <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">RGB_band2_TUD_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_band2_TUD</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">RGB_band2_TUD_df</span>,</span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">`tudlib-rgb_2`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span> </span></code></pre>
 </div>
-<figure><img src="../fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="raster-stacks">Raster Stacks<a class="anchor" aria-label="anchor" href="#raster-stacks"></a></h2>
+<figure><img src="../fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="raster-stacks">Raster Stacks<a class="anchor" aria-label="anchor" href="#raster-stacks"></a></h2>
 <hr class="half-width"><p>Next, we will work with all three image bands (red, green and blue)
 as an R raster object. We will then plot a 3-band composite, or
 full-colour, image.</p>
 <p>To bring in all bands of a multi-band raster, we use the
-<code>rast()</code> function.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<code>rast()</code> function without specifying a <code>lyrs</code>
+value.</p>
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RGB_stack_TUD</span> <span class="op">&lt;-</span> <span class="fu">rast</span><span class="op">(</span><span class="st">"data/tudlib-rgb.tif"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Let’s preview the attributes of our stack object:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -572,8 +593,8 @@ names       : tudlib-rgb_1, tudlib-rgb_2, tudlib-rgb_3 </code></pre>
 </div>
 <p>We can view the attributes of each band in the stack in a single
 output. For example, if we had hundreds of bands, we could specify which
-band we’d like to view attributes for using an index value:</p>
-<div class="codewrapper sourceCode" id="cb8">
+band we would like to view attributes for using an index value:</p>
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -593,15 +614,15 @@ name        : tudlib-rgb_2 </code></pre>
 <p>We can also use <code>ggplot2</code> to plot the data in any layer of
 our raster object. Remember, we need to convert to a data frame
 first.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RGB_stack_TUD_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_stack_TUD</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Each band in our RasterStack gets its own column in the data frame.
+<p>Each band in our raster stack gets its own column in the data frame.
 Thus we have:</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -617,50 +638,42 @@ Thus we have:</p>
  $ tudlib-rgb_2: int  64 58 57 60 57 55 58 59 62 69 ...
  $ tudlib-rgb_3: int  57 49 49 53 50 47 51 54 57 68 ...</code></pre>
 </div>
-<p>Let’s create a histogram of the first band:</p>
-<div class="codewrapper sourceCode" id="cb13">
+<p>Let’s create a raster plot of the second band:</p>
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_histogram</span><span class="op">(</span>data <span class="op">=</span> <span class="va">RGB_stack_TUD_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">`tudlib-rgb_1`</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<p><img src="../fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" class="figure">
-And a raster plot of the second band:</p>
-<div class="codewrapper sourceCode" id="cb14">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="co"># Plotting this can take up to 1 minute</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">RGB_stack_TUD_df</span>,</span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">`tudlib-rgb_2`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can access any individual band in the same way.</p>
-</section><section><h2 class="section-heading" id="create-a-three-band-image">Create a three-band image<a class="anchor" aria-label="anchor" href="#create-a-three-band-image"></a></h2>
+<figure><img src="../fig/17-work-with-multi-band-rasters-rendered-plot-rgb-band2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can access any individual band in the same way.</p>
+</section><section><h2 class="section-heading" id="plotting-a-three-band-image">Plotting a three-band image<a class="anchor" aria-label="anchor" href="#plotting-a-three-band-image"></a></h2>
 <hr class="half-width"><p>To render a final three-band, coloured image in R, we use the
 <code>plotRGB()</code> function.</p>
 <p>This function allows us to:</p>
 <ul><li>Identify what bands we want to render in the red, green and blue
 regions. The <code>plotRGB()</code> function defaults to a 1=red,
-2=green, and 3=blue band order. However, you can define what bands you’d
-like to plot manually. Manual definition of bands is useful if you have,
-for example a near-infrared band and want to create a colour infrared
-image.</li>
+2=green, and 3=blue band order. However, you can define what bands you
+would like to plot manually. Manual definition of bands is useful if you
+have, for example, a near-infrared band and want to create a colour
+infrared image.</li>
 <li>Adjust the stretch of the image to increase or decrease
 contrast.</li>
 </ul><p>Let’s plot our 3-band image. Note that we can use the
-<code>plotRGB()</code> function directly with our RasterStack object (we
-don’t need a data frame as this function isn’t part of the
+<code>plotRGB()</code> function directly with our raster stack object
+(we do not need a data frame as this function is not part of the
 <code>ggplot2</code> package).</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotRGB</span><span class="op">(</span><span class="va">RGB_stack_TUD</span>,</span>
 <span>        r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The image above looks pretty good. We can explore whether applying a
+<figure><img src="../fig/17-work-with-multi-band-rasters-rendered-plot-rgb-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The image above looks pretty good. We can explore whether applying a
 stretch to the image might improve clarity and contrast using
 stretch=“lin” or stretch=“hist”, as explained in <a href="https://datacarpentry.org/r-raster-vector-geospatial/instructor/05-raster-multi-band-in-r.html#create-a-three-band-image" class="external-link">this
 lesson</a>.</p>
@@ -759,9 +772,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/17-work-with-multi-band-rasters.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/17-work-with-multi-band-rasters.html",
-  "dateCreated": "2025-01-30",
-  "dateModified": "2025-01-30",
-  "datePublished": "2025-01-30"
+  "dateCreated": "2025-01-31",
+  "dateModified": "2025-01-31",
+  "datePublished": "2025-01-31"
 }
 
   </script><script>

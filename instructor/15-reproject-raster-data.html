@@ -418,7 +418,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Reproject Raster Data</h1>
-        <p>Last updated on 2025-01-30 |
+        <p>Last updated on 2025-01-31 |
 
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/15-reproject-raster-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -470,23 +470,26 @@ need to work through the examples in this episode.</p>
 </div>
 </div>
 <p>Sometimes we encounter raster datasets that do not “line up” when
-plotted or analysed. Rasters that don’t line up are most often in
+plotted or analysed. Rasters that do not line up are most often in
 different Coordinate Reference Systems (CRS). This episode explains how
 to deal with rasters in different CRS. It will walk through reprojecting
 rasters in R using the <code>project()</code> function in the
 <code>terra</code> package.</p>
 <section><h2 class="section-heading" id="raster-projection">Raster Projection<a class="anchor" aria-label="anchor" href="#raster-projection"></a></h2>
-<hr class="half-width"><p>For this episode, we will be working with the Digital Terrain Model
-data. This differs from the surface model data we’ve been working with
-so far in that the digital surface model (DSM) includes the tops of
-trees and buildings, while the digital terrain model (DTM) shows the
-ground level.</p>
-<p>We’ll be looking at another model (the canopy/building height model,
-or CHM) in <a href="16-raster-calculations.html">a later episode</a> and
-will see how to calculate the CHM from the DSM and DTM. Here, we will
-create a map of the Digital Terrain Model (<code>DTM_TUD</code>) of TU
-Delft and its surrounding draped (or layered) on top of the hillshade
-(<code>DTM_hill_TUD</code>).</p>
+<hr class="half-width"><p>For this episode, we will be working with Digital Terrain Model data.
+This differs from the surface model data we have been working with so
+far in that the digital surface model (DSM) includes the tops of trees
+and buildings, while the digital terrain model (DTM) shows the ground
+level.</p>
+<figure style="text-align: center"><img src="../fig/dsm-dtm.png" alt="The difference between DSM and DTM. Source: National Ecological Observatory Network (NEON)." width="1083" class="figure mx-auto d-block"><figcaption>
+The difference between DSM and DTM. Source: National Ecological
+Observatory Network (NEON).
+</figcaption></figure><p>We will be looking at another model (the canopy/building height
+model, or CHM) in <a href="16-raster-calculations.html">a later
+episode</a> and will see how to calculate the CHM from the DSM and DTM.
+Here, we will create a map of the Digital Terrain Model
+(<code>DTM_TUD</code>) of TU Delft and its surrounding draped (or
+layered) on top of the hillshade (<code>DTM_hill_TUD</code>).</p>
 <div id="layering-rasters-hillshade" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -499,7 +502,7 @@ and use a transparency factor to create a 3-dimensional shaded effect. A
 hillshade is a raster that maps the terrain using light and shadow to
 create a 3D-looking image that you would see from above when viewing the
 terrain. We will add a custom colour, making the plot grey.</p>
-<p>Read more about layering raster <a href="https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-raster-plot.html#layering-rasters" class="external-link">here</a>.</p>
+<p>Read more about layering rasters <a href="https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-raster-plot.html#layering-rasters" class="external-link">here</a>.</p>
 </div>
 </div>
 </div>
@@ -533,13 +536,12 @@ plotting with <code>ggplot</code>.</p>
 <span>                 <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
 <span>                   alpha <span class="op">=</span> <span class="va">`tud-dtm-5m-hill`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<span>     <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<p><img src="../fig/15-reproject-raster-data-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure">
-Our results are curious - neither the Digital Terrain Model
-(<code>DTM_TUD_df</code>) nor the DTM Hillshade
-(<code>DTM_hill_TUD_df</code>) plotted. Let’s try to plot the DTM on its
-own to make sure there are data there.</p>
+<p><img src="../fig/15-reproject-raster-data-rendered-plot-dtm-hill-1.png" style="display: block; margin: auto;" class="figure">
+Our results are curious - neither the DTM (<code>DTM_TUD_df</code>) nor
+the hillshade (<code>DTM_hill_TUD_df</code>) are plotted. Let’s try to
+plot the DTM on its own to make sure the data are there.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -549,9 +551,9 @@ own to make sure there are data there.</p>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>                  fill <span class="op">=</span> <span class="va">`tud-dtm-5m`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/15-reproject-raster-data-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our DTM seems to contain data and plots just fine.</p>
+<figure><img src="../fig/15-reproject-raster-data-rendered-plot-dtm-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Our DTM seems to contain data and plots just fine.</p>
 <p>Next we plot the DTM Hillshade on its own to see whether everything
 is OK.</p>
 <div class="codewrapper sourceCode" id="cb5">
@@ -562,20 +564,21 @@ is OK.</p>
 <span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_hill_TUD_df</span>,</span>
 <span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>                  alpha <span class="op">=</span> <span class="va">`tud-dtm-5m-hill`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/15-reproject-raster-data-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we look at the axes, we can see that the units, and therefore the
-projections, of the two rasters are different. When this is the case,
-<code>ggplot2</code> won’t render the image. It won’t even throw an
-error message to tell you something has gone wrong. We can look at
-Coordinate Reference Systems (CRSs) of the DTM and the hillshade data to
-see how they differ.</p>
-<div id="exercise" class="callout challenge">
+<figure><img src="../fig/15-reproject-raster-data-rendered-plot-hill-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we examine the axes, we can see that the units (and thus the
+projections) of the two rasters differ. In such cases,
+<code>ggplot2</code> will still render the images, but they may not be
+visible. The function doesn’t throw an error, but rather completes the
+rendering process, which can make it seem like nothing is wrong. To
+better understand this, we can compare the Coordinate Reference Systems
+(CRSs) of the DTM and hillshade data to see how they differ.</p>
+<div id="challenge-compare-the-crss" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise</h3>
+<div id="challenge-compare-the-crss" class="callout-inner">
+<h3 class="callout-title">Challenge: compare the CRSs</h3>
 <div class="callout-content">
 <p>View the CRS for each of these two datasets. What projection does
 each use?</p>
@@ -667,9 +670,10 @@ whereas <code>DTM_hill_TUD</code> is in WGS 84.</p>
 </div>
 </div>
 </div>
-<p>Because the two rasters are in different CRS, they don’t line up when
-plotted in R. We need to reproject (or change the projection of)
-<code>DTM_hill_TUD</code> into the Amersfoort / RD New CRS.</p>
+<p>Because the two rasters are in different CRSs, they do not line up
+when plotted in R. We need to reproject (or change the projection of)
+<code>DTM_hill_TUD</code> into the Amersfoort / RD New CRS (EPSG:
+28992).</p>
 </section><section><h2 class="section-heading" id="reproject-rasters">Reproject Rasters<a class="anchor" aria-label="anchor" href="#reproject-rasters"></a></h2>
 <hr class="half-width"><p>We can use the <code>project()</code> function to reproject a raster
 into a new CRS. Keep in mind that reprojection only works when you first
@@ -832,9 +836,9 @@ versus our original data.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 5 5</code></pre>
 </div>
-<p>These two resolutions are different, but they’re representing the
-same data. We can tell R to force our newly reprojected raster to be the
-same as <code>DTM_TUD</code> by adding a line of code
+<p>Although these two rasters have different resolutions, they represent
+the same data. We can tell R to force our newly reprojected raster to be
+the same as <code>DTM_TUD</code> by adding a line of code
 <code>res = res(DTM_TUD)</code> within the <code>project()</code>
 function.</p>
 <div class="codewrapper sourceCode" id="cb23">
@@ -892,7 +896,7 @@ data frame from our newly reprojected raster.</p>
 <span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>     <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/15-reproject-raster-data-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We have now successfully draped the Digital Terrain Model on top of
+<figure><img src="../fig/15-reproject-raster-data-rendered-plot-dtm-hill-projected-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We have now successfully draped the Digital Terrain Model on top of
 our hillshade to produce a nice looking, textured map!</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
@@ -969,9 +973,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/15-reproject-raster-data.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/15-reproject-raster-data.html",
-  "dateCreated": "2025-01-30",
-  "dateModified": "2025-01-30",
-  "datePublished": "2025-01-30"
+  "dateCreated": "2025-01-31",
+  "dateModified": "2025-01-31",
+  "datePublished": "2025-01-31"
 }
 
   </script><script>

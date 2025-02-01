@@ -611,50 +611,51 @@ Raster plot with <code>ggplot2</code> using the viridis color scale
 <h3 id="13-intro-to-raster-data-figure-2">Figure 2</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Single- and multi-band raster’</p>
 <figure><img src="https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/single_multi_raster.png" alt="Single- and multi-band raster" class="figure mx-auto d-block"><div class="figcaption">Single- and multi-band raster</div>
-</figure><hr>
-<h3 id="13-intro-to-raster-data-figure-3">Figure 3</h3>
-<figure><img src="fig/13-intro-to-raster-data-rendered-rast-hist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="13-intro-to-raster-data-figure-4">Figure 4</h3>
-<figure><img src="fig/13-intro-to-raster-data-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="14-plot-raster-data"><h2 class="section-heading"><a href="14-plot-raster-data.html">Plot Raster Data</a></h2>
+</figure><hr></section><section id="14-plot-raster-data"><h2 class="section-heading"><a href="14-plot-raster-data.html">Plot Raster Data</a></h2>
 <hr class="half-width">
 <h3 id="14-plot-raster-data-figure-1">Figure 1</h3>
-<figure><img src="fig/14-plot-raster-data-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/14-plot-raster-data-rendered-dsm-fct-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="14-plot-raster-data-figure-2">Figure 2</h3>
-<figure><img src="fig/14-plot-raster-data-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="14-plot-raster-data-figure-3">Figure 3</h3>
-<p><img src="fig/14-plot-raster-data-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure">
+<p><img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb2-1.png" style="display: block; margin: auto;" class="figure">
 The plot above uses the default colours inside <code>ggplot2</code> for
 raster objects. We can specify our own colours to make the plot look a
-little nicer. R has a built in set of colours for plotting terrain,
-which are built in to the <code>terrain.colors()</code> function. Since
-we have three bins, we want to create a 3-colour palette:</p>
+little nicer. R has a built in set of colours for plotting terrain
+available through the <code>terrain.colors()</code> function. Since we
+have three bins, we want to create a 3-colour palette:</p>
 <hr>
 <h3 id="14-plot-raster-data-figure-4">Figure 4</h3>
-<figure><img src="fig/14-plot-raster-data-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb3-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="14-plot-raster-data-figure-5">Figure 5</h3>
-<p><img src="fig/14-plot-raster-data-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" class="figure">
+<p><img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb4-1.png" style="display: block; margin: auto;" class="figure">
 The axis labels x and y are not necessary, so we can turn them off by
-passing <code>element_blank()</code> to the relevant part of the
-<code>theme()</code> function.</p>
+passing <code>element_blank()</code> to the <code>axis.title</code>
+argument in the <code>theme()</code> function.</p>
 <hr>
 <h3 id="14-plot-raster-data-figure-6">Figure 6</h3>
-<figure><img src="fig/14-plot-raster-data-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="14-plot-raster-data-figure-7">Figure 7</h3>
-<figure><img src="fig/14-plot-raster-data-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="15-reproject-raster-data"><h2 class="section-heading"><a href="15-reproject-raster-data.html">Reproject Raster Data</a></h2>
+<figure><img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb6-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="15-reproject-raster-data"><h2 class="section-heading"><a href="15-reproject-raster-data.html">Reproject Raster Data</a></h2>
 <hr class="half-width">
 <h3 id="15-reproject-raster-data-figure-1">Figure 1</h3>
-<p><img src="fig/15-reproject-raster-data-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure">
-Our results are curious - neither the Digital Terrain Model
-(<code>DTM_TUD_df</code>) nor the DTM Hillshade
-(<code>DTM_hill_TUD_df</code>) plotted. Let’s try to plot the DTM on its
-own to make sure there are data there.</p>
-<hr>
+<p aria-hidden="true">Image 1 of 1: ‘The difference between DSM and DTM. Source: National Ecological Observatory Network (NEON).’</p>
+<figure style="text-align: center"><img src="fig/dsm-dtm.png" alt="The difference between DSM and DTM. Source: National Ecological Observatory Network (NEON)." width="1083" class="figure mx-auto d-block"><figcaption>
+The difference between DSM and DTM. Source: National Ecological
+Observatory Network (NEON).
+</figcaption></figure><hr>
 <h3 id="15-reproject-raster-data-figure-2">Figure 2</h3>
-<figure><img src="fig/15-reproject-raster-data-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<p><img src="fig/15-reproject-raster-data-rendered-plot-dtm-hill-1.png" style="display: block; margin: auto;" class="figure">
+Our results are curious - neither the DTM (<code>DTM_TUD_df</code>) nor
+the hillshade (<code>DTM_hill_TUD_df</code>) are plotted. Let’s try to
+plot the DTM on its own to make sure the data are there.</p>
+<hr>
 <h3 id="15-reproject-raster-data-figure-3">Figure 3</h3>
-<figure><img src="fig/15-reproject-raster-data-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/15-reproject-raster-data-rendered-plot-dtm-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="15-reproject-raster-data-figure-4">Figure 4</h3>
-<figure><img src="fig/15-reproject-raster-data-rendered-unnamed-chunk-16-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="16-raster-calculations"><h2 class="section-heading"><a href="16-raster-calculations.html">Raster Calculations</a></h2>
+<figure><img src="fig/15-reproject-raster-data-rendered-plot-hill-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="15-reproject-raster-data-figure-5">Figure 5</h3>
+<figure><img src="fig/15-reproject-raster-data-rendered-plot-dtm-hill-projected-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="16-raster-calculations"><h2 class="section-heading"><a href="16-raster-calculations.html">Raster Calculations</a></h2>
 <hr class="half-width">
 <h3 id="16-raster-calculations-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Source: National Ecological Observatory Network (NEON).’</p>
@@ -662,34 +663,30 @@ own to make sure there are data there.</p>
 (NEON).</div>
 </figure><hr>
 <h3 id="16-raster-calculations-figure-2">Figure 2</h3>
-<figure><img src="fig/16-raster-calculations-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/16-raster-calculations-rendered-plot-dtm-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="16-raster-calculations-figure-3">Figure 3</h3>
-<figure><img src="fig/16-raster-calculations-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/16-raster-calculations-rendered-plot-dsm-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="16-raster-calculations-figure-4">Figure 4</h3>
-<figure><img src="fig/16-raster-calculations-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/16-raster-calculations-rendered-plot-chm-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="16-raster-calculations-figure-5">Figure 5</h3>
-<p><img src="fig/16-raster-calculations-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" class="figure">
+<p><img src="fig/16-raster-calculations-rendered-chm-hist-1.png" style="display: block; margin: auto;" class="figure">
 Notice that the range of values for the output CHM starts right below 0
 and ranges to almost 100 meters. Does this make sense for buildings and
 trees in Delft?</p>
 <hr>
 <h3 id="16-raster-calculations-figure-6">Figure 6</h3>
-<figure><img src="fig/16-raster-calculations-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/16-raster-calculations-rendered-chm-challenge-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="16-raster-calculations-figure-7">Figure 7</h3>
-<figure><img src="fig/16-raster-calculations-rendered-unnamed-chunk-7-2.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="17-work-with-multi-band-rasters"><h2 class="section-heading"><a href="17-work-with-multi-band-rasters.html">Work with Multi-Band Rasters</a></h2>
+<figure><img src="fig/16-raster-calculations-rendered-chm-challenge-2.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="17-work-with-multi-band-rasters"><h2 class="section-heading"><a href="17-work-with-multi-band-rasters.html">Work with Multi-Band Rasters</a></h2>
 <hr class="half-width">
 <h3 id="17-work-with-multi-band-rasters-figure-1">Figure 1</h3>
-<figure><img src="fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/17-work-with-multi-band-rasters-rendered-plot-rgb-band1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="17-work-with-multi-band-rasters-figure-2">Figure 2</h3>
-<figure><img src="fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<figure><img src="fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="17-work-with-multi-band-rasters-figure-3">Figure 3</h3>
-<p><img src="fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-10-1.png" style="display: block; margin: auto;" class="figure">
-And a raster plot of the second band:</p>
-<hr>
+<figure><img src="fig/17-work-with-multi-band-rasters-rendered-plot-rgb-band2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="17-work-with-multi-band-rasters-figure-4">Figure 4</h3>
-<figure><img src="fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-11-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="17-work-with-multi-band-rasters-figure-5">Figure 5</h3>
-<figure><img src="fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-12-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="18-import-and-visualise-osm-data"><h2 class="section-heading"><a href="18-import-and-visualise-osm-data.html">Import and Visualise OSM Data</a></h2>
+<figure><img src="fig/17-work-with-multi-band-rasters-rendered-plot-rgb-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="18-import-and-visualise-osm-data"><h2 class="section-heading"><a href="18-import-and-visualise-osm-data.html">Import and Visualise OSM Data</a></h2>
 <hr class="half-width">
 <h3 id="18-import-and-visualise-osm-data-figure-1">Figure 1</h3>
 <p>The result looks like this: <img src="fig/OSM1.png" class="figure"></p>
@@ -773,9 +770,9 @@ And a raster plot of the second band:</p>
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/images.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/images.html",
-  "dateCreated": "2025-01-30",
-  "dateModified": "2025-01-30",
-  "datePublished": "2025-01-30"
+  "dateCreated": "2025-01-31",
+  "dateModified": "2025-02-01",
+  "datePublished": "2025-01-31"
 }
 
   </script><script>
