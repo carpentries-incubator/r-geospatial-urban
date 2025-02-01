@@ -53,7 +53,7 @@ Each map projection introduces a **distortion** in geometrical elements – **di
 
 ## Coordinate reference systems (CRS)
 
-**A** **coordinate reference system (CRS)** is a coordinate-based local, regional or global system for locating geographical entities, which uses a specific map projection. It defines how the two-dimensional, projected map relates to real places on the Earth.
+**A coordinate reference system (CRS)** is a coordinate-based local, regional or global system for locating geographical entities, which uses a specific map projection. It defines how the two-dimensional, projected map relates to real places on the Earth.
 
 All coordinate reference systems are included in a public registry called the **EPSG Geodetic Parameter Dataset (EPSG registry)**, initiated in 1985 by a member of the European Petroleum Survey Group (EPSG). Each CRS has a unique **EPSG code**, which makes it possible to easily identify them among the large number of CRS. This is particularly important for transforming spatial data from one CRS to another.
 
