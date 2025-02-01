@@ -105,6 +105,14 @@ To examine the metadata in more detail, we can use other, more specialised, func
 st_geometry_type(boundary_Delft)
 ```
 
+::: callout
+
+# Geometry types
+
+The `sf` package supports the following common geometry types: `POINT`, `LINESTRING`, `POLYGON`, `MULTIPOINT`, `MULTILINESTRING`, `MULTIPOLYGON`, `GEOMETRYCOLLECTION`. More information about support for these and other geometry types can be found in the [sf package documentation](https://r-spatial.github.io/sf/articles/sf1.html).
+
+:::
+
 The `st_crs()` function returns the coordinate reference system (CRS) used by the shapefile, which in this case is ``r st_crs(boundary_Delft)$Name`` and has the unique reference code ``r paste0("EPSG: ", st_crs(boundary_Delft)$epsg)``. 
 
 ```{r crs}
