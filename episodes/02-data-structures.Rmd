@@ -64,7 +64,7 @@ Note that vector data in the geospatial context is different from vector data ty
 
 You can create a vector with a `c()` function. 
 
-You can also inspect vectors with `str()` function. In factor vectors, 
+You can inspect vectors with the `str()` function. In factor vectors, 
 it shows the underlying values of each category. 
 You can also see the structure in the environment tab of RStudio.
 
