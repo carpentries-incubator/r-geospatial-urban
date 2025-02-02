@@ -21,13 +21,15 @@ knitr::opts_chunk$set(
 
 # Geospatial Data Carpentry for Urbanism { background-image="fig/tudlib-green.png"}
 
-19-20 February 2024 
+10-11 February 2025 
 
-TU Delft Library, Orange Room
+TU Delft Library, Blue Room
 
 ## Meet the team
 
-::: {layout-ncol=5 .caption}
+::: {layout-ncol=7 .caption}
+
+![Aleks](fig/aleks.webp)
 
 ![Ana](fig/ana.webp)
 
@@ -36,6 +38,8 @@ TU Delft Library, Orange Room
 ![Clémentine](fig/clementine.webp)
 
 ![Daniele](fig/daniele.webp)
+
+![Ignacio](fig/ignacio.webp)
 
 ![Javier](fig/javier.webp)
 
@@ -48,6 +52,10 @@ TU Delft Library, Orange Room
 ![Paula](fig/paula.webp)
 
 ![Selin](fig/selin.webp)
+
+![Yun](fig/yun.webp)
+
+![](fig/blank.webp)
 
 :::
 
@@ -131,7 +139,7 @@ TU Delft Library, Orange Room
 
 - When you are stuck, **put a 🟥 <font color="red">red</font> sticky note on the back of your screen** and a helper will approach you.
 
-- **Copy & paste code from the [livecode repository](https://edu.nl/nrd7v)** if you are behind and need to catch up.
+- **Copy & paste code from the [livecode repository](https://edu.nl/wa4xu)** if you are behind and need to catch up.
 
 :::
 
@@ -153,7 +161,7 @@ If you believe someone is violating the [Code of Conduct](https://docs.carpentri
 
 ::: {.incremental}
 
-- **Photos and videos will be taken** - indicate your consent to be photographed or filmed on your wearable name tag (green = YES, red = NO) or simply let us know if you prefer not to display your choice.
+- **The instructors and their screen will be filmed**, but you will not be video- or audio-recorded. By participating in the workshop you acknowledge that the recording is taking place and that you don't have any objection to it. We also kindly ask you to not video- and/or audio-record the session yourself.
 
 - **Ph.D. candidates receive 1,5 GS credits** if they attend and actively participate in the entire workshop - attendance forms will be handed out at the end of Day 2.
 
