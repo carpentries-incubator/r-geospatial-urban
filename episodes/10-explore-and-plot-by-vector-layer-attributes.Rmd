@@ -29,7 +29,7 @@ After completing this episode, participants should be able to…
 
 - Subset vector objects using specific attribute values.
 
-- Plot a vector feature, colored by unique attribute values.
+- Plot a vector feature, coloured by unique attribute values.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -37,19 +37,19 @@ After completing this episode, participants should be able to…
 
 Let's have a look at the content of the loaded data, starting with `lines_Delft`. In essence, an `"sf"` object is a data.frame with a "sticky" geometry column and some extra metadata, like the CRS, extent and geometry type we examined earlier.
 
-```{r}
+```{r lines}
 lines_Delft
 ```
 
 This means that we can examine and manipulate them as data frames. For instance, we can look at the number of variables (columns in a data frame) with `ncol()`.
 
-```{r}
+```{r lines-ncol}
 ncol(lines_Delft)
 ```
 
-In the case of `point_Delft` those columns are `"osm_id"`, `"highway"` and `"geometry"`. We can check the names of the columns with the base R function `names()`.
+In the case of `point_Delft` those columns are `"osm_id"`, `"highway"` and `"geometry"`. We can check the names of the columns with the function `names()`.
 
-```{r}
+```{r lines-names}
 names(lines_Delft)
 ```
 
@@ -64,33 +64,31 @@ attribute table.
 
 We can also preview the content of the object by looking at the first 6 rows with the `head()` function, which in the case of an `sf` object is similar to examining the object directly.
 
-```{r}
-head (lines_Delft)
+```{r lines-head}
+head(lines_Delft)
 ```
 
 
 ## Explore values within one attribute
 
-Using the `$` operator, we can examine the content of a single field of our lines feature. 
+Using the `$` operator, we can examine the content of a single field of our lines object. Let's have a look at the `highway` field, a categorical variable stored in the `lines_Delft` object as `character`. To avoid displaying all `r length(lines_Delft$highway)` values of `highway`, we will preview it with the `head()` function:
 
-We can see the contents of the `highway` field of our lines feature:
-
-```{r}
+```{r lines-head-10}
 head(lines_Delft$highway, 10)
 ```
 
-To see only unique values within the `highway` field, we can use the `unique()` function. This function extracts all possible values of a character variable. 
+The first rows returned by the `head()` function do not necessarily contain all unique values within the `highway` field. To see all unique values, we can use the `unique()` function. This function extracts all possible values of a character variable. For the `highway` field, this returns all types of roads stored in `lines_Delft`.
 
-```{r}
+```{r lines-unique}
 unique(lines_Delft$highway)
 ```
 
 :::::::::::::::::::::::: callout 
 
-R is also able to handle categorical variables called factors. With factors, we can use the `levels()` function to show unique values. To examine unique values of the `highway` variable this way, we have to first transform it into a factor with the `factor()` function:
+R is also able to handle categorical variables called factors, introduced in [an earlier episode](../episodes/02-data-structures.Rmd). With factors, we can use the `levels()` function to show unique values. To examine unique values of the `highway` variable this way, we have to first transform it into a factor with the `factor()` function:
 
-```{r}
-levels(factor(lines_Delft$highway))
+```{r lines-factor-levels}
+factor(lines_Delft$highway) %>% levels()
 ```
 Note that this way the values are shown by default in alphabetical order and `NA`s are not displayed, whereas using `unique()` returns unique values in the order of their occurrence in the data frame and it also shows `NA` values.
 
@@ -103,17 +101,17 @@ Note that this way the values are shown by default in alphabetical order and `NA
 
 Explore the attributes associated with the `point_Delft` spatial object.
 
-1. How many attributes does it have?
+1. How many fields does it have?
 2. What types of leisure points do the points represent? Give three examples.
-3. Which of the following is NOT an attribute of the `point_Delft` data object?
+3. Which of the following is NOT a field of the `point_Delft` object?
 
-  A) location B) leisure C) osm_id
+  A) `location` B) `leisure` C) `osm_id`
 
 :::::::::::::::::::::::: solution 
 
-1. To find the number of attributes, we use the `ncol()` function:
+1. To find the number of fields, we use the `ncol()` function:
 
-```{r}
+```{r points-ncol}
 ncol(point_Delft)
 ```
 
@@ -121,35 +119,40 @@ ncol(point_Delft)
 
 Using the `head()` function which displays 6 rows by default, we only see two values and `NA`s. 
 
-```{r}
+```{r points-head}
 head(point_Delft)
 ```
 
-We can increase the number of rows with the n argument (e.g., `head(n = 10)` to show 10 rows) until we see at least three distinct values in the leisure column. Note that printing an `sf` object will also display the first 10 rows.
+We can increase the number of rows with the `n` argument (e.g., `head(n = 10)` to show 10 rows) until we see at least three distinct values in the leisure column. Note that printing an `sf` object will also display the first 10 rows.
 
-```{r}
-head(point_Delft, 10)
+```{r points-head-10}
 # you might be lucky to see three distinct values
+head(point_Delft, 10)  
 ```
 
 We have our answer (`sports_centre` is the third value), but in general this is not a good approach as the first rows might still have many `NA`s and three distinct values might still not be present in the first `n` rows of the data frame. To remove `NA`s, we can use the function `na.omit()` on the leisure column to remove `NA`s completely. Note that we use the `$` operator to examine the content of a single variable.
 
-```{r}
-head(na.omit(point_Delft$leisure)) # this is better
+```{r points-leisure}
+# this is better
+na.omit(point_Delft$leisure) %>% head()  
 ```
 
 To show only unique values, we can use the `levels()` function on a factor to only see the first occurrence of each distinct value. Note `NA`s are dropped in this case and that we get the first three of the unique alphabetically ordered values.
 
-```{r}
-head(levels(factor(point_Delft$leisure)), n = 3)
+```{r points-leisure-head-3}
 # this is even better
+factor(point_Delft$leisure) %>%
+  levels() %>%
+  head(n = 3)   
 ```
 
-3. To see a list of all attribute names, we can use the `names()` function.
+3. To see a list of all fields names and answer the last question, we can use the `names()` function.
 
-```{r}
+```{r points-names}
 names(point_Delft)
 ```
+
+A) `location` is not a field of the `point_Delft` object. 
 
 :::::::::::::::::::::::::::::::::
 
@@ -158,24 +161,24 @@ names(point_Delft)
 
 ## Subset features
 
-We can use the `filter()` function to select a subset of features from a spatial object, just like with data frames. Let's select only cycleways from our street data. 
+We can use the `filter()` function to select a subset of features from a spatial object, just like with data frames. Let's select only `cycleways` from our street data. 
 
-```{r}
-cycleway_Delft <- lines_Delft %>%
+```{r cycleway}
+cycleway_Delft <- lines_Delft %>%   
   filter(highway == "cycleway")
 ```
 
 Our subsetting operation reduces the number of features from `r nrow(lines_Delft)` to `r nrow(cycleway_Delft)`.
 
-```{r}
+```{r cycleway-nrow}
 nrow(lines_Delft)
 nrow(cycleway_Delft)
 ```
 
-This can be useful, for instance, to calculate the total length of cycleways.
+This can be useful, for instance, to calculate the total length of cycleways. For that, we first need to calculate the length of each segment with `st_length()`
 
-```{r}
-cycleway_Delft <- cycleway_Delft %>%
+```{r cycleway-length}
+cycleway_Delft <- cycleway_Delft %>% 
   mutate(length = st_length(.))
 
 cycleway_Delft %>%
@@ -184,38 +187,35 @@ cycleway_Delft %>%
 
 Now we can plot only the cycleways.
 
-```{r fig.cap="Map of cycleways in Delft."}
+```{r plot-cycleway, fig.cap="Map of cycleways in Delft."}
 ggplot(data = cycleway_Delft) +
   geom_sf() +
-  labs(
-    title = "Slow mobility network in Delft",
-    subtitle = "Cycleways"
-  ) +
+  labs(title = "Slow mobility network in Delft", 
+       subtitle = "Cycleways") +
   coord_sf(datum = st_crs(28992))
 ```
 
 ::: challenge
 <!-- 7 minutes -->
 
-Challenge: Now with motorways (and pedestrian streets)
+Challenge: Now with motorways
 
 1. Create a new object that only contains the motorways in Delft. 
 2. How many features does the new object have?
 3. What is the total length of motorways?
 4. Plot the motorways.
-5. Extra: follow the same steps with pedestrian streets. 
 
 ::: solution
 
 1. To create the new object, we first need to see which value of the `highway` column holds motorways. There is a value called `motorway`.
 
-```{r}
+```{r highway-unique}
 unique(lines_Delft$highway)
 ```
 We extract only the features with the value `motorway`.
 
-```{r}
-motorway_Delft <- lines_Delft %>%
+```{r motorway}
+motorway_Delft <- lines_Delft %>% 
   filter(highway == "motorway")
 
 motorway_Delft
@@ -223,52 +223,33 @@ motorway_Delft
 
 2. There are `r nrow(motorway_Delft)` features with the value `motorway`.
 
-```{r}
-motorway_Delft_length <- motorway_Delft %>%
-  mutate(length = st_length(.)) %>%
+```{r motorway-nrow}
+nrow(motorway_Delft)
+```
+
+```{r motorway-length-hidden, include=FALSE}
+motorway_Delft_length <- motorway_Delft %>% 
+  mutate(length = st_length(.)) %>% 
   select(everything(), geometry) %>%
   summarise(total_length = sum(length))
 ```
 
 3. The total length of motorways is `r motorway_Delft_length$total_length`.
 
-```{r}
-nrow(motorway_Delft)
+```{r motorway-length}
+motorway_Delft_length <- motorway_Delft %>% 
+  mutate(length = st_length(.)) %>% 
+  select(everything(), geometry) %>%
+  summarise(total_length = sum(length))
 ```
 
 4. Plot the motorways.
 
-```{r}
-ggplot(data = motorway_Delft) +
+```{r plot-motorway}
+ggplot(data = motorway_Delft) + 
   geom_sf(linewidth = 1.5) +
-  labs(
-    title = "Fast mobility network",
-    subtitle = "Motorways"
-  ) +
-  coord_sf(datum = st_crs(28992))
-```
-
-5. Follow the same steps with pedestrian streets.
-
-```{r}
-pedestrian_Delft <- lines_Delft %>%
-  filter(highway == "pedestrian")
-
-pedestrian_Delft %>%
-  mutate(length = st_length(.)) %>%
-  select(everything(), geometry) %>%
-  summarise(total_length = sum(length))
-
-nrow(pedestrian_Delft)
-```
-
-```{r}
-ggplot() +
-  geom_sf(data = pedestrian_Delft) +
-  labs(
-    title = "Slow mobility network",
-    subtitle = "Pedestrian"
-  ) +
+  labs(title = "Fast mobility network", 
+       subtitle = "Motorways") + 
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -280,13 +261,13 @@ ggplot() +
 
 Let's say that we want to color different road types with different colors and that we want to determine those colors.
 
-```{r}
+```{r highway-unique2}
 unique(lines_Delft$highway)
 ```
 
-If we look at all the unique values of the highway field of our street network we see more than 20 values. Let's focus on a subset of four values to illustrate the use of distinct colors. We use a piped expression in which we only filter the rows of our data frame that have one of the four given values `"motorway"`, `"primary"`, `"secondary"`, and `"cycleway"`. Note that we do this with the `%in` operator which is a more compact equivalent of a series of conditions joined by the `|` (or) operator. We also make sure that the highway column is a factor column.
+If we look at all the unique values of the highway field of our street network we see more than 20 values. Let's focus on a subset of four values to illustrate the use of distinct colours. We filter the roads that have one of the four given values `"motorway"`, `"primary"`, `"secondary"`, and `"cycleway"`. Note that we do this with the `%in%` operator which is a more compact equivalent of a series of `==` equality conditions joined by the `|` (or) operator. We also make sure that the highway column is a factor column.
 
-```{r}
+```{r highway-types}
 road_types <- c("motorway", "primary", "secondary", "cycleway")
 
 lines_Delft_selection <- lines_Delft %>%
@@ -294,116 +275,56 @@ lines_Delft_selection <- lines_Delft %>%
   mutate(highway = factor(highway, levels = road_types))
 ```
 
-Next we define the four colors we want to use, one for each type of road in our vector object. Note that in R you can use named colors like `"blue"`, `"green"`, `"navy"`, and `"purple"`. If you are using RStudio, you will see the named colors previewed in line. A full list of named colors can be listed with the `colors()` function.
+Next we define the four colours we want to use, one for each type of road in our vector object. Note that in R you can use named colours like `"blue"`, `"green"`, `"navy"`, and `"purple"`. If you are using RStudio, you will see the named colours previewed in line. A full list of named colours can be listed with the `colors()` function.
 
-```{r}
+```{r highway-colors}
 road_colors <- c("blue", "green", "navy", "purple")
 ```
 
-We can use the defined color palette in ggplot.
+We can use the defined colour palette in a ggplot.
 
-```{r}
+```{r plot-highway-types}
 ggplot(data = lines_Delft_selection) +
   geom_sf(aes(color = highway)) +
   scale_color_manual(values = road_colors) +
-  labs(
-    color = "Road Type",
-    title = "Road network of Delft",
-    subtitle = "Roads & Cycleways"
-  ) +
-  coord_sf(datum = st_crs(28992))
-```
-
-## Adjust line width
-
-Earlier we adjusted the line width universally. We can also adjust line widths for every factor level. Note that in this case the `size` argument, like the `color` argument, are within the `aes()` mapping function. This means that the values of that visual property will be mapped from a variable of the object that is being plotted.
-
-```{r}
-line_widths <- c(1, 0.75, 0.5, 0.25)
-```
-
-```{r}
-ggplot(data = lines_Delft_selection) +
-  geom_sf(aes(color = highway, linewidth = highway)) +
-  scale_color_manual(values = road_colors) +
-  labs(
-    color = "Road Type",
-    linewidth = "Road Type",
-    title = "Mobility network of Delft",
-    subtitle = "Roads & Cycleways"
-  ) +
-  scale_linewidth_manual(values = line_widths) +
+  labs(color = "Road Type",
+       title = "Mobility Network of Delft", 
+       subtitle = "Main Roads & Cycleways") + 
   coord_sf(datum = st_crs(28992))
 ```
 
 ::: challenge
 
-# Challenge: Plot line width by attribute
+## Challenge: Adjust line width
 
-In the example above, we set the line widths to be 1, 0.75, 0.5, and 0.25. In our case line thicknesses are consistent with the hierarchy of the selected road types, but in some cases we might want to show a different hierarchy.
+Follow the same steps to add custom line widths for every road type. 
 
-Let’s create another plot where we show the different line types with the following thicknesses:
+1. Assign the custom values `1`, `0.75`, `0.5`, `0.25` in this order to an object called `line_widths`. These values will represent line thicknesses that are consistent with the hierarchy of the selected road types.
 
-- motorways linewidth = 0.25
-- primary linewidth = 0.75
-- secondary linewidth =  0.5
-- cycleway linewidth = 1
+2. In this case the `linewidth` argument, like the `color` argument above, should be within the `aes()` mapping function and should take the values of the custom line widths.
+
+3. Plot the result, making sure that `linewidth` is named the same way as `color` in the legend.
 
 ::: solution
 
-```{r}
-levels(factor(lines_Delft_selection$highway))
+```{r highway-linewidths}
+line_widths <- c(1, 0.75, 0.5, 0.25)
 ```
 
-```{r}
-line_width <- c(0.25, 0.75, 0.5, 1)
-```
-
-```{r}
+```{r plot-highway-types2}
 ggplot(data = lines_Delft_selection) +
-  geom_sf(aes(linewidth = highway)) +
-  scale_linewidth_manual(values = line_width) +
-  labs(
-    title = "Mobility network of Delft",
-    subtitle = "Roads & Cycleways - Line width varies"
-  ) +
-  coord_sf(datum = st_crs(28992))
-```
-
-:::
-
-:::
-
-
-## Add plot legend
-
-Let’s add a legend to our plot. We will use the `road_colors` object that we created above to color the legend. We can customize the appearance of our legend by manually setting different parameters.
-
-```{r fig.cap="Mobility network in Delft using thicker lines than the previous example."}
-p1 <- ggplot(data = lines_Delft_selection) +
-  geom_sf(aes(color = highway), linewidth = 1.5) +
+  geom_sf(aes(color = highway, linewidth = highway)) +
   scale_color_manual(values = road_colors) +
-  labs(color = "Road Type") +
-  labs(
-    title = "Mobility network of Delft",
-    subtitle = "Roads & Cycleways - Default Legend"
-  ) +
+  scale_linewidth_manual(values = line_widths) +
+  labs(color = "Road Type",
+       linewidth = "Road Type",
+       title = "Mobility Network of Delft",
+       subtitle = "Main Roads & Cycleways") +
   coord_sf(datum = st_crs(28992))
-
-# show plot
-p1
 ```
+:::
 
-```{r fig.cap="Map of the mobility network in Delft with large-font and border around the legend."}
-p2 <- p1 +
-  theme(
-    legend.text = element_text(size = 20),
-    legend.box.background = element_rect(linewidth = 1)
-  )
-
-# show plot
-p2
-```
+:::
 
 ::: challenge
 
@@ -412,18 +333,20 @@ p2
 
 Create a plot that emphasizes only roads where bicycles are allowed. To emphasize this, make the lines where bicycles are not allowed THINNER than the roads where bicycles are allowed. Be sure to add a title and legend to your map. You might consider a color palette that has all bike-friendly roads displayed in a bright color. All other lines can be black.
 
+Tip: `geom_sf()` can be called multiple times for multi-layer maps.
+
 ::: solution
 
-```{r}
+```{r highway-types-class}
 class(lines_Delft_selection$highway)
 ```
 
-```{r}
+```{r highway-types-levels}
 levels(factor(lines_Delft$highway))
 ```
 
-```{r}
-# First, create a data frame with only roads where bicycles
+```{r plot-cycleways2}
+# First, create a data frame with only roads where bicycles 
 # are allowed
 lines_Delft_bicycle <- lines_Delft %>%
   filter(highway == "cycleway")
@@ -447,36 +370,6 @@ ggplot(data = lines_Delft) +
 :::
 
 :::
-
-::: challenge
-
-# Challenge: Plot polygon by attribute
-<!-- 5 minutes -->
-
-Create a map of the municipal boundaries in the Netherlands using the data located in your data folder: `nl-gemeenten.shp`. Apply a line color to each state using its region value. Add a legend.
-
-::: solution
-
-```{r}
-municipal_boundaries_NL <- st_read("data/nl-gemeenten.shp")
-```
-
-```{r}
-str(municipal_boundaries_NL)
-levels(factor(municipal_boundaries_NL$ligtInPr_1))
-```
-
-```{r}
-ggplot(data = municipal_boundaries_NL) +
-  geom_sf(aes(color = ligtInPr_1), linewidth = 1) +
-  labs(title = "Contiguous NL Municipal Boundaries") +
-  coord_sf(datum = st_crs(28992))
-```
-
-:::
-
-:::
-
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
