@@ -418,7 +418,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Open and Plot Vector Layers</h1>
-        <p>Last updated on 2025-01-31 |
+        <p>Last updated on 2025-02-02 |
 
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/09-open-and-plot-vector-layers.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -462,7 +462,7 @@ data in R?</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Make sure that the <code>sf</code> package and its dependencies are
 installed before the workshop. The installation can be lengthy, so
@@ -506,14 +506,29 @@ working with spatial vector data.</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="the-sf-package" class="callout-inner">
-<h3 class="callout-title">The <code>sf</code> package</h3>
+<h3 class="callout-title">The ‘sf’ package</h3>
 <div class="callout-content">
 <p><code>sf</code> stands for Simple Features which is a standard
 defined by the Open Geospatial Consortium for storing and accessing
-geospatial vector data. PostGIS, for instance, uses the same standard,
-so PostGIS users might recognise the functions used by the
-<code>sf</code> package.</p>
+geospatial vector data. Read more about simple features and its
+implementation in R <a href="https://r-spatial.github.io/sf/articles/sf1.html" class="external-link">here</a>.</p>
 </div>
+</div>
+</div>
+<div id="geometry-in-qgis-and-in-r" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="geometry-in-qgis-and-in-r" class="callout-inner">
+<h3 class="callout-title">Geometry in QGIS and in R</h3>
+<div class="callout-content">
+<p>You may be familiar with GIS software using graphical interfaces like
+QGIS. In QGIS, you do not see the geometry in the Attribute Table but it
+is directly displayed in the map view. In R, however, the geometry is
+stored in a column called <code>geometry</code>.</p>
+<figure><img src="../fig/geometry-qgis.png" alt="Geometry in QGIS" class="figure mx-auto d-block"><div class="figcaption">Geometry in QGIS</div>
+</figure><figure><img src="../fig/geometry-r.png" alt="Geometry in R" class="figure mx-auto d-block"><div class="figcaption">Geometry in R</div>
+</figure></div>
 </div>
 </div>
 <section><h2 class="section-heading" id="import-shapefiles">Import shapefiles<a class="anchor" aria-label="anchor" href="#import-shapefiles"></a></h2>
@@ -534,9 +549,7 @@ administrative boundary of Delft with the function
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="all-sf-functions-start-with-st_" class="callout-inner">
-<h3 class="callout-title">All <code>sf</code> functions start with
-<code>st_</code>
-</h3>
+<h3 class="callout-title">All ‘sf’ functions start with ‘st_’</h3>
 <div class="callout-content">
 <p>Note that all functions from the <code>sf</code> package start with
 the standard prefix <code>st_</code> which stands for Spatial Type. This
@@ -548,16 +561,49 @@ the simple features standard like PostGIS easy.</li>
 </ol></div>
 </div>
 </div>
+<div id="shapefiles-vs.-geopackage" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="shapefiles-vs.-geopackage" class="callout-inner">
+<h3 class="callout-title">Shapefiles vs. GeoPackage</h3>
+<div class="callout-content">
+<p>Shapefiles are increasingly being replaced by more modern formats
+like GeoPackage. An advantage of GeoPackage is that it is a single file
+that can store multiple layers and attributes, whereas shapefiles
+consist of multiple files. However, shapefiles are still widely used and
+are a good starting point for learning about spatial data.</p>
+</div>
+</div>
+</div>
 </section><section><h2 class="section-heading" id="spatial-metadata">Spatial Metadata<a class="anchor" aria-label="anchor" href="#spatial-metadata"></a></h2>
 <hr class="half-width"><p>By default (with <code>quiet = FALSE</code>), the
 <code>st_read()</code> function provides a message with a summary of
-metadata about the file that was read in. To examine the metadata in
-more detail, we can use other, more specialised, functions from the
-<code>sf</code> package.</p>
-<p>The <code>st_geometry_type()</code> function, for instance, gives us
+metadata about the file that was read in.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">st_read</span><span class="op">(</span><span class="st">"data/delft-boundary.shp"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Reading layer `delft-boundary' from data source
+  `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-boundary.shp'
+  using driver `ESRI Shapefile'
+Simple feature collection with 1 feature and 1 field
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 4.320218 ymin: 51.96632 xmax: 4.407911 ymax: 52.0326
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+<p>To examine the metadata in more detail, we can use other, more
+specialised, functions from the <code>sf</code> package. The
+<code>st_geometry_type()</code> function, for instance, gives us
 information about the geometry type, which in this case is
 <code>POLYGON</code>.</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -569,11 +615,28 @@ information about the geometry type, which in this case is
 <pre class="output" tabindex="0"><code>[1] POLYGON
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE</code></pre>
 </div>
+<div id="geometry-types" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="geometry-types" class="callout-inner">
+<h3 class="callout-title">Geometry types</h3>
+<div class="callout-content">
+<p>The <code>sf</code> package supports the following common geometry
+types: <code>POINT</code>, <code>LINESTRING</code>,
+<code>POLYGON</code>, <code>MULTIPOINT</code>,
+<code>MULTILINESTRING</code>, <code>MULTIPOLYGON</code>,
+<code>GEOMETRYCOLLECTION</code>. More information about support for
+these and other geometry types can be found in the <a href="https://r-spatial.github.io/sf/articles/sf1.html" class="external-link">sf package
+documentation</a>.</p>
+</div>
+</div>
+</div>
 <p>The <code>st_crs()</code> function returns the coordinate reference
 system (CRS) used by the shapefile, which in this case is
 <code>WGS 84</code> and has the unique reference code
 <code>EPSG: 4326</code>.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -605,20 +668,45 @@ GEOGCRS["WGS 84",
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="examining-the-output-of-st_crs" class="callout-inner">
-<h3 class="callout-title">Examining the output of
-<code>st_crs()</code>
-</h3>
+<h3 class="callout-title">Examining the output of ‘st_crs()’</h3>
 <div class="callout-content">
 <p>As the output of <code>st_crs()</code> can be long, you can use
 <code>$Name</code> and <code>$epsg</code> after the <code>crs()</code>
 call to extract the projection name and EPSG code respectively.</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">boundary_Delft</span><span class="op">)</span><span class="op">$</span><span class="va">Name</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "WGS 84"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">st_crs</span><span class="op">(</span><span class="va">boundary_Delft</span><span class="op">)</span><span class="op">$</span><span class="va">epsg</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] 4326</code></pre>
+</div>
+<p>The <code>$</code> operator is used to extract a specific part of an
+object. We used it in a <a href="03-explore-data.html">previous
+episode</a> to subset a data frame by column name. In this case, it is
+used to extract named elements stored in a <code>crs</code> object. For
+more information, see <a href="https://r-spatial.github.io/sf/reference/st_crs.html#details" class="external-link">the
+documentation of the <code>st_crs</code> function</a>.</p>
 </div>
 </div>
 </div>
-<p>The <code>st_bbox()</code> function shows the extent of the layer. As
-<code>WGS 84</code> is a <strong>geographic CRS</strong>, the extent of
-the shapefile is displayed in degrees.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<p>The <code>st_bbox()</code> function shows the extent of the
+layer.</p>
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -630,18 +718,20 @@ the shapefile is displayed in degrees.</p>
 <pre class="output" tabindex="0"><code>     xmin      ymin      xmax      ymax
  4.320218 51.966316  4.407911 52.032599 </code></pre>
 </div>
-<p>We need a <strong>projected CRS</strong>, which in the case of the
-Netherlands is typically the Amersfort / RD New projection. To reproject
-our shapefile, we will use the <code>st_transform()</code> function. For
-the <code>crs</code> argument we can use the EPSG code of the CRS we
-want to use, which is <code>28992</code> for the
-<code>Amersfort / RD New</code> projection. To check the EPSG code of
-any CRS, we can check this website: <a href="https://epsg.io/" class="external-link uri">https://epsg.io/</a></p>
-<div class="codewrapper sourceCode" id="cb9">
+<p>As <code>WGS 84</code> is a <strong>geographic CRS</strong>, the
+extent of the shapefile is displayed in degrees. We need a
+<strong>projected CRS</strong>, which in the case of the Netherlands is
+the <code>Amersfoort / RD New</code> projection. To reproject our
+shapefile, we will use the <code>st_transform()</code> function. For the
+<code>crs</code> argument we can use the EPSG code of the CRS we want to
+use, which is <code>28992</code> for the <code>Amersfort / RD New</code>
+projection. To check the EPSG code of any CRS, we can check this
+website: <a href="https://epsg.io/" class="external-link uri">https://epsg.io/</a></p>
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">boundary_Delft</span> <span class="op">&lt;-</span> <span class="fu">st_transform</span><span class="op">(</span><span class="va">boundary_Delft</span>, <span class="fl">28992</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">boundary_Delft</span> <span class="op">&lt;-</span> <span class="fu">st_transform</span><span class="op">(</span><span class="va">boundary_Delft</span>, crs <span class="op">=</span> <span class="fl">28992</span><span class="op">)</span></span>
 <span><span class="fu">st_crs</span><span class="op">(</span><span class="va">boundary_Delft</span><span class="op">)</span><span class="op">$</span><span class="va">Name</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -649,7 +739,7 @@ any CRS, we can check this website: <a href="https://epsg.io/" class="external-l
 </h3>
 <pre class="output" tabindex="0"><code>[1] "Amersfoort / RD New"</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -661,8 +751,9 @@ any CRS, we can check this website: <a href="https://epsg.io/" class="external-l
 <pre class="output" tabindex="0"><code>[1] 28992</code></pre>
 </div>
 <p>Notice that the bounding box is measured in meters after the
-transformation.</p>
-<div class="codewrapper sourceCode" id="cb13">
+transformation. The <code>$units_gdal</code> named element confirms that
+the new CRS uses metric units.</p>
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -674,7 +765,7 @@ transformation.</p>
 <pre class="output" tabindex="0"><code>     xmin      ymin      xmax      ymax
  81743.00 442446.21  87703.78 449847.95 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -687,7 +778,7 @@ transformation.</p>
 </div>
 <p>We confirm the transformation by examining the reprojected
 shapefile.</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -704,14 +795,14 @@ Projected CRS: Amersfoort / RD New
   osm_id                       geometry
 1 324269 POLYGON ((87703.78 442651, ...</code></pre>
 </div>
-<div id="callout4" class="callout">
+<div id="callout7" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div class="callout-inner">
 <h3 class="callout-title">Callout</h3>
 <div class="callout-content">
-<p>Read more about Coordinate Reference Systems <a href="https://datacarpentry.org/organization-geospatial/03-crs.html" class="external-link">here</a>.
+<p>Read more about Coordinate Reference Systems <a href="08-intro-to-geospatial-concepts.html">in the previous episode</a>.
 We will also practice transformation between CRS in <a href="12-handling-spatial-projection-and-crs.html">Handling Spatial
 Projection &amp; CRS</a>.</p>
 </div>
@@ -722,8 +813,9 @@ Projection &amp; CRS</a>.</p>
 <code>ggplot2</code> package from <a href="04-intro-to-visualisation.html">Introduction to Visualisation</a>.
 <code>ggplot2</code> has special <code>geom_</code> functions for
 spatial data. We will use the <code>geom_sf()</code> function for
-<code>sf</code> data.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<code>sf</code> data. We use <code>coord_sf()</code> to ensure that the
+coordinates shown on the two axes are displayed in meters.</p>
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -732,7 +824,7 @@ spatial data. We will use the <code>geom_sf()</code> function for
 <span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Delft Administrative Boundary"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span> <span class="co"># displays the axes in meters</span></span></code></pre>
 </div>
-<figure><img src="../fig/09-open-and-plot-vector-layers-rendered-unnamed-chunk-8-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-import-line-and-point-vector-layers" class="callout challenge">
+<figure><img src="../fig/09-open-and-plot-vector-layers-rendered-plot-boundary-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-import-line-and-point-vector-layers" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -743,9 +835,7 @@ spatial data. We will use the <code>geom_sf()</code> function for
 <code>delft-leisure.shp</code> and assign them to
 <code>lines_Delft</code> and <code>points_Delft</code> respectively.
 Answer the following questions:</p>
-<ol style="list-style-type: decimal"><li>What type of R spatial object is created when you import each
-layer?</li>
-<li>What is the CRS and extent for each object?</li>
+<ol style="list-style-type: decimal"><li>What is the CRS and extent for each object?</li>
 <li>Do the files contain points, lines, or polygons?</li>
 <li>How many features are in each file?</li>
 </ol></div>
@@ -756,9 +846,9 @@ layer?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -770,7 +860,7 @@ layer?</li>
 contains <code>"LINESTRING"</code> geometry and
 <code>points_Delft</code> is made of <code>"POINT"</code>
 geometries.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -782,7 +872,7 @@ geometries.</p>
 <pre class="output" tabindex="0"><code>[1] LINESTRING
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -794,9 +884,9 @@ geometries.</p>
 <pre class="output" tabindex="0"><code>[1] POINT
 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE</code></pre>
 </div>
-<p><code>lines_Delft</code> and <code>points_Delft</code> are in the
-correct CRS.</p>
-<div class="codewrapper sourceCode" id="cb25">
+<p>Both <code>lines_Delft</code> and <code>points_Delft</code> are in
+<code>EPSG:28992</code>.</p>
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -807,7 +897,7 @@ correct CRS.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 28992</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -822,7 +912,7 @@ correct CRS.</p>
 function, we see the spatial extent of the two objects in a projected
 CRS using meters as units. <code>lines_Delft()</code> and
 <code>points_Delft</code> have similar extents.</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -834,7 +924,7 @@ CRS using meters as units. <code>lines_Delft()</code> and
 <pre class="output" tabindex="0"><code>     xmin      ymin      xmax      ymax
  81759.58 441223.13  89081.41 449845.81 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -857,10 +947,12 @@ CRS using meters as units. <code>lines_Delft()</code> and
 <div class="callout-inner">
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
-<ul><li>Metadata for vector layers include geometry type, CRS, and
-extent.</li>
-<li>Load spatial objects into R with the <code>st_read()</code>
-function.</li>
+<ul><li>Metadata for vector layers include geometry type, CRS, and extent
+and can be examined with the <code>sf</code> functions
+<code>st_geometry_type()</code>, <code>st_crs()</code>, and
+<code>st_bbox()</code>, respectively.</li>
+<li>Load spatial objects into R with the <code>sf</code> function
+<code>st_read()</code>.</li>
 <li>Spatial objects can be plotted directly with <code>ggplot2</code>
 using the <code>geom_sf()</code> function. No need to convert to a data
 frame.</li>
@@ -928,9 +1020,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/09-open-and-plot-vector-layers.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/09-open-and-plot-vector-layers.html",
-  "dateCreated": "2025-01-31",
-  "dateModified": "2025-01-31",
-  "datePublished": "2025-01-31"
+  "dateCreated": "2025-02-02",
+  "dateModified": "2025-02-02",
+  "datePublished": "2025-02-02"
 }
 
   </script><script>

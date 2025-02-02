@@ -531,14 +531,17 @@ the function preceded by the <code>?</code> sign.</li>
 longitude, which can be transformed on a plane using a map
 projection.</p></li>
 <li><p>Depending on the research question, we need a global, regional,
-or local CRS suitable properties.</p></li>
+or local CRS with suitable properties such as the least possible
+distortion and an appropriate measurement unit.</p></li>
 </ul></section><section id="09-open-and-plot-vector-layers"><h2 class="section-heading"><a href="09-open-and-plot-vector-layers.html">Open and Plot Vector Layers</a></h2>
 <hr class="half-width">
 <ul>
-<li>Metadata for vector layers include geometry type, CRS, and
-extent.</li>
-<li>Load spatial objects into R with the <code>st_read()</code>
-function.</li>
+<li>Metadata for vector layers include geometry type, CRS, and extent
+and can be examined with the <code>sf</code> functions
+<code>st_geometry_type()</code>, <code>st_crs()</code>, and
+<code>st_bbox()</code>, respectively.</li>
+<li>Load spatial objects into R with the <code>sf</code> function
+<code>st_read()</code>.</li>
 <li>Spatial objects can be plotted directly with <code>ggplot2</code>
 using the <code>geom_sf()</code> function. No need to convert to a data
 frame.</li>
@@ -552,18 +555,19 @@ functions and options in the <code>ggplot2</code> package.</p></li>
 </ul></section><section id="11-plot-multiple-shape-files"><h2 class="section-heading"><a href="11-plot-multiple-shape-files.html">Plot multiple shapefiles</a></h2>
 <hr class="half-width">
 <ul>
-<li>Use the <code>+</code> operator to add multiple layers to a
-ggplot.</li>
-<li>A plot can be a combination of multiple vector layers.</li>
-<li>Use the <code>scale_color_manual()</code> and
-<code>scale_fill_manual()</code> functions to set legend colors.</li>
+<li>A plot can be a combination of multiple vector layers, each added
+with a separate call to <code>geom_sf()</code>.</li>
+<li>Use the <code>scale_&lt;aesthetic&gt;_manual()</code> functions to
+customise aesthetics of vector layers such as <code>color</code>,
+<code>fill</code>, and <code>shape</code>.</li>
 </ul></section><section id="12-handling-spatial-projection-and-crs"><h2 class="section-heading"><a href="12-handling-spatial-projection-and-crs.html">Handling Spatial Projections &amp; CRS</a></h2>
 <hr class="half-width">
 <ul>
 <li>
 <code>ggplot2</code> automatically converts all objects in a plot to
 the same CRS.</li>
-<li>Still be aware of the CRS and extent for each object.</li>
+<li>For geoprocessing purposes, you still need to reproject the layers
+you use to the same CRS.</li>
 <li>You can export an <code>sf</code> object to a shapefile with
 <code>st_write()</code>.</li>
 </ul></section><section id="13-intro-to-raster-data"><h2 class="section-heading"><a href="13-intro-to-raster-data.html">Intro to Raster Data</a></h2>
@@ -672,9 +676,9 @@ GIS operations</li>
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/key-points.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/key-points.html",
-  "dateCreated": "2025-01-31",
-  "dateModified": "2025-02-01",
-  "datePublished": "2025-01-31"
+  "dateCreated": "2025-02-02",
+  "dateModified": "2025-02-02",
+  "datePublished": "2025-02-02"
 }
 
   </script><script>
