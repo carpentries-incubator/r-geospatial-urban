@@ -75,7 +75,7 @@ numeric_vector <- c(2, 6, 3)
 numeric_vector
 str(numeric_vector)
 
-# vector of words - or strings of characters- character data type. Note that we need to use '' to tell R that we are working with strings. If there is a ' mark in the string itselfs, such as s'Gravenhage, then we use ""
+# vector of words - or strings of characters- character data type. Note that we need to use quotation marks '' to tell R that we are working with strings. If there is a ' mark in the string itself, such as s'Gravenhage, then we use "".
 character_vector <- c('Amsterdam', "'s Gravenhage", 'Delft') 
 character_vector
 str(character_vector)
