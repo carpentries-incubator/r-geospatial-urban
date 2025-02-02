@@ -112,7 +112,7 @@ Note that the maps presented in this lesson do not use a scale bar. Instead, plo
 
 The map of Rotterdam in the figure above shows the area of the city as a discrete feature with precise boundaries. This type of data is called vector. Vector data can have the form of points, lines and polygons (areas).
 
-```{r fig-vector, fig.cap="Same geographical area as raster and vector data (Source: ???)", echo=FALSE}
+```{r fig-vector, fig.cap="Same geographical area as raster and vector data", echo=FALSE}
 knitr::include_graphics("fig/vector-raster-1.png")
 ```
 
