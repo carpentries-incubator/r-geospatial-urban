@@ -9,7 +9,7 @@ urban datasets.
 
 ## Rendered Version of This Lesson
 
-Version 1.0
+Version 1.0 
 
 ## Contact Information
 
