@@ -32,7 +32,6 @@ library(osmdata)
 library(leaflet)
 library(lwgeom)
 library(units)
-library(emo)
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 
 ```
