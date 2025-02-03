@@ -43,9 +43,6 @@ By the end of this lesson, you should be able to...
 #| label: setup
 #| include: false
 # install.packages("devtools")
-# devtools::install_github("hadley/emo")
-
-library(emo)
 
 
 knitr::opts_chunk$set(
@@ -56,7 +53,7 @@ knitr::opts_chunk$set(
   )
 ```
 
-## What is OpenStreetMap? `r emo::ji("map")`
+## What is OpenStreetMap? 
 
 ::: columns
 ::: {.column width="60%"}
@@ -72,7 +69,7 @@ knitr::opts_chunk$set(
 :::
 :::
 
-## What is OpenStreetMap? `r emo::ji("map")`
+## What is OpenStreetMap? 
 
 Anyone can contribute, by:
 
@@ -84,7 +81,7 @@ Anyone can contribute, by:
 -   checking and validating data. This ensures that the information is
     **accessible**, **open**, **accurate** and **up-to-date**.
 
-## OSM `r emo::ji("map")`
+## OSM
 
 The OSM information system relies on :
 
@@ -107,7 +104,7 @@ You can also try with *Naarden*, *Geertruidenberg*, *Gorinchem*,
 *Enkhuizen* or *Dokkum* if you prefer.
 
 
-## The Bounding Box `r emo::ji("square")`
+## The Bounding Box 
 
 We first geocode our spatial text search and extract the corresponding
 bounding box with the `getbb()` function
@@ -121,7 +118,7 @@ bb <- osmdata::getbb("Brielle")
 bb
 ```
 
-## The Bounding Box `r emo::ji("square")`
+## The Bounding Box 
 
 A Problem with download? Try:
 
@@ -287,7 +284,7 @@ Why these limits / isolated points?
 :::
 :::
 
-## `r emo::ji("alarm")` Challenge
+## Challenge
 
 Import an interactive basemap layer under the buildings with [Leaflet](https://rstudio.github.io/leaflet/), using the package documentation.
 
@@ -307,11 +304,7 @@ countdown::countdown(minutes = 20)
 
 ![](fig/leafletBrielle.png){fig-align="center"}
 
-## `r emo::ji("alarm")` To submit your work in Zoom:
-
-![](fig/zoomGDCU_UTQ.png)
-
-## `r emo::ji("alarm")` One solution
+## One solution
 
 ```{r}
 library(leaflet)
@@ -374,15 +367,15 @@ By the end of this session, you should be able to:
 
 -   **Map** the results
 
-## the 'sf' package `r emo::ji("box")`
+## the 'sf' package 
 
 ![](fig/sf_cheatsheet1.png){fig-align="center"}
 
-## the 'sf' cheatsheet `r emo::ji("map")`
+## the 'sf' cheatsheet 
 
 ![](fig/sf_cheatsheet2.png){fig-align="center"}
 
-## Conservation in Brielle, NL `r emo::ji("building")`
+## Conservation in Brielle, NL 
 
 Let's focus on old buildings and imagine we're in charge of their
 conservation. We want to know how much of the city would be affected by
@@ -390,7 +383,7 @@ a non-construction zone of 100m around pre-1800 buildings.
 
 If you were using pen&paper or a traditional GIS software, what would your workflow be?
 
-## Conservation in Brielle, NL `r emo::ji("building")`
+## Conservation in Brielle, NL 
 
 ```{r old-buildings}
 bb <- osmdata::getbb("Brielle, NL")
@@ -404,7 +397,7 @@ buildings <- x$osm_polygons %>%
 summary(buildings$start_date)
 ```
 
-## Conservation in Brielle, NL `r emo::ji("building")`
+## Conservation in Brielle, NL 
 
 ```{r }
 old <- 1800 # year prior to which you consider a building old
@@ -618,7 +611,7 @@ ggsave(filename = "fig/ConservationBrielle.png",
 p 
 ```
 
-## `r emo::ji("alarm")`Challenge: Conservation rules have changed!
+## Challenge: Conservation rules have changed!
 
 The historical threshold now applies to all **pre-WWII** buildings, but
 the distance to these building is reduced to **10m**.
@@ -708,7 +701,7 @@ In short:
 
 
 
-## `r emo::ji("talk")` A few words of caution
+## A few words of caution
 
 We have taught you to think, type, try, test, read the documentation.
 This is not only the *old fashion way*, but the **foundation.**
@@ -779,6 +772,6 @@ Join the community!
 
 This workshop is offered on a yearly basis. You are welcome to join the team for future events as *helpers* and/then as *instructors*. This strengthens the community... and it can bring you GS Credits.
 
-## `r emo::ji("rabbit")`The end... 
+## The end... 
 
 ![](fig/Thats_all_folks.svg.png){fig-align="center"}
