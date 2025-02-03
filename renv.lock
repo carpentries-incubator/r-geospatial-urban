@@ -1452,47 +1452,6 @@
       "Maintainer": "David Meyer <David.Meyer@R-project.org>",
       "Repository": "CRAN"
     },
-    "emo": {
-      "Package": "emo",
-      "Version": "0.0.0.9000",
-      "Source": "git",
-      "Title": "Easily Insert 'Emoji'",
-      "Authors@R": "c( person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = c(\"aut\", \"cre\")), person(\"Romain\", \"François\", , \"romain@thinkr.fr\", role = c(\"aut\")),  person(\"Lucy\", \"D'Agostino McGowan\", email = \"ld.mcgowan@vanderbilt.edu\", role = c(\"aut\")), person(\"RStudio\", role = \"cph\") )",
-      "Description": "Makes it easy to insert 'emoji' based on either their name or a descriptive keyword.",
-      "Depends": [
-        "R (>= 2.10)"
-      ],
-      "License": "GPL-3",
-      "Encoding": "UTF-8",
-      "LazyData": "true",
-      "Imports": [
-        "stringr",
-        "glue (>= 1.3.0)",
-        "crayon",
-        "utils",
-        "magrittr",
-        "assertthat",
-        "lubridate",
-        "rlang",
-        "purrr"
-      ],
-      "RoxygenNote": "6.0.1.9000",
-      "URL": "https://github.com/hadley/emo",
-      "BugReports": "https://github.com/hadley/emo/issues",
-      "Suggests": [
-        "testthat",
-        "dplyr"
-      ],
-      "Author": "Hadley Wickham [aut, cre], Romain François [aut], Lucy D'Agostino McGowan [aut], RStudio [cph]",
-      "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-      "RemoteType": "git",
-      "RemoteUrl": "https://github.com/hadley/emo",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "hadley",
-      "RemoteRepo": "emo",
-      "RemoteRef": "master",
-      "RemoteSha": "3f03b11491ce3d6fc5601e210927eff73bf8e350"
-    },
     "evaluate": {
       "Package": "evaluate",
       "Version": "1.0.3",
