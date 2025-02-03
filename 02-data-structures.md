@@ -22,8 +22,9 @@ After completing this episode, participants should be able to…
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Vectors 
-So far we've looked on individual values. Now we will move to a data structure 
-called vectors. Vectors are arrays of values of the same data type. 
+So far we've looked at individual values, such as x <- 100. Now we will move to a data structure 
+called vectors. Vectors are arrays of values of the same data type. So now we combine multiple values into one object:
+x <- c(100, 200)
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
 
@@ -63,6 +64,10 @@ Note that vector data in the geospatial context is different from vector data ty
 
 You can create a vector with a `c()` function. 
 
+You can inspect vectors with the `str()` function. In factor vectors, 
+it shows the underlying values of each category. 
+You can also see the structure in the environment tab of RStudio.
+
 
 ``` r
 # vector of numbers - numeric data type.
@@ -75,13 +80,29 @@ numeric_vector
 ```
 
 ``` r
-# vector of words - or strings of characters- character data type
-character_vector <- c('Amsterdam', 'London', 'Delft') 
+str(numeric_vector)
+```
+
+``` output
+ num [1:3] 2 6 3
+```
+
+``` r
+# vector of words - or strings of characters- character data type. Note that we need to use quotation marks '' to tell R that we are working with strings. If there is a ' mark in the string itself, such as s'Gravenhage, then we use "".
+character_vector <- c('Amsterdam', "'s Gravenhage", 'Delft') 
 character_vector
 ```
 
 ``` output
-[1] "Amsterdam" "London"    "Delft"    
+[1] "Amsterdam"     "'s Gravenhage" "Delft"        
+```
+
+``` r
+str(character_vector)
+```
+
+``` output
+ chr [1:3] "Amsterdam" "'s Gravenhage" "Delft"
 ```
 
 ``` r
@@ -92,6 +113,14 @@ logical_vector
 
 ``` output
 [1]  TRUE FALSE  TRUE
+```
+
+``` r
+str(logical_vector)
+```
+
+``` output
+ logi [1:3] TRUE FALSE TRUE
 ```
 
 ### Combining vectors 
@@ -130,6 +159,7 @@ Combine the `abcd_vector` with the `numeric_vector` in R. What is the data type 
 ```
 combined_vector <- c(abcd_vector, numeric_vector)
 combined_vector
+str(combined_vector)
 ```
 The combined vector is a character vector. Because vectors can only hold one data type and `abcd_vector` cannot be interpreted as numbers, the numbers in `numeric_vector` are _coerced_ into characters.
 
@@ -183,11 +213,30 @@ is.na(with_na) # This will produce a vector of logical values,
 # stating if a statement 'This element of the vector is a missing value'
 # is true or not
 
+# to see how many values are missing in our with_na vector, we can use the sum function
+sum(is.na(with_na))
+```
+
+``` output
+[1] 2
+```
+
+``` r
+# to identify the values that are not missing we write the following
 !is.na(with_na) # The ! operator means negation, i.e. not is.na(with_na)
 ```
 
 ``` output
 [1]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE
+```
+
+``` r
+#and to sum all the non-missing values we write
+sum(!is.na(with_na))
+```
+
+``` output
+[1] 5
 ```
 
 We know which elements in the vectors are `NA`.
@@ -242,6 +291,23 @@ nordic_cat # With factors, R prints out additional information - 'Levels'
 ``` output
 [1] Norway  Sweden  Norway  Denmark Sweden 
 Levels: Denmark Norway Sweden
+```
+
+``` r
+nordic_cat
+```
+
+``` output
+[1] Norway  Sweden  Norway  Denmark Sweden 
+Levels: Denmark Norway Sweden
+```
+
+``` r
+str(nordic_cat)
+```
+
+``` output
+ Factor w/ 3 levels "Denmark","Norway",..: 2 3 2 1 3
 ```
 
 ### Inspect factors
@@ -324,23 +390,7 @@ nordic_cat
 [1] Norway  Sweden  Norway  Denmark Sweden 
 Levels: Norway Denmark Sweden
 ```
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-You can also inspect vectors with `str()` function. In factor vectors, 
-it shows the underlying values of each category. 
-You can also see the structure in the environment tab of RStudio.
-
-
-``` r
-str(nordic_cat) 
-```
-
-``` output
- Factor w/ 3 levels "Norway","Denmark",..: 1 3 1 2 3
-```
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::: callout 
 
 ### Note of caution 
 

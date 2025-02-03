@@ -30,6 +30,7 @@ library(sf)
 library(osmdata)
 library(leaflet)
 library(lwgeom)
+library(units)
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 ```
 
@@ -234,37 +235,54 @@ Now, we would like to distinguish conservation areas based on the number of hist
 
 We aggregate them by ID number (`group_by(ID)`) and sum the variable `n` to know how many centroids are contained in each polygon-buffer.
 
-### Final output:
+### Maps of the number of buildings per zone:
 
-Let's map this layer over the initial map of individual buildings, and save the result.
+Let's map this layer over the initial map of individual buildings.
 
 
 ``` r
-p <- ggplot() + 
+ggplot() + 
    geom_sf(data = buildings) +
    geom_sf(data = single_buffer, aes(fill=n_buildings), colour = NA) +
    scale_fill_viridis_c(alpha = 0.6,
                         begin = 0.6,
                         end = 1,
                         direction = -1,
-                        option = "B") +
-    coord_sf(datum = st_crs(28992))
-
- p 
+                        option = "B") 
 ```
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-mapping-1.png" style="display: block; margin: auto;" />
+ 
+## Calculating area and density of spatial features
+
+In our analysis, we have a large number of pre-war buildings, and the buffer zones we’re using are quite broad. As a result, the total count of old buildings within these zones doesn’t provide us with the most meaningful insight. To make our analysis more useful, we should calculate the density of pre-war buildings within each buffer zone. This will help us better understand how these buildings are distributed across the area, providing more relevant and actionable information for our project.
+
 
 ``` r
-ggsave(filename = "fig/ConservationBrielle.png", 
-       plot = p)
+single_buffer$area <- st_area(single_buffer) %>% 
+  units::set_units(., km^2)
+
+single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
+
+ ggplot() + 
+   geom_sf(data = buildings) +
+   geom_sf(data = single_buffer, aes(fill=old_buildings_per_km2), colour = NA) +
+   scale_fill_viridis_c(alpha = 0.6,
+                        begin = 0.6,
+                        end = 1,
+                        direction = -1,
+                        option = "B") 
 ```
+
+<img src="fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" />
+
+
  
 ::::::::::::::::::::::::::::::::::::: challenge 
  
 ## Challenge: Conservation rules have changed. 
 
-The historical threshold now applies to all pre-war buildings, but the distance to these building is reduced to 10m. Can you map the number of all buildings per 10m fused buffer?
+The historical threshold now applies to all pre-war buildings, but the distance to these building is reduced to 10m. Can you map the density of all buildings per 10m fused buffer?
 
 
 :::::::::::::::::::::::: solution 
@@ -304,41 +322,9 @@ centroid_by_buffer <- centroids_buffers %>%
   
 single_buffer <- single_old_buffer %>% 
   mutate(n_buildings = centroid_by_buffer$n)
- 
-pnew <- ggplot() + 
-    geom_sf(data = buildings) +
-    geom_sf(data = single_buffer, aes(fill = n_buildings), colour = NA) +
-    scale_fill_viridis_c(alpha = 0.6,
-                         begin = 0.6,
-                         end = 1,
-                         direction = -1,
-                         option = "B")  +
-    coord_sf(datum = st_crs(28992))
-  
-  pnew 
-```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" />
-
-``` r
-ggsave(filename = "fig/ConservationBrielle_newrules.png", 
-       plot = pnew)
-```
-::::::::::::::::::::::::
-
-
-:::::::::::::::::::::::::::::::::::::
-
-
-*Problem: there are many pre-war buildings and the buffers are large so the number of old buildings is not very meaningful. Let's compute the density of old buildings per buffer zone.*
-
-## Area
-
-
-``` r
 single_buffer$area <- sf::st_area(single_buffer)  %>% 
   units::set_units(., km^2)
-
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
  ggplot() + 
@@ -351,7 +337,11 @@ single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / si
                         option = "B") 
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" />
+<img src="fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" />
+::::::::::::::::::::::::
+
+
+:::::::::::::::::::::::::::::::::::::
 
 
 
