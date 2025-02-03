@@ -1,33 +1,42 @@
 ---
 title: "Introduction to R"
-format: revealjs
-editor: visual
-Author: Kyri Janssen
+author:
+  - "Aleksandra Wilczynska"
+  - "Javier San Millán Tejedor"
+format:
+  revealjs:
+    footer: "Geospatial Data Carpentry for Urbanism"
+    chalkboard: true
+    incremental: true
+    theme: [default, custom.scss]
 ---
 
+```{r}
+#| label: setup
+#| include: false
 
-## Project management in RStudio
+library(tidyverse)
+library(here)
 
--   RStudio is an integrated development environment (IDE).
--   R is integrated into RStudio.
+gapminder <- read.csv(here('episodes/data','gapminder_data.csv') )
 
-<strong>RStudio provides a useful feature</strong>: creating a self-contained working space (i.e. working directory).
+knitr::opts_chunk$set(
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE)
+  
+```
 
-You can create projects in existing directories (folders) or create a new one.
 
-## Creating RStudio Project
+## RStudio
 
-To create a project, go to:
-
--   `File`
-
--   `New Project`
-
--   `New directory`
-
--   Name your project : `data-carpentry`
-
--   `Create project`
+- RStudio is an integrated development environment (IDE)
+- It provides a (much prettier) interface for the R software
+- R is integrated into RStudio, so you never have to open R...
+- Another useful feaure is creating a self-contained
+working space (i.e. working directory).
+- You can create projects in existing directories (folders) or create a new one.
 
 ## Organising working directory
 
@@ -37,54 +46,108 @@ To create a project, go to:
 -   `fig_output/` - your figure outputs **WRITE ONLY**
 -   `scripts/` - your code **READ AND WRITE**
 
-## Two main ways to interact with R
 
--   Test and play environment within the interactive **R console**
--   Write and save an **R script (.R file)**
+## Handling paths
+  ![*Source*: [kaggle.com](https://www.kaggle.com/code/rtatman/reproducibility-tips-absolute-vs-relative-paths/notebook)](fig/relative_root.png){fig-align="center" width="65%"}
 
-|          | Console                      | R script                                   |
-|----------------------|-------------------------|-------------------------|
-| **Pros** | Immediate results            | Work lost once you close RStudio           |
-| **Cons** | Complete record of your work | Messy if you just want to print things out |
+## `here` package
+![*Source*: [Allison horst](https://github.com/allisonhorst)](fig/here.png){fig-align="center" width="65%"}
 
-## Vector
 
--   Store multiple values in one object
+## Your turn!
 
--   All values have to be of the same data-type
-
--   c(`100`, `200`, `300`)
-
--   c(Apples, Pears, Oranges)
-
--   **Note**: vector data in the geospatial context is different from vector data!
-
-## Data types
-
-Data type refers to a type of information that is stored by a value. It can be:
-
--   `numerical` (a number)
-
--   `integer` (a number without information about decimal points)
-
--   `logical` (a boolean - are values TRUE or FALSE?)
-
--   `character` (a text/ string of characters)
-
--   `complex` (a complex number)
-
--   `raw` (raw bytes)
-
-## Data structures
-
-Besides vectors you will also come across:
-
--   **Data frames**: two-dimensional data structure \| combination of vectors of the same length
--   **List**: can have arbitrary data structure and can mix with data types
--   **Matrices**: two-dimensional data structures containing elements of the same data type
-
-## Excercise
-
-Combine the abcd_vector with the numeric_vector
-
+Combine the `abcd_vector` with the `numeric_vector`. 
 What is the data type of this new vector, and why?
+
+```{r}
+#| echo: false
+#| cache: false
+countdown::countdown(minutes = 3)
+```
+
+. . .
+
+```{r}
+numeric_vector <- c(2, 6, 3) 
+abcd_vector <- c("a", "b", "c", "d")
+
+combined_vector <- c(abcd_vector, numeric_vector)
+combined_vector
+str(combined_vector)
+
+```
+
+## Exploring data frames
+
+A data frame is the representation of data in the format of a **table** where the columns are **vectors** that all have the **same length**.
+
+![](fig/data-frame.svg){fig-align="center"}
+
+## Your turn! 
+
+Write a single command (you can use pipes) that will produce a **data frame** that has values only for **Eurasia**. Include variables:
+
+::: {.nonincremental}
+- **life expectancy**
+- **country**
+- **year**
+:::
+
+How many rows does your data frame have and why?
+
+```{r}
+#| echo: false
+#| cache: false
+countdown::countdown(minutes = 3)
+```
+
+. . .
+
+```{r}
+year_country_lifeExp_eurasia <- gapminder %>%
+  filter(continent=="Europe" | continent == "Asia"  ) %>%
+  select(year,country,lifeExp)
+
+nrow(year_country_lifeExp_eurasia)
+
+```
+
+
+## Your turn! 
+
+Calculate the **average life expectancy per country**. Which country has the **longest** average life expectancy and which has the **shortest** average life expectancy?
+
+
+**Hint:** Use `max()`  and `min()` functions to find minimum and maximum.
+
+```{r}
+#| echo: false
+#| cache: false
+countdown::countdown(minutes = 3)
+```
+
+. . .
+
+```{r}
+
+gapminder %>%
+  group_by(country) %>%
+  summarize(avg_lifeExp = mean(lifeExp) ) %>%
+  filter(avg_lifeExp == min(avg_lifeExp) | avg_lifeExp == max(avg_lifeExp))
+
+```
+
+
+
+## Introduction to visualisation
+
+![*Credit*: [Allison horst](https://github.com/allisonhorst)](fig/ggplot2_masterpiece.png){width="65%"}
+
+
+## `ggplot2` package
+
+`gg` stands for *grammar of graphics*, the idea that three components needed to create a graph are:
+
+  - **data**
+  - **aesthetics** - coordinate system on which we map the data ( what is represented on x axis, what on y axis)
+  - **geometries** - visual representation of the data (points, bars, etc.)
