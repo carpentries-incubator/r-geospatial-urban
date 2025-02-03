@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="start_files/libs/clipboard/clipboard.min.js"></script>
-<script src="start_files/libs/quarto-html/tabby.min.js"></script>
-<script src="start_files/libs/quarto-html/popper.min.js"></script>
-<script src="start_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="start_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="start_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="start_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="start_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.56">
+<script src="1-Intro-to-R-slides_files/libs/clipboard/clipboard.min.js"></script>
+<script src="1-Intro-to-R-slides_files/libs/quarto-html/tabby.min.js"></script>
+<script src="1-Intro-to-R-slides_files/libs/quarto-html/popper.min.js"></script>
+<script src="1-Intro-to-R-slides_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="1-Intro-to-R-slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="1-Intro-to-R-slides_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="1-Intro-to-R-slides_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="1-Intro-to-R-slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.450">
 
-  <meta name="dcterms.date" content="2024-02-19">
-  <title>start</title>
+  <title>Introduction to R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="start_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="start_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="1-Intro-to-R-slides_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="1-Intro-to-R-slides_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -30,11 +29,11 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="start_files/libs/revealjs/dist/theme/quarto.css">
-  <link href="start_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="start_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="start_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="start_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="1-Intro-to-R-slides_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="1-Intro-to-R-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="1-Intro-to-R-slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="1-Intro-to-R-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="1-Intro-to-R-slides_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -156,8 +155,7 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    padding-bottom: 0.5rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -325,257 +323,132 @@
   <div class="reveal">
     <div class="slides">
 
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Introduction to R</h1>
 
-<section>
-<section id="geospatial-data-carpentry-for-urbanism" class="title-slide slide level1 center" data-background-image="fig/tudlib-green.png">
-<h1>Geospatial Data Carpentry for Urbanism</h1>
-<p>10-11 February 2025</p>
-<p>TU Delft Library, Blue Room</p>
-</section>
-<section id="meet-the-team" class="slide level2">
-<h2>Meet the team</h2>
-<div>
+<div class="quarto-title-authors">
+</div>
 
-</div>
-<div class="caption quarto-layout-panel" data-layout-ncol="7">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/aleks.webp"></p>
-<figcaption>Aleks</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/ana.webp"></p>
-<figcaption>Ana</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/claudiu.webp"></p>
-<figcaption>Claudiu</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/clementine.webp"></p>
-<figcaption>Clémentine</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/daniele.webp"></p>
-<figcaption>Daniele</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/ignacio.webp"></p>
-<figcaption>Ignacio</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/javier.webp"></p>
-<figcaption>Javier</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/jerome.webp"></p>
-<figcaption>Jerome</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/kyri.webp"></p>
-<figcaption>Kyri</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/manuel.webp"></p>
-<figcaption>Manuel</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/paula.webp"></p>
-<figcaption>Paula</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/selin.webp"></p>
-<figcaption>Selin</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="fig/yun.webp"></p>
-<figcaption>Yun</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 14.3%;justify-content: center;">
-<p><img data-src="fig/blank.webp"></p>
-</div>
-</div>
-</div>
 </section>
-<section id="icebreaker" class="slide level2" data-background-image="fig/icebreaker.jpeg">
-<h2>Icebreaker</h2>
-<p><br><br><br><br><br><br><br><br><br><br>Tell us your name and favourite geographic location.</p>
-<div style="font-size: 50%;">
-<br>
-<div>
-Photo by <a href="https://unsplash.com/@dtropinin?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash">Dmitrii Tropinin</a> on <a href="https://unsplash.com/photos/red-and-white-ship-on-sea-during-daytime-cmJJJ829kK4?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash">Unsplash</a>
-</div>
-</div>
+<section id="project-management-in-rstudio" class="slide level2">
+<h2>Project management in RStudio</h2>
+<ul>
+<li>RStudio is an integrated development environment (IDE).</li>
+<li>R is integrated into RStudio.</li>
+</ul>
+<p><strong>RStudio provides a useful feature</strong>: creating a self-contained working space (i.e.&nbsp;working directory).</p>
+<p>You can create projects in existing directories (folders) or create a new one.</p>
 </section>
-<section id="what-will-you-not-learn" class="slide level2">
-<h2>What will you (not) learn?</h2>
-<div class="fragment">
-<p><span style="font-size: 75%;">Quoting from the pre-workshop survey:</span></p>
-</div>
-<div class="fragment fade-in-then-semi-out">
+<section id="creating-rstudio-project" class="slide level2">
+<h2>Creating RStudio Project</h2>
+<p>To create a project, go to:</p>
 <ul>
-<li>✅ “to use <span style="text-decoration: underline; -webkit-text-decoration-color: red; text-decoration-color: red;">Python</span> or R to process data in a more efficient way”</li>
-<li>✅ “R language”</li>
-<li>✅ “Learning a new programming language”</li>
-<li>✅ “I hope to learn skills that can make me more efficient and self-sufficient”</li>
+<li><p><code>File</code></p></li>
+<li><p><code>New Project</code></p></li>
+<li><p><code>New directory</code></p></li>
+<li><p>Name your project : <code>data-carpentry</code></p></li>
+<li><p><code>Create project</code></p></li>
 </ul>
-</div>
-<div class="fragment fade-in-then-semi-out">
-<ul>
-<li>✅ “To be more efficient in collecting, managing and working with <span style="text-decoration: underline; -webkit-text-decoration-color: red; text-decoration-color: red;">large datasets</span> through the applications surrounding geodata analysis.”</li>
-<li>✅ “To learn how to cope with <span style="text-decoration: underline; -webkit-text-decoration-color: red; text-decoration-color: red;">large datasets</span> in a more efficient way then using exel or GIS software.”</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>🚫 “How to conduct statistical analysis combing geo information”</li>
-<li>🚫 “data scraping methods”</li>
-</ul>
-</div>
 </section>
-<section id="program" class="slide level2">
-<h2>Program</h2>
-<div class="fragment">
-<p><strong>Day 1</strong></p>
+<section id="organising-working-directory" class="slide level2">
+<h2>Organising working directory</h2>
 <ul>
-<li>09:00-09:15 Introduction</li>
-<li>09:15-12:15 Part 1. <strong>Introduction to R</strong> (incl.&nbsp;1 break)</li>
-<li>12:15-13:00 Lunch</li>
-<li>13:00-16:40 Part 2. <strong>Working with vector data in R</strong> (incl.&nbsp;1 break)</li>
-<li>16:40-17:00 Closing &amp; feedback</li>
+<li><code>data/</code> - your raw data. <strong>READ ONLY</strong></li>
+<li><code>data_output/</code> - your data output <strong>READ AND WRITE</strong></li>
+<li><code>documents/</code> - the documentation associated with the project (e.g.&nbsp;cookbook)</li>
+<li><code>fig_output/</code> - your figure outputs <strong>WRITE ONLY</strong></li>
+<li><code>scripts/</code> - your code <strong>READ AND WRITE</strong></li>
 </ul>
-</div>
-<div class="fragment">
-<p><strong>Day 2</strong></p>
-<ul>
-<li>09:00-09:10 Opening</li>
-<li>09:10-12:15 Part 3. <strong>Working with raster data in R</strong> (incl.&nbsp;1 break)</li>
-<li>12:15-13:00 Lunch</li>
-<li>13:00-16:40 Part 4: <strong>Working with OSM data and GIS in R</strong> (incl.&nbsp;1 break)</li>
-<li>16:40-17:00 Closing &amp; feedback</li>
-<li>17:00 Drinks</li>
-</ul>
-</div>
 </section>
-<section id="how-do-we-work" class="slide level2">
-<h2>How do we work?</h2>
-<div>
+<section id="two-main-ways-to-interact-with-r" class="slide level2">
+<h2>Two main ways to interact with R</h2>
 <ul>
-<li class="fragment"><p><strong>Code along</strong> with the instructor.</p></li>
-<li class="fragment"><p>With <strong>🟩 <font color="green">green</font> and 🟥 <font color="red">red</font> sticky notes</strong> you indicate that you 🟩 <font color="green">are</font> or 🟥 <font color="red">are not</font> on track when prompted by the instructor.</p></li>
-<li class="fragment"><p>When you are stuck, <strong>put a 🟥 <font color="red">red</font> sticky note on the back of your screen</strong> and a helper will approach you.</p></li>
-<li class="fragment"><p><strong>Copy &amp; paste code from the <a href="https://edu.nl/wa4xu">livecode repository</a></strong> if you are behind and need to catch up.</p></li>
+<li>Test and play environment within the interactive <strong>R console</strong></li>
+<li>Write and save an <strong>R script (.R file)</strong></li>
 </ul>
-</div>
+<table>
+<colgroup>
+<col style="width: 30%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Console</th>
+<th>R script</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pros</strong></td>
+<td>Immediate results</td>
+<td>Work lost once you close RStudio</td>
+</tr>
+<tr class="even">
+<td><strong>Cons</strong></td>
+<td>Complete record of your work</td>
+<td>Messy if you just want to print things out</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="code-of-conduct" class="slide level2">
-<h2>Code of conduct</h2>
+<section id="vector" class="slide level2">
+<h2>Vector</h2>
 <ul>
-<li><p>Use welcoming and inclusive language</p></li>
-<li><p>Be respectful of different viewpoints and experiences</p></li>
-<li><p>Gracefully accept constructive criticism</p></li>
-<li><p>Focus on what is best for the community</p></li>
-<li><p>Show courtesy and respect towards other community members</p></li>
+<li><p>Store multiple values in one object</p></li>
+<li><p>All values have to be of the same data-type</p></li>
+<li><p>c(<code>100</code>, <code>200</code>, <code>300</code>)</p></li>
+<li><p>c(Apples, Pears, Oranges)</p></li>
+<li><p><strong>Note</strong>: vector data in the geospatial context is different from vector data!</p></li>
 </ul>
-<p>If you believe someone is violating the <a href="https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html">Code of Conduct</a>, we ask that you report it to The Carpentries Code of Conduct Committee <a href="https://goo.gl/forms/KoUfO53Za3apOuOK2">completing this form</a>, who will take the appropriate action to address the situation.</p>
 </section>
-<section id="practicalities" class="slide level2">
-<h2>Practicalities</h2>
-<div>
+<section id="data-types" class="slide level2">
+<h2>Data types</h2>
+<p>Data type refers to a type of information that is stored by a value. It can be:</p>
 <ul>
-<li class="fragment"><p><strong>The instructors and their screen will be filmed</strong>, but you will not be video- or audio-recorded. By participating in the workshop you acknowledge that the recording is taking place and that you don’t have any objection to it. We also kindly ask you to not video- and/or audio-record the session yourself.</p></li>
-<li class="fragment"><p><strong>Ph.D.&nbsp;candidates receive 1,5 GS credits</strong> if they attend and actively participate in the entire workshop - attendance forms will be handed out at the end of Day 2.</p></li>
-<li class="fragment"><p><strong>Lunch</strong> (both days), <strong>coffee/tea</strong> (breaks) and <strong>drinks</strong> (end of day 2) will be provided.</p></li>
+<li><p><code>numerical</code> (a number)</p></li>
+<li><p><code>integer</code> (a number without information about decimal points)</p></li>
+<li><p><code>logical</code> (a boolean - are values TRUE or FALSE?)</p></li>
+<li><p><code>character</code> (a text/ string of characters)</p></li>
+<li><p><code>complex</code> (a complex number)</p></li>
+<li><p><code>raw</code> (raw bytes)</p></li>
 </ul>
-</div>
-</section></section>
-<section id="competition" class="title-slide slide level1 center" data-background-image="fig/competition.jpeg">
-<h1><br><br>Competition</h1>
-<div class="{div}">
-<div style="font-size: 50%;">
-<br><br><br><br><br><br><br><br><br><br><br><br>
-<div>
-Photo by <a href="https://unsplash.com/@markkoenig?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash">Mark König</a> on <a href="https://unsplash.com/photos/a-group-of-people-rowing-on-a-body-of-water-fNXJs8IVFHA?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash">Unsplash</a>
-</div>
-</div>
-</div>
-<div class="quarto-auto-generated-content">
+</section>
+<section id="data-structures" class="slide level2">
+<h2>Data structures</h2>
+<p>Besides vectors you will also come across:</p>
+<ul>
+<li><strong>Data frames</strong>: two-dimensional data structure | combination of vectors of the same length</li>
+<li><strong>List</strong>: can have arbitrary data structure and can mix with data types</li>
+<li><strong>Matrices</strong>: two-dimensional data structures containing elements of the same data type</li>
+</ul>
+</section>
+<section id="excercise" class="slide level2">
+<h2>Excercise</h2>
+<p>Combine the abcd_vector with the numeric_vector</p>
+<p>What is the data type of this new vector, and why?</p>
 <div class="footer footer-default">
 
-</div>
 </div>
 </section>
     </div>
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="start_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="1-Intro-to-R-slides_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="start_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="start_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="start_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="start_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="start_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="1-Intro-to-R-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="1-Intro-to-R-slides_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="1-Intro-to-R-slides_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="1-Intro-to-R-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="1-Intro-to-R-slides_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="start_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="start_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="start_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="start_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="1-Intro-to-R-slides_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="1-Intro-to-R-slides_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="1-Intro-to-R-slides_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="1-Intro-to-R-slides_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -585,6 +458,7 @@ Photo by <a href="https://unsplash.com/@markkoenig?utm_content=creditCopyText&am
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
+'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -769,44 +643,6 @@ Photo by <a href="https://unsplash.com/@markkoenig?utm_content=creditCopyText&am
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
@@ -839,7 +675,18 @@ Photo by <a href="https://unsplash.com/@markkoenig?utm_content=creditCopyText&am
         }
         return false;
       }
-      const onCopySuccess = function(e) {
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -871,50 +718,11 @@ Photo by <a href="https://unsplash.com/@markkoenig?utm_content=creditCopyText&am
         }, 1000);
         // clear code selection
         e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
       });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        // For code content inside modals, clipBoardJS needs to be initialized with a container option
-        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
-            }
-          }
-        }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
+          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -924,17 +732,8 @@ Photo by <a href="https://unsplash.com/@markkoenig?utm_content=creditCopyText&am
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start',
+          placement: 'bottom-start'
         };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -948,11 +747,7 @@ Photo by <a href="https://unsplash.com/@markkoenig?utm_content=creditCopyText&am
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
+          return note.innerHTML;
         });
       }
       const findCites = (el) => {

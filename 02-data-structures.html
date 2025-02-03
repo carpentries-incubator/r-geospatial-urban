@@ -417,7 +417,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Data Structures</h1>
-        <p>Last updated on 2025-02-02 |
+        <p>Last updated on 2025-02-03 |
 
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/02-data-structures.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -457,9 +457,10 @@ structure of an object.</li>
 </div>
 </div>
 <section><h2 class="section-heading" id="vectors">Vectors<a class="anchor" aria-label="anchor" href="#vectors"></a></h2>
-<hr class="half-width"><p>So far we’ve looked on individual values. Now we will move to a data
-structure called vectors. Vectors are arrays of values of the same data
-type.</p>
+<hr class="half-width"><p>So far we’ve looked at individual values, such as x &lt;- 100. Now we
+will move to a data structure called vectors. Vectors are arrays of
+values of the same data type. So now we combine multiple values into one
+object: x &lt;- c(100, 200)</p>
 <div id="data-types" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -511,6 +512,9 @@ vector data types. More about vector data in a <a href="09-open-and-plot-vector-
 </div>
 </div>
 <p>You can create a vector with a <code>c()</code> function.</p>
+<p>You can inspect vectors with the <code>str()</code> function. In
+factor vectors, it shows the underlying values of each category. You can
+also see the structure in the environment tab of RStudio.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -528,16 +532,38 @@ vector data types. More about vector data in a <a href="09-open-and-plot-vector-
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># vector of words - or strings of characters- character data type</span></span>
-<span><span class="va">character_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'Amsterdam'</span>, <span class="st">'London'</span>, <span class="st">'Delft'</span><span class="op">)</span> </span>
+<code class="sourceCode R"><span><span class="fu">str</span><span class="op">(</span><span class="va">numeric_vector</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> num [1:3] 2 6 3</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># vector of words - or strings of characters- character data type. Note that we need to use quotation marks '' to tell R that we are working with strings. If there is a ' mark in the string itself, such as s'Gravenhage, then we use "".</span></span>
+<span><span class="va">character_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'Amsterdam'</span>, <span class="st">"'s Gravenhage"</span>, <span class="st">'Delft'</span><span class="op">)</span> </span>
 <span><span class="va">character_vector</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] "Amsterdam" "London"    "Delft"    </code></pre>
+<pre class="output" tabindex="0"><code>[1] "Amsterdam"     "'s Gravenhage" "Delft"        </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">str</span><span class="op">(</span><span class="va">character_vector</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> chr [1:3] "Amsterdam" "'s Gravenhage" "Delft"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -550,11 +576,22 @@ vector data types. More about vector data in a <a href="09-open-and-plot-vector-
 </h3>
 <pre class="output" tabindex="0"><code>[1]  TRUE FALSE  TRUE</code></pre>
 </div>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">str</span><span class="op">(</span><span class="va">logical_vector</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> logi [1:3] TRUE FALSE TRUE</code></pre>
+</div>
 <div class="section level3">
 <h3 id="combining-vectors">Combining vectors<a class="anchor" aria-label="anchor" href="#combining-vectors"></a></h3>
 <p>The combine function, <code>c()</code>, will also append things to an
 existing vector:</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -566,7 +603,7 @@ existing vector:</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "a" "b"</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -602,7 +639,8 @@ vector and why?</p>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <pre><code><span><span class="va">combined_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="va">abcd_vector</span>, <span class="va">numeric_vector</span><span class="op">)</span></span>
-<span><span class="va">combined_vector</span></span></code></pre>
+<span><span class="va">combined_vector</span></span>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">combined_vector</span><span class="op">)</span></span></code></pre>
 <p>The combined vector is a character vector. Because vectors can only
 hold one data type and <code>abcd_vector</code> cannot be interpreted as
 numbers, the numbers in <code>numeric_vector</code> are <em>coerced</em>
@@ -614,14 +652,14 @@ into characters.</p>
 <p>A common operation you want to perform is to remove all the missing
 values (in R denoted as <code>NA</code>). Let’s have a look how to do
 it:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">with_na</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="cn">NA</span> <span class="op">)</span> <span class="co"># vector including missing value</span></span></code></pre>
 </div>
 <p>First, let’s try to calculate mean for the values in this vector</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -632,7 +670,7 @@ it:</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] NA</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -649,7 +687,7 @@ it:</p>
 permanently removed from your vector. For this you need to identify
 which elements of the vector hold missing values with
 <code>is.na()</code> function.</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -660,13 +698,26 @@ which elements of the vector hold missing values with
 </h3>
 <pre class="output" tabindex="0"><code>[1] FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># stating if a statement 'This element of the vector is a missing value'</span></span>
 <span><span class="co"># is true or not</span></span>
 <span></span>
+<span><span class="co"># to see how many values are missing in our with_na vector, we can use the sum function</span></span>
+<span><span class="fu">sum</span><span class="op">(</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] 2</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb27">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># to identify the values that are not missing we write the following</span></span>
 <span><span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span> <span class="co"># The ! operator means negation, i.e. not is.na(with_na)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -674,11 +725,23 @@ which elements of the vector hold missing values with
 </h3>
 <pre class="output" tabindex="0"><code>[1]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
 </div>
+<div class="codewrapper sourceCode" id="cb29">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#and to sum all the non-missing values we write</span></span>
+<span><span class="fu">sum</span><span class="op">(</span><span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] 5</code></pre>
+</div>
 <p>We know which elements in the vectors are <code>NA</code>. Now we
 need to retrieve the subset of the <code>with_na</code> vector that is
 not <code>NA</code>. Sub-setting in <code>R</code> is done with square
 brackets<code>[ ]</code>.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -708,7 +771,7 @@ very careful when treating them as strings.</p>
 <h3 id="create-factors">Create factors<a class="anchor" aria-label="anchor" href="#create-factors"></a></h3>
 <p>Once created, factors can only contain a pre-defined set of values,
 known as levels.</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -720,7 +783,7 @@ known as levels.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "Norway"  "Sweden"  "Norway"  "Denmark" "Sweden" </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -734,6 +797,29 @@ known as levels.</p>
 <pre class="output" tabindex="0"><code>[1] Norway  Sweden  Norway  Denmark Sweden
 Levels: Denmark Norway Sweden</code></pre>
 </div>
+<div class="codewrapper sourceCode" id="cb37">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nordic_cat</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] Norway  Sweden  Norway  Denmark Sweden
+Levels: Denmark Norway Sweden</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb39">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">str</span><span class="op">(</span><span class="va">nordic_cat</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code> Factor w/ 3 levels "Denmark","Norway",..: 2 3 2 1 3</code></pre>
+</div>
 </div>
 <div class="section level3">
 <h3 id="inspect-factors">Inspect factors<a class="anchor" aria-label="anchor" href="#inspect-factors"></a></h3>
@@ -741,7 +827,7 @@ Levels: Denmark Norway Sweden</code></pre>
 <strong>level</strong> and (silently) assign numerical values to it.
 This can come in handy when performing statistical analysis. You can
 inspect and adapt levels of the factor.</p>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -752,7 +838,7 @@ inspect and adapt levels of the factor.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "Denmark" "Norway"  "Sweden" </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -780,7 +866,7 @@ This can be useful, for instance, to select a reference category (first
 level) in a regression model or for ordering legend items in a plot,
 rather than using the default category systematically (i.e. based on
 alphabetical order).</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -812,7 +898,7 @@ Levels: Norway Denmark Sweden</code></pre>
 <p>There is more than one way to reorder factors. Later in the lesson,
 we will use <code>fct_relevel()</code> function from
 <code>forcats</code> package to do the reordering.</p>
-<div class="codewrapper sourceCode" id="cb33">
+<div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -834,36 +920,14 @@ we will use <code>fct_relevel()</code> function from
 <pre class="output" tabindex="0"><code>[1] Norway  Sweden  Norway  Denmark Sweden
 Levels: Norway Denmark Sweden</code></pre>
 </div>
-</div>
-</div>
-</div>
-<p>You can also inspect vectors with <code>str()</code> function. In
-factor vectors, it shows the underlying values of each category. You can
-also see the structure in the environment tab of RStudio.</p>
-<div class="codewrapper sourceCode" id="cb35">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">str</span><span class="op">(</span><span class="va">nordic_cat</span><span class="op">)</span> </span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code> Factor w/ 3 levels "Norway","Denmark",..: 1 3 1 2 3</code></pre>
-</div>
-<div id="note-of-caution" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<div id="note-of-caution" class="callout-inner">
-<h3 class="callout-title">Note of caution</h3>
-<div class="callout-content">
+<div class="section level3">
+<h3 id="note-of-caution">Note of caution<a class="anchor" aria-label="anchor" href="#note-of-caution"></a></h3>
 <p>Remember that once created, factors can only contain a pre-defined
 set of values, known as levels. It means that whenever you try to add
 something to the factor outside of this set, it will become an
 unknown/missing value detonated by <code>R</code> as
 <code>NA</code>.</p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb49">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -874,7 +938,7 @@ unknown/missing value detonated by <code>R</code> as
 </h3>
 <pre class="output" tabindex="0"><code>[1] "Norway"  "Sweden"  "Norway"  "Denmark" "Sweden" </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -892,6 +956,7 @@ unknown/missing value detonated by <code>R</code> as
 </h3>
 <pre class="output" tabindex="0"><code>[1] Norway  &lt;NA&gt;    Norway  Denmark &lt;NA&gt;
 Levels: Norway Denmark</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -973,9 +1038,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/02-data-structures.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/02-data-structures.html",
-  "dateCreated": "2025-02-02",
-  "dateModified": "2025-02-02",
-  "datePublished": "2025-02-02"
+  "dateCreated": "2025-02-03",
+  "dateModified": "2025-02-03",
+  "datePublished": "2025-02-03"
 }
 
   </script><script>

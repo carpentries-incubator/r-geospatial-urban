@@ -356,7 +356,7 @@
 <li><a href="#union">Union</a></li>
 <li><a href="#centroids">Centroids</a></li>
 <li><a href="#intersection">Intersection</a></li>
-<li><a href="#area">Area</a></li>
+<li><a href="#calculating-area-and-density-of-spatial-features">Calculating area and density of spatial features</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -421,7 +421,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Basic GIS operations with R and sf</h1>
-        <p>Last updated on 2025-02-02 |
+        <p>Last updated on 2025-02-03 |
 
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/19-basic-gis-with-r-sf.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -470,6 +470,7 @@ package</li>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">osmdata</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">leaflet</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">lwgeom</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">units</span><span class="op">)</span></span>
 <span><span class="fu">assign</span><span class="op">(</span><span class="st">"has_internet_via_proxy"</span>, <span class="cn">TRUE</span>, <span class="fu">environment</span><span class="op">(</span><span class="fu">curl</span><span class="fu">::</span><span class="va">has_internet</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <section><h2 class="section-heading" id="why-sf-for-gis">Why <code>sf</code> for GIS?<a class="anchor" aria-label="anchor" href="#why-sf-for-gis"></a></h2>
@@ -706,33 +707,51 @@ aggregated.</p>
 the variable <code>n</code> to know how many centroids are contained in
 each polygon-buffer.</p>
 <div class="section level3">
-<h3 id="final-output">Final output:<a class="anchor" aria-label="anchor" href="#final-output"></a></h3>
-<p>Let’s map this layer over the initial map of individual buildings,
-and save the result.</p>
+<h3 id="maps-of-the-number-of-buildings-per-zone">Maps of the number of buildings per zone:<a class="anchor" aria-label="anchor" href="#maps-of-the-number-of-buildings-per-zone"></a></h3>
+<p>Let’s map this layer over the initial map of individual
+buildings.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">n_buildings</span><span class="op">)</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>                        begin <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>                        end <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                        direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
-<span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span> <span class="va">p</span> </span></code></pre>
+<span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> </span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-mapping-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb13">
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-mapping-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+</section><section><h2 class="section-heading" id="calculating-area-and-density-of-spatial-features">Calculating area and density of spatial features<a class="anchor" aria-label="anchor" href="#calculating-area-and-density-of-spatial-features"></a></h2>
+<hr class="half-width"><p>In our analysis, we have a large number of pre-war buildings, and the
+buffer zones we’re using are quite broad. As a result, the total count
+of old buildings within these zones doesn’t provide us with the most
+meaningful insight. To make our analysis more useful, we should
+calculate the density of pre-war buildings within each buffer zone. This
+will help us better understand how these buildings are distributed
+across the area, providing more relevant and actionable information for
+our project.</p>
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggsave</span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"fig/ConservationBrielle.png"</span>, </span>
-<span>       plot <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
+<span></span>
+<span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">old_buildings_per_km2</span><span class="op">)</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>                        begin <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>                        end <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                        direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
+<span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> </span></code></pre>
 </div>
-<div id="challenge-conservation-rules-have-changed." class="callout challenge">
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-conservation-rules-have-changed." class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -740,8 +759,8 @@ and save the result.</p>
 <h3 class="callout-title">Challenge: Conservation rules have changed.</h3>
 <div class="callout-content">
 <p>The historical threshold now applies to all pre-war buildings, but
-the distance to these building is reduced to 10m. Can you map the number
-of all buildings per 10m fused buffer?</p>
+the distance to these building is reduced to 10m. Can you map the
+density of all buildings per 10m fused buffer?</p>
 </div>
 </div>
 </div>
@@ -789,42 +808,9 @@ of all buildings per 10m fused buffer?</p>
 <span>  </span>
 <span><span class="va">single_buffer</span> <span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>n_buildings <span class="op">=</span> <span class="va">centroid_by_buffer</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
-<span> </span>
-<span><span class="va">pnew</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">n_buildings</span><span class="op">)</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>                         begin <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>                         end <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                         direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
-<span>                         option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span>  <span class="op">+</span></span>
-<span>    <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="va">pnew</span> </span></code></pre>
-</div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb15">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggsave</span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"fig/ConservationBrielle_newrules.png"</span>, </span>
-<span>       plot <span class="op">=</span> <span class="va">pnew</span><span class="op">)</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p><em>Problem: there are many pre-war buildings and the buffers are
-large so the number of old buildings is not very meaningful. Let’s
-compute the density of old buildings per buffer zone.</em></p>
-</div>
-</section><section><h2 class="section-heading" id="area">Area<a class="anchor" aria-label="anchor" href="#area"></a></h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span>  <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span>
+<span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span>  <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
 <span></span>
 <span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -836,7 +822,11 @@ compute the density of old buildings per buffer zone.</em></p>
 <span>                        direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
 <span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> </span></code></pre>
 </div>
-<figure><img src="fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="keypoints1" class="callout keypoints">
+<figure><img src="fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+</div>
+</div>
+</div>
+<div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -913,9 +903,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/19-basic-gis-with-r-sf.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/19-basic-gis-with-r-sf.html",
-  "dateCreated": "2025-02-02",
-  "dateModified": "2025-02-02",
-  "datePublished": "2025-02-02"
+  "dateCreated": "2025-02-03",
+  "dateModified": "2025-02-03",
+  "datePublished": "2025-02-03"
 }
 
   </script><script>
