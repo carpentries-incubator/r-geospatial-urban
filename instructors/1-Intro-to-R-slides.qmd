@@ -34,9 +34,7 @@ knitr::opts_chunk$set(
 - RStudio is an integrated development environment (IDE)
 - It provides a (much prettier) interface for the R software
 - R is integrated into RStudio, so you never have to open R...
-- Another useful feaure is creating a self-contained
-working space (i.e. working directory).
-- You can create projects in existing directories (folders) or create a new one.
+- With RStudio you can create a self-contained working space) (i.e. projects).
 
 ## Organising working directory
 
