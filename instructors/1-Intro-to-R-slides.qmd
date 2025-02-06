@@ -49,7 +49,7 @@ knitr::opts_chunk$set(
   ![*Source*: [kaggle.com](https://www.kaggle.com/code/rtatman/reproducibility-tips-absolute-vs-relative-paths/notebook)](fig/relative_root.png){fig-align="center" width="65%"}
 
 ## `here` package
-![*Source*: [Allison horst](https://github.com/allisonhorst)](fig/here.png){fig-align="center" width="65%"}
+![*Source*: [Allison Horst](https://github.com/allisonhorst)](fig/here.png){fig-align="center" width="65%"}
 
 
 ## Your turn!
