@@ -139,7 +139,7 @@ gapminder %>%
 
 ## Introduction to visualisation
 
-![*Credit*: [Allison horst](https://github.com/allisonhorst)](fig/ggplot2_masterpiece.png){width="65%"}
+![*Credit*: [Allison Horst](https://github.com/allisonhorst)](fig/ggplot2_masterpiece.png){width="65%"}
 
 
 ## `ggplot2` package
