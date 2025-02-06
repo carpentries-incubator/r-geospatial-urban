@@ -199,8 +199,7 @@ We have produced a proof a concept on Brielle, but can we factorise our work to 
 We might replace the name in the first line and run everything again. Or we can create a function.
 ```{r reproducibility}
 extract_buildings <- function(cityname, year=1900){
-  nominatim_polygon <- geo_lite_sf(address = cityname, points_only = FALSE)
-  bb <- st_bbox(nominatim_polygon)
+  bb <- getbb(cityname)
   
   x <- opq(bbox = bb) %>%
      add_osm_feature(key = 'building') %>%
