@@ -284,6 +284,51 @@ Why these limits / isolated points?
 :::
 :::
 
+## Replicability
+
+
+We have produced a proof a concept on Brielle, but can we factorise our work to be replicable with other small fortified cities? You can use any of the following cities: *Naarden*, *Geertruidenberg*, *Gorinchem*, *Enkhuizen* or *Dokkum*.
+
+We might replace the name in the first line and run everything again... or we can create a function.
+
+## Replicability
+
+```{r reproducibility}
+extract_buildings <- function(cityname, year=1900){
+  bb <- getbb(cityname)
+  
+  x <- opq(bbox = bb) %>%
+     add_osm_feature(key = 'building') %>%
+     osmdata_sf()
+     
+  buildings <- x$osm_polygons %>%
+    st_transform(.,crs=28992)
+    
+  start_date <- as.numeric(buildings$start_date)
+  
+  buildings$build_date <- if_else(start_date < year, year, start_date)
+   ggplot(data = buildings) +
+     geom_sf(aes(fill = build_date, colour=build_date))  +
+     scale_fill_viridis_c(option = "viridis")+
+     scale_colour_viridis_c(option = "viridis") +
+     ggtitle(paste0("Old buildings in ",cityname)) +
+     coord_sf(datum = st_crs(28992))
+}
+```
+
+## Test on Brielle
+
+```{r brielle}
+extract_buildings("Brielle, NL")
+```
+
+
+## Test on Naarden
+```{r naarden}
+extract_buildings("Naarden, NL")
+```
+
+
 ## Challenge
 
 Import an interactive basemap layer under the buildings with [Leaflet](https://rstudio.github.io/leaflet/), using the package documentation.
