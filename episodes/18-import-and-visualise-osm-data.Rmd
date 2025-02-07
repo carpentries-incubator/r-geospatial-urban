@@ -197,10 +197,9 @@ Anything odd? What? Around the centre? Why these limits / isolated points?
 We have produced a proof a concept on Brielle, but can we factorise our work to be replicable with other small fortified cities? You can use any of the following cities: *Naarden*, *Geertruidenberg*, *Gorinchem*, *Enkhuizen* or *Dokkum*.
 
 We might replace the name in the first line and run everything again. Or we can create a function.
-```{r reproducibility}
+```{r Replicability}
 extract_buildings <- function(cityname, year=1900){
-  nominatim_polygon <- geo_lite_sf(address = cityname, points_only = FALSE)
-  bb <- st_bbox(nominatim_polygon)
+  bb <- getbb(cityname)
   
   x <- opq(bbox = bb) %>%
      add_osm_feature(key = 'building') %>%
