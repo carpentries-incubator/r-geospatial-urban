@@ -387,8 +387,6 @@ In short:
 # Part 2. How to perform basic GIS operations with the `sf` package?
 ## Objectives:
 By the end of this session, you should be able to:  
-## Objectives:
-By the end of this session, you should be able to:  
 
 - Perform **geoprocessing operations** such as **union, join, and intersection**  
 - Create **buffers and centroids**  
