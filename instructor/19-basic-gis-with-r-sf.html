@@ -421,7 +421,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Basic GIS operations with R and sf</h1>
-        <p>Last updated on 2025-02-07 |
+        <p>Last updated on 2025-02-11 |
 
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/19-basic-gis-with-r-sf.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -497,35 +497,75 @@ a non-construction zone of 100m around pre-1800 buildings.</p>
 <code class="sourceCode R"><span><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu">osmdata</span><span class="fu">::</span><span class="fu">getbb</span><span class="op">(</span><span class="st">"Brielle, NL"</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">opq</span><span class="op">(</span>bbox <span class="op">=</span> <span class="va">bb</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>   <span class="fu">add_osm_feature</span><span class="op">(</span>key <span class="op">=</span> <span class="st">'building'</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>    <span class="fu">osmdata_sf</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">buildings</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">osm_polygons</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="va">.</span>,crs<span class="op">=</span><span class="fl">28992</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="fu">summary</span><span class="op">(</span><span class="va">buildings</span><span class="op">$</span><span class="va">start_date</span><span class="op">)</span></span></code></pre>
+<span>    <span class="fu">osmdata_sf</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>   Length     Class      Mode
-    10702 character character </code></pre>
+<pre class="error" tabindex="0"><code>Error in overpass_query(query = obj$overpass_call, quiet = quiet, encoding = encoding): object 'doc' not found</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">buildings</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">osm_polygons</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="va">.</span>,crs<span class="op">=</span><span class="fl">28992</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'x' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">buildings</span><span class="op">$</span><span class="va">start_date</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'buildings' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">old</span> <span class="op">&lt;-</span> <span class="fl">1800</span>  <span class="co"># year prior to which you consider a building old</span></span>
 <span></span>
-<span><span class="va">buildings</span><span class="op">$</span><span class="va">start_date</span> <span class="op">&lt;-</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">buildings</span><span class="op">$</span><span class="va">start_date</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">old_buildings</span> <span class="op">&lt;-</span> <span class="va">buildings</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">start_date</span> <span class="op">&lt;=</span> <span class="va">old</span><span class="op">)</span></span>
-<span></span>
-<span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">old_buildings</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="va">buildings</span><span class="op">$</span><span class="va">start_date</span> <span class="op">&lt;-</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">buildings</span><span class="op">$</span><span class="va">start_date</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'buildings' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">old_buildings</span> <span class="op">&lt;-</span> <span class="va">buildings</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">start_date</span> <span class="op">&lt;=</span> <span class="va">old</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'buildings' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">old_buildings</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>colour<span class="op">=</span><span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-recap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="overpass-query-unavailable-without-internet" class="callout">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'old_buildings' not found</code></pre>
+</div>
+<div id="overpass-query-unavailable-without-internet" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -536,7 +576,7 @@ a non-construction zone of 100m around pre-1800 buildings.</p>
 Overpass query unavailable without internet R”), run this line of code.
 It might not be needed, but ensures that your machine knows it has
 internet.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -555,7 +595,7 @@ we want to create a <em>buffer</em> around polygons. The corresponding
 <code>sf</code> function is <code>st_buffer()</code>, with 2 arguments:
 the polygons around which to create buffers, and the radius of the
 buffer.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -565,79 +605,67 @@ buffer.</p>
 <span><span class="fu">st_crs</span><span class="op">(</span><span class="va">old_buildings</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Coordinate Reference System:
-  User input: EPSG:28992
-  wkt:
-PROJCRS["Amersfoort / RD New",
-    BASEGEOGCRS["Amersfoort",
-        DATUM["Amersfoort",
-            ELLIPSOID["Bessel 1841",6377397.155,299.1528128,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4289]],
-    CONVERSION["RD New",
-        METHOD["Oblique Stereographic",
-            ID["EPSG",9809]],
-        PARAMETER["Latitude of natural origin",52.1561605555556,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",5.38763888888889,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9999079,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",155000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",463000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["easting (X)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["northing (Y)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1]],
-    USAGE[
-        SCOPE["Engineering survey, topographic mapping."],
-        AREA["Netherlands - onshore, including Waddenzee, Dutch Wadden Islands and 12-mile offshore coastal zone."],
-        BBOX[50.75,3.2,53.7,7.22]],
-    ID["EPSG",28992]]</code></pre>
+<pre class="error" tabindex="0"><code>Error: object 'old_buildings' not found</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#then we use `st_buffer()`</span></span>
 <span><span class="va">buffer_old_buildings</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">st_buffer</span><span class="op">(</span>x <span class="op">=</span> <span class="va">old_buildings</span>, dist <span class="op">=</span> <span class="va">distance</span><span class="op">)</span></span>
-<span> </span>
-<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buffer_old_buildings</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">st_buffer</span><span class="op">(</span>x <span class="op">=</span> <span class="va">old_buildings</span>, dist <span class="op">=</span> <span class="va">distance</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'old_buildings' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buffer_old_buildings</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>   </span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-buffer-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="union">Union<a class="anchor" aria-label="anchor" href="#union"></a></h2>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'buffer_old_buildings' not found</code></pre>
+</div>
+</section><section><h2 class="section-heading" id="union">Union<a class="anchor" aria-label="anchor" href="#union"></a></h2>
 <hr class="half-width"><p>Now, we have a lot of overlapping buffers. We would rather create a
 unique conservation zone rather than overlapping ones in that case. So
 we have to fuse the overlapping buffers into one polygon. This operation
 is called <em>union</em> and the corresponding function is
 <code>st_union()</code>.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">single_old_buffer</span> <span class="op">&lt;-</span> <span class="fu">st_union</span><span class="op">(</span><span class="va">buffer_old_buildings</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">st_cast</span><span class="op">(</span>to <span class="op">=</span> <span class="st">"POLYGON"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">single_old_buffer</span><span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> </span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'buffer_old_buildings' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">single_old_buffer</span><span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span><span class="st">"ID"</span><span class="op">=</span><span class="fu">as.factor</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu">nrow</span><span class="op">(</span><span class="va">single_old_buffer</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">st_transform</span><span class="op">(</span><span class="va">.</span>,crs<span class="op">=</span><span class="fl">28992</span><span class="op">)</span> </span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'single_old_buffer' not found</code></pre>
 </div>
 <p>We also use <code>st_cast()</code> to explicit the type of the
 resulting object (<em>POLYGON</em> instead of the default
@@ -653,44 +681,84 @@ buildings by a single point (for instance: their geometric centre)
 rather than their actual footprint. This operation means defining their
 <em>centroid</em> and the corresponding function is
 <code>st_centroid()</code>.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sf</span><span class="fu">::</span><span class="fu">sf_use_s2</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># s2 works with geographic projections, so to calculate centroids in projected CRS units (meters), we need to disable it.</span></span>
 <span></span>
 <span><span class="va">centroids_old</span> <span class="op">&lt;-</span> <span class="fu">st_centroid</span><span class="op">(</span><span class="va">old_buildings</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="va">.</span>,crs<span class="op">=</span><span class="fl">28992</span><span class="op">)</span>  </span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="va">.</span>,crs<span class="op">=</span><span class="fl">28992</span><span class="op">)</span>  </span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'old_buildings' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb27">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_old_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">ID</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">centroids_old</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-centroids-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="intersection">Intersection<a class="anchor" aria-label="anchor" href="#intersection"></a></h2>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'single_old_buffer' not found</code></pre>
+</div>
+</section><section><h2 class="section-heading" id="intersection">Intersection<a class="anchor" aria-label="anchor" href="#intersection"></a></h2>
 <hr class="half-width"><p>Now, we would like to distinguish conservation areas based on the
 number of historic buildings they contain. In GIS terms, we would like
 to know how many centroids each fused buffer polygon contains. This
 operation means <em>intersecting</em> the layer of polygons with the
 layer of points and the corresponding function is
 <code>st_intersection()</code>.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">centroids_buffers</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">st_intersection</span><span class="op">(</span><span class="va">centroids_old</span>,<span class="va">single_old_buffer</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span> <span class="va">centroid_by_buffer</span> <span class="op">&lt;-</span> <span class="va">centroids_buffers</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'centroids_old' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb31">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="va">centroid_by_buffer</span> <span class="op">&lt;-</span> <span class="va">centroids_buffers</span> <span class="op">%&gt;%</span></span>
 <span>   <span class="fu">group_by</span><span class="op">(</span><span class="va">ID</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>   <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span> </span>
-<span> <span class="va">single_buffer</span> <span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">%&gt;%</span></span>
-<span>   <span class="fu">mutate</span><span class="op">(</span>n_buildings <span class="op">=</span> <span class="va">centroid_by_buffer</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
-<span></span>
-<span> </span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>   <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'centroids_buffers' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb33">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="va">single_buffer</span> <span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">%&gt;%</span></span>
+<span>   <span class="fu">mutate</span><span class="op">(</span>n_buildings <span class="op">=</span> <span class="va">centroid_by_buffer</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'single_old_buffer' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb35">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">n_buildings</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>                        begin <span class="op">=</span> <span class="fl">0.6</span>,</span>
@@ -699,7 +767,12 @@ layer of points and the corresponding function is
 <span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-intersection-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p><code>st_intersection</code> here adds the attributes of the
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'single_buffer' not found</code></pre>
+</div>
+<p><code>st_intersection</code> here adds the attributes of the
 intersected polygon buffers to the data table of the centroids. This
 means we will now know about each centroid, the ID of its intersected
 polygon-buffer, and a variable called “n” which is population with 1 for
@@ -712,7 +785,7 @@ each polygon-buffer.</p>
 <h3 id="maps-of-the-number-of-buildings-per-zone">Maps of the number of buildings per zone:<a class="anchor" aria-label="anchor" href="#maps-of-the-number-of-buildings-per-zone"></a></h3>
 <p>Let’s map this layer over the initial map of individual
 buildings.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -725,7 +798,12 @@ buildings.</p>
 <span>                        direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
 <span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> </span></code></pre>
 </div>
-<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-mapping-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'buildings' not found</code></pre>
+</div>
+</div>
 </section><section><h2 class="section-heading" id="calculating-area-and-density-of-spatial-features">Calculating area and density of spatial features<a class="anchor" aria-label="anchor" href="#calculating-area-and-density-of-spatial-features"></a></h2>
 <hr class="half-width"><p>In our analysis, we have a large number of pre-war buildings, and the
 buffer zones we’re using are quite broad. As a result, the total count
@@ -735,16 +813,34 @@ calculate the density of pre-war buildings within each buffer zone. This
 will help us better understand how these buildings are distributed
 across the area, providing more relevant and actionable information for
 our project.</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
-<span></span>
-<span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'single_buffer' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb41">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'single_buffer' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb43">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">old_buildings_per_km2</span><span class="op">)</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
@@ -753,7 +849,12 @@ our project.</p>
 <span>                        direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
 <span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> </span></code></pre>
 </div>
-<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-conservation-rules-have-changed." class="callout challenge">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'buildings' not found</code></pre>
+</div>
+<div id="challenge-conservation-rules-have-changed." class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -771,9 +872,9 @@ density of all buildings per 10m fused buffer?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -782,40 +883,131 @@ density of all buildings per 10m fused buffer?</p>
 <span></span>
 <span><span class="co"># select</span></span>
 <span><span class="va">old_buildings</span> <span class="op">&lt;-</span> <span class="va">buildings</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">start_date</span> <span class="op">&lt;=</span> <span class="va">old</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># buffer</span></span>
-<span><span class="va">buffer_old_buildings</span> <span class="op">&lt;-</span> <span class="fu">st_buffer</span><span class="op">(</span><span class="va">old_buildings</span>, dist <span class="op">=</span> <span class="va">distance</span><span class="op">)</span></span>
-<span>  </span>
-<span><span class="co"># union</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">start_date</span> <span class="op">&lt;=</span> <span class="va">old</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'buildings' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb47">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># buffer</span></span>
+<span><span class="va">buffer_old_buildings</span> <span class="op">&lt;-</span> <span class="fu">st_buffer</span><span class="op">(</span><span class="va">old_buildings</span>, dist <span class="op">=</span> <span class="va">distance</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'old_buildings' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb49">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># union</span></span>
 <span><span class="va">single_old_buffer</span> <span class="op">&lt;-</span> <span class="fu">st_union</span><span class="op">(</span><span class="va">buffer_old_buildings</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">st_cast</span><span class="op">(</span>to <span class="op">=</span> <span class="st">"POLYGON"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span>  </span>
-<span> </span>
-<span><span class="va">single_old_buffer</span> <span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span>  </span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'buffer_old_buildings' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb51">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">single_old_buffer</span> <span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span><span class="st">"ID"</span><span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fu">nrow</span><span class="op">(</span><span class="va">single_old_buffer</span><span class="op">)</span><span class="op">)</span>  <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="va">single_old_buffer</span>,crs<span class="op">=</span><span class="fl">4326</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="co"># centroids</span></span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="va">single_old_buffer</span>,crs<span class="op">=</span><span class="fl">4326</span><span class="op">)</span> </span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'single_old_buffer' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb53">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># centroids</span></span>
 <span><span class="va">centroids_old</span> <span class="op">&lt;-</span> <span class="fu">st_centroid</span><span class="op">(</span><span class="va">old_buildings</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="va">.</span>,crs<span class="op">=</span><span class="fl">4326</span><span class="op">)</span>  </span>
-<span>  </span>
-<span><span class="co"># intersection</span></span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="va">.</span>,crs<span class="op">=</span><span class="fl">4326</span><span class="op">)</span>  </span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'old_buildings' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb55">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># intersection</span></span>
 <span><span class="va">centroids_buffers</span> <span class="op">&lt;-</span> <span class="fu">st_intersection</span><span class="op">(</span><span class="va">centroids_old</span>,<span class="va">single_old_buffer</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>n<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span> </span>
-<span><span class="va">centroid_by_buffer</span> <span class="op">&lt;-</span> <span class="va">centroids_buffers</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>n<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'centroids_old' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb57">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">centroid_by_buffer</span> <span class="op">&lt;-</span> <span class="va">centroids_buffers</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">ID</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span>  </span>
-<span><span class="va">single_buffer</span> <span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>n_buildings <span class="op">=</span> <span class="va">centroid_by_buffer</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span>  <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
-<span></span>
-<span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'centroids_buffers' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb59">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">single_buffer</span> <span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>n_buildings <span class="op">=</span> <span class="va">centroid_by_buffer</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'single_old_buffer' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb61">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span>  <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'single_buffer' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb63">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'single_buffer' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb65">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">old_buildings_per_km2</span><span class="op">)</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>   <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
@@ -824,7 +1016,12 @@ density of all buildings per 10m fused buffer?</p>
 <span>                        direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
 <span>                        option <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> </span></code></pre>
 </div>
-<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'buildings' not found</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -906,8 +1103,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/19-basic-gis-with-r-sf.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/19-basic-gis-with-r-sf.html",
   "dateCreated": "2025-02-07",
-  "dateModified": "2025-02-07",
-  "datePublished": "2025-02-07"
+  "dateModified": "2025-02-11",
+  "datePublished": "2025-02-11"
 }
 
   </script><script>
