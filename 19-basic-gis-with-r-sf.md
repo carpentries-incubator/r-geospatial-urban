@@ -54,32 +54,57 @@ bb <- osmdata::getbb("Brielle, NL")
 x <- opq(bbox = bb) %>%
    add_osm_feature(key = 'building') %>%
     osmdata_sf()
+```
+
+``` error
+Error in overpass_query(query = obj$overpass_call, quiet = quiet, encoding = encoding): object 'doc' not found
+```
+
+``` r
 buildings <- x$osm_polygons %>%
   st_transform(.,crs=28992)
+```
 
+``` error
+Error: object 'x' not found
+```
 
+``` r
 summary(buildings$start_date)
 ```
 
-``` output
-   Length     Class      Mode 
-    10702 character character 
+``` error
+Error: object 'buildings' not found
 ```
 
 ``` r
 old <- 1800  # year prior to which you consider a building old
 
 buildings$start_date <- as.numeric(buildings$start_date)
+```
 
+``` error
+Error: object 'buildings' not found
+```
+
+``` r
 old_buildings <- buildings %>%
   filter(start_date <= old)
+```
 
+``` error
+Error: object 'buildings' not found
+```
+
+``` r
  ggplot(data = old_buildings) + 
    geom_sf(colour="red") +
    coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-recap-1.png" style="display: block; margin: auto;" />
+``` error
+Error: object 'old_buildings' not found
+```
 
 ::::::::::::::::::::::::::::::::::::: callout
 
@@ -108,61 +133,29 @@ distance <- 100 # in meters
 st_crs(old_buildings)
 ```
 
-``` output
-Coordinate Reference System:
-  User input: EPSG:28992 
-  wkt:
-PROJCRS["Amersfoort / RD New",
-    BASEGEOGCRS["Amersfoort",
-        DATUM["Amersfoort",
-            ELLIPSOID["Bessel 1841",6377397.155,299.1528128,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4289]],
-    CONVERSION["RD New",
-        METHOD["Oblique Stereographic",
-            ID["EPSG",9809]],
-        PARAMETER["Latitude of natural origin",52.1561605555556,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",5.38763888888889,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9999079,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",155000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",463000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["easting (X)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["northing (Y)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1]],
-    USAGE[
-        SCOPE["Engineering survey, topographic mapping."],
-        AREA["Netherlands - onshore, including Waddenzee, Dutch Wadden Islands and 12-mile offshore coastal zone."],
-        BBOX[50.75,3.2,53.7,7.22]],
-    ID["EPSG",28992]]
+``` error
+Error: object 'old_buildings' not found
 ```
 
 ``` r
 #then we use `st_buffer()`
 buffer_old_buildings <- 
   st_buffer(x = old_buildings, dist = distance)
- 
+```
+
+``` error
+Error: object 'old_buildings' not found
+```
+
+``` r
 ggplot(data = buffer_old_buildings) + 
   geom_sf() +   
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-buffer-1.png" style="display: block; margin: auto;" />
+``` error
+Error: object 'buffer_old_buildings' not found
+```
 
 ## Union
 
@@ -173,10 +166,20 @@ Now, we have a lot of overlapping buffers. We would rather create a unique conse
 single_old_buffer <- st_union(buffer_old_buildings) %>%
   st_cast(to = "POLYGON") %>%
   st_as_sf() 
+```
 
+``` error
+Error: object 'buffer_old_buildings' not found
+```
+
+``` r
 single_old_buffer<- single_old_buffer %>%
   mutate("ID"=as.factor(1:nrow(single_old_buffer))) %>%
   st_transform(.,crs=28992) 
+```
+
+``` error
+Error: object 'single_old_buffer' not found
 ```
 
 We also use `st_cast()` to explicit the type of the resulting object (*POLYGON* instead of the default *MULTIPOLYGON*) and `st_as_sf()` to transform the polygon into an `sf` object. With this function, we ensure that we end up with an `sf` object, which was not the case after we forced the union of old buildings into a *POLYGON* format.
@@ -192,14 +195,22 @@ sf::sf_use_s2(FALSE)  # s2 works with geographic projections, so to calculate ce
 
 centroids_old <- st_centroid(old_buildings) %>%
   st_transform(.,crs=28992)  
+```
 
+``` error
+Error: object 'old_buildings' not found
+```
+
+``` r
 ggplot() + 
     geom_sf(data = single_old_buffer, aes(fill=ID)) +
     geom_sf(data = centroids_old) +
     coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-centroids-1.png" style="display: block; margin: auto;" />
+``` error
+Error: object 'single_old_buffer' not found
+```
 
 ## Intersection
 Now, we would like to distinguish conservation areas based on the number of historic buildings they contain. In GIS terms, we would like to know how many centroids each fused buffer polygon contains. This operation means _intersecting_ the layer of polygons with the layer of points and the corresponding function is `st_intersection()`.
@@ -210,15 +221,32 @@ Now, we would like to distinguish conservation areas based on the number of hist
  centroids_buffers <- 
   st_intersection(centroids_old,single_old_buffer) %>%
   mutate(n = 1)
+```
 
+``` error
+Error: object 'centroids_old' not found
+```
+
+``` r
  centroid_by_buffer <- centroids_buffers %>%
    group_by(ID) %>%
    summarise(n = sum(n))
- 
+```
+
+``` error
+Error: object 'centroids_buffers' not found
+```
+
+``` r
  single_buffer <- single_old_buffer %>%
    mutate(n_buildings = centroid_by_buffer$n)
+```
 
- 
+``` error
+Error: object 'single_old_buffer' not found
+```
+
+``` r
   ggplot() + 
    geom_sf(data = single_buffer, aes(fill = n_buildings)) +
    scale_fill_viridis_c(alpha = 0.8,
@@ -229,7 +257,9 @@ Now, we would like to distinguish conservation areas based on the number of hist
       coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-intersection-1.png" style="display: block; margin: auto;" />
+``` error
+Error: object 'single_buffer' not found
+```
 
 `st_intersection` here adds the attributes of the intersected polygon buffers to the data table of the centroids. This means we will now know about each centroid, the ID of its intersected polygon-buffer, and a variable called "n" which is population with 1 for everyone. This means that all centroids will have the same weight when aggregated.
 
@@ -251,7 +281,9 @@ ggplot() +
                         option = "B") 
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-mapping-1.png" style="display: block; margin: auto;" />
+``` error
+Error: object 'buildings' not found
+```
  
 ## Calculating area and density of spatial features
 
@@ -261,9 +293,21 @@ In our analysis, we have a large number of pre-war buildings, and the buffer zon
 ``` r
 single_buffer$area <- st_area(single_buffer) %>% 
   units::set_units(., km^2)
+```
 
+``` error
+Error: object 'single_buffer' not found
+```
+
+``` r
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
+```
 
+``` error
+Error: object 'single_buffer' not found
+```
+
+``` r
  ggplot() + 
    geom_sf(data = buildings) +
    geom_sf(data = single_buffer, aes(fill=old_buildings_per_km2), colour = NA) +
@@ -274,7 +318,9 @@ single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / si
                         option = "B") 
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" />
+``` error
+Error: object 'buildings' not found
+```
 
 
  
@@ -295,38 +341,99 @@ distance <- 10
 # select
 old_buildings <- buildings %>%
   filter(start_date <= old)
+```
 
+``` error
+Error: object 'buildings' not found
+```
+
+``` r
 # buffer
 buffer_old_buildings <- st_buffer(old_buildings, dist = distance)
-  
+```
+
+``` error
+Error: object 'old_buildings' not found
+```
+
+``` r
 # union
 single_old_buffer <- st_union(buffer_old_buildings) %>%
   st_cast(to = "POLYGON") %>%
   st_as_sf()  
- 
+```
+
+``` error
+Error: object 'buffer_old_buildings' not found
+```
+
+``` r
 single_old_buffer <- single_old_buffer %>%
   mutate("ID"=1:nrow(single_old_buffer))  %>%
   st_transform(single_old_buffer,crs=4326) 
+```
 
+``` error
+Error: object 'single_old_buffer' not found
+```
+
+``` r
 # centroids
 centroids_old <- st_centroid(old_buildings) %>%
   st_transform(.,crs=4326)  
-  
+```
+
+``` error
+Error: object 'old_buildings' not found
+```
+
+``` r
 # intersection
 centroids_buffers <- st_intersection(centroids_old,single_old_buffer) %>%
   mutate(n=1)
- 
+```
+
+``` error
+Error: object 'centroids_old' not found
+```
+
+``` r
 centroid_by_buffer <- centroids_buffers %>% 
   group_by(ID) %>%
   summarise(n = sum(n))
-  
+```
+
+``` error
+Error: object 'centroids_buffers' not found
+```
+
+``` r
 single_buffer <- single_old_buffer %>% 
   mutate(n_buildings = centroid_by_buffer$n)
+```
 
+``` error
+Error: object 'single_old_buffer' not found
+```
+
+``` r
 single_buffer$area <- sf::st_area(single_buffer)  %>% 
   units::set_units(., km^2)
-single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
+```
 
+``` error
+Error: object 'single_buffer' not found
+```
+
+``` r
+single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
+```
+
+``` error
+Error: object 'single_buffer' not found
+```
+
+``` r
  ggplot() + 
    geom_sf(data = buildings) +
    geom_sf(data = single_buffer, aes(fill=old_buildings_per_km2), colour = NA) +
@@ -337,7 +444,9 @@ single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / si
                         option = "B") 
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" />
+``` error
+Error: object 'buildings' not found
+```
 ::::::::::::::::::::::::
 
 
