@@ -202,13 +202,15 @@ p
 
 Now we can make use of the saved object and add things to it.
 
-Let's also give it a title and name the axes:
+Let's also give it a title, name the axes and the legend:
 
 ```{r ggplot-titles}
 p <- p +
-  ggtitle("GDP per capita in Americas", subtitle = "Year 2007") +
-  xlab("Country") +
-  ylab("GDP per capita")
+  labs(title = "GDP per capita in Americas", 
+       subtitle = "Year 2007", 
+       x = "Country", 
+       y = "GDP per capita", 
+       fill = "Life Expectancy categories")
 
 # show plot
 p
