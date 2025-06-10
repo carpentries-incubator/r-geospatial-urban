@@ -63,7 +63,7 @@ summary(buildings$start_date)
 
 ``` output
    Length     Class      Mode 
-    10716 character character 
+    10725 character character 
 ```
 
 ``` r
