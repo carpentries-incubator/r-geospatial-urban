@@ -349,6 +349,11 @@ countdown::countdown(minutes = 20)
 
 ![](fig/leafletBrielle.png){fig-align="center"}
 
+## Share your results
+
+![](fig/zoom_leaflet.png){fig-align="center"}
+
+
 ## One solution
 
 ```{r}
@@ -385,34 +390,18 @@ In short:
 
 
 # Part 2. How to perform basic GIS operations with the `sf` package?
-## Objectives:
-By the end of this session, you should be able to:  
-## Objectives:
-By the end of this session, you should be able to:  
 
+## Objectives:
+
+By the end of this session, you should be able to:  
 - Perform **geoprocessing operations** such as **union, join, and intersection**  
 - Create **buffers and centroids**  
 - Compute the **area** of spatial polygons  
 - Calculate **density** within spatial units  
 - **Map** the results  
-- Perform **geoprocessing operations** such as **union, join, and intersection**  
-- Create **buffers and centroids**  
-- Compute the **area** of spatial polygons  
-- Calculate **density** within spatial units  
-- **Map** the results  
-## Objectives:
 
-By the end of this session, you should be able to:
 
--   Perform **unions**, **joins** and **intersection** operations
-
--   Compute the **area** of spatial polygons
-
--   Create **buffers and centroids**
-
--   **Map** the results
-
-## the 'sf' package 
+## the 'sf' cheatsheet 
 
 ![](fig/sf_cheatsheet1.png){fig-align="center"}
 
@@ -469,25 +458,19 @@ create a buffer around polygons. The corresponding function `sf` is
 
 ![Buffer example](https://saylordotorg.github.io/text_essentials-of-geographic-information-systems/section_11/5c7eb6fc4bcbfc5117d778f0aabfded6.jpg)  
 
+
 ## Buffer
+
 Let's say this zone should be 100 meters. In GIS terms, we want to
 create a buffer around polygons. The corresponding function `sf` is
 `st_buffer`, with 2 arguments:
+
 -   "x": the polygons around which to create buffers
 -   "dist": the radius of the buffer.
 
 As conservationists, we want to create a zone around historical
 buildings where building regulation will have special restrictions to
 preserve historical buildings.
-
-## Buffer
-
-Let's say this zone should be 100 meters. In GIS terms, we want to
-create a buffer around polygons. The corresponding function `sf` is
-`st_buffer`, with 2 arguments:
-
--   "x": the polygons around which to create buffers
--   "dist": the radius of the buffer.
 
 ## Buffer
 
@@ -572,11 +555,11 @@ In GIS terms, we would like to know how many centroids each dissolved buffer pol
 This operation means intersecting the polygon layer with the point layer.
 The corresponding function is `st_intersection()`.
 
+
 ## Intersection
 
 `st_intersection` here adds the attributes of the intersected polygon buffers to the data table of the centroids. This means we will now know about each centroid, the ID of its intersected polygon-buffer, and a variable called “n” which is population with 1 for everyone. This means that all centroids will have the same weight when aggregated.
 
-![Point to Polygon](https://gisgeography.com/wp-content/uploads/2020/10/Intersect-Table-2048x1170.png){width="30%"} ![Polygon to Polygon](https://gisgeography.com/wp-content/uploads/2020/10/Intersect-Tool.png){width="30%"}
 
 ```{r }
 centroids_buffers <- 
@@ -814,5 +797,4 @@ Join the community!
 This workshop is offered on a yearly basis. You are welcome to join the team for future events as *helpers* and/then as *instructors*. This strengthens the community... and it can bring you GS Credits.
 
 ## The end... 
-
-![](fig/Thats_all_folks.svg.png){fig-align="center"}
+ 
