@@ -109,7 +109,7 @@ RGB_stack_TUD
 
 ``` output
 class       : SpatRaster 
-dimensions  : 4988, 4866, 3  (nrow, ncol, nlyr)
+size        : 4988, 4866, 3  (nrow, ncol, nlyr)
 resolution  : 0.08, 0.08  (x, y)
 extent      : 85272, 85661.28, 446295.2, 446694.2  (xmin, xmax, ymin, ymax)
 coord. ref. : Amersfoort / RD New (EPSG:28992) 
@@ -125,7 +125,7 @@ RGB_stack_TUD[[2]]
 
 ``` output
 class       : SpatRaster 
-dimensions  : 4988, 4866, 1  (nrow, ncol, nlyr)
+size        : 4988, 4866, 1  (nrow, ncol, nlyr)
 resolution  : 0.08, 0.08  (x, y)
 extent      : 85272, 85661.28, 446295.2, 446694.2  (xmin, xmax, ymin, ymax)
 coord. ref. : Amersfoort / RD New (EPSG:28992) 

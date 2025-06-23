@@ -141,7 +141,7 @@ DSM_TUD
 
 ``` output
 class       : SpatRaster 
-dimensions  : 386, 722, 1  (nrow, ncol, nlyr)
+size        : 386, 722, 1  (nrow, ncol, nlyr)
 resolution  : 5, 5  (x, y)
 extent      : 83565, 87175, 445250, 447180  (xmin, xmax, ymin, ymax)
 coord. ref. : Amersfoort / RD New (EPSG:28992) 
