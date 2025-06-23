@@ -2,7 +2,7 @@
 local({
 
   # the requested version of renv
-  version <- "1.1.0"
+  version <- "1.1.4"
   attr(version, "sha") <- NULL
 
   # the project directory
@@ -135,12 +135,12 @@ local({
   
     # R help links
     pattern <- "`\\?(renv::(?:[^`])+)`"
-    replacement <- "`\033]8;;ide:help:\\1\a?\\1\033]8;;\a`"
+    replacement <- "`\033]8;;x-r-help:\\1\a?\\1\033]8;;\a`"
     text <- gsub(pattern, replacement, text, perl = TRUE)
   
     # runnable code
     pattern <- "`(renv::(?:[^`])+)`"
-    replacement <- "`\033]8;;ide:run:\\1\a\\1\033]8;;\a`"
+    replacement <- "`\033]8;;x-r-run:\\1\a\\1\033]8;;\a`"
     text <- gsub(pattern, replacement, text, perl = TRUE)
   
     # return ansified text
@@ -696,11 +696,19 @@ local({
   
   }
   
-  renv_bootstrap_platform_prefix <- function() {
+  renv_bootstrap_platform_prefix_default <- function() {
   
-    # construct version prefix
-    version <- paste(R.version$major, R.version$minor, sep = ".")
-    prefix <- paste("R", numeric_version(version)[1, 1:2], sep = "-")
+    # read version component
+    version <- Sys.getenv("RENV_PATHS_VERSION", unset = "R-%v")
+  
+    # expand placeholders
+    placeholders <- list(
+      list("%v", format(getRversion()[1, 1:2])),
+      list("%V", format(getRversion()[1, 1:3]))
+    )
+  
+    for (placeholder in placeholders)
+      version <- gsub(placeholder[[1L]], placeholder[[2L]], version, fixed = TRUE)
   
     # include SVN revision for development versions of R
     # (to avoid sharing platform-specific artefacts with released versions of R)
@@ -709,10 +717,19 @@ local({
       identical(R.version[["nickname"]], "Unsuffered Consequences")
   
     if (devel)
-      prefix <- paste(prefix, R.version[["svn rev"]], sep = "-r")
+      version <- paste(version, R.version[["svn rev"]], sep = "-r")
+  
+    version
+  
+  }
+  
+  renv_bootstrap_platform_prefix <- function() {
+  
+    # construct version prefix
+    version <- renv_bootstrap_platform_prefix_default()
   
     # build list of path components
-    components <- c(prefix, R.version$platform)
+    components <- c(version, R.version$platform)
   
     # include prefix if provided by user
     prefix <- renv_bootstrap_platform_prefix_impl()
@@ -952,7 +969,11 @@ local({
   
   renv_bootstrap_validate_version_dev <- function(version, description) {
     expected <- description[["RemoteSha"]]
-    is.character(expected) && startswith(expected, version)
+    if (!is.character(expected))
+      return(FALSE)
+  
+    pattern <- sprintf("^\\Q%s\\E", version)
+    grepl(pattern, expected, perl = TRUE)
   }
   
   renv_bootstrap_validate_version_release <- function(version, description) {
@@ -1192,37 +1213,78 @@ local({
     jsonlite::fromJSON(txt = text, simplifyVector = FALSE)
   }
   
-  renv_json_read_default <- function(file = NULL, text = NULL) {
+  renv_json_read_patterns <- function() {
   
-    # find strings in the JSON
-    text <- paste(text %||% readLines(file, warn = FALSE), collapse = "\n")
-    pattern <- '["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]'
-    locs <- gregexpr(pattern, text, perl = TRUE)[[1]]
+    list(
   
-    # if any are found, replace them with placeholders
-    replaced <- text
-    strings <- character()
-    replacements <- character()
+      # objects
+      list("{", "\t\n\tobject(\t\n\t", TRUE),
+      list("}", "\t\n\t)\t\n\t",       TRUE),
   
-    if (!identical(c(locs), -1L)) {
+      # arrays
+      list("[", "\t\n\tarray(\t\n\t", TRUE),
+      list("]", "\n\t\n)\n\t\n",      TRUE),
   
-      # get the string values
-      starts <- locs
-      ends <- locs + attr(locs, "match.length") - 1L
-      strings <- substring(text, starts, ends)
+      # maps
+      list(":", "\t\n\t=\t\n\t", TRUE),
   
-      # only keep those requiring escaping
-      strings <- grep("[[\\]{}:]", strings, perl = TRUE, value = TRUE)
+      # newlines
+      list("\\u000a", "\n", FALSE)
   
-      # compute replacements
-      replacements <- sprintf('"\032%i\032"', seq_along(strings))
+    )
   
-      # replace the strings
-      mapply(function(string, replacement) {
-        replaced <<- sub(string, replacement, replaced, fixed = TRUE)
-      }, strings, replacements)
+  }
+  
+  renv_json_read_envir <- function() {
+  
+    envir <- new.env(parent = emptyenv())
+  
+    envir[["+"]] <- `+`
+    envir[["-"]] <- `-`
+  
+    envir[["object"]] <- function(...) {
+      result <- list(...)
+      names(result) <- as.character(names(result))
+      result
+    }
+  
+    envir[["array"]] <- list
+  
+    envir[["true"]]  <- TRUE
+    envir[["false"]] <- FALSE
+    envir[["null"]]  <- NULL
+  
+    envir
+  
+  }
+  
+  renv_json_read_remap <- function(object, patterns) {
+  
+    # repair names if necessary
+    if (!is.null(names(object))) {
+  
+      nms <- names(object)
+      for (pattern in patterns)
+        nms <- gsub(pattern[[2L]], pattern[[1L]], nms, fixed = TRUE)
+      names(object) <- nms
   
     }
+  
+    # repair strings if necessary
+    if (is.character(object)) {
+      for (pattern in patterns)
+        object <- gsub(pattern[[2L]], pattern[[1L]], object, fixed = TRUE)
+    }
+  
+    # recurse for other objects
+    if (is.recursive(object))
+      for (i in seq_along(object))
+        object[i] <- list(renv_json_read_remap(object[[i]], patterns))
+  
+    # return remapped object
+    object
+  
+  }
   
     # transform the JSON into something the R parser understands
     transformed <- replaced
@@ -1231,6 +1293,15 @@ local({
     transformed <- gsub("[]}]", ")", transformed, perl = TRUE)
     transformed <- gsub(":", "=", transformed, fixed = TRUE)
     text <- paste(transformed, collapse = "\n")
+  
+    # read json text
+    text <- paste(text %||% readLines(file, warn = FALSE), collapse = "\n")
+  
+    # convert into something the R parser will understand
+    patterns <- renv_json_read_patterns()
+    transformed <- text
+    for (pattern in patterns)
+      transformed <- gsub(pattern[[1L]], pattern[[2L]], transformed, fixed = TRUE)
   
     # parse it
     json <- parse(text = text, keep.source = FALSE, srcfile = NULL)[[1L]]
@@ -1247,6 +1318,10 @@ local({
   
     # evaluate
     eval(remapped, envir = baseenv())
+  
+    # fix up strings if necessary -- do so only with reversible patterns
+    patterns <- Filter(function(pattern) pattern[[3L]], patterns)
+    renv_json_read_remap(result, patterns)
   
   }
   
