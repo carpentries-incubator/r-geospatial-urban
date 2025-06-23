@@ -626,15 +626,17 @@ want to see it, you need to call it.</p>
 <code class="sourceCode R"><span><span class="va">p</span></span></code></pre>
 </div>
 <figure><img src="../fig/04-intro-to-visualisation-rendered-ggplot-call-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now we can make use of the saved object and add things to it.</p>
-<p>Let’s also give it a title and name the axes:</p>
+<p>Let’s also give it a title, name the axes and the legend:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"GDP per capita in Americas"</span>, subtitle <span class="op">=</span> <span class="st">"Year 2007"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"Country"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ylab</span><span class="op">(</span><span class="st">"GDP per capita"</span><span class="op">)</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"GDP per capita in Americas"</span>, </span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Year 2007"</span>, </span>
+<span>       x <span class="op">=</span> <span class="st">"Country"</span>, </span>
+<span>       y <span class="op">=</span> <span class="st">"GDP per capita"</span>, </span>
+<span>       fill <span class="op">=</span> <span class="st">"Life Expectancy categories"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># show plot</span></span>
 <span><span class="va">p</span></span></code></pre>
