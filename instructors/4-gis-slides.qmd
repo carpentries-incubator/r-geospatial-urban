@@ -448,7 +448,7 @@ ggplot(data = old_buildings) +
 
 ## Basic GIS operations
 As conservationists, we want to create a zone around historical
-buildings where building regulation will have special restrictions to
+buildings where building regulations will have special restrictions to
 preserve historical buildings.
 ## Buffer
 Let's say this zone should be 100 meters. In GIS terms, we want to
@@ -469,7 +469,7 @@ create a buffer around polygons. The corresponding function `sf` is
 -   "dist": the radius of the buffer.
 
 As conservationists, we want to create a zone around historical
-buildings where building regulation will have special restrictions to
+buildings where building regulations will have special restrictions to
 preserve historical buildings.
 
 ## Buffer
