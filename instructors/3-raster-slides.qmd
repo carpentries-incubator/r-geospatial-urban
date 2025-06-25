@@ -121,7 +121,7 @@ countdown::countdown(minutes = 5)
 ## Challenge 2 - Solution
 
 ```{r}
-DSM_TUD_df <- DSM_TUD_df %>%
+DSM_TUD_df <- DSM_TUD_df |>
   mutate(fct_elevation_6 = cut(`tud-dsm-5m`, breaks = 6))
 
 my_col <- terrain.colors(6)
@@ -149,11 +149,11 @@ countdown::countdown(minutes = 2)
 ## Challenge 3 - Solution
 
 ```{r dtm-crs}
-crs(DTM_TUD, parse = TRUE) %>% head()
+crs(DTM_TUD, parse = TRUE) |> head()
 ```
 
 ```{r hill-crs}
-crs(DTM_hill_TUD, parse = TRUE) %>% head()
+crs(DTM_hill_TUD, parse = TRUE) |> head()
 ```
 
 `DTM_TUD` is in the Amersfoort / RD New projection, whereas `DTM_hill_TUD` is in WGS 84.

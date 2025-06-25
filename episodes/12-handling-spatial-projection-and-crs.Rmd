@@ -9,7 +9,7 @@ library(tidyverse)  # tools for wrangling, reshaping and visualizing data
 library(here)       # managing paths
 library(sf)         # work with spatial vector data
 
-leisure_locations_selection <- st_read("data/delft-leisure.shp") %>%
+leisure_locations_selection <- st_read("data/delft-leisure.shp") |>
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 
@@ -110,7 +110,7 @@ Create a map of South Holland as follows:
 ::: solution
 
 ```{r boundary-zh}
-boundary_ZH <- municipal_boundary_NL %>% 
+boundary_ZH <- municipal_boundary_NL |> 
   filter(ligtInPr_1 == "Zuid-Holland")
 ```
 
