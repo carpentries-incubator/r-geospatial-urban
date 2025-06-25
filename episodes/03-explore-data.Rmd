@@ -67,15 +67,9 @@ For example, here is a figure depicting a data frame comprising a numeric, a cha
 `read.csv()` is a function used to read coma separated data files (`.csv` format)). There are other functions for files separated with other delimiters. 
 We're gonna read in the `gapminder` data set with information about countries' size, GDP and average life expectancy in different years.
 
-```{r reading-data, eval=FALSE}
+```{r reading-data}
 
 gapminder <- read.csv(here("data/gapminder_data.csv"))
-
-```
-
-```{r reading-data-load, include=FALSE}
-
-gapminder <- read.csv(here("episodes/data/gapminder_data.csv"))
 
 ```
 
