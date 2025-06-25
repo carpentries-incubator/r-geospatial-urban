@@ -45,7 +45,6 @@ In the following parts of this workshop, you will use this package to visualize 
 
 ``` r
 library(tidyverse)
-library(terra)
 ```
 
 Now, lets plot the distribution of life expectancy in the `gapminder` dataset:
