@@ -201,24 +201,21 @@ ggplot() +
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-centroids-1.png" style="display: block; margin: auto;" />
 
-## Intersection
+## Intersection & join
 Now, we would like to distinguish conservation areas based on the number of historic buildings they contain. In GIS terms, we would like to know how many centroids each fused buffer polygon contains. This operation means _intersecting_ the layer of polygons with the layer of points and the corresponding function is `st_intersection()`.
-
+We then need to _join_ the aggregated number of centroids with the original layer, using a spatial left join. The corresponding function is `st_join(., left=T)`.
 
 
 ``` r
  centroids_buffers <- 
-  st_intersection(centroids_old,single_old_buffer) %>%
-  mutate(n = 1)
+  st_intersection(centroids_old,single_old_buffer) 
 
  centroid_by_buffer <- centroids_buffers %>%
    group_by(ID) %>%
-   summarise(n = sum(n))
+   summarise(n_buildings = n())
  
- single_buffer <- single_old_buffer %>%
-   mutate(n_buildings = centroid_by_buffer$n)
+ single_buffer <- st_join(single_old_buffer, centroid_by_buffer, left=T)
 
- 
   ggplot() + 
    geom_sf(data = single_buffer, aes(fill = n_buildings)) +
    scale_fill_viridis_c(alpha = 0.8,
@@ -231,9 +228,6 @@ Now, we would like to distinguish conservation areas based on the number of hist
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-intersection-1.png" style="display: block; margin: auto;" />
 
-`st_intersection` here adds the attributes of the intersected polygon buffers to the data table of the centroids. This means we will now know about each centroid, the ID of its intersected polygon-buffer, and a variable called "n" which is population with 1 for everyone. This means that all centroids will have the same weight when aggregated.
-
-We aggregate them by ID number (`group_by(ID)`) and sum the variable `n` to know how many centroids are contained in each polygon-buffer.
 
 ### Maps of the number of buildings per zone:
 
@@ -260,7 +254,7 @@ In our analysis, we have a large number of pre-war buildings, and the buffer zon
 
 ``` r
 single_buffer$area <- st_area(single_buffer) %>% 
-  units::set_units(., km^2)
+  set_units(., km^2)
 
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
@@ -312,19 +306,18 @@ single_old_buffer <- single_old_buffer %>%
 centroids_old <- st_centroid(old_buildings) %>%
   st_transform(.,crs=4326)  
   
-# intersection
-centroids_buffers <- st_intersection(centroids_old,single_old_buffer) %>%
-  mutate(n=1)
+# intersection & join
+centroids_buffers <- 
+  st_intersection(centroids_old,single_old_buffer) 
+
+ centroid_by_buffer <- centroids_buffers %>%
+   group_by(ID) %>%
+   summarise(n_buildings = n())
  
-centroid_by_buffer <- centroids_buffers %>% 
-  group_by(ID) %>%
-  summarise(n = sum(n))
-  
-single_buffer <- single_old_buffer %>% 
-  mutate(n_buildings = centroid_by_buffer$n)
+ single_buffer <- st_join(single_old_buffer, centroid_by_buffer, left=T)
 
 single_buffer$area <- sf::st_area(single_buffer)  %>% 
-  units::set_units(., km^2)
+  set_units(., km^2)
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
  ggplot() + 
