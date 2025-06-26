@@ -18,10 +18,10 @@ format:
 knitr::opts_chunk$set(
   cache = FALSE,
   echo = TRUE,
-  message = FALSE, 
+  message = FALSE,
   warning = FALSE,
   error = FALSE
-  )
+)
 ```
 
 

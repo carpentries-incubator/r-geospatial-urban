@@ -69,22 +69,23 @@ it shows the underlying values of each category.
 You can also see the structure in the environment tab of RStudio.
 
 ```{r vectors}
-
 # vector of numbers - numeric data type.
-numeric_vector <- c(2, 6, 3) 
+numeric_vector <- c(2, 6, 3)
 numeric_vector
 str(numeric_vector)
 
-# vector of words - or strings of characters- character data type. Note that we need to use quotation marks '' to tell R that we are working with strings. If there is a ' mark in the string itself, such as s'Gravenhage, then we use "".
-character_vector <- c('Amsterdam', "'s Gravenhage", 'Delft') 
+# vector of words - or strings of characters- character data type.
+# Note that we need to use quotation marks '' to tell R that we are
+# working with strings. If there is a ' mark in the string itself,
+# such as s'Gravenhage, then we use "".
+character_vector <- c("Amsterdam", "'s Gravenhage", "Delft")
 character_vector
 str(character_vector)
 
 # vector of logical values (is something true or false?)- logical data type.
-logical_vector <- c(TRUE, FALSE, TRUE) 
+logical_vector <- c(TRUE, FALSE, TRUE)
 logical_vector
 str(logical_vector)
-
 ```
 
 ### Combining vectors 
@@ -92,13 +93,11 @@ str(logical_vector)
 The combine function, `c()`, will also append things to an existing vector:
 
 ```{r combine-vectors}
-
-ab_vector <- c('a', 'b')
+ab_vector <- c("a", "b")
 ab_vector
 
-abcd_vector <- c(ab_vector, 'c', 'd')
+abcd_vector <- c(ab_vector, "c", "d")
 abcd_vector
-
 ```
 
 ### Missing values
@@ -126,7 +125,7 @@ A common operation you want to perform is to remove all the missing values
 (in R denoted as `NA`). Let's have a look how to do it: 
 
 ```{r remove-na}
-with_na <- c(1, 2, 1, 1, NA, 3, NA ) # vector including missing value
+with_na <- c(1, 2, 1, 1, NA, 3, NA) # vector including missing value
 ```
 
 First, let's try to calculate mean for the values in this vector
@@ -135,7 +134,7 @@ mean(with_na) # mean() function cannot interpret the missing values
 
 # You can add the argument na.rm=TRUE to calculate the result while
 # ignoring the missing values.
-mean(with_na, na.rm = T) 
+mean(with_na, na.rm = TRUE)
 ```
 
 However, sometimes, you would like to have the `NA` 
@@ -144,18 +143,18 @@ For this you need to identify which elements of the vector hold missing values
 with `is.na()` function. 
 
 ```{r remove-na2}
-is.na(with_na) # This will produce a vector of logical values, 
+is.na(with_na) # This will produce a vector of logical values,
 # stating if a statement 'This element of the vector is a missing value'
 # is true or not
 
-# to see how many values are missing in our with_na vector, we can use the sum function
+# to see how many values are missing in our with_na vector, we can use the
+# sum function
 sum(is.na(with_na))
 
 # to identify the values that are not missing we write the following
 !is.na(with_na) # The ! operator means negation, i.e. not is.na(with_na)
-#and to sum all the non-missing values we write
+# and to sum all the non-missing values we write
 sum(!is.na(with_na))
-
 ```
 
 We know which elements in the vectors are `NA`.
@@ -163,12 +162,10 @@ Now we need to retrieve the subset of the `with_na` vector that is not `NA`.
 Sub-setting in `R` is done with square brackets`[ ]`. 
 
 ```{r remove-na3}
-
-without_na <- with_na[ !is.na(with_na) ] # this notation will return only
+without_na <- with_na[!is.na(with_na)] # this notation will return only
 # the elements that have TRUE on their respective positions
 
 without_na
-
 ```
 
 
@@ -189,8 +186,7 @@ Once created, factors can only contain a pre-defined set of values,
 known as levels. 
 
 ```{r factor-create}
-
-nordic_str <- c('Norway', 'Sweden', 'Norway', 'Denmark', 'Sweden')
+nordic_str <- c("Norway", "Sweden", "Norway", "Denmark", "Sweden")
 nordic_str # regular character vectors printed out
 
 # factor() function converts a vector to factor data type
@@ -207,7 +203,7 @@ This can come in handy when performing statistical analysis.
 You can inspect and adapt levels of the factor. 
 
 ```{r factor-inspect}
-levels(nordic_cat) # returns all levels of a factor vector.  
+levels(nordic_cat) # returns all levels of a factor vector.
 
 nlevels(nordic_cat) # returns number of levels in a vector
 ```
