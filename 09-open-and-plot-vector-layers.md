@@ -41,8 +41,8 @@ First we need to load the packages we will use in this lesson. We will use the `
 
 
 ``` r
-library(tidyverse)  # wrangle, reshape and visualize data
-library(sf)         # work with spatial vector data
+library(tidyverse) # wrangle, reshape and visualize data
+library(sf) # work with spatial vector data
 ```
 
 ::: callout

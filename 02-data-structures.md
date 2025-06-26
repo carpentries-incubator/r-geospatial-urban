@@ -71,7 +71,7 @@ You can also see the structure in the environment tab of RStudio.
 
 ``` r
 # vector of numbers - numeric data type.
-numeric_vector <- c(2, 6, 3) 
+numeric_vector <- c(2, 6, 3)
 numeric_vector
 ```
 
@@ -88,8 +88,11 @@ str(numeric_vector)
 ```
 
 ``` r
-# vector of words - or strings of characters- character data type. Note that we need to use quotation marks '' to tell R that we are working with strings. If there is a ' mark in the string itself, such as s'Gravenhage, then we use "".
-character_vector <- c('Amsterdam', "'s Gravenhage", 'Delft') 
+# vector of words - or strings of characters- character data type.
+# Note that we need to use quotation marks '' to tell R that we are
+# working with strings. If there is a ' mark in the string itself,
+# such as s'Gravenhage, then we use "".
+character_vector <- c("Amsterdam", "'s Gravenhage", "Delft")
 character_vector
 ```
 
@@ -107,7 +110,7 @@ str(character_vector)
 
 ``` r
 # vector of logical values (is something true or false?)- logical data type.
-logical_vector <- c(TRUE, FALSE, TRUE) 
+logical_vector <- c(TRUE, FALSE, TRUE)
 logical_vector
 ```
 
@@ -129,7 +132,7 @@ The combine function, `c()`, will also append things to an existing vector:
 
 
 ``` r
-ab_vector <- c('a', 'b')
+ab_vector <- c("a", "b")
 ab_vector
 ```
 
@@ -138,7 +141,7 @@ ab_vector
 ```
 
 ``` r
-abcd_vector <- c(ab_vector, 'c', 'd')
+abcd_vector <- c(ab_vector, "c", "d")
 abcd_vector
 ```
 
@@ -172,7 +175,7 @@ A common operation you want to perform is to remove all the missing values
 
 
 ``` r
-with_na <- c(1, 2, 1, 1, NA, 3, NA ) # vector including missing value
+with_na <- c(1, 2, 1, 1, NA, 3, NA) # vector including missing value
 ```
 
 First, let's try to calculate mean for the values in this vector
@@ -188,7 +191,7 @@ mean(with_na) # mean() function cannot interpret the missing values
 ``` r
 # You can add the argument na.rm=TRUE to calculate the result while
 # ignoring the missing values.
-mean(with_na, na.rm = T) 
+mean(with_na, na.rm = TRUE)
 ```
 
 ``` output
@@ -202,7 +205,7 @@ with `is.na()` function.
 
 
 ``` r
-is.na(with_na) # This will produce a vector of logical values, 
+is.na(with_na) # This will produce a vector of logical values,
 ```
 
 ``` output
@@ -213,7 +216,8 @@ is.na(with_na) # This will produce a vector of logical values,
 # stating if a statement 'This element of the vector is a missing value'
 # is true or not
 
-# to see how many values are missing in our with_na vector, we can use the sum function
+# to see how many values are missing in our with_na vector, we can use the
+# sum function
 sum(is.na(with_na))
 ```
 
@@ -231,7 +235,7 @@ sum(is.na(with_na))
 ```
 
 ``` r
-#and to sum all the non-missing values we write
+# and to sum all the non-missing values we write
 sum(!is.na(with_na))
 ```
 
@@ -245,7 +249,7 @@ Sub-setting in `R` is done with square brackets`[ ]`.
 
 
 ``` r
-without_na <- with_na[ !is.na(with_na) ] # this notation will return only
+without_na <- with_na[!is.na(with_na)] # this notation will return only
 # the elements that have TRUE on their respective positions
 
 without_na
@@ -274,7 +278,7 @@ known as levels.
 
 
 ``` r
-nordic_str <- c('Norway', 'Sweden', 'Norway', 'Denmark', 'Sweden')
+nordic_str <- c("Norway", "Sweden", "Norway", "Denmark", "Sweden")
 nordic_str # regular character vectors printed out
 ```
 
@@ -318,7 +322,7 @@ You can inspect and adapt levels of the factor.
 
 
 ``` r
-levels(nordic_cat) # returns all levels of a factor vector.  
+levels(nordic_cat) # returns all levels of a factor vector.
 ```
 
 ``` output

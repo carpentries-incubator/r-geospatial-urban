@@ -145,7 +145,7 @@ R is also able to handle categorical variables called factors, introduced in [an
 
 
 ``` r
-factor(lines_Delft$highway) %>% levels()
+factor(lines_Delft$highway) |> levels()
 ```
 
 ``` output
@@ -216,7 +216,7 @@ We can increase the number of rows with the `n` argument (e.g., `head(n = 10)` t
 
 ``` r
 # you might be lucky to see three distinct values
-head(point_Delft, 10)  
+head(point_Delft, 10)
 ```
 
 ``` output
@@ -243,7 +243,7 @@ We have our answer (`sports_centre` is the third value), but in general this is 
 
 ``` r
 # this is better
-na.omit(point_Delft$leisure) %>% head()  
+na.omit(point_Delft$leisure) |> head()
 ```
 
 ``` output
@@ -256,9 +256,9 @@ To show only unique values, we can use the `levels()` function on a factor to on
 
 ``` r
 # this is even better
-factor(point_Delft$leisure) %>%
-  levels() %>%
-  head(n = 3)   
+factor(point_Delft$leisure) |>
+  levels() |>
+  head(n = 3)
 ```
 
 ``` output
@@ -289,7 +289,7 @@ We can use the `filter()` function to select a subset of features from a spatial
 
 
 ``` r
-cycleway_Delft <- lines_Delft %>%   
+cycleway_Delft <- lines_Delft |>
   filter(highway == "cycleway")
 ```
 
@@ -316,10 +316,10 @@ This can be useful, for instance, to calculate the total length of cycleways. Fo
 
 
 ``` r
-cycleway_Delft <- cycleway_Delft %>% 
-  mutate(length = st_length(.))
+cycleway_Delft <- cycleway_Delft |>
+  mutate(length = st_length(geometry))
 
-cycleway_Delft %>%
+cycleway_Delft |>
   summarise(total_length = sum(length))
 ```
 
@@ -339,8 +339,10 @@ Now we can plot only the cycleways.
 ``` r
 ggplot(data = cycleway_Delft) +
   geom_sf() +
-  labs(title = "Slow mobility network in Delft", 
-       subtitle = "Cycleways") +
+  labs(
+    title = "Slow mobility network in Delft",
+    subtitle = "Cycleways"
+  ) +
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -381,7 +383,7 @@ We extract only the features with the value `motorway`.
 
 
 ``` r
-motorway_Delft <- lines_Delft %>% 
+motorway_Delft <- lines_Delft |>
   filter(highway == "motorway")
 
 motorway_Delft
@@ -424,9 +426,9 @@ nrow(motorway_Delft)
 
 
 ``` r
-motorway_Delft_length <- motorway_Delft %>% 
-  mutate(length = st_length(.)) %>% 
-  select(everything(), geometry) %>%
+motorway_Delft_length <- motorway_Delft |>
+  mutate(length = st_length(geometry)) |>
+  select(everything(), geometry) |>
   summarise(total_length = sum(length))
 ```
 
@@ -434,10 +436,12 @@ motorway_Delft_length <- motorway_Delft %>%
 
 
 ``` r
-ggplot(data = motorway_Delft) + 
+ggplot(data = motorway_Delft) +
   geom_sf(linewidth = 1.5) +
-  labs(title = "Fast mobility network", 
-       subtitle = "Motorways") + 
+  labs(
+    title = "Fast mobility network",
+    subtitle = "Motorways"
+  ) +
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -472,8 +476,8 @@ If we look at all the unique values of the highway field of our street network w
 ``` r
 road_types <- c("motorway", "primary", "secondary", "cycleway")
 
-lines_Delft_selection <- lines_Delft %>%
-  filter(highway %in% road_types) %>%
+lines_Delft_selection <- lines_Delft |>
+  filter(highway %in% road_types) |>
   mutate(highway = factor(highway, levels = road_types))
 ```
 
@@ -491,9 +495,11 @@ We can use the defined colour palette in a ggplot.
 ggplot(data = lines_Delft_selection) +
   geom_sf(aes(color = highway)) +
   scale_color_manual(values = road_colors) +
-  labs(color = "Road Type",
-       title = "Mobility Network of Delft", 
-       subtitle = "Main Roads & Cycleways") + 
+  labs(
+    color = "Road Type",
+    title = "Mobility Network of Delft",
+    subtitle = "Main Roads & Cycleways"
+  ) +
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -524,10 +530,12 @@ ggplot(data = lines_Delft_selection) +
   geom_sf(aes(color = highway, linewidth = highway)) +
   scale_color_manual(values = road_colors) +
   scale_linewidth_manual(values = line_widths) +
-  labs(color = "Road Type",
-       linewidth = "Road Type",
-       title = "Mobility Network of Delft",
-       subtitle = "Main Roads & Cycleways") +
+  labs(
+    color = "Road Type",
+    linewidth = "Road Type",
+    title = "Mobility Network of Delft",
+    subtitle = "Main Roads & Cycleways"
+  ) +
   coord_sf(datum = st_crs(28992))
 ```
 
@@ -573,9 +581,9 @@ levels(factor(lines_Delft$highway))
 
 
 ``` r
-# First, create a data frame with only roads where bicycles 
+# First, create a data frame with only roads where bicycles
 # are allowed
-lines_Delft_bicycle <- lines_Delft %>%
+lines_Delft_bicycle <- lines_Delft |>
   filter(highway == "cycleway")
 
 # Next, visualise it using ggplot
