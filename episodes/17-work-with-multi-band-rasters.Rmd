@@ -6,10 +6,10 @@ exercises: 0
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE,
-	fig.width = 12
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 12
 )
 
 library(tidyverse)
@@ -57,12 +57,14 @@ RGB_band1_TUD <- rast("data/tudlib-rgb.tif", lyrs = 1)
 
 We need to convert this data to a data frame in order to plot it with `ggplot`.
 ```{r plot-rgb-band1}
-RGB_band1_TUD_df  <- as.data.frame(RGB_band1_TUD, xy = TRUE)
+RGB_band1_TUD_df <- as.data.frame(RGB_band1_TUD, xy = TRUE)
 
 # Plotting this can take up to 1 minute
 ggplot() +
-  geom_raster(data = RGB_band1_TUD_df,
-              aes(x = x, y = y, alpha = `tudlib-rgb_1`)) + 
+  geom_raster(
+    data = RGB_band1_TUD_df,
+    aes(x = x, y = y, alpha = `tudlib-rgb_1`)
+  ) +
   coord_equal()
 ```
 
@@ -86,9 +88,11 @@ RGB_band2_TUD <- rast("data/tudlib-rgb.tif", lyrs = 2)
 RGB_band2_TUD_df <- as.data.frame(RGB_band2_TUD, xy = TRUE)
 
 ggplot() +
-  geom_raster(data = RGB_band2_TUD_df,
-              aes(x = x, y = y, alpha = `tudlib-rgb_2`)) + 
-  coord_equal() 
+  geom_raster(
+    data = RGB_band2_TUD_df,
+    aes(x = x, y = y, alpha = `tudlib-rgb_2`)
+  ) +
+  coord_equal()
 ```
 
 :::
@@ -126,8 +130,10 @@ Let’s create a raster plot of the second band:
 ```{r plot-rgb-band2}
 # Plotting this can take up to 1 minute
 ggplot() +
-  geom_raster(data = RGB_stack_TUD_df,
-              aes(x = x, y = y, alpha = `tudlib-rgb_2`)) + 
+  geom_raster(
+    data = RGB_stack_TUD_df,
+    aes(x = x, y = y, alpha = `tudlib-rgb_2`)
+  ) +
   coord_equal()
 ```
 
@@ -146,7 +152,8 @@ Let’s plot our 3-band image. Note that we can use the `plotRGB()` function dir
 
 ```{r plot-rgb}
 plotRGB(RGB_stack_TUD,
-        r = 1, g = 2, b = 3)
+  r = 1, g = 2, b = 3
+)
 ```
 
 The image above looks pretty good. We can explore whether applying a stretch to the image might improve clarity and contrast using stretch="lin" or stretch="hist", as explained in [this lesson](https://datacarpentry.org/r-raster-vector-geospatial/instructor/05-raster-multi-band-in-r.html#create-a-three-band-image).

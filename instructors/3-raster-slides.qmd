@@ -21,10 +21,10 @@ format:
 knitr::opts_chunk$set(
   cache = FALSE,
   echo = TRUE,
-  message = FALSE, 
+  message = FALSE,
   warning = FALSE,
   error = FALSE
-  )
+)
 
 library(tidyverse)
 library(terra)
@@ -127,8 +127,10 @@ DSM_TUD_df <- DSM_TUD_df |>
 my_col <- terrain.colors(6)
 
 ggplot() +
-  geom_raster(data = DSM_TUD_df, aes(x = x, y = y,
-                                       fill = fct_elevation_6)) +
+  geom_raster(data = DSM_TUD_df, aes(
+    x = x, y = y,
+    fill = fct_elevation_6
+  )) +
   scale_fill_manual(values = my_col, name = "Elevation") +
   coord_equal() +
   labs(title = "Elevation Classes of the Digital Surface Model (DSM)")
@@ -185,21 +187,23 @@ max(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 
 ```{r chm-challenge-2}
 ggplot(CHM_TUD_df) +
-    geom_histogram(aes(`tud-dsm-5m`))
+  geom_histogram(aes(`tud-dsm-5m`))
 ```
 
 ## Challenge 4 - Solution part 3
 
 ```{r chm-challenge-3}
 custom_bins <- c(-5, 0, 10, 20, 30, 100)
-CHM_TUD_df <- CHM_TUD_df |> 
+CHM_TUD_df <- CHM_TUD_df |>
   mutate(canopy_discrete = cut(`tud-dsm-5m`, breaks = custom_bins))
 
 ggplot() +
-  geom_raster(data = CHM_TUD_df , aes(x = x, y = y,
-                                       fill = canopy_discrete)) + 
-     scale_fill_manual(values = terrain.colors(5)) + 
-     coord_quickmap()
+  geom_raster(data = CHM_TUD_df, aes(
+    x = x, y = y,
+    fill = canopy_discrete
+  )) +
+  scale_fill_manual(values = terrain.colors(5)) +
+  coord_quickmap()
 ```
 
 
@@ -226,7 +230,9 @@ RGB_band2_TUD <- rast("../episodes/data/tudlib-rgb.tif", lyrs = 2)
 RGB_band2_TUD_df <- as.data.frame(RGB_band2_TUD, xy = TRUE)
 
 ggplot() +
-  geom_raster(data = RGB_band2_TUD_df,
-              aes(x = x, y = y, alpha = `tudlib-rgb_2`)) + 
-  coord_equal() 
+  geom_raster(
+    data = RGB_band2_TUD_df,
+    aes(x = x, y = y, alpha = `tudlib-rgb_2`)
+  ) +
+  coord_equal()
 ```

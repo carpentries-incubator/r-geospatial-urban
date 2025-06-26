@@ -29,20 +29,20 @@ point_Delft <- st_read(here("episodes", "data", "delft-leisure.shp"))
 road_types <- c("motorway", "primary", "secondary", "cycleway")
 road_colors <- c("blue", "green", "navy", "purple")
 
-municipal_boundary_NL <- st_read(here("episodes", "data","nl-gemeenten.shp"))
+municipal_boundary_NL <- st_read(here("episodes", "data", "nl-gemeenten.shp"))
 country_boundary_NL <- st_read(here("episodes", "data", "nl-boundary.shp"))
 
-lines_Delft_selection <- lines_Delft |> 
-  filter(highway %in% road_types) |> 
+lines_Delft_selection <- lines_Delft |>
+  filter(highway %in% road_types) |>
   mutate(highway = factor(highway, levels = road_types))
 
 knitr::opts_chunk$set(
   cache = FALSE,
   echo = TRUE,
-  message = FALSE, 
+  message = FALSE,
   warning = FALSE,
   error = FALSE
-  )
+)
 ```
 
 
@@ -330,11 +330,11 @@ countdown::countdown(minutes = 5)
 
 levels(factor(lines_Delft$highway))
 
-motorway_Delft <- lines_Delft |> 
+motorway_Delft <- lines_Delft |>
   filter(highway == "motorway")
 
 motorway_Delft |>
-  mutate(length = st_length(geometry)) |> 
+  mutate(length = st_length(geometry)) |>
   select(everything(), geometry) |>
   summarise(total_length = sum(length))
 
@@ -377,7 +377,8 @@ ggplot(data = lines_Delft_selection) +
   geom_sf(aes(size = highway)) +
   scale_size_manual(values = line_widths) +
   labs(size = "Road Size") +
-  ggtitle("Mobility network of Delft", subtitle = "Roads & Cycleways - Line width varies") +
+  ggtitle("Mobility network of Delft",
+          subtitle = "Roads & Cycleways - Line width varies") +
   coord_sf()
 ```
 
@@ -403,7 +404,7 @@ countdown::countdown(minutes = 5)
 
 levels(factor(lines_Delft_selection$highway))
 
-lines_Delft_bicycle <- lines_Delft |> 
+lines_Delft_bicycle <- lines_Delft |>
   filter(highway == "cycleway")
 
 ggplot() +
@@ -467,13 +468,14 @@ countdown::countdown(minutes = 5)
 #| eval: false
 #| include: true
 
-leisure_locations_selection <- st_read(here("episodes", "data", "delft-leisure.shp")) |> 
+leisure_locations_selection <-
+  st_read(here("episodes", "data", "delft-leisure.shp")) |>
   filter(leisure %in% c("playground", "picnic_table"))
 
 blue_orange <- c("cornflowerblue", "darkorange")
 
-p <- ggplot() + 
-  geom_sf(data = lines_Delft_selection, aes(color = highway)) + 
+p <- ggplot() +
+  geom_sf(data = lines_Delft_selection, aes(color = highway)) +
   scale_color_manual(name = "Line Type", values = road_colors) +
   ggtitle("Road network and leisure")
 
@@ -481,8 +483,10 @@ p +
   geom_sf(data = leisure_locations_selection, aes(fill = leisure), shape = 21) +
   scale_fill_manual(name = "Leisure Type", values = blue_orange)
 
-p + 
-  geom_sf(data = leisure_locations_selection, aes(fill = leisure, shape = leisure), size = 3) +
+p +
+  geom_sf(data = leisure_locations_selection,
+          aes(fill = leisure, shape = leisure),
+          size = 3) +
   scale_fill_manual(name = "Leisure Type", values = blue_orange) +
   scale_shape_manual(name = "Leisure Type", values = c(21, 22))
 ```
@@ -511,14 +515,25 @@ countdown::countdown(minutes = 3)
 #| eval: false
 #| include: true
 
-boundary_ZH <- municipal_boundary_NL |> 
+boundary_ZH <- municipal_boundary_NL |>
   filter(ligtInPr_1 == "Zuid-Holland")
 
 ggplot() +
-  geom_sf(data = boundary_ZH, aes(color ="color"), show.legend = "line") +
-  scale_color_manual(name = "", labels = "Municipal Boundaries", values = c("color" = "gray18")) +
-  geom_sf(data = boundary_Delft, aes(shape = "shape"), color = "purple", fill = "purple") +
-  scale_shape_manual(name = "", labels = "Municipality of Delft", values = c("shape" = 19)) +
+  geom_sf(data = boundary_ZH, aes(color = "color"), show.legend = "line") +
+  scale_color_manual(
+    name = "",
+    labels = "Municipal Boundaries",
+    values = c("color" = "gray18")
+  ) +
+  geom_sf(
+    data = boundary_Delft,
+    aes(shape = "shape"),
+    color = "purple",
+    fill = "purple"
+  ) +
+  scale_shape_manual(name = "",
+                     labels = "Municipality of Delft",
+                     values = c("shape" = 19)) +
   ggtitle("Delft location in South Holland") +
   theme(legend.background = element_rect(color = NA)) +
   coord_sf()

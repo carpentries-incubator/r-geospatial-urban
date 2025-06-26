@@ -40,8 +40,8 @@ In this lesson you will work with the `sf` package. Note that the `sf` package h
 First we need to load the packages we will use in this lesson. We will use the `tidyverse` package with which you are already familiar from the previous lesson. In addition, we need to load the [`sf`](https://r-spatial.github.io/sf/) package for working with spatial vector data. 
 
 ```{r lib, warning=FALSE, message=FALSE}
-library(tidyverse)  # wrangle, reshape and visualize data
-library(sf)         # work with spatial vector data
+library(tidyverse) # wrangle, reshape and visualize data
+library(sf) # work with spatial vector data
 ```
 
 ::: callout
