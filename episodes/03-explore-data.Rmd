@@ -68,7 +68,7 @@ For example, here is a figure depicting a data frame comprising a numeric, a cha
 We're gonna read in the `gapminder` data set with information about countries' size, GDP and average life expectancy in different years.
 
 ```{r reading-data}
-gapminder <- read.csv("data/gapminder-data.csv")
+gapminder <- read.csv(here("data", "gapminder_data.csv"))
 
 ```
 
@@ -110,14 +110,20 @@ When you're analyzing a data set, you often need to access its specific columns.
 
 One handy way to access a column is using it's name and a dollar sign `$`: 
 ```{r subset-dollar-sign}
+
 # This notation means: From dataset gapminder, give me column country. You can
 # see that the column accessed in this way is just a vector of characters.
 country_vec <- gapminder$country
 
 head(country_vec)
+```
+
+Now you can explore distinct values from a vector with the unique() function:
+```{r subset-unique}
+head(unique(country_vec), 10)
 
 ```
-Note that the calling a column with a `$` sign will return a *vector*, it's not a data frame anymore.
+Note that the calling a column with a `$` sign will return a *vector* - it's not a data frame anymore.
 
 
 # Data frame Manipulation with dplyr
@@ -135,13 +141,18 @@ head(year_country_gdp)
 ```
 
 ## Pipe
-Now, this is not the most common notation when working with `dplyr` package. `R` offers an operator `|>` called a pipe, which allows you build up very complicated commands in a readable way.
+Now, this is not the most common notation when working with `dplyr` package.
+`R` offers an operator `|>` called a pipe, which allows you to build up complicated commands in a readable way.
+
 
 ::: callout
 
 # The pipe
 
-The `|>` operator, also called the "native pipe", was introduced in R version 4.1.0. Before that, the `%>%` operator from the `magrittr` package was widely used. The two pipes work in similar ways. The main difference is that you don't need to load any packages to have the native pipe available.
+The `|>` operator, also called the "native pipe", was introduced in `R` version 4.1.0. 
+Before that, the `%>%` operator from the `magrittr` package was widely used. 
+The two pipes work in similar ways. 
+The main difference is that you don't need to load any packages to have the native pipe available.
 
 :::
 
@@ -156,13 +167,17 @@ head(year_country_gdp)
 
 ```
 
-First we define data set, then - with the use of pipe we pass it on to the `select()` function. This way we can chain multiple functions together, which we will be doing now. 
+First we define data set, then - with the use of pipe we pass it on to the `select()` function. 
+This way we can chain multiple functions together, which we will be doing now. 
 
 ## Filter
 
-We already know how to select only the needed columns. But now, we also want to filter the rows of our data set via certain conditions with `filter()` function. Instead of doing it in separate steps, we can do it all together. 
+We already know how to select only the needed columns. 
+But now, we also want to filter the rows of our data set on certain conditions
+with the `filter()` function. Instead of doing it in separate steps, we can do it all together. 
 
 In the `gapminder` data set, we want to see the results from outside of Europe for the 21st century. 
+
 ```{r filter-data}
 year_country_gdp_euro <- gapminder |>
   filter(continent != "Europe" & year >= 2000) |>
@@ -172,11 +187,25 @@ year_country_gdp_euro <- gapminder |>
 head(year_country_gdp_euro)
 ```
 
+Let's now focus only on North American countries  
+```{r filter-data-or}
+year_gdp_namerica <- year_country_gdp_euro %>%
+  filter(country == "Canada" |  country == "Mexico" | country == "United States") 
+
+# '|' operator (OR) - at least one of the conditions must be met
+
+head(year_gdp_namerica)
+```
+
 ::: challenge
 
 ##  Challenge: filtered data frame
 
-Write a single command (which can span multiple lines and includes pipes) that will produce a data frame that has the values for life expectancy, country and year, only for Eurasia. How many rows does your data frame have and why? 
+Write a single command (which can span multiple lines and includes pipes) 
+that will produce a data frame that has the values for **life expectancy**, 
+**country** and **year**, only for **EurAsia**. 
+
+How many rows does your data frame have and why? 
 
 ::: solution
 
@@ -256,8 +285,8 @@ If you need only a number of observations per group, you can use the `count()` f
 ```{r dplyr-count}
 
 gapminder |>
-  group_by(continent) |>
-  count()
+  count(continent)
+
 ```
  
 
