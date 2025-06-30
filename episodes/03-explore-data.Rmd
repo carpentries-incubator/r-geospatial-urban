@@ -194,7 +194,7 @@ head(year_gdp_namerica)
 
 Write a single command (which can span multiple lines and includes pipes) 
 that will produce a data frame that has the values for **life expectancy**, 
-**country** and **year**, only for Europe **or** Asia. 
+**country** and **year**, only for **EurAsia**. 
 
 How many rows does your data frame have and why? 
 
