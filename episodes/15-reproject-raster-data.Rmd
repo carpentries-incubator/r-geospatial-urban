@@ -86,14 +86,16 @@ ggplot() +
   geom_raster(
     data = DTM_TUD_df,
     aes(
-      x = x, y = y,
+      x = x,
+      y = y,
       fill = `tud-dtm-5m`
     )
   ) +
   geom_raster(
     data = DTM_hill_TUD_df,
     aes(
-      x = x, y = y,
+      x = x,
+      y = y,
       alpha = `tud-dtm-5m-hill`
     )
   ) +
@@ -107,7 +109,8 @@ ggplot() +
   geom_raster(
     data = DTM_TUD_df,
     aes(
-      x = x, y = y,
+      x = x,
+      y = y,
       fill = `tud-dtm-5m`
     )
   ) +
@@ -124,7 +127,8 @@ ggplot() +
   geom_raster(
     data = DTM_hill_TUD_df,
     aes(
-      x = x, y = y,
+      x = x,
+      y = y,
       alpha = `tud-dtm-5m-hill`
     )
   ) +
@@ -235,14 +239,16 @@ ggplot() +
   geom_raster(
     data = DTM_TUD_df,
     aes(
-      x = x, y = y,
+      x = x,
+      y = y,
       fill = `tud-dtm-5m`
     )
   ) +
   geom_raster(
     data = DTM_hill_TUD_2_df,
     aes(
-      x = x, y = y,
+      x = x,
+      y = y,
       alpha = `tud-dtm-5m-hill`
     )
   ) +

@@ -132,7 +132,8 @@ my_col <- terrain.colors(3)
 
 ggplot() +
   geom_raster(data = DSM_TUD_df, aes(
-    x = x, y = y,
+    x = x,
+    y = y,
     fill = fct_elevation_cb
   )) +
   scale_fill_manual(values = my_col, name = "Elevation") +
@@ -142,7 +143,8 @@ The axis labels x and y are not necessary, so we can turn them off by passing `e
 ```{r plot-dsm-fct-cb5}
 ggplot() +
   geom_raster(data = DSM_TUD_df, aes(
-    x = x, y = y,
+    x = x,
+    y = y,
     fill = fct_elevation_cb
   )) +
   scale_fill_manual(values = my_col, name = "Elevation") +
@@ -172,7 +174,8 @@ my_col <- terrain.colors(6)
 
 ggplot() +
   geom_raster(data = DSM_TUD_df, aes(
-    x = x, y = y,
+    x = x,
+    y = y,
     fill = fct_elevation_6
   )) +
   scale_fill_manual(values = my_col, name = "Elevation") +
