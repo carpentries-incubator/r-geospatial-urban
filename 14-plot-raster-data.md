@@ -43,7 +43,7 @@ DSM_TUD_df <- DSM_TUD_df |>
   mutate(fct_elevation = cut(`tud-dsm-5m`, breaks = 3))
 
 ggplot() +
-    geom_bar(data = DSM_TUD_df, aes(fct_elevation))
+  geom_bar(data = DSM_TUD_df, aes(fct_elevation))
 ```
 
 <img src="fig/14-plot-raster-data-rendered-dsm-fct-1.png" style="display: block; margin: auto;" />
@@ -56,7 +56,7 @@ levels(DSM_TUD_df$fct_elevation)
 And we can get the count of values (that is, number of pixels) in each group using `dplyr`’s `count()` function:
 
 ``` r
-DSM_TUD_df |> 
+DSM_TUD_df |>
   count(fct_elevation)
 ```
 
@@ -105,7 +105,7 @@ ggplot() +
 And we can get the count of values in each group in the same way we did before:
 
 ``` r
-DSM_TUD_df |> 
+DSM_TUD_df |>
   count(fct_elevation_cb)
 ```
 
@@ -120,7 +120,7 @@ We can use those groups to plot our raster data, with each group being a differe
 
 ``` r
 ggplot() +
-  geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = fct_elevation_cb)) + 
+  geom_raster(data = DSM_TUD_df, aes(x = x, y = y, fill = fct_elevation_cb)) +
   coord_equal()
 ```
 
@@ -140,9 +140,9 @@ The `terrain.colors()` function returns hex colours - each of these character st
 
 ``` r
 ggplot() +
- geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = fct_elevation_cb)) + 
-    scale_fill_manual(values = terrain.colors(3)) + 
-    coord_equal()
+  geom_raster(data = DSM_TUD_df, aes(x = x, y = y, fill = fct_elevation_cb)) +
+  scale_fill_manual(values = terrain.colors(3)) +
+  coord_equal()
 ```
 
 <img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb3-1.png" style="display: block; margin: auto;" />
@@ -157,10 +157,13 @@ We can give the legend a more meaningful title with the `name` argument of the `
 my_col <- terrain.colors(3)
 
 ggplot() +
- geom_raster(data = DSM_TUD_df , aes(x = x, y = y,
-                                      fill = fct_elevation_cb)) + 
-    scale_fill_manual(values = my_col, name = "Elevation") + 
-    coord_equal()
+  geom_raster(data = DSM_TUD_df, aes(
+    x = x,
+    y = y,
+    fill = fct_elevation_cb
+  )) +
+  scale_fill_manual(values = my_col, name = "Elevation") +
+  coord_equal()
 ```
 
 <img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb4-1.png" style="display: block; margin: auto;" />
@@ -168,11 +171,14 @@ The axis labels x and y are not necessary, so we can turn them off by passing `e
 
 ``` r
 ggplot() +
- geom_raster(data = DSM_TUD_df , aes(x = x, y = y,
-                                      fill = fct_elevation_cb)) + 
-    scale_fill_manual(values = my_col, name = "Elevation") +
-    theme(axis.title = element_blank()) + 
-    coord_equal()
+  geom_raster(data = DSM_TUD_df, aes(
+    x = x,
+    y = y,
+    fill = fct_elevation_cb
+  )) +
+  scale_fill_manual(values = my_col, name = "Elevation") +
+  theme(axis.title = element_blank()) +
+  coord_equal()
 ```
 
 <img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb5-1.png" style="display: block; margin: auto;" />
@@ -206,8 +212,11 @@ levels(DSM_TUD_df$fct_elevation_6)
 my_col <- terrain.colors(6)
 
 ggplot() +
-  geom_raster(data = DSM_TUD_df, aes(x = x, y = y,
-                                       fill = fct_elevation_6)) +
+  geom_raster(data = DSM_TUD_df, aes(
+    x = x,
+    y = y,
+    fill = fct_elevation_6
+  )) +
   scale_fill_manual(values = my_col, name = "Elevation") +
   coord_equal() +
   labs(title = "Elevation Classes of the Digital Surface Model (DSM)")

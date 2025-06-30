@@ -212,7 +212,7 @@ the script:
 
 
 ``` r
-install.packages('tidyverse')
+install.packages("tidyverse")
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -278,7 +278,7 @@ from the `here` package. In the console, we write:
 
 ``` r
 here()
-here('data')
+here("data")
 ```
 
 You all probably have something different printed out. And this is fine, because

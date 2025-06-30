@@ -65,7 +65,7 @@ It is important to see if all the variables (columns) have the data type that we
 
 
 ``` r
-str(gapminder) 
+str(gapminder)
 ```
 
 ``` output
@@ -352,7 +352,7 @@ gapminder |>
   group_by(country) |>
   summarize(avg_lifeExp = mean(lifeExp)) |>
   filter(avg_lifeExp == min(avg_lifeExp) |
-    avg_lifeExp == max(avg_lifeExp))
+           avg_lifeExp == max(avg_lifeExp))
 ```
 
 ``` output

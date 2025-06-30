@@ -70,8 +70,8 @@ Let's create another plot, this time only on a subset of observations:
 
 ``` r
 gapminder |> # we select a data set
-  filter(year == 2007 & continent == "Americas") |> # filter to keep one year and one continent
-  ggplot(aes(x = country, y = gdpPercap)) + # the x and y axes represent values of columns
+  filter(year == 2007 & continent == "Americas") |> # filter year and continent
+  ggplot(aes(x = country, y = gdpPercap)) + # the x and y axes represent columns
   geom_col() # we select a column graph as a geometry
 ```
 
@@ -167,7 +167,7 @@ only want to know if it's below or above average. We will make use of the `if_el
 p <- # this time let's save the plot in an object
   gapminder |>
   filter(year == 2007 &
-    continent == "Americas") |>
+           continent == "Americas") |>
   mutate(
     country = fct_reorder(country, gdpPercap),
     lifeExpCat = if_else(
@@ -205,11 +205,13 @@ Let's also give it a title, name the axes and the legend:
 
 ``` r
 p <- p +
-  labs(title = "GDP per capita in Americas", 
-       subtitle = "Year 2007", 
-       x = "Country", 
-       y = "GDP per capita", 
-       fill = "Life Expectancy categories")
+  labs(
+    title = "GDP per capita in Americas",
+    subtitle = "Year 2007",
+    x = "Country",
+    y = "GDP per capita",
+    fill = "Life Expectancy categories"
+  )
 
 # show plot
 p

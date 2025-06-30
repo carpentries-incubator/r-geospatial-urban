@@ -73,11 +73,15 @@ Projected CRS: Amersfoort / RD New
 
 ``` r
 ggplot() +
-  geom_sf(data = country_boundary_NL, 
-          color = "gray18", 
-          linewidth = 2) +
-  geom_sf(data = municipal_boundary_NL, 
-          color = "gray40") +
+  geom_sf(
+    data = country_boundary_NL,
+    color = "gray18",
+    linewidth = 2
+  ) +
+  geom_sf(
+    data = municipal_boundary_NL,
+    color = "gray40"
+  ) +
   labs(title = "Map of Contiguous NL Municipal Boundaries") +
   coord_sf(datum = st_crs(28992))
 ```
@@ -138,14 +142,20 @@ boundary_Delft <- st_transform(boundary_Delft, 28992)
 
 ``` r
 ggplot() +
-  geom_sf(data = country_boundary_NL, 
-          linewidth = 2, 
-          color = "gray18") +
-  geom_sf(data = municipal_boundary_NL, 
-          color = "gray40") +
-  geom_sf(data = boundary_Delft, 
-          color = "purple", 
-          fill = "purple") +
+  geom_sf(
+    data = country_boundary_NL,
+    linewidth = 2,
+    color = "gray18"
+  ) +
+  geom_sf(
+    data = municipal_boundary_NL,
+    color = "gray40"
+  ) +
+  geom_sf(
+    data = boundary_Delft,
+    color = "purple",
+    fill = "purple"
+  ) +
   labs(title = "Map of Contiguous NL Municipal Boundaries") +
   coord_sf(datum = st_crs(28992))
 ```
@@ -169,30 +179,37 @@ Create a map of South Holland as follows:
 
 
 ``` r
-boundary_ZH <- municipal_boundary_NL |> 
+boundary_ZH <- municipal_boundary_NL |>
   filter(ligtInPr_1 == "Zuid-Holland")
 ```
 
 
 ``` r
 ggplot() +
-    geom_sf(data = boundary_ZH, 
-            aes(color ="color"), 
-            show.legend = "line") +
-    scale_color_manual(name = "", 
-                       labels = "Municipal Boundaries in South Holland", 
-                       values = c("color" = "gray18")) +
-    geom_sf(data = boundary_Delft, 
-            aes(shape = "shape"), 
-            color = "purple", 
-            fill = "purple") +
-    scale_shape_manual(name = "", 
-                       labels = "Municipality of Delft", 
-                       values = c("shape" = 19)
-                       ) +
-    labs(title = "Delft location") +
-    theme(legend.background = element_rect(color = NA)) +
-    coord_sf(datum = st_crs(28992))
+  geom_sf(
+    data = boundary_ZH,
+    aes(color = "color"),
+    show.legend = "line"
+  ) +
+  scale_color_manual(
+    name = "",
+    labels = "Municipal Boundaries in South Holland",
+    values = c("color" = "gray18")
+  ) +
+  geom_sf(
+    data = boundary_Delft,
+    aes(shape = "shape"),
+    color = "purple",
+    fill = "purple"
+  ) +
+  scale_shape_manual(
+    name = "",
+    labels = "Municipality of Delft",
+    values = c("shape" = 19)
+  ) +
+  labs(title = "Delft location") +
+  theme(legend.background = element_rect(color = NA)) +
+  coord_sf(datum = st_crs(28992))
 ```
 
 <img src="fig/12-handling-spatial-projection-and-crs-rendered-plot-boundary-zh-1.png" style="display: block; margin: auto;" />

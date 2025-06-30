@@ -174,11 +174,13 @@ describe("data/tud-dsm-5m.tif")
 We have already loaded and worked with these two data files in earlier episodes. Let’s plot them each once more to remind ourselves what this data looks like. First we plot the DTM elevation data:
 
 ``` r
- ggplot() +
-      geom_raster(data = DTM_TUD_df , 
-              aes(x = x, y = y, fill = `tud-dtm-5m`)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_equal()
+ggplot() +
+  geom_raster(
+    data = DTM_TUD_df,
+    aes(x = x, y = y, fill = `tud-dtm-5m`)
+  ) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+  coord_equal()
 ```
 
 <img src="fig/16-raster-calculations-rendered-plot-dtm-1.png" style="display: block; margin: auto;" />
@@ -186,11 +188,13 @@ We have already loaded and worked with these two data files in earlier episodes.
 And then the DSM elevation data:
 
 ``` r
- ggplot() +
-      geom_raster(data = DSM_TUD_df , 
-              aes(x = x, y = y, fill = `tud-dsm-5m`)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_equal()
+ggplot() +
+  geom_raster(
+    data = DSM_TUD_df,
+    aes(x = x, y = y, fill = `tud-dsm-5m`)
+  ) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+  coord_equal()
 ```
 
 <img src="fig/16-raster-calculations-rendered-plot-dsm-1.png" style="display: block; margin: auto;" />
@@ -211,11 +215,13 @@ CHM_TUD_df <- as.data.frame(CHM_TUD, xy = TRUE)
 We can now plot the output CHM.
 
 ``` r
- ggplot() +
-   geom_raster(data = CHM_TUD_df , 
-               aes(x = x, y = y, fill = `tud-dsm-5m`)) + 
-   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-   coord_equal()
+ggplot() +
+  geom_raster(
+    data = CHM_TUD_df,
+    aes(x = x, y = y, fill = `tud-dsm-5m`)
+  ) +
+  scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) +
+  coord_equal()
 ```
 
 <img src="fig/16-raster-calculations-rendered-plot-chm-1.png" style="display: block; margin: auto;" />
@@ -224,7 +230,7 @@ Let’s have a look at the distribution of values in our newly created Canopy He
 
 ``` r
 ggplot(CHM_TUD_df) +
-    geom_histogram(aes(`tud-dsm-5m`))
+  geom_histogram(aes(`tud-dsm-5m`))
 ```
 
 <img src="fig/16-raster-calculations-rendered-chm-hist-1.png" style="display: block; margin: auto;" />
@@ -261,7 +267,7 @@ max(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 
 ``` r
 ggplot(CHM_TUD_df) +
-    geom_histogram(aes(`tud-dsm-5m`))
+  geom_histogram(aes(`tud-dsm-5m`))
 ```
 
 <img src="fig/16-raster-calculations-rendered-chm-challenge-1.png" style="display: block; margin: auto;" />
@@ -269,13 +275,16 @@ ggplot(CHM_TUD_df) +
 ``` r
 custom_bins <- c(-5, 0, 10, 20, 30, 100)
 CHM_TUD_df <- CHM_TUD_df |>
-                  mutate(canopy_discrete = cut(`tud-dsm-5m`, breaks = custom_bins))
+  mutate(canopy_discrete = cut(`tud-dsm-5m`, breaks = custom_bins))
 
 ggplot() +
-  geom_raster(data = CHM_TUD_df , aes(x = x, y = y,
-                                       fill = canopy_discrete)) + 
-     scale_fill_manual(values = terrain.colors(5)) + 
-     coord_quickmap()
+  geom_raster(data = CHM_TUD_df, aes(
+    x = x,
+    y = y,
+    fill = canopy_discrete
+  )) +
+  scale_fill_manual(values = terrain.colors(5)) +
+  coord_quickmap()
 ```
 
 <img src="fig/16-raster-calculations-rendered-chm-challenge-2.png" style="display: block; margin: auto;" />
@@ -310,8 +319,9 @@ We will specify the output format `"GTiff"` and tell R to overwrite any data tha
 
 ``` r
 writeRaster(CHM_TUD, "fig/CHM_TUD.tiff",
-            filetype = "GTiff",
-            overwrite = TRUE)
+  filetype = "GTiff",
+  overwrite = TRUE
+)
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 

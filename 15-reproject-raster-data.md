@@ -74,14 +74,24 @@ Now we can create a map of the DTM layered over the hillshade.
 
 ``` r
 ggplot() +
-     geom_raster(data = DTM_TUD_df , 
-                 aes(x = x, y = y, 
-                  fill = `tud-dtm-5m`)) + 
-     geom_raster(data = DTM_hill_TUD_df, 
-                 aes(x = x, y = y, 
-                   alpha = `tud-dtm-5m-hill`)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-     coord_equal()
+  geom_raster(
+    data = DTM_TUD_df,
+    aes(
+      x = x,
+      y = y,
+      fill = `tud-dtm-5m`
+    )
+  ) +
+  geom_raster(
+    data = DTM_hill_TUD_df,
+    aes(
+      x = x,
+      y = y,
+      alpha = `tud-dtm-5m-hill`
+    )
+  ) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+  coord_equal()
 ```
 
 <img src="fig/15-reproject-raster-data-rendered-plot-dtm-hill-1.png" style="display: block; margin: auto;" />
@@ -90,9 +100,14 @@ Our results are curious - neither the DTM (`DTM_TUD_df`) nor the hillshade (`DTM
 
 ``` r
 ggplot() +
-  geom_raster(data = DTM_TUD_df,
-              aes(x = x, y = y,
-                  fill = `tud-dtm-5m`)) +
+  geom_raster(
+    data = DTM_TUD_df,
+    aes(
+      x = x,
+      y = y,
+      fill = `tud-dtm-5m`
+    )
+  ) +
   scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
   coord_equal()
 ```
@@ -106,9 +121,14 @@ Next we plot the DTM Hillshade on its own to see whether everything is OK.
 
 ``` r
 ggplot() +
-  geom_raster(data = DTM_hill_TUD_df,
-              aes(x = x, y = y,
-                  alpha = `tud-dtm-5m-hill`)) +
+  geom_raster(
+    data = DTM_hill_TUD_df,
+    aes(
+      x = x,
+      y = y,
+      alpha = `tud-dtm-5m-hill`
+    )
+  ) +
   coord_equal()
 ```
 
@@ -224,8 +244,10 @@ We want the CRS of our hillshade to match the `DTM_TUD` raster. We can thus assi
 First we will reproject our `DTM_hill_TUD` raster data to match the `DTM_TUD` raster CRS:
 
 ``` r
-DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD,
-                                  crs(DTM_TUD))
+DTM_hill_EPSG28992_TUD <- project(
+  DTM_hill_TUD,
+  crs(DTM_TUD)
+)
 ```
 
 Now we can compare the CRS of our original DTM hillshade and our new DTM hillshade, to see how they are different.
@@ -339,9 +361,10 @@ res(DTM_TUD)
 Although these two rasters have different resolutions, they represent the same data. We can tell R to force our newly reprojected raster to be the same as `DTM_TUD` by adding a line of code `res = res(DTM_TUD)` within the `project()` function.
 
 ``` r
-DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD, 
-                                  crs(DTM_TUD),
-                                  res = res(DTM_TUD))
+DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD,
+  crs(DTM_TUD),
+  res = res(DTM_TUD)
+)
 ```
 
 Now both our resolutions and our CRSs match, so we can plot these two data sets together. Let’s double-check our resolution to be sure:
@@ -372,14 +395,24 @@ We can now create a plot of this data.
 
 ``` r
 ggplot() +
-     geom_raster(data = DTM_TUD_df , 
-                 aes(x = x, y = y, 
-                  fill = `tud-dtm-5m`)) + 
-     geom_raster(data = DTM_hill_TUD_2_df, 
-                 aes(x = x, y = y, 
-                   alpha = `tud-dtm-5m-hill`)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_equal()
+  geom_raster(
+    data = DTM_TUD_df,
+    aes(
+      x = x,
+      y = y,
+      fill = `tud-dtm-5m`
+    )
+  ) +
+  geom_raster(
+    data = DTM_hill_TUD_2_df,
+    aes(
+      x = x,
+      y = y,
+      alpha = `tud-dtm-5m-hill`
+    )
+  ) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+  coord_equal()
 ```
 
 <img src="fig/15-reproject-raster-data-rendered-plot-dtm-hill-projected-1.png" style="display: block; margin: auto;" />
