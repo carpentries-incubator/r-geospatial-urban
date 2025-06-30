@@ -342,11 +342,6 @@ countdown::countdown(minutes = 20)
 
 ![](fig/leafletBrielle.png){fig-align="center"}
 
-## Share your results
-
-![](fig/zoom_leaflet.png){fig-align="center"}
-
-
 ## One solution
 
 ```{r}
@@ -747,60 +742,5 @@ make sense, and even wrong answers! So build yourself some
 **foundations** before you get into them.
 
 
-## Feedback
-
-::: columns
-::: {.column width="70%"}
-**D**: what we should **drop** because it's not useful
-
-**A**: what we should **add** because it's missing
-
-**K**: what we should **keep** because it's well done
-
-**I**: what we should **improve** because it's not there yet
-:::
-
-::: {.column width="30%"}
-![](fig/post-workshop-survey.png)
-:::
-:::
-
-## Time for rewards
-
--   for PhD Candidates: some **GS Credits**!
-
--   for the competing teams...
-
-## What's next?
-
-Workshop material and links to other resources will be shared
-
-::: columns
-::: {.column width="55%"}
-
-A new **community** awaits that promotes open-source software and
-**open-science** practices in the field of **urbanism.**
-
-
-![](fig/sticker2.png){width=40%}
-:::
-
-::: {.column width="45%"}
-
-Join the community!
-
-![](fig/rbanism-membership.png){width=70%,fig-align="center"}
-
-:::
-:::
 
 ## Thank you
-
--   the **workshop team**: Aleks, Ana, Claudiu, Clémentine, Daniele, Ignacio, Javi, Hyeji, Jérôme, Jun, Kyri, Manuel, Paula, Selin + TU Library & BK Faculty
-
--   **you**: the active, team-playing and motivated participants... 
-
-This workshop is offered on a yearly basis. You are welcome to join the team for future events as *helpers* and/then as *instructors*. This strengthens the community... and it can bring you GS Credits.
-
-## The end... 
- 

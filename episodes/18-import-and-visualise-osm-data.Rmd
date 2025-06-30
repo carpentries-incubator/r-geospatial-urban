@@ -225,16 +225,36 @@ extract_buildings("Brielle, NL")
 extract_buildings("Naarden, NL")
 ```
 
+
+## Going interactive.
+
+Leaflet is an ["open-source JavaScript library for mobile-friendly interactive maps"](https://leafletjs.com/). It allows to create interactive maps on which you can zoom, navigate and click for pop-up information. Within R, there is a corresponding package called `leaflet`. 
+
+As with `ggplot2`, you build a leaflet map as a collection of layers. In this case, you will have a leaflet basemap with tiles, and one or more layers of shapes (such as points, lines and polygons). You can also add settings such as the default level of zoom, default location and content of pop-ups.
+
+The standard structure of a leaflet choropleth map is therefore: `leaflet(data) %>% addTiles() %>% addPolygons(~variable)` where `data` is our dataset and `variable` the variable we use to colour the polygons. The standard projection used in Leaflet is WGS84.
+
+- Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/) for more information.
+
+
+
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge: import an interactive basemap layer under the buildings with 'Leaflet' (20min)
 
-Leaflet is a ["open-source JavaScript library for mobile-friendly interactive maps"](https://leafletjs.com/). Within R, the `leaflet` package allows you to build such interactive maps. As with `ggplot2`, you build a map with a collection of layers. In this case, you will have the leaflet basemap, some tiles, and shapes on top (such as markers, polygons, etc.). 
+For this challenge, you will have to use the Leaflet online documentation to create an interactive map of the building ages in Brielle. The underlying data remains the same, but you will use the leaflet package to make the map interactive (in other words, your `data` is the R object `buildings` and `variable` corresponds to `start_date`).
 
-- Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/) and [GDCU cheatsheet](https://github.com/ClementineCttn/r-geospatial-urban/blob/main/instructors/cheatsheet/GDCU_cheatsheet.pdf).
-- Plot a basemap in Leaflet and try different tiles in the [basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
-- Transform the buildings into WGS84 projection and add them to the basemap layer with the `addPolygons()` function.
-- Have the `fillColor` of these polygons represent the `build_date` variable. See the [choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html) and [GDCU cheatsheet](https://github.com/ClementineCttn/r-geospatial-urban/blob/main/instructors/cheatsheet/GDCU_cheatsheet.pdf) for how use to use fill colors in polygons. Tip: use the examples given in the documentation and replace the variable names where needed.
+To do this, you will have to:
+- Transform the CRS of `buildings` into WGS84
+- Plot the basemap
+- Add the tiles of your choice
+- Add polygons (the buildings)
+- Use the `fillColor` attribute of these polygons to represent the `build_date` variable.
+
+You will find guidance and examples on how to do that in the following links:
+- Basemap and tiles documentation [basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
+- [Choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html). 
+Tip: use the examples given in the documentation and replace the variable names where needed. You can also check out the [GDCU cheatsheet](https://github.com/ClementineCttn/r-geospatial-urban/blob/main/instructors/cheatsheet/GDCU_cheatsheet.pdf) for relevant leaflet functions.
 
 :::::::::::::::::::::::: solution 
 
