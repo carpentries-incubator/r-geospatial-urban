@@ -6,10 +6,10 @@ exercises: 2
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE,
-	fig.width = 12
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 12
 )
 
 library(tidyverse)
@@ -83,22 +83,37 @@ DTM_hill_TUD_df <- as.data.frame(DTM_hill_TUD, xy = TRUE)
 Now we can create a map of the DTM layered over the hillshade.
 ```{r plot-dtm-hill}
 ggplot() +
-     geom_raster(data = DTM_TUD_df , 
-                 aes(x = x, y = y, 
-                  fill = `tud-dtm-5m`)) + 
-     geom_raster(data = DTM_hill_TUD_df, 
-                 aes(x = x, y = y, 
-                   alpha = `tud-dtm-5m-hill`)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
-     coord_equal()
+  geom_raster(
+    data = DTM_TUD_df,
+    aes(
+      x = x,
+      y = y,
+      fill = `tud-dtm-5m`
+    )
+  ) +
+  geom_raster(
+    data = DTM_hill_TUD_df,
+    aes(
+      x = x,
+      y = y,
+      alpha = `tud-dtm-5m-hill`
+    )
+  ) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+  coord_equal()
 ```
 Our results are curious - neither the DTM (`DTM_TUD_df`) nor the hillshade (`DTM_hill_TUD_df`) are plotted. Let’s try to plot the DTM on its own to make sure the data are there.
 
 ```{r plot-dtm}
 ggplot() +
-  geom_raster(data = DTM_TUD_df,
-              aes(x = x, y = y,
-                  fill = `tud-dtm-5m`)) +
+  geom_raster(
+    data = DTM_TUD_df,
+    aes(
+      x = x,
+      y = y,
+      fill = `tud-dtm-5m`
+    )
+  ) +
   scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
   coord_equal()
 ```
@@ -109,9 +124,14 @@ Next we plot the DTM Hillshade on its own to see whether everything is OK.
 
 ```{r plot-hill}
 ggplot() +
-  geom_raster(data = DTM_hill_TUD_df,
-              aes(x = x, y = y,
-                  alpha = `tud-dtm-5m-hill`)) +
+  geom_raster(
+    data = DTM_hill_TUD_df,
+    aes(
+      x = x,
+      y = y,
+      alpha = `tud-dtm-5m-hill`
+    )
+  ) +
   coord_equal()
 ```
 
@@ -164,8 +184,10 @@ We want the CRS of our hillshade to match the `DTM_TUD` raster. We can thus assi
 
 First we will reproject our `DTM_hill_TUD` raster data to match the `DTM_TUD` raster CRS:
 ```{r hill-projected}
-DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD,
-                                  crs(DTM_TUD))
+DTM_hill_EPSG28992_TUD <- project(
+  DTM_hill_TUD,
+  crs(DTM_TUD)
+)
 ```
 
 Now we can compare the CRS of our original DTM hillshade and our new DTM hillshade, to see how they are different.
@@ -194,9 +216,10 @@ res(DTM_TUD)
 
 Although these two rasters have different resolutions, they represent the same data. We can tell R to force our newly reprojected raster to be the same as `DTM_TUD` by adding a line of code `res = res(DTM_TUD)` within the `project()` function.
 ```{r hill-projected-crs-res}
-DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD, 
-                                  crs(DTM_TUD),
-                                  res = res(DTM_TUD))
+DTM_hill_EPSG28992_TUD <- project(DTM_hill_TUD,
+  crs(DTM_TUD),
+  res = res(DTM_TUD)
+)
 ```
 
 Now both our resolutions and our CRSs match, so we can plot these two data sets together. Let’s double-check our resolution to be sure:
@@ -213,14 +236,24 @@ DTM_hill_TUD_2_df <- as.data.frame(DTM_hill_EPSG28992_TUD, xy = TRUE)
 We can now create a plot of this data.
 ```{r plot-dtm-hill-projected}
 ggplot() +
-     geom_raster(data = DTM_TUD_df , 
-                 aes(x = x, y = y, 
-                  fill = `tud-dtm-5m`)) + 
-     geom_raster(data = DTM_hill_TUD_2_df, 
-                 aes(x = x, y = y, 
-                   alpha = `tud-dtm-5m-hill`)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_equal()
+  geom_raster(
+    data = DTM_TUD_df,
+    aes(
+      x = x,
+      y = y,
+      fill = `tud-dtm-5m`
+    )
+  ) +
+  geom_raster(
+    data = DTM_hill_TUD_2_df,
+    aes(
+      x = x,
+      y = y,
+      alpha = `tud-dtm-5m-hill`
+    )
+  ) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+  coord_equal()
 ```
 
 We have now successfully draped the Digital Terrain Model on top of our hillshade to produce a nice looking, textured map!

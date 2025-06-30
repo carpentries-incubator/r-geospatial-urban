@@ -6,10 +6,10 @@ exercises: 5
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE,
-	eval = FALSE
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  eval = FALSE
 )
 
 # Load libraries ----------------------------------------------------------
@@ -24,7 +24,6 @@ if (any(installed_packages == FALSE)) {
 
 # Packages loading
 invisible(lapply(packages, library, character.only = TRUE))
-
 ```
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -111,7 +110,6 @@ dir.create("data_output")
 dir.create("documents")
 dir.create("fig_output")
 dir.create("scripts")
-
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -231,7 +229,7 @@ of installed packages. If not, you will need to install it by writing in
 the script:
 
 ```{r install-tidyverse-package, eval=FALSE}
-install.packages('tidyverse')
+install.packages("tidyverse")
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -253,7 +251,6 @@ Let's adapt our script by changing the first lines into comments:
 ```{r comment}
 # install.packages('here')
 # install.packages('tidyverse')
- 
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -266,7 +263,6 @@ them each time you want to use them. To do that you use `library()` command:
 # Load packages
 library(tidyverse)
 library(here)
-
 ```
 
 ## Handling paths 
@@ -296,7 +292,7 @@ from the `here` package. In the console, we write:
 
 ```{r here}
 here()
-here('data')
+here("data")
 ```
 
 You all probably have something different printed out. And this is fine, because
@@ -316,7 +312,6 @@ download.file(
   "https://bit.ly/geospatial_data",
   here("data", "gapminder-data.csv")
 )
-
 ```
 The data we just downloaded is data about country statistics, containing information on, for instance, GDP and life-expectancy. We will work with this data later in the lesson
 
@@ -344,7 +339,6 @@ You can use R as calculator, you can for example write:
 1 + 100
 1 * 100
 1 / 100
-
 ```
 
 

@@ -22,7 +22,7 @@ After completing this episode, participants should be able to…
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r setup, include=FALSE} 
-knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ## What is OpenStreetMap?
@@ -42,7 +42,6 @@ The geospatial data underlying this interface is made of geometrical objects (i.
 library(tidyverse)
 library(sf)
 assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
-
 ```
 
 
@@ -130,8 +129,8 @@ On this page we can read about the arguments needed for each function: a boundin
 
 ```{r osm}
 x <- opq(bbox = bb) |>
-   add_osm_feature(key = 'building') |>
-   osmdata_sf()
+  add_osm_feature(key = "building") |>
+  osmdata_sf()
 ```
 
 
@@ -160,7 +159,7 @@ First, we are going to select the polygons and reproject them with the Amersfoor
 
 ```{r transform}
 buildings <- x$osm_polygons |>
-  st_transform(crs=28992)
+  st_transform(crs = 28992)
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -181,11 +180,11 @@ Then we use the `ggplot()` function to visualise the buildings by age. The speci
 start_date <- as.numeric(buildings$start_date)
 buildings$build_date <- if_else(start_date < 1900, 1900, start_date)
 
- ggplot(data = buildings) +
-   geom_sf(aes(fill = build_date, colour=build_date))  +
-   scale_fill_viridis_c(option = "viridis")+
-   scale_colour_viridis_c(option = "viridis") +
-   coord_sf(datum = st_crs(28992))
+ggplot(data = buildings) +
+  geom_sf(aes(fill = build_date, colour = build_date)) +
+  scale_fill_viridis_c(option = "viridis") +
+  scale_colour_viridis_c(option = "viridis") +
+  coord_sf(datum = st_crs(28992))
 ```
 
 So this reveals the historical centre of Brielle (or the city you chose) and the various urban extensions through time.
@@ -198,33 +197,32 @@ We have produced a proof a concept on Brielle, but can we factorise our work to 
 
 We might replace the name in the first line and run everything again. Or we can create a function.
 ```{r Replicability}
-extract_buildings <- function(cityname, year=1900){
+extract_buildings <- function(cityname, year = 1900) {
   bb <- getbb(cityname)
-  
+
   x <- opq(bbox = bb) |>
-     add_osm_feature(key = 'building') |>
-     osmdata_sf()
-     
+    add_osm_feature(key = "building") |>
+    osmdata_sf()
+
   buildings <- x$osm_polygons |>
-    st_transform(crs=28992)
-    
+    st_transform(crs = 28992)
+
   start_date <- as.numeric(buildings$start_date)
-  
+
   buildings$build_date <- if_else(start_date < year, year, start_date)
-   ggplot(data = buildings) +
-     geom_sf(aes(fill = build_date, colour=build_date))  +
-     scale_fill_viridis_c(option = "viridis")+
-     scale_colour_viridis_c(option = "viridis") +
-     ggtitle(paste0("Old buildings in ",cityname)) +
-     coord_sf(datum = st_crs(28992))
+  ggplot(data = buildings) +
+    geom_sf(aes(fill = build_date, colour = build_date)) +
+    scale_fill_viridis_c(option = "viridis") +
+    scale_colour_viridis_c(option = "viridis") +
+    ggtitle(paste0("Old buildings in ", cityname)) +
+    coord_sf(datum = st_crs(28992))
 }
 
-#test on Brielle
+# test on Brielle
 extract_buildings("Brielle, NL")
 
-#test on Naarden
+# test on Naarden
 extract_buildings("Naarden, NL")
-
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -243,26 +241,32 @@ Leaflet is a ["open-source JavaScript library for mobile-friendly interactive ma
 ## One solution
  
 ```{r leaflet}
-#install.packages("leaflet")
+# install.packages("leaflet")
 library(leaflet)
 
 
 buildings2 <- buildings |>
-  st_transform(crs=4326)
+  st_transform(crs = 4326)
 
 # leaflet(buildings2) |>
 #  addTiles() |>
 #   addPolygons(fillColor = ~colorQuantile("YlGnBu", -build_date)(-build_date))
 
- # For a better visual rendering, try:
-  
+# For a better visual rendering, try:
+
 leaflet(buildings2) |>
   addProviderTiles(providers$CartoDB.Positron) |>
-  addPolygons(color = "#444444", weight = 0.1, smoothFactor = 0.5,
-  opacity = 0.2, fillOpacity = 0.8,
-  fillColor = ~colorQuantile("YlGnBu", -build_date)(-build_date),
-  highlightOptions = highlightOptions(color = "white", weight = 2,
-    bringToFront = TRUE))
+  addPolygons(
+    color = "#444444",
+    weight = 0.1,
+    smoothFactor = 0.5,
+    opacity = 0.2, fillOpacity = 0.8,
+    fillColor = ~ colorQuantile("YlGnBu", -build_date)(-build_date),
+    highlightOptions = highlightOptions(
+      color = "white", weight = 2,
+      bringToFront = TRUE
+    )
+  )
 ```
 
 

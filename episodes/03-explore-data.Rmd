@@ -6,9 +6,9 @@ exercises: 2
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
 )
 
 # Load libraries ----------------------------------------------------------
@@ -17,7 +17,6 @@ packages <- c("tidyverse", "here")
 
 # Packages loading
 invisible(lapply(packages, library, character.only = TRUE))
-
 ```
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -69,7 +68,6 @@ We're gonna read in the `gapminder` data set with information about countries' s
 
 ```{r reading-data}
 gapminder <- read.csv(here("data", "gapminder_data.csv"))
-
 ```
 
 ## Exploring dataset
@@ -78,8 +76,7 @@ Let’s investigate the `gapminder` data frame a bit; the first thing we should 
 It is important to see if all the variables (columns) have the data type that we require. For instance, a column might have numbers stored as characters, which would not allow us to make calculations with those numbers.
 
 ```{r inspecting-data-str}
-str(gapminder) 
-
+str(gapminder)
 ```
 
 We can see that the `gapminder` object is a data.frame with `r nrow(gapminder)` observations (rows) and `r ncol(gapminder)` variables (columns). 
@@ -92,7 +89,6 @@ There are multiple ways to explore a data set. Here are just a few examples:
 
 
 ```{r examine-data}
-
 head(gapminder) # shows first 6  rows of the data set
 
 summary(gapminder) # basic statistical information about each column.
@@ -101,7 +97,6 @@ summary(gapminder) # basic statistical information about each column.
 nrow(gapminder) # returns number of rows in a dataset
 
 ncol(gapminder) # returns number of columns in a dataset
-
 ```
 
 ### Dollar sign ($)
@@ -121,7 +116,6 @@ head(country_vec)
 Now you can explore distinct values from a vector with the unique() function:
 ```{r subset-unique}
 head(unique(country_vec), 10)
-
 ```
 Note that the calling a column with a `$` sign will return a *vector* - it's not a data frame anymore.
 
@@ -137,7 +131,6 @@ First, we will adapt our data set, by keeping only the columns we're interested 
 year_country_gdp <- select(gapminder, year, country, gdpPercap)
 
 head(year_country_gdp)
-
 ```
 
 ## Pipe
@@ -159,12 +152,10 @@ The main difference is that you don't need to load any packages to have the nati
 The `select()` statement with pipe would look like that:
 
 ```{r dplyr-pipe}
-
 year_country_gdp <- gapminder |>
   select(year, country, gdpPercap)
 
 head(year_country_gdp)
-
 ```
 
 First we define data set, then - with the use of pipe we pass it on to the `select()` function. 
@@ -229,7 +220,6 @@ So far, we have provided summary statistics on the whole dataset, selected colum
 gapminder |> # select the dataset
   group_by(continent) |> # group by continent
   summarize(avg_gdpPercap = mean(gdpPercap)) # create basic stats
-
 ```
 
 ::: challenge
@@ -247,7 +237,7 @@ gapminder |>
   group_by(country) |>
   summarize(avg_lifeExp = mean(lifeExp)) |>
   filter(avg_lifeExp == min(avg_lifeExp) |
-    avg_lifeExp == max(avg_lifeExp))
+           avg_lifeExp == max(avg_lifeExp))
 ```
 
 :::
@@ -258,11 +248,9 @@ gapminder |>
 You can also group by multiple columns:
 
 ```{r dplyr-group-multi}
-
 gapminder |>
   group_by(continent, year) |>
   summarize(avg_gdpPercap = mean(gdpPercap))
-
 ```
 
 On top of this, you can also make multiple summaries of those groups:
@@ -276,14 +264,12 @@ gdp_pop_bycontinents_byyear <- gapminder |>
     sd_pop = sd(pop),
     n_obs = n()
   )
-
 ```
 
 ## Frequencies
 
 If you need only a number of observations per group, you can use the `count()` function
 ```{r dplyr-count}
-
 gapminder |>
   count(continent)
 
@@ -299,7 +285,6 @@ gapminder_gdp <- gapminder |>
   mutate(gdpBillion = gdpPercap * pop / 10^9)
 
 head(gapminder_gdp)
-
 ```
 
 

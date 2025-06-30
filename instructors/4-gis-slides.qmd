@@ -42,15 +42,13 @@ By the end of this lesson, you should be able to...
 ```{r}
 #| label: setup
 #| include: false
-# install.packages("devtools")
-
 
 knitr::opts_chunk$set(
   cache = FALSE,
   echo = TRUE,
-  message = FALSE, 
+  message = FALSE,
   warning = FALSE
-  )
+)
 ```
 
 ## What is OpenStreetMap? 
@@ -197,11 +195,9 @@ With these tips and examples, we can write our feature extraction
 function as follows:
 
 ```{r osm-feature}
-
 x <- opq(bbox = bb) |>
-    add_osm_feature(key = 'building')|>
-    osmdata_sf()
-
+  add_osm_feature(key = "building") |>
+  osmdata_sf()
 ```
 
 What is this x object made of?
@@ -209,9 +205,7 @@ What is this x object made of?
 ## Extracting OSM features
 
 ```{r osm-feature-preview}
-
 str(x$osm_polygons)
-
 ```
 
 ## Extracting OSM features
@@ -243,7 +237,7 @@ need to look into specific attributes:
 
 ```{r reproject}
 buildings <- x$osm_polygons |>
-  st_transform(crs=28992)
+  st_transform(crs = 28992)
 ```
 
 ## Mapping urbanisation in Brielle
@@ -262,11 +256,10 @@ start_date <- as.numeric(buildings$start_date)
 buildings$build_date <- if_else(start_date < 1900, 1900, start_date)
 
 ggplot(data = buildings) +
-   geom_sf(aes(fill = build_date, colour=build_date))  +
-   scale_fill_viridis_c(option = "viridis")+
-   scale_colour_viridis_c(option = "viridis") +
-   coord_sf(datum = st_crs(28992))
-  
+  geom_sf(aes(fill = build_date, colour = build_date)) +
+  scale_fill_viridis_c(option = "viridis") +
+  scale_colour_viridis_c(option = "viridis") +
+  coord_sf(datum = st_crs(28992))
 ```
 
 ## Mapping urbanisation in Brielle
@@ -294,25 +287,25 @@ We might replace the name in the first line and run everything again... or we ca
 ## Replicability
 
 ```{r reproducibility}
-extract_buildings <- function(cityname, year=1900){
+extract_buildings <- function(cityname, year = 1900) {
   bb <- getbb(cityname)
-  
+
   x <- opq(bbox = bb) |>
-     add_osm_feature(key = 'building') |>
-     osmdata_sf()
-     
+    add_osm_feature(key = "building") |>
+    osmdata_sf()
+
   buildings <- x$osm_polygons |>
-    st_transform(crs=28992)
-    
+    st_transform(crs = 28992)
+
   start_date <- as.numeric(buildings$start_date)
-  
+
   buildings$build_date <- if_else(start_date < year, year, start_date)
-   ggplot(data = buildings) +
-     geom_sf(aes(fill = build_date, colour=build_date))  +
-     scale_fill_viridis_c(option = "viridis")+
-     scale_colour_viridis_c(option = "viridis") +
-     ggtitle(paste0("Old buildings in ",cityname)) +
-     coord_sf(datum = st_crs(28992))
+  ggplot(data = buildings) +
+    geom_sf(aes(fill = build_date, colour = build_date)) +
+    scale_fill_viridis_c(option = "viridis") +
+    scale_colour_viridis_c(option = "viridis") +
+    ggtitle(paste0("Old buildings in ", cityname)) +
+    coord_sf(datum = st_crs(28992))
 }
 ```
 
@@ -360,15 +353,19 @@ countdown::countdown(minutes = 20)
 library(leaflet)
 
 buildings2 <- buildings |>
-  st_transform(crs=4326)
+  st_transform(crs = 4326)
 
 leaflet(buildings2) |>
   addProviderTiles(providers$CartoDB.Positron) |>
-  addPolygons(color = "#444444", weight = 0.1, smoothFactor = 0.5,
-  opacity = 0.2, fillOpacity = 0.8,
-  fillColor = ~colorQuantile("YlGnBu", -build_date)(-build_date),
-  highlightOptions = highlightOptions(color = "white", weight = 2,
-  bringToFront = TRUE))
+  addPolygons(
+    color = "#444444", weight = 0.1, smoothFactor = 0.5,
+    opacity = 0.2, fillOpacity = 0.8,
+    fillColor = ~ colorQuantile("YlGnBu", -build_date)(-build_date),
+    highlightOptions = highlightOptions(
+      color = "white", weight = 2,
+      bringToFront = TRUE
+    )
+  )
 ```
 
 ## Summary and keypoints
@@ -422,11 +419,11 @@ If you were using pen&paper or a traditional GIS software, what would your workf
 ```{r old-buildings}
 bb <- osmdata::getbb("Brielle, NL")
 x <- opq(bbox = bb) |>
-    add_osm_feature(key = 'building') |>
-    osmdata_sf()
+  add_osm_feature(key = "building") |>
+  osmdata_sf()
 
 buildings <- x$osm_polygons |>
-  st_transform(crs=28992)
+  st_transform(crs = 28992)
 
 summary(buildings$start_date)
 ```
@@ -441,9 +438,9 @@ buildings$start_date <- as.numeric(as.character(buildings$start_date))
 old_buildings <- buildings |>
   filter(start_date <= old)
 
-ggplot(data = old_buildings) + 
-   geom_sf(colour="red") +
-   coord_sf(datum = st_crs(28992)) 
+ggplot(data = old_buildings) +
+  geom_sf(colour = "red") +
+  coord_sf(datum = st_crs(28992))
 ```
 
 ## Basic GIS operations
@@ -475,26 +472,23 @@ preserve historical buildings.
 ## Buffer
 
 ```{r}
+distance <- 100 # in meters
 
- distance <- 100 # in meters 
- 
-# First, we check that the "old_buildings" 
+# First, we check that the "old_buildings"
 # layer projection is measured in meters:
 st_crs(old_buildings)
-
 ```
 
 ## Buffer
 
 ```{r}
-#then we use `st_buffer()`
-buffer_old_buildings <- 
+# then we use `st_buffer()`
+buffer_old_buildings <-
   st_buffer(x = old_buildings, dist = distance)
- 
-ggplot(data = buffer_old_buildings) + 
-  geom_sf() +   
-  coord_sf(datum = st_crs(28992))
 
+ggplot(data = buffer_old_buildings) +
+  geom_sf() +
+  coord_sf(datum = st_crs(28992))
 ```
 
 ## Union
@@ -508,8 +502,8 @@ This process is called a **union**, and the corresponding function in `sf` is `s
 
 ```{r union}
 single_old_buffer <- st_union(buffer_old_buildings) |>
-   st_cast(to = "POLYGON") |>
-   st_as_sf() 
+  st_cast(to = "POLYGON") |>
+  st_as_sf()
 ```
 
 
@@ -520,10 +514,9 @@ We also used `st_cast()` to explicit the type of the resulting object (*POLYGON*
 Then we create unique IDs to identify the new polygons.
 
 ```{r union2}
-single_old_buffer<- single_old_buffer |>
-  mutate("ID"=as.factor(1:nrow(single_old_buffer))) |>
-  st_transform(crs=28992) 
-  
+single_old_buffer <- single_old_buffer |>
+  mutate("ID" = as.factor(seq_len(nrow(single_old_buffer)))) |>
+  st_transform(crs = 28992)
 ```
 
 
@@ -536,13 +529,15 @@ This operation means defining their *centroid* and the corresponding function is
 ## Centroids
 
 ```{r centroids}
-sf::sf_use_s2(FALSE)  # s2 works with geographic projections, so to calculate centroids in projected CRS units (meters), we need to disable it
+sf::sf_use_s2(FALSE)
+# s2 works with geographic projections, so to calculate centroids in projected
+# CRS units (meters), we need to disable it
 
 centroids_old <- st_centroid(old_buildings) |>
-  st_transform(crs=28992)  
+  st_transform(crs = 28992)
 
-ggplot() + 
-  geom_sf(data = single_old_buffer, aes(fill=ID)) +
+ggplot() +
+  geom_sf(data = single_old_buffer, aes(fill = ID)) +
   geom_sf(data = centroids_old) +
   coord_sf(datum = st_crs(28992))
 ```
@@ -562,10 +557,9 @@ The corresponding function is `st_intersection()`.
 
 
 ```{r }
-centroids_buffers <- 
-  st_intersection(centroids_old,single_old_buffer) |>
+centroids_buffers <-
+  st_intersection(centroids_old, single_old_buffer) |>
   mutate(n = 1)
-
 ```
 
 
@@ -575,21 +569,23 @@ We aggregate them by ID number (group_by(ID)) and sum the variable n to know how
 
 ```{r}
 centroid_by_buffer <- centroids_buffers |>
-   group_by(ID) |>
-   summarise(n = sum(n))
- 
+  group_by(ID) |>
+  summarise(n = sum(n))
+
 single_buffer <- single_old_buffer |>
-   mutate(n_buildings = centroid_by_buffer$n)
+  mutate(n_buildings = centroid_by_buffer$n)
 ```
 
 ## Mapping the number of buildings
 
 ```{r} 
-ggplot() + 
-   geom_sf(data = single_buffer, aes(fill=n_buildings)) +
-   scale_fill_viridis_c(alpha = 0.8,begin = 0.6,
-                        end = 1, direction = -1,
-                        option = "B")
+ggplot() +
+  geom_sf(data = single_buffer, aes(fill = n_buildings)) +
+  scale_fill_viridis_c(
+    alpha = 0.8, begin = 0.6,
+    end = 1, direction = -1,
+    option = "B"
+  )
 ```
 
 Problem: there are many pre-war buildings and the buffers are large so the number of old buildings is not very meaningful. Let’s compute the density of old buildings per buffer zone.
@@ -600,12 +596,12 @@ Let's compute the **density** of old buildings per buffer zone (= number
 of buildings / area of buffer).
 
 ```{r area}
-single_buffer$area <- sf::st_area(single_buffer) |> 
+single_buffer$area <- sf::st_area(single_buffer) |>
   units::set_units(km^2)
 
 single_buffer$old_buildings_per_km2 <- as.numeric(
   single_buffer$n_buildings / single_buffer$area
-  )
+)
 ```
 
 
@@ -614,17 +610,23 @@ single_buffer$old_buildings_per_km2 <- as.numeric(
 Let’s map this layer over the initial map of individual buildings and save the result.
 
 ```{r visu-1800}
-p <- ggplot() + 
-   geom_sf(data = buildings) +
-   geom_sf(data = single_buffer, 
-           aes(fill=old_buildings_per_km2),
-           colour = NA) +
-   scale_fill_viridis_c(alpha = 0.6,begin = 0.6,
-                        end = 1,direction = -1,
-                        option = "B") 
+p <- ggplot() +
+  geom_sf(data = buildings) +
+  geom_sf(
+    data = single_buffer,
+    aes(fill = old_buildings_per_km2),
+    colour = NA
+  ) +
+  scale_fill_viridis_c(
+    alpha = 0.6, begin = 0.6,
+    end = 1, direction = -1,
+    option = "B"
+  )
 
-ggsave(filename = "fig/ConservationBrielle.png", 
-       plot = p)
+ggsave(
+  filename = "fig/ConservationBrielle.png",
+  plot = p
+)
 ```
 
 
@@ -632,7 +634,7 @@ ggsave(filename = "fig/ConservationBrielle.png",
 ## Final Output
 
 ```{r visu-final}
-p 
+p
 ```
 
 ## Challenge: Conservation rules have changed!
@@ -653,7 +655,7 @@ countdown::countdown(minutes = 10)
 
 
 ```{r intersection_viz}
-old <- 1939 
+old <- 1939
 distance <- 10
 
 # select
@@ -662,45 +664,49 @@ old_buildings <- buildings |>
 
 # buffer
 buffer_old_buildings <- st_buffer(old_buildings, dist = distance)
-  
+
 # union
 single_old_buffer <- st_union(buffer_old_buildings) |>
   st_cast(to = "POLYGON") |>
-  st_as_sf()  
- 
+  st_as_sf()
+
 single_old_buffer <- single_old_buffer |>
-  mutate("ID"=1:nrow(single_old_buffer))  |>
-  st_transform(single_old_buffer,crs=4326) 
+  mutate("ID" = seq_len(nrow(single_old_buffer))) |>
+  st_transform(single_old_buffer, crs = 4326)
 
 # centroids
 centroids_old <- st_centroid(old_buildings) |>
-  st_transform(crs=4326)  
-  
+  st_transform(crs = 4326)
+
 # intersection
-centroids_buffers <- st_intersection(centroids_old,single_old_buffer) |>
-  mutate(n=1)
- 
-centroid_by_buffer <- centroids_buffers |> 
+centroids_buffers <- st_intersection(centroids_old, single_old_buffer) |>
+  mutate(n = 1)
+
+centroid_by_buffer <- centroids_buffers |>
   group_by(ID) |>
   summarise(n = sum(n))
-  
-single_buffer <- single_old_buffer |> 
-  mutate(n_buildings = centroid_by_buffer$n)
-  
-single_buffer$area <- st_area(single_buffer) |> 
-  units::set_units(km^2)
-single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
-p <- ggplot() + 
-   geom_sf(data = buildings) +
-   geom_sf(data = single_buffer, 
-           aes(fill=old_buildings_per_km2), colour = NA) +
-   scale_fill_viridis_c(alpha = 0.6,
-                        begin = 0.6,
-                        end = 1,
-                        direction = -1,
-                        option = "B") 
-  
+single_buffer <- single_old_buffer |>
+  mutate(n_buildings = centroid_by_buffer$n)
+
+single_buffer$area <- st_area(single_buffer) |>
+  units::set_units(km^2)
+single_buffer$old_buildings_per_km2 <-
+  as.numeric(single_buffer$n_buildings / single_buffer$area)
+
+p <- ggplot() +
+  geom_sf(data = buildings) +
+  geom_sf(
+    data = single_buffer,
+    aes(fill = old_buildings_per_km2), colour = NA
+  ) +
+  scale_fill_viridis_c(
+    alpha = 0.6,
+    begin = 0.6,
+    end = 1,
+    direction = -1,
+    option = "B"
+  )
 ```
 
 ## One solution
