@@ -355,7 +355,7 @@
 <li><a href="#buffers">Buffers</a></li>
 <li><a href="#union">Union</a></li>
 <li><a href="#centroids">Centroids</a></li>
-<li><a href="#intersection">Intersection</a></li>
+<li><a href="#intersection-join">Intersection &amp; join</a></li>
 <li><a href="#calculating-area-and-density-of-spatial-features">Calculating area and density of spatial features</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
@@ -670,30 +670,32 @@ rather than their actual footprint. This operation means defining their
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">centroids_old</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-centroids-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="intersection">Intersection<a class="anchor" aria-label="anchor" href="#intersection"></a></h2>
+<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-centroids-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="intersection-join">Intersection &amp; join<a class="anchor" aria-label="anchor" href="#intersection-join"></a></h2>
 <hr class="half-width"><p>Now, we would like to distinguish conservation areas based on the
 number of historic buildings they contain. In GIS terms, we would like
 to know how many centroids each fused buffer polygon contains. This
 operation means <em>intersecting</em> the layer of polygons with the
 layer of points and the corresponding function is
-<code>st_intersection()</code>.</p>
+<code>st_intersection()</code>. We then need to <em>join</em> the
+aggregated number of centroids with the original layer, using a spatial
+left join. The corresponding function is
+<code>st_join(., left=T)</code>.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">centroids_buffers</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">centroids_buffers</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">st_intersection</span><span class="op">(</span><span class="va">centroids_old</span>, <span class="va">single_old_buffer</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">centroid_by_buffer</span> <span class="op">&lt;-</span> <span class="va">centroids_buffers</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">ID</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>n_buildings <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">single_buffer</span> <span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>n_buildings <span class="op">=</span> <span class="va">centroid_by_buffer</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="fu">st_join</span><span class="op">(</span><span class="va">centroid_by_buffer</span>, left <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">n_buildings</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span></span>
 <span>    alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
@@ -704,16 +706,7 @@ layer of points and the corresponding function is
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-intersection-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p><code>st_intersection</code> here adds the attributes of the
-intersected polygon buffers to the data table of the centroids. This
-means we will now know about each centroid, the ID of its intersected
-polygon-buffer, and a variable called “n” which is population with 1 for
-everyone. This means that all centroids will have the same weight when
-aggregated.</p>
-<p>We aggregate them by ID number (<code>group_by(ID)</code>) and sum
-the variable <code>n</code> to know how many centroids are contained in
-each polygon-buffer.</p>
-<div class="section level3">
+<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-intersection-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="section level3">
 <h3 id="maps-of-the-number-of-buildings-per-zone">Maps of the number of buildings per zone:<a class="anchor" aria-label="anchor" href="#maps-of-the-number-of-buildings-per-zone"></a></h3>
 <p>Let’s map this layer over the initial map of individual
 buildings.</p>
@@ -746,16 +739,34 @@ our project.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error: object 'km' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in `[[&lt;-.data.frame`(`*tmp*`, i, value = numeric(0)): replacement has 0 rows, data has 7</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>,</span>
-<span>          <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">old_buildings_per_km2</span><span class="op">)</span>,</span>
+<span>          <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">old_buildings_per_km2</span><span class="op">)</span>,</span>
 <span>          colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span></span>
 <span>    alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
@@ -765,7 +776,16 @@ our project.</p>
 <span>    option <span class="op">=</span> <span class="st">"B"</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-conservation-rules-have-changed." class="callout challenge">
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in `geom_sf()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 2nd layer.
+Caused by error:
+! object 'old_buildings_per_km2' not found</code></pre>
+</div>
+<div id="challenge-conservation-rules-have-changed." class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -785,7 +805,7 @@ density of all buildings per 10m fused buffer?</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -810,36 +830,36 @@ density of all buildings per 10m fused buffer?</p>
 <span></span>
 <span><span class="co"># centroids</span></span>
 <span><span class="va">centroids_old</span> <span class="op">&lt;-</span> <span class="fu">st_centroid</span><span class="op">(</span><span class="va">old_buildings</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">st_transform</span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># intersection</span></span>
-<span><span class="va">centroids_buffers</span> <span class="op">&lt;-</span> <span class="fu">st_intersection</span><span class="op">(</span><span class="va">centroids_old</span>, <span class="va">single_old_buffer</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span>  </span>
+<span>  </span>
+<span><span class="co"># intersection &amp; join</span></span>
+<span><span class="va">centroids_buffers</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">st_intersection</span><span class="op">(</span><span class="va">centroids_old</span>, <span class="va">single_old_buffer</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="va">centroid_by_buffer</span> <span class="op">&lt;-</span> <span class="va">centroids_buffers</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">ID</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>n_buildings <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span> </span>
 <span><span class="va">single_buffer</span> <span class="op">&lt;-</span> <span class="va">single_old_buffer</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>n_buildings <span class="op">=</span> <span class="va">centroid_by_buffer</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="fu">st_join</span><span class="op">(</span><span class="va">centroid_by_buffer</span>, left <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">units</span><span class="fu">::</span><span class="fu">set_units</span><span class="op">(</span><span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">set_units</span><span class="op">(</span><span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>,</span>
-<span>          <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">old_buildings_per_km2</span><span class="op">)</span>,</span>
-<span>          colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span></span>
-<span>    alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>    begin <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>    end <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>    direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
-<span>    option <span class="op">=</span> <span class="st">"B"</span></span>
-<span>  <span class="op">)</span></span></code></pre>
+<span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>,</span>
+<span>           <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">old_buildings_per_km2</span><span class="op">)</span>,</span>
+<span>           colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu">scale_fill_viridis_c</span><span class="op">(</span></span>
+<span>     alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>     begin <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>     end <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>     direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
+<span>     option <span class="op">=</span> <span class="st">"B"</span></span>
+<span>   <span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
