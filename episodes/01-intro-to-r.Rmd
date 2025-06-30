@@ -300,7 +300,7 @@ In the script, we will write:
 # Download the data
 download.file(
   "https://bit.ly/geospatial_data",
-  here("data", "gapminder_data.csv")
+  here("data", "gapminder-data.csv")
 )
 
 ```

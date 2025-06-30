@@ -100,7 +100,7 @@ bb
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-If this does not work for some reason, the `nominatim_polygon` can be found in the data folder: "episodes/data/boundingboxBrielle.shp".
+If this does not work for some reason, the `nominatim_polygon` can be found in the data folder: "episodes/data/bounding-box-brielle.shp".
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -165,7 +165,7 @@ buildings <- x$osm_polygons %>%
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-If this does not work for some reason, the `buildings` can be found in the data folder: "episodes/data/dataBrielle.shp".
+If this does not work for some reason, the `buildings` can be found in the data folder: "episodes/data/data-brielle.shp".
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
