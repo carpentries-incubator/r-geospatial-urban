@@ -256,8 +256,8 @@ countdown::countdown(minutes = 3)
 #| eval: false
 #| include: true
 
-lines_Delft <- st_read(here("episodes", "data", "delft-streets.shp"))
-point_Delft <- st_read(here("episodes", "data", "delft-leisure.shp"))
+lines_Delft <- st_read(here("data", "delft-streets.shp"))
+point_Delft <- st_read(here("data", "delft-leisure.shp"))
 
 st_geometry_type(lines_Delft)
 st_geometry_type(point_Delft)
@@ -434,7 +434,7 @@ countdown::countdown(minutes = 3)
 #| eval: false
 #| include: true
 
-municipal_boundaries_NL <- st_read(here("episodes", "data", "nl-gemeenten.shp"))
+municipal_boundaries_NL <- st_read(here("data", "nl-gemeenten.shp"))
 str(municipal_boundaries_NL)
 levels(factor(municipal_boundaries_NL$ligtInPr_1))
 
@@ -469,7 +469,7 @@ countdown::countdown(minutes = 5)
 #| include: true
 
 leisure_locations_selection <-
-  st_read(here("episodes", "data", "delft-leisure.shp")) |>
+  st_read(here("data", "delft-leisure.shp")) |>
   filter(leisure %in% c("playground", "picnic_table"))
 
 blue_orange <- c("cornflowerblue", "darkorange")
