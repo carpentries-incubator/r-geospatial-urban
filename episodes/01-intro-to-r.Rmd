@@ -189,6 +189,19 @@ To run all lines before the active line, you can use the keyboard shortcut
 <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> on Windows/Linux or 
 <kbd>Command</kbd> + <kbd>option</kbd> + <kbd>B</kbd> on Mac.
 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
+
+### Escaping
+
+The console shows it's ready to get new commands with `>` sign. 
+It will show `+` sign if it still requires input for the command to be executed.
+
+Sometimes you don't know what is missing/ you change your mind and 
+want to run something else, or your code is running much too long 
+and you just want it to stop. 
+The way to do it is to press <kbd>Esc</kbd>.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Packages 
 
