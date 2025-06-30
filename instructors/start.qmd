@@ -13,10 +13,10 @@ format:
 knitr::opts_chunk$set(
   cache = FALSE,
   echo = TRUE,
-  message = FALSE, 
+  message = FALSE,
   warning = FALSE,
   error = FALSE
-  )
+)
 ```
 
 # Geospatial Data Carpentry for Urbanism { background-image="fig/tudlib-green.png"}

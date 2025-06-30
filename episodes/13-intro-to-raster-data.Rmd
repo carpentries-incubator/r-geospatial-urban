@@ -6,10 +6,10 @@ exercises: 2
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE,
-	fig.width = 12
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 12
 )
 
 library(tidyverse)
@@ -116,9 +116,9 @@ We can use `ggplot()` to plot this data with a specific `geom_` function called 
 
 ```{r first-rast-plot, fig.cap="Raster plot with `ggplot2` using the viridis color scale"}
 ggplot() +
-    geom_raster(data = DSM_TUD_df , aes(x = x, y = y, fill = `tud-dsm-5m`)) +
-    scale_fill_viridis_c(option = "turbo") +
-    coord_equal() 
+  geom_raster(data = DSM_TUD_df, aes(x = x, y = y, fill = `tud-dsm-5m`)) +
+  scale_fill_viridis_c(option = "turbo") +
+  coord_equal()
 ```
 
 ::: callout

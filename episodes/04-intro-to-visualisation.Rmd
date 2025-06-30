@@ -6,9 +6,9 @@ exercises: 2 # to be updated by Jerome & Kyri
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
 )
 
 # Load libraries ----------------------------------------------------------
@@ -20,7 +20,6 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # Load gapminder data
 gapminder <- read.csv("data/gapminder_data.csv")
-
 ```
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -66,26 +65,24 @@ library(tidyverse)
 Now, lets plot the distribution of life expectancy in the `gapminder` dataset:
 
 ```{r ggplot}
-
 ggplot(
   data = gapminder, # data
   aes(x = lifeExp) # aesthetics layer
 ) +
   geom_histogram() # geometry layer
-
 ```
 
 You can see that in `ggplot` you use `+` as a pipe, to add layers.
 Within the `ggplot()` call, it is the only pipe that will work. But, it is
 possible to chain operations on a data set with a pipe that we have
-already learned: `%>%` ( or `|>`) and follow them by ggplot syntax.
+already learned: `|>` and follow them by ggplot syntax.
 
 Let's create another plot, this time only on a subset of observations:
 
 ```{r ggplot-col}
-gapminder %>% # we select a data set
-  filter(year == 2007 & continent == "Americas") %>% # filter to keep one year and one continent
-  ggplot(aes(x = country, y = gdpPercap)) + # the x and y axes represent values of columns
+gapminder |> # we select a data set
+  filter(year == 2007 & continent == "Americas") |> # filter year and continent
+  ggplot(aes(x = country, y = gdpPercap)) + # the x and y axes represent columns
   geom_col() # we select a column graph as a geometry
 ```
 
@@ -93,11 +90,11 @@ Now, you can iteratively improve how the plot looks like. For example,
 you might want to flip it, to better display the labels.
 
 ```{r ggplot-coord-flip}
-gapminder %>%
+gapminder |>
   filter(
     year == 2007,
     continent == "Americas"
-  ) %>%
+  ) |>
   ggplot(aes(x = country, y = gdpPercap)) +
   geom_col() +
   coord_flip() # flip axes
@@ -112,28 +109,27 @@ Now the order of the levels will depend on another variable - GDP per
 capita.
 
 ```{r ggplot-color}
-gapminder %>%
+gapminder |>
   filter(
     year == 2007,
     continent == "Americas"
-  ) %>%
-  mutate(country = fct_reorder(country, gdpPercap)) %>% # reorder factor levels
+  ) |>
+  mutate(country = fct_reorder(country, gdpPercap)) |> # reorder factor levels
   ggplot(aes(x = country, y = gdpPercap)) +
   geom_col() +
   coord_flip()
-
 ```
 
 Let's make things more colourful - let's represent the average life
 expectancy of a country by colour
 
 ```{r ggplot-colors}
-gapminder %>%
+gapminder |>
   filter(
     year == 2007,
     continent == "Americas"
-  ) %>%
-  mutate(country = fct_reorder(country, gdpPercap)) %>%
+  ) |>
+  mutate(country = fct_reorder(country, gdpPercap)) |>
   ggplot(aes(
     x = country,
     y = gdpPercap,
@@ -141,7 +137,6 @@ gapminder %>%
   )) +
   geom_col() +
   coord_flip()
-
 ```
 
 We can also adapt the colour scale. Common choice that is used for its
@@ -149,17 +144,16 @@ readability and colorblind-proofness are the palettes available in the
 `viridis` package.
 
 ```{r ggplot-colors-adapt}
-gapminder %>%
+gapminder |>
   filter(
     year == 2007,
     continent == "Americas"
-  ) %>%
-  mutate(country = fct_reorder(country, gdpPercap)) %>%
+  ) |>
+  mutate(country = fct_reorder(country, gdpPercap)) |>
   ggplot(aes(x = country, y = gdpPercap, fill = lifeExp)) +
   geom_col() +
   coord_flip() +
   scale_fill_viridis_c() # _c stands for continuous scale
-
 ```
 
 Maybe we don't need that much information about the life expectancy. We
@@ -167,9 +161,9 @@ only want to know if it's below or above average. We will make use of the `if_el
 
 ```{r ggplot-colors-discrete}
 p <- # this time let's save the plot in an object
-  gapminder %>%
+  gapminder |>
   filter(year == 2007 &
-    continent == "Americas") %>%
+           continent == "Americas") |>
   mutate(
     country = fct_reorder(country, gdpPercap),
     lifeExpCat = if_else(
@@ -177,7 +171,7 @@ p <- # this time let's save the plot in an object
       "high",
       "low"
     )
-  ) %>%
+  ) |>
   ggplot(aes(x = country, y = gdpPercap, fill = lifeExpCat)) +
   geom_col() +
   coord_flip() +
@@ -187,7 +181,6 @@ p <- # this time let's save the plot in an object
       "orange"
     ) # customize the colors
   )
-
 ```
 
 Since we saved a plot as an object `p`, nothing has been printed out. Just
@@ -196,7 +189,6 @@ call it.
 
 ```{r ggplot-call}
 p
-
 ```
 
 Now we can make use of the saved object and add things to it.
@@ -205,11 +197,13 @@ Let's also give it a title, name the axes and the legend:
 
 ```{r ggplot-titles}
 p <- p +
-  labs(title = "GDP per capita in Americas", 
-       subtitle = "Year 2007", 
-       x = "Country", 
-       y = "GDP per capita", 
-       fill = "Life Expectancy categories")
+  labs(
+    title = "GDP per capita in Americas",
+    subtitle = "Year 2007",
+    x = "Country",
+    y = "GDP per capita",
+    fill = "Life Expectancy categories"
+  )
 
 # show plot
 p
@@ -229,7 +223,6 @@ ggsave(
 )
 # By default, ggsave() saves the last displayed plot, but
 # you can also explicitly name the plot you want to save
-
 ```
 
 ### Using help documentation
@@ -254,8 +247,8 @@ your analysis, you can then load directly that data set. Let's say we want to
 save the data only for Americas:
 
 ```{r writing-data, eval=FALSE}
-gapminder_amr_2007 <- gapminder %>%
-  filter(year == 2007 & continent == "Americas") %>%
+gapminder_amr_2007 <- gapminder |>
+  filter(year == 2007 & continent == "Americas") |>
   mutate(
     country_reordered = fct_reorder(country, gdpPercap),
     lifeExpCat = if_else(lifeExp >= mean(lifeExp), "high", "low")

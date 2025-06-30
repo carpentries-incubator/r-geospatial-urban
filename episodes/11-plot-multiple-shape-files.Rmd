@@ -16,8 +16,8 @@ point_Delft <- st_read("data/delft-leisure.shp")
 road_types <- c("motorway", "primary", "secondary", "cycleway")
 road_colors <- c("blue", "green", "navy", "purple")
 
-lines_Delft_selection <- lines_Delft %>%
-  filter(highway %in% road_types) %>%
+lines_Delft_selection <- lines_Delft |>
+  filter(highway %in% road_types) |>
   mutate(highway = factor(highway, levels = road_types))
 ```
 
@@ -55,15 +55,17 @@ We will create a plot that combines our leisure locations (`point_Delft`), munic
 To begin, we create a plot with the site boundary as the first layer. Then layer the leisure locations and street data on top in consecutive calls to `geom_sf()`.
 
 ```{r plot-multiple}
-ggplot() + 
-  geom_sf(data = boundary_Delft, 
-          fill = "lightgrey", 
-          color = "lightgrey"
-          ) +
-  geom_sf(data = lines_Delft_selection, 
-          aes(color = highway), 
-          size = 1
-          ) +
+ggplot() +
+  geom_sf(
+    data = boundary_Delft,
+    fill = "lightgrey",
+    color = "lightgrey"
+  ) +
+  geom_sf(
+    data = lines_Delft_selection,
+    aes(color = highway),
+    size = 1
+  ) +
   geom_sf(data = point_Delft) +
   labs(title = "Mobility network of Delft") +
   coord_sf(datum = st_crs(28992))
@@ -75,7 +77,7 @@ We also need to customise the shape of the points with the `shape` aesthetic if 
 
 ```{r plot-multiple2}
 point_Delft$leisure <- factor(point_Delft$leisure)
-levels(point_Delft$leisure) %>% length()
+levels(point_Delft$leisure) |> length()
 leisure_colors <- rainbow(15)
 
 ggplot() +
@@ -163,12 +165,12 @@ Tip: You can call `scale_` functions multiple times for the same layer, for any 
 :::::::::::::::::::::::: solution 
 
 ```{r leisure-locations}
-leisure_locations_selection <- st_read("data/delft-leisure.shp") %>% 
+leisure_locations_selection <- st_read("data/delft-leisure.shp") |>
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 
 ```{r leisure-locations2}
-factor(leisure_locations_selection$leisure) %>% levels()
+factor(leisure_locations_selection$leisure) |> levels()
 ```
 
 ```{r leisure-locations3}
@@ -176,18 +178,28 @@ blue_orange <- c("cornflowerblue", "darkorange")
 ```
 
 ```{r plot-leisure-locations}
-ggplot() + 
-  geom_sf(data = lines_Delft_selection, 
-          aes(color = highway)) + 
-  geom_sf(data = leisure_locations_selection, 
-          aes(fill = leisure, shape = leisure)) + 
-  scale_shape_manual(name = "Leisure Type", 
-                     values = c(21, 22)) +
-  scale_color_manual(name = "Line Type", 
-                     values = road_colors) + 
-  scale_fill_manual(name = "Leisure Type", 
-                    values = blue_orange) + 
-  labs(title = "Road network and leisure") + 
+ggplot() +
+  geom_sf(
+    data = lines_Delft_selection,
+    aes(color = highway)
+  ) +
+  geom_sf(
+    data = leisure_locations_selection,
+    aes(fill = leisure, shape = leisure)
+  ) +
+  scale_shape_manual(
+    name = "Leisure Type",
+    values = c(21, 22)
+  ) +
+  scale_color_manual(
+    name = "Line Type",
+    values = road_colors
+  ) +
+  scale_fill_manual(
+    name = "Leisure Type",
+    values = blue_orange
+  ) +
+  labs(title = "Road network and leisure") +
   coord_sf(datum = st_crs(28992))
 ```
 

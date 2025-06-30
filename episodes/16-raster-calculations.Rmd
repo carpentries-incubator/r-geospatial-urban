@@ -6,10 +6,10 @@ exercises: 5
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE,
-	fig.width = 12
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 12
 )
 
 library(tidyverse)
@@ -67,20 +67,24 @@ describe("data/tud-dsm-5m.tif")
 
 We have already loaded and worked with these two data files in earlier episodes. Let’s plot them each once more to remind ourselves what this data looks like. First we plot the DTM elevation data:
 ```{r plot-dtm}
- ggplot() +
-      geom_raster(data = DTM_TUD_df , 
-              aes(x = x, y = y, fill = `tud-dtm-5m`)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_equal()
+ggplot() +
+  geom_raster(
+    data = DTM_TUD_df,
+    aes(x = x, y = y, fill = `tud-dtm-5m`)
+  ) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+  coord_equal()
 ```
 
 And then the DSM elevation data:
 ```{r plot-dsm}
- ggplot() +
-      geom_raster(data = DSM_TUD_df , 
-              aes(x = x, y = y, fill = `tud-dsm-5m`)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_equal()
+ggplot() +
+  geom_raster(
+    data = DSM_TUD_df,
+    aes(x = x, y = y, fill = `tud-dsm-5m`)
+  ) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) +
+  coord_equal()
 ```
 
 ## Raster math and Canopy Height Models
@@ -97,17 +101,19 @@ CHM_TUD_df <- as.data.frame(CHM_TUD, xy = TRUE)
 
 We can now plot the output CHM.
 ```{r plot-chm}
- ggplot() +
-   geom_raster(data = CHM_TUD_df , 
-               aes(x = x, y = y, fill = `tud-dsm-5m`)) + 
-   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-   coord_equal()
+ggplot() +
+  geom_raster(
+    data = CHM_TUD_df,
+    aes(x = x, y = y, fill = `tud-dsm-5m`)
+  ) +
+  scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) +
+  coord_equal()
 ```
 
 Let’s have a look at the distribution of values in our newly created Canopy Height Model (CHM).
 ```{r chm-hist}
 ggplot(CHM_TUD_df) +
-    geom_histogram(aes(`tud-dsm-5m`))
+  geom_histogram(aes(`tud-dsm-5m`))
 ```
 Notice that the range of values for the output CHM starts right below 0 and ranges to almost 100 meters. Does this make sense for buildings and trees in Delft?
 
@@ -128,17 +134,20 @@ min(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 max(CHM_TUD_df$`tud-dsm-5m`, na.rm = TRUE)
 
 ggplot(CHM_TUD_df) +
-    geom_histogram(aes(`tud-dsm-5m`))
+  geom_histogram(aes(`tud-dsm-5m`))
 
 custom_bins <- c(-5, 0, 10, 20, 30, 100)
-CHM_TUD_df <- CHM_TUD_df %>%
-                  mutate(canopy_discrete = cut(`tud-dsm-5m`, breaks = custom_bins))
+CHM_TUD_df <- CHM_TUD_df |>
+  mutate(canopy_discrete = cut(`tud-dsm-5m`, breaks = custom_bins))
 
 ggplot() +
-  geom_raster(data = CHM_TUD_df , aes(x = x, y = y,
-                                       fill = canopy_discrete)) + 
-     scale_fill_manual(values = terrain.colors(5)) + 
-     coord_quickmap()
+  geom_raster(data = CHM_TUD_df, aes(
+    x = x,
+    y = y,
+    fill = canopy_discrete
+  )) +
+  scale_fill_manual(values = terrain.colors(5)) +
+  coord_quickmap()
 ```
 
 :::
@@ -170,8 +179,9 @@ When we write this raster object to a GeoTIFF file we name it `CHM_TUD.tiff`. Th
 We will specify the output format `"GTiff"` and tell R to overwrite any data that is already in a file of the same name.
 ```{r chm-write}
 writeRaster(CHM_TUD, "fig/CHM_TUD.tiff",
-            filetype = "GTiff",
-            overwrite = TRUE)
+  filetype = "GTiff",
+  overwrite = TRUE
+)
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
