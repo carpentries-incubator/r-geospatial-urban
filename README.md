@@ -2,10 +2,12 @@
 
 ## Lesson Description
 
-This lesson is an introduction to working with raster and vector data in R for 
-researchers in urbanism or related fields. After a brief introduction to R, it 
-focuses on vector and raster data and their use in practical GIS operations on
-urban datasets.
+This workshop is an introduction to working with raster and vector data in R
+for researchers in urbanism or related fields. After a brief introduction to R
+(Lesson 1, Episodes 1-4), it focuses on vector (Lesson 2, Episodes 5-9) and
+raster data (Lesson 3, Episodes 10-14) and concludes with practical GIS
+operations using OpenStreetMap data (Lesson 4, Episodes 15-16). The workshop
+is designed to be taught in two full days.
 
 ## Rendered Version of This Lesson
 
@@ -34,13 +36,19 @@ This lesson was developed by:
 - [Manuel Garcia](https://github.com/manuGil)
 - [Selin Kubilay](https://github.com/Selkubi)
 
-Large parts of the lesson were adapted from:
+Lesson 1 was developed using elements from our experience in teaching R for Social Scientists and from:
 
-- Jemma Stachelek, Serah Njambi, Mike Mahoney, sheila, Andrea T. Thomaz, Annajiat Alim Rasel, David Pérez-Suárez, Erika Koontz, Joe Molloy, Jon Jablonski, Juan Fung, Katrin Leinweber, Matthew Sisk, Richard Detomasi, Sarah LR Stevens, Shamar Stewart, Susan Chen, & Wartini Ng. (2023). datacarpentry/r-intro-geospatial: Introduction to R for Geospatial Data 2023-05 (2023.05). Zenodo. https://doi.org/10.5281/zenodo.7897052
+> Stachelek, J., Njambi, S., Mahoney, M., sheila, Thomaz, A. T., Rasel, A. A., Pérez-Suárez, D., Koontz, E., Molloy, J., Jablonski, J., Fung, J., Leinweber, K., Sisk, M., Detomasi, R., Stevens, S. L., Stewart, S., Chen, S., & Ng, W. (2023). datacarpentry/r-intro-geospatial: Introduction to R for Geospatial Data 2023-05 (2023.05) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.7897052
 
-- Jemma Stachelek, & Kunal Marwaha. (2023). datacarpentry/organization-geospatial: Data Carpentry: Introduction to Geospatial Concepts 2023-05 (2023.05). Zenodo. https://doi.org/10.5281/zenodo.7897047
+Episode 10 of Lesson 2 was mostly self-developed, also using elements from:
 
-- Jemma Stachelek, Erin Alison Becker, Drake Asberry, Matt Strimas-Mackey, Annajiat Alim Rasel, Angela Li, Ryan Avery, kcarini, Kunal Marwaha, mneilson-usgs, Adam H. Sparks, bart1, Christian Boldsen Knudsen, Daniel Kerchner, Darya P Vanichkina, Pérez-Suárez, Jon Jablonski, Michael Liou, Natalia Morandeira, & Rob Williams. (2023). datacarpentry/r-raster-vector-geospatial: Data Carpentry: Introduction to Geospatial Raster and Vector Data with R, February 2023 (v2023.02.06). Zenodo. https://doi.org/10.5281/zenodo.7612769
+> Stachelek, J., & Marwaha, K. (2023). datacarpentry/organization-geospatial: Data Carpentry: Introduction to Geospatial Concepts 2023-05 (2023.05) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.7897047
+
+Lessons 2 and 3 introduce an urban dataset and build on parts of:
+
+> Stachelek, J., Becker, E. A., Asberry, D., Strimas-Mackey, M., Rasel, A. A., Li, A., Avery, R., kcarini, Marwaha, K., mneilson-usgs, Sparks, A. H., bart1, Knudsen, C. B., Kerchner, D., Vanichkina, D. P., Pérez-Suárez, Jablonski, J., Liou, M., Morandeira, N., & Williams, R. (2023). datacarpentry/r-raster-vector-geospatial: Data Carpentry: Introduction to Geospatial Raster and Vector Data with R, February 2023 (v2023.02.06) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.7612769
+
+Lesson 4 was fully self-developed.
 
 ## Citation
 
