@@ -16,8 +16,8 @@ point_Delft <- st_read("data/delft-leisure.shp")
 road_types <- c("motorway", "primary", "secondary", "cycleway")
 road_colors <- c("blue", "green", "navy", "purple")
 
-lines_Delft_selection <- lines_Delft %>%
-  filter(highway %in% road_types) %>%
+lines_Delft_selection <- lines_Delft |>
+  filter(highway %in% road_types) |>
   mutate(highway = factor(highway, levels = road_types))
 ```
 
@@ -75,7 +75,7 @@ We also need to customise the shape of the points with the `shape` aesthetic if 
 
 ```{r plot-multiple2}
 point_Delft$leisure <- factor(point_Delft$leisure)
-levels(point_Delft$leisure) %>% length()
+levels(point_Delft$leisure) |> length()
 leisure_colors <- rainbow(15)
 
 ggplot() +
@@ -163,12 +163,12 @@ Tip: You can call `scale_` functions multiple times for the same layer, for any 
 :::::::::::::::::::::::: solution 
 
 ```{r leisure-locations}
-leisure_locations_selection <- st_read("data/delft-leisure.shp") %>% 
+leisure_locations_selection <- st_read("data/delft-leisure.shp") |> 
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 
 ```{r leisure-locations2}
-factor(leisure_locations_selection$leisure) %>% levels()
+factor(leisure_locations_selection$leisure) |> levels()
 ```
 
 ```{r leisure-locations3}

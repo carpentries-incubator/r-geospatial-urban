@@ -52,7 +52,7 @@ In this part, we will plot our raster object using `ggplot2` with customized col
 In the previous plot, our DSM was coloured with a continuous colour range. For clarity and visibility, we may prefer to view the data “symbolized” or coloured according to ranges of values. This is comparable to a “classified” map. For that, we need to tell `ggplot()` how many groups to break our data into and where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use `dplyr`’s `mutate()` function combined with `cut()` to split the data into 3 bins.
 
 ```{r dsm-fct}
-DSM_TUD_df <- DSM_TUD_df %>%
+DSM_TUD_df <- DSM_TUD_df |>
   mutate(fct_elevation = cut(`tud-dsm-5m`, breaks = 3))
 
 ggplot() +
@@ -66,7 +66,7 @@ levels(DSM_TUD_df$fct_elevation)
 
 And we can get the count of values (that is, number of pixels) in each group using `dplyr`’s `count()` function:
 ```{r dsm-fct-count}
-DSM_TUD_df %>% 
+DSM_TUD_df |> 
   count(fct_elevation)
 ```
 
@@ -75,7 +75,7 @@ We might prefer to customize the cut-off values for these groups. Lets round the
 ```{r dsm-fct-cb}
 custom_bins <- c(-10, 0, 5, 100)
 
-DSM_TUD_df <- DSM_TUD_df %>%
+DSM_TUD_df <- DSM_TUD_df |>
   mutate(fct_elevation_cb = cut(`tud-dsm-5m`, breaks = custom_bins))
 
 levels(DSM_TUD_df$fct_elevation_cb)
@@ -99,7 +99,7 @@ ggplot() +
 
 And we can get the count of values in each group in the same way we did before:
 ```{r dsm-fct-cb-count}
-DSM_TUD_df %>% 
+DSM_TUD_df |> 
   count(fct_elevation_cb)
 ```
 
@@ -160,7 +160,7 @@ Create a plot of the TU Delft Digital Surface Model (`DSM_TUD`) that has:
 ::: solution
 
 ```{r plot-dsm-fct-cb6}
-DSM_TUD_df <- DSM_TUD_df %>%
+DSM_TUD_df <- DSM_TUD_df |>
   mutate(fct_elevation_6 = cut(`tud-dsm-5m`, breaks = 6))
 
 levels(DSM_TUD_df$fct_elevation_6)

@@ -198,8 +198,8 @@ function as follows:
 
 ```{r osm-feature}
 
-x <- opq(bbox = bb) %>%
-    add_osm_feature(key = 'building')%>%
+x <- opq(bbox = bb) |>
+    add_osm_feature(key = 'building')|>
     osmdata_sf()
 
 ```
@@ -242,8 +242,8 @@ need to look into specific attributes:
 -   This code for this projection is: 28992.
 
 ```{r reproject}
-buildings <- x$osm_polygons %>%
-  st_transform(.,crs=28992)
+buildings <- x$osm_polygons |>
+  st_transform(crs=28992)
 ```
 
 ## Mapping urbanisation in Brielle
@@ -297,12 +297,12 @@ We might replace the name in the first line and run everything again... or we ca
 extract_buildings <- function(cityname, year=1900){
   bb <- getbb(cityname)
   
-  x <- opq(bbox = bb) %>%
-     add_osm_feature(key = 'building') %>%
+  x <- opq(bbox = bb) |>
+     add_osm_feature(key = 'building') |>
      osmdata_sf()
      
-  buildings <- x$osm_polygons %>%
-    st_transform(.,crs=28992)
+  buildings <- x$osm_polygons |>
+    st_transform(crs=28992)
     
   start_date <- as.numeric(buildings$start_date)
   
@@ -359,11 +359,11 @@ countdown::countdown(minutes = 20)
 ```{r}
 library(leaflet)
 
-buildings2 <- buildings %>%
-  st_transform(.,crs=4326)
+buildings2 <- buildings |>
+  st_transform(crs=4326)
 
-leaflet(buildings2) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(buildings2) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(color = "#444444", weight = 0.1, smoothFactor = 0.5,
   opacity = 0.2, fillOpacity = 0.8,
   fillColor = ~colorQuantile("YlGnBu", -build_date)(-build_date),
@@ -421,12 +421,12 @@ If you were using pen&paper or a traditional GIS software, what would your workf
 
 ```{r old-buildings}
 bb <- osmdata::getbb("Brielle, NL")
-x <- opq(bbox = bb) %>%
-    add_osm_feature(key = 'building') %>%
+x <- opq(bbox = bb) |>
+    add_osm_feature(key = 'building') |>
     osmdata_sf()
 
-buildings <- x$osm_polygons %>%
-  st_transform(.,crs=28992)
+buildings <- x$osm_polygons |>
+  st_transform(crs=28992)
 
 summary(buildings$start_date)
 ```
@@ -438,7 +438,7 @@ old <- 1800 # year prior to which you consider a building old
 
 buildings$start_date <- as.numeric(as.character(buildings$start_date))
 
-old_buildings <- buildings %>%
+old_buildings <- buildings |>
   filter(start_date <= old)
 
 ggplot(data = old_buildings) + 
@@ -507,8 +507,8 @@ This process is called a **union**, and the corresponding function in `sf` is `s
 
 
 ```{r union}
-single_old_buffer <- st_union(buffer_old_buildings) %>%
-   st_cast(to = "POLYGON") %>%
+single_old_buffer <- st_union(buffer_old_buildings) |>
+   st_cast(to = "POLYGON") |>
    st_as_sf() 
 ```
 
@@ -520,9 +520,9 @@ We also used `st_cast()` to explicit the type of the resulting object (*POLYGON*
 Then we create unique IDs to identify the new polygons.
 
 ```{r union2}
-single_old_buffer<- single_old_buffer %>%
-  mutate("ID"=as.factor(1:nrow(single_old_buffer))) %>%
-  st_transform(.,crs=28992) 
+single_old_buffer<- single_old_buffer |>
+  mutate("ID"=as.factor(1:nrow(single_old_buffer))) |>
+  st_transform(crs=28992) 
   
 ```
 
@@ -538,8 +538,8 @@ This operation means defining their *centroid* and the corresponding function is
 ```{r centroids}
 sf::sf_use_s2(FALSE)  # s2 works with geographic projections, so to calculate centroids in projected CRS units (meters), we need to disable it
 
-centroids_old <- st_centroid(old_buildings) %>%
-  st_transform(.,crs=28992)  
+centroids_old <- st_centroid(old_buildings) |>
+  st_transform(crs=28992)  
 
 ggplot() + 
   geom_sf(data = single_old_buffer, aes(fill=ID)) +
@@ -563,7 +563,7 @@ The corresponding function is `st_intersection()`.
 
 ```{r }
 centroids_buffers <- 
-  st_intersection(centroids_old,single_old_buffer) %>%
+  st_intersection(centroids_old,single_old_buffer) |>
   mutate(n = 1)
 
 ```
@@ -574,11 +574,11 @@ centroids_buffers <-
 We aggregate them by ID number (group_by(ID)) and sum the variable n to know how many centroids are contained in each polygon-buffer.
 
 ```{r}
-centroid_by_buffer <- centroids_buffers %>%
-   group_by(ID) %>%
+centroid_by_buffer <- centroids_buffers |>
+   group_by(ID) |>
    summarise(n = sum(n))
  
-single_buffer <- single_old_buffer %>%
+single_buffer <- single_old_buffer |>
    mutate(n_buildings = centroid_by_buffer$n)
 ```
 
@@ -600,8 +600,8 @@ Let's compute the **density** of old buildings per buffer zone (= number
 of buildings / area of buffer).
 
 ```{r area}
-single_buffer$area <- sf::st_area(single_buffer)  %>% 
-  units::set_units(., km^2)
+single_buffer$area <- sf::st_area(single_buffer) |> 
+  units::set_units(km^2)
 
 single_buffer$old_buildings_per_km2 <- as.numeric(
   single_buffer$n_buildings / single_buffer$area
@@ -657,38 +657,38 @@ old <- 1939
 distance <- 10
 
 # select
-old_buildings <- buildings %>%
+old_buildings <- buildings |>
   filter(start_date <= old)
 
 # buffer
 buffer_old_buildings <- st_buffer(old_buildings, dist = distance)
   
 # union
-single_old_buffer <- st_union(buffer_old_buildings) %>%
-  st_cast(to = "POLYGON") %>%
+single_old_buffer <- st_union(buffer_old_buildings) |>
+  st_cast(to = "POLYGON") |>
   st_as_sf()  
  
-single_old_buffer <- single_old_buffer %>%
-  mutate("ID"=1:nrow(single_old_buffer))  %>%
+single_old_buffer <- single_old_buffer |>
+  mutate("ID"=1:nrow(single_old_buffer))  |>
   st_transform(single_old_buffer,crs=4326) 
 
 # centroids
-centroids_old <- st_centroid(old_buildings) %>%
-  st_transform(.,crs=4326)  
+centroids_old <- st_centroid(old_buildings) |>
+  st_transform(crs=4326)  
   
 # intersection
-centroids_buffers <- st_intersection(centroids_old,single_old_buffer) %>%
+centroids_buffers <- st_intersection(centroids_old,single_old_buffer) |>
   mutate(n=1)
  
-centroid_by_buffer <- centroids_buffers %>% 
-  group_by(ID) %>%
+centroid_by_buffer <- centroids_buffers |> 
+  group_by(ID) |>
   summarise(n = sum(n))
   
-single_buffer <- single_old_buffer %>% 
+single_buffer <- single_old_buffer |> 
   mutate(n_buildings = centroid_by_buffer$n)
   
-single_buffer$area <- st_area(single_buffer)  %>% 
-  units::set_units(., km^2)
+single_buffer$area <- st_area(single_buffer) |> 
+  units::set_units(km^2)
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
 p <- ggplot() + 
