@@ -296,7 +296,7 @@ In the script, we will write:
 # Download the data
 download.file(
   "https://bit.ly/geospatial_data",
-  here("data", "gapminder_data.csv")
+  here("data", "gapminder-data.csv")
 )
 ```
 The data we just downloaded is data about country statistics, containing information on, for instance, GDP and life-expectancy. We will work with this data later in the lesson
