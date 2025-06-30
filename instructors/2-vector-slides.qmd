@@ -32,8 +32,8 @@ road_colors <- c("blue", "green", "navy", "purple")
 municipal_boundary_NL <- st_read(here("episodes", "data","nl-gemeenten.shp"))
 country_boundary_NL <- st_read(here("episodes", "data", "nl-boundary.shp"))
 
-lines_Delft_selection <- lines_Delft %>% 
-  filter(highway %in% road_types) %>% 
+lines_Delft_selection <- lines_Delft |> 
+  filter(highway %in% road_types) |> 
   mutate(highway = factor(highway, levels = road_types))
 
 knitr::opts_chunk$set(
@@ -330,12 +330,12 @@ countdown::countdown(minutes = 5)
 
 levels(factor(lines_Delft$highway))
 
-motorway_Delft <- lines_Delft %>% 
+motorway_Delft <- lines_Delft |> 
   filter(highway == "motorway")
 
-motorway_Delft %>% 
-  mutate(length = st_length(.)) %>% 
-  select(everything(), geometry) %>%
+motorway_Delft |>
+  mutate(length = st_length(geometry)) |> 
+  select(everything(), geometry) |>
   summarise(total_length = sum(length))
 
 nrow(motorway_Delft)
@@ -403,7 +403,7 @@ countdown::countdown(minutes = 5)
 
 levels(factor(lines_Delft_selection$highway))
 
-lines_Delft_bicycle <- lines_Delft %>% 
+lines_Delft_bicycle <- lines_Delft |> 
   filter(highway == "cycleway")
 
 ggplot() +
@@ -467,7 +467,7 @@ countdown::countdown(minutes = 5)
 #| eval: false
 #| include: true
 
-leisure_locations_selection <- st_read(here("episodes", "data", "delft-leisure.shp")) %>% 
+leisure_locations_selection <- st_read(here("episodes", "data", "delft-leisure.shp")) |> 
   filter(leisure %in% c("playground", "picnic_table"))
 
 blue_orange <- c("cornflowerblue", "darkorange")
@@ -511,7 +511,7 @@ countdown::countdown(minutes = 3)
 #| eval: false
 #| include: true
 
-boundary_ZH <- municipal_boundary_NL %>% 
+boundary_ZH <- municipal_boundary_NL |> 
   filter(ligtInPr_1 == "Zuid-Holland")
 
 ggplot() +

@@ -129,8 +129,8 @@ On this page we can read about the arguments needed for each function: a boundin
 
 
 ```{r osm}
-x <- opq(bbox = bb) %>%
-   add_osm_feature(key = 'building') %>%
+x <- opq(bbox = bb) |>
+   add_osm_feature(key = 'building') |>
    osmdata_sf()
 ```
 
@@ -159,8 +159,8 @@ Let's map the building age of post-1900 Brielle buildings.
 First, we are going to select the polygons and reproject them with the Amersfoort/RD New projection, suited for maps centred on the Netherlands. This code for this projection is: 28992.
 
 ```{r transform}
-buildings <- x$osm_polygons %>%
-  st_transform(.,crs=28992)
+buildings <- x$osm_polygons |>
+  st_transform(crs=28992)
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -201,12 +201,12 @@ We might replace the name in the first line and run everything again. Or we can 
 extract_buildings <- function(cityname, year=1900){
   bb <- getbb(cityname)
   
-  x <- opq(bbox = bb) %>%
-     add_osm_feature(key = 'building') %>%
+  x <- opq(bbox = bb) |>
+     add_osm_feature(key = 'building') |>
      osmdata_sf()
      
-  buildings <- x$osm_polygons %>%
-    st_transform(.,crs=28992)
+  buildings <- x$osm_polygons |>
+    st_transform(crs=28992)
     
   start_date <- as.numeric(buildings$start_date)
   
@@ -247,17 +247,17 @@ Leaflet is a ["open-source JavaScript library for mobile-friendly interactive ma
 library(leaflet)
 
 
-buildings2 <- buildings %>%
-  st_transform(.,crs=4326)
+buildings2 <- buildings |>
+  st_transform(crs=4326)
 
-# leaflet(buildings2) %>%
-#  addTiles() %>%
+# leaflet(buildings2) |>
+#  addTiles() |>
 #   addPolygons(fillColor = ~colorQuantile("YlGnBu", -build_date)(-build_date))
 
  # For a better visual rendering, try:
   
-leaflet(buildings2) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(buildings2) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addPolygons(color = "#444444", weight = 0.1, smoothFactor = 0.5,
   opacity = 0.2, fillOpacity = 0.8,
   fillColor = ~colorQuantile("YlGnBu", -build_date)(-build_date),
