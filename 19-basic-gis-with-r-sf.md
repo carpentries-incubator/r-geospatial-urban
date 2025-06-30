@@ -204,25 +204,24 @@ ggplot() +
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-centroids-1.png" style="display: block; margin: auto;" />
 
-## Intersection
+## Intersection & join
 Now, we would like to distinguish conservation areas based on the number of historic buildings they contain. In GIS terms, we would like to know how many centroids each fused buffer polygon contains. This operation means _intersecting_ the layer of polygons with the layer of points and the corresponding function is `st_intersection()`.
-
+We then need to _join_ the aggregated number of centroids with the original layer, using a spatial left join. The corresponding function is `st_join(., left=T)`.
 
 
 ``` r
-centroids_buffers <-
+centroids_buffers <- 
   st_intersection(centroids_old, single_old_buffer) |>
   mutate(n = 1)
 
 centroid_by_buffer <- centroids_buffers |>
   group_by(ID) |>
-  summarise(n = sum(n))
+  summarise(n_buildings = n())
 
 single_buffer <- single_old_buffer |>
-  mutate(n_buildings = centroid_by_buffer$n)
+  st_join(centroid_by_buffer, left = TRUE)
 
-
-ggplot() +
+ggplot() + 
   geom_sf(data = single_buffer, aes(fill = n_buildings)) +
   scale_fill_viridis_c(
     alpha = 0.8,
@@ -236,9 +235,6 @@ ggplot() +
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-intersection-1.png" style="display: block; margin: auto;" />
 
-`st_intersection` here adds the attributes of the intersected polygon buffers to the data table of the centroids. This means we will now know about each centroid, the ID of its intersected polygon-buffer, and a variable called "n" which is population with 1 for everyone. This means that all centroids will have the same weight when aggregated.
-
-We aggregate them by ID number (`group_by(ID)`) and sum the variable `n` to know how many centroids are contained in each polygon-buffer.
 
 ### Maps of the number of buildings per zone:
 
@@ -266,16 +262,28 @@ In our analysis, we have a large number of pre-war buildings, and the buffer zon
 
 
 ``` r
-single_buffer$area <- st_area(single_buffer) |>
-  units::set_units(km^2)
+single_buffer$area <- st_area(single_buffer) |> 
+  set_units(., km^2)
+```
 
+``` error
+Error: object 'km' not found
+```
+
+``` r
 single_buffer$old_buildings_per_km2 <-
   as.numeric(single_buffer$n_buildings / single_buffer$area)
+```
 
-ggplot() +
+``` error
+Error in `[[<-.data.frame`(`*tmp*`, i, value = numeric(0)): replacement has 0 rows, data has 7
+```
+
+``` r
+ggplot() + 
   geom_sf(data = buildings) +
   geom_sf(data = single_buffer,
-          aes(fill = old_buildings_per_km2),
+          aes(fill=old_buildings_per_km2),
           colour = NA) +
   scale_fill_viridis_c(
     alpha = 0.6,
@@ -286,7 +294,13 @@ ggplot() +
   )
 ```
 
-<img src="fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" />
+``` error
+Error in `geom_sf()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 2nd layer.
+Caused by error:
+! object 'old_buildings_per_km2' not found
+```
 
 
  
@@ -322,36 +336,36 @@ single_old_buffer <- single_old_buffer |>
 
 # centroids
 centroids_old <- st_centroid(old_buildings) |>
-  st_transform(crs = 4326)
-
-# intersection
-centroids_buffers <- st_intersection(centroids_old, single_old_buffer) |>
-  mutate(n = 1)
+  st_transform(crs = 4326)  
+  
+# intersection & join
+centroids_buffers <- 
+  st_intersection(centroids_old, single_old_buffer) 
 
 centroid_by_buffer <- centroids_buffers |>
   group_by(ID) |>
-  summarise(n = sum(n))
-
+  summarise(n_buildings = n())
+ 
 single_buffer <- single_old_buffer |>
-  mutate(n_buildings = centroid_by_buffer$n)
+  st_join(centroid_by_buffer, left = TRUE)
 
-single_buffer$area <- sf::st_area(single_buffer) |>
-  units::set_units(km^2)
+single_buffer$area <- st_area(single_buffer) |> 
+  set_units(km^2)
 single_buffer$old_buildings_per_km2 <-
   as.numeric(single_buffer$n_buildings / single_buffer$area)
 
-ggplot() +
-  geom_sf(data = buildings) +
-  geom_sf(data = single_buffer,
-          aes(fill = old_buildings_per_km2),
-          colour = NA) +
-  scale_fill_viridis_c(
-    alpha = 0.6,
-    begin = 0.6,
-    end = 1,
-    direction = -1,
-    option = "B"
-  )
+ ggplot() + 
+   geom_sf(data = buildings) +
+   geom_sf(data = single_buffer,
+           aes(fill=old_buildings_per_km2),
+           colour = NA) +
+   scale_fill_viridis_c(
+     alpha = 0.6,
+     begin = 0.6,
+     end = 1,
+     direction = -1,
+     option = "B"
+   )
 ```
 
 <img src="fig/19-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" />
