@@ -409,7 +409,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Explore and plot by vector layer attributes</h1>
-        <p>Last updated on 2025-06-27 |
+        <p>Last updated on 2025-06-30 |
 
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/10-explore-and-plot-by-vector-layer-attributes.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -609,7 +609,7 @@ variable this way, we have to first transform it into a factor with the
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">factor</span><span class="op">(</span><span class="va">lines_Delft</span><span class="op">$</span><span class="va">highway</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">levels</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">factor</span><span class="op">(</span><span class="va">lines_Delft</span><span class="op">$</span><span class="va">highway</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">levels</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -742,7 +742,7 @@ variable.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this is better</span></span>
-<span><span class="fu">na.omit</span><span class="op">(</span><span class="va">point_Delft</span><span class="op">$</span><span class="va">leisure</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">head</span><span class="op">(</span><span class="op">)</span>  </span></code></pre>
+<span><span class="fu">na.omit</span><span class="op">(</span><span class="va">point_Delft</span><span class="op">$</span><span class="va">leisure</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">head</span><span class="op">(</span><span class="op">)</span>  </span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -759,8 +759,8 @@ the first three of the unique alphabetically ordered values.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this is even better</span></span>
-<span><span class="fu">factor</span><span class="op">(</span><span class="va">point_Delft</span><span class="op">$</span><span class="va">leisure</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">levels</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="fu">factor</span><span class="op">(</span><span class="va">point_Delft</span><span class="op">$</span><span class="va">leisure</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">levels</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">head</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>   </span></code></pre>
 </div>
 <div class="codewrapper">
@@ -798,7 +798,7 @@ only <code>cycleways</code> from our street data.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cycleway_Delft</span> <span class="op">&lt;-</span> <span class="va">lines_Delft</span> <span class="op">%&gt;%</span>   </span>
+<code class="sourceCode R"><span><span class="va">cycleway_Delft</span> <span class="op">&lt;-</span> <span class="va">lines_Delft</span> <span class="op">|&gt;</span>   </span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">highway</span> <span class="op">==</span> <span class="st">"cycleway"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Our subsetting operation reduces the number of features from 11244 to
@@ -832,10 +832,10 @@ segment with <code>st_length()</code></p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cycleway_Delft</span> <span class="op">&lt;-</span> <span class="va">cycleway_Delft</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>length <span class="op">=</span> <span class="fu">st_length</span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">cycleway_Delft</span> <span class="op">&lt;-</span> <span class="va">cycleway_Delft</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>length <span class="op">=</span> <span class="fu">st_length</span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">cycleway_Delft</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">cycleway_Delft</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">summarise</span><span class="op">(</span>total_length <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">length</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -911,7 +911,7 @@ Map of cycleways in Delft.
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">motorway_Delft</span> <span class="op">&lt;-</span> <span class="va">lines_Delft</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">motorway_Delft</span> <span class="op">&lt;-</span> <span class="va">lines_Delft</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">highway</span> <span class="op">==</span> <span class="st">"motorway"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">motorway_Delft</span></span></code></pre>
@@ -954,9 +954,9 @@ First 10 features:
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">motorway_Delft_length</span> <span class="op">&lt;-</span> <span class="va">motorway_Delft</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>length <span class="op">=</span> <span class="fu">st_length</span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, <span class="va">geometry</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">motorway_Delft_length</span> <span class="op">&lt;-</span> <span class="va">motorway_Delft</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>length <span class="op">=</span> <span class="fu">st_length</span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, <span class="va">geometry</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">summarise</span><span class="op">(</span>total_length <span class="op">=</span> <span class="fu">sum</span><span class="op">(</span><span class="va">length</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <ol start="4" style="list-style-type: decimal"><li>Plot the motorways.</li>
@@ -1012,8 +1012,8 @@ column.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">road_types</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"motorway"</span>, <span class="st">"primary"</span>, <span class="st">"secondary"</span>, <span class="st">"cycleway"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">lines_Delft_selection</span> <span class="op">&lt;-</span> <span class="va">lines_Delft</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">highway</span> <span class="op">%in%</span> <span class="va">road_types</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">lines_Delft_selection</span> <span class="op">&lt;-</span> <span class="va">lines_Delft</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">highway</span> <span class="op">%in%</span> <span class="va">road_types</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>highway <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">highway</span>, levels <span class="op">=</span> <span class="va">road_types</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Next we define the four colours we want to use, one for each type of
@@ -1155,7 +1155,7 @@ multi-layer maps.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First, create a data frame with only roads where bicycles </span></span>
 <span><span class="co"># are allowed</span></span>
-<span><span class="va">lines_Delft_bicycle</span> <span class="op">&lt;-</span> <span class="va">lines_Delft</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">lines_Delft_bicycle</span> <span class="op">&lt;-</span> <span class="va">lines_Delft</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">highway</span> <span class="op">==</span> <span class="st">"cycleway"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Next, visualise it using ggplot</span></span>
@@ -1257,9 +1257,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/10-explore-and-plot-by-vector-layer-attributes.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/instructor/10-explore-and-plot-by-vector-layer-attributes.html",
-  "dateCreated": "2025-06-27",
-  "dateModified": "2025-06-27",
-  "datePublished": "2025-06-27"
+  "dateCreated": "2025-06-30",
+  "dateModified": "2025-06-30",
+  "datePublished": "2025-06-30"
 }
 
   </script><script>
