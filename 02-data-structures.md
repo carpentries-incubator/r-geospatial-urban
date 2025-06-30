@@ -88,7 +88,7 @@ str(numeric_vector)
 ```
 
 ``` r
-# vector of words - or strings of characters- character data type. Note that we need to use quotation marks '' to tell R that we are working with strings. If there is a ' mark in the string itself, such as s'Gravenhage, then we use "".
+# vector of words - or strings of characters- character data type. Note that we need to use quotation marks '' to tell R that we are working with strings. 
 character_vector <- c('Amsterdam', "'s Gravenhage", 'Delft') 
 character_vector
 ```
@@ -122,6 +122,46 @@ str(logical_vector)
 ``` output
  logi [1:3] TRUE FALSE TRUE
 ```
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
+
+### Which quotation marks to use? 
+
+In R, you can use both single `'...'` and double `"..."` quotation marks for strings.
+However, **best practice is to use double quotes** by default.
+
+Use single quotes when the text inside the string contains double quotes —
+this tells R that the double quotation mark is part of the string, not the code.
+
+
+**Why** double quotes?
+
+Single quotes are often part of names or words (e.g., 's Gravenhage),
+so using double quotes keeps your code cleaner and more consistent.
+
+Preferred: 
+
+``` r
+c("Amsterdam", "'s Gravenhage", "Delft")
+```
+
+``` output
+[1] "Amsterdam"     "'s Gravenhage" "Delft"        
+```
+
+Avoid:
+
+``` r
+c('Amsterdam', "'s Gravenhage", 'Delft')
+```
+
+``` output
+[1] "Amsterdam"     "'s Gravenhage" "Delft"        
+```
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 
 ### Combining vectors 
 
@@ -390,7 +430,11 @@ nordic_cat
 [1] Norway  Sweden  Norway  Denmark Sweden 
 Levels: Norway Denmark Sweden
 ```
+::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::: callout 
 
 ### Note of caution 
 
