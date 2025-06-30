@@ -69,7 +69,7 @@ We're gonna read in the `gapminder` data set with information about countries' s
 
 ```{r reading-data}
 
-gapminder <- read.csv(here("data/gapminder_data.csv"))
+gapminder <- read.csv(here("data", "gapminder_data.csv"))
 
 ```
 
