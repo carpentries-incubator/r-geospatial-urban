@@ -509,11 +509,15 @@ Projected CRS: Amersfoort / RD New</code></pre>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">country_boundary_NL</span>, </span>
-<span>          color <span class="op">=</span> <span class="st">"gray18"</span>, </span>
-<span>          linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">municipal_boundary_NL</span>, </span>
-<span>          color <span class="op">=</span> <span class="st">"gray40"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">country_boundary_NL</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"gray18"</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">municipal_boundary_NL</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"gray40"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Map of Contiguous NL Municipal Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
@@ -583,14 +587,20 @@ Geodetic CRS:  WGS 84</code></pre>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">country_boundary_NL</span>, </span>
-<span>          linewidth <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>          color <span class="op">=</span> <span class="st">"gray18"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">municipal_boundary_NL</span>, </span>
-<span>          color <span class="op">=</span> <span class="st">"gray40"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">boundary_Delft</span>, </span>
-<span>          color <span class="op">=</span> <span class="st">"purple"</span>, </span>
-<span>          fill <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">country_boundary_NL</span>,</span>
+<span>    linewidth <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"gray18"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">municipal_boundary_NL</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"gray40"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">boundary_Delft</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"purple"</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"purple"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Map of Contiguous NL Municipal Boundaries"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
@@ -618,13 +628,13 @@ and the boundary of Delft (as a filled polygon).</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">boundary_ZH</span> <span class="op">&lt;-</span> <span class="va">municipal_boundary_NL</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">boundary_ZH</span> <span class="op">&lt;-</span> <span class="va">municipal_boundary_NL</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">ligtInPr_1</span> <span class="op">==</span> <span class="st">"Zuid-Holland"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb18">
@@ -632,23 +642,30 @@ and the boundary of Delft (as a filled polygon).</li>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">boundary_ZH</span>, </span>
-<span>            <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span><span class="st">"color"</span><span class="op">)</span>, </span>
-<span>            show.legend <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">scale_color_manual</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, </span>
-<span>                       labels <span class="op">=</span> <span class="st">"Municipal Boundaries in South Holland"</span>, </span>
-<span>                       values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"color"</span> <span class="op">=</span> <span class="st">"gray18"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">boundary_Delft</span>, </span>
-<span>            <span class="fu">aes</span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"shape"</span><span class="op">)</span>, </span>
-<span>            color <span class="op">=</span> <span class="st">"purple"</span>, </span>
-<span>            fill <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">scale_shape_manual</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, </span>
-<span>                       labels <span class="op">=</span> <span class="st">"Municipality of Delft"</span>, </span>
-<span>                       values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"shape"</span> <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span>
-<span>                       <span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Delft location"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">theme</span><span class="op">(</span>legend.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span>color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">boundary_ZH</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"color"</span><span class="op">)</span>,</span>
+<span>    show.legend <span class="op">=</span> <span class="st">"line"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_color_manual</span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    labels <span class="op">=</span> <span class="st">"Municipal Boundaries in South Holland"</span>,</span>
+<span>    values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"color"</span> <span class="op">=</span> <span class="st">"gray18"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">boundary_Delft</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span>shape <span class="op">=</span> <span class="st">"shape"</span><span class="op">)</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"purple"</span>,</span>
+<span>    fill <span class="op">=</span> <span class="st">"purple"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_shape_manual</span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="st">""</span>,</span>
+<span>    labels <span class="op">=</span> <span class="st">"Municipality of Delft"</span>,</span>
+<span>    values <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"shape"</span> <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Delft location"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>legend.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span>color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/12-handling-spatial-projection-and-crs-rendered-plot-boundary-zh-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>

@@ -626,22 +626,26 @@ what this data looks like. First we plot the DTM elevation data:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_TUD_df</span> , </span>
-<span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">`tud-dtm-5m`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>     <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">DTM_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">`tud-dtm-5m`</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/16-raster-calculations-rendered-plot-dtm-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And then the DSM elevation data:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_TUD_df</span> , </span>
-<span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">`tud-dsm-5m`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>     <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">DSM_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">`tud-dsm-5m`</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/16-raster-calculations-rendered-plot-dsm-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="raster-math-and-canopy-height-models">Raster math and Canopy Height Models<a class="anchor" aria-label="anchor" href="#raster-math-and-canopy-height-models"></a></h2>
 <hr class="half-width"><p>We can perform raster calculations by subtracting (or adding,
@@ -662,11 +666,13 @@ After subtracting, let’s create a data frame so we can plot with
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>   <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">CHM_TUD_df</span> , </span>
-<span>               <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">`tud-dsm-5m`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>   <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>   <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">CHM_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">`tud-dsm-5m`</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Canopy Height"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/16-raster-calculations-rendered-plot-chm-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Let’s have a look at the distribution of values in our newly created
 Canopy Height Model (CHM).</p>
@@ -675,7 +681,7 @@ Canopy Height Model (CHM).</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">CHM_TUD_df</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">`tud-dsm-5m`</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">`tud-dsm-5m`</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p><img src="fig/16-raster-calculations-rendered-chm-hist-1.png" style="display: block; margin: auto;" class="figure">
 Notice that the range of values for the output CHM starts right below 0
@@ -704,7 +710,7 @@ for the data.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -733,7 +739,7 @@ for the data.</li>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">CHM_TUD_df</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">`tud-dsm-5m`</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">`tud-dsm-5m`</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/16-raster-calculations-rendered-chm-challenge-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -741,13 +747,16 @@ for the data.</li>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">custom_bins</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">CHM_TUD_df</span> <span class="op">&lt;-</span> <span class="va">CHM_TUD_df</span> <span class="op">|&gt;</span></span>
-<span>                  <span class="fu">mutate</span><span class="op">(</span>canopy_discrete <span class="op">=</span> <span class="fu">cut</span><span class="op">(</span><span class="va">`tud-dsm-5m`</span>, breaks <span class="op">=</span> <span class="va">custom_bins</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>canopy_discrete <span class="op">=</span> <span class="fu">cut</span><span class="op">(</span><span class="va">`tud-dsm-5m`</span>, breaks <span class="op">=</span> <span class="va">custom_bins</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">CHM_TUD_df</span> , <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
-<span>                                       fill <span class="op">=</span> <span class="va">canopy_discrete</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>     <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>     <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">CHM_TUD_df</span>, <span class="fu">aes</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">x</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">y</span>,</span>
+<span>    fill <span class="op">=</span> <span class="va">canopy_discrete</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_quickmap</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/16-raster-calculations-rendered-chm-challenge-2.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
@@ -790,8 +799,9 @@ overwrite any data that is already in a file of the same name.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">writeRaster</span><span class="op">(</span><span class="va">CHM_TUD</span>, <span class="st">"fig/CHM_TUD.tiff"</span>,</span>
-<span>            filetype <span class="op">=</span> <span class="st">"GTiff"</span>,</span>
-<span>            overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<span>  filetype <span class="op">=</span> <span class="st">"GTiff"</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">

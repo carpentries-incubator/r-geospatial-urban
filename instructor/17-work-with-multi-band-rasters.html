@@ -500,12 +500,14 @@ work with). To import the red band, we would use
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">RGB_band1_TUD_df</span>  <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_band1_TUD</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">RGB_band1_TUD_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_band1_TUD</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plotting this can take up to 1 minute</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">RGB_band1_TUD_df</span>,</span>
-<span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">`tudlib-rgb_1`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">RGB_band1_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">`tudlib-rgb_1`</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/17-work-with-multi-band-rasters-rendered-plot-rgb-band1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="image-raster-data-values">Image Raster Data Values<a class="anchor" aria-label="anchor" href="#image-raster-data-values"></a></h2>
@@ -540,7 +542,7 @@ the red band.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -551,9 +553,11 @@ the red band.</p>
 <span><span class="va">RGB_band2_TUD_df</span> <span class="op">&lt;-</span> <span class="fu">as.data.frame</span><span class="op">(</span><span class="va">RGB_band2_TUD</span>, xy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">RGB_band2_TUD_df</span>,</span>
-<span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">`tudlib-rgb_2`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span> </span></code></pre>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">RGB_band2_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">`tudlib-rgb_2`</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
@@ -645,8 +649,10 @@ Thus we have:</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plotting this can take up to 1 minute</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">RGB_stack_TUD_df</span>,</span>
-<span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">`tudlib-rgb_2`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">RGB_stack_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, alpha <span class="op">=</span> <span class="va">`tudlib-rgb_2`</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/17-work-with-multi-band-rasters-rendered-plot-rgb-band2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can access any individual band in the same way.</p>
@@ -671,7 +677,8 @@ contrast.</li>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotRGB</span><span class="op">(</span><span class="va">RGB_stack_TUD</span>,</span>
-<span>        r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre>
+<span>  r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span></span>
+<span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/17-work-with-multi-band-rasters-rendered-plot-rgb-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The image above looks pretty good. We can explore whether applying a
 stretch to the image might improve clarity and contrast using

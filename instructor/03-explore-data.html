@@ -507,7 +507,7 @@ numbers.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">str</span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span> </span></code></pre>
+<code class="sourceCode R"><span><span class="fu">str</span><span class="op">(</span><span class="va">gapminder</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -863,7 +863,7 @@ functions to find minimum and maximum.</p>
 <span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">country</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">summarize</span><span class="op">(</span>avg_lifeExp <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">lifeExp</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">avg_lifeExp</span> <span class="op">==</span> <span class="fu">min</span><span class="op">(</span><span class="va">avg_lifeExp</span><span class="op">)</span> <span class="op">|</span></span>
-<span>    <span class="va">avg_lifeExp</span> <span class="op">==</span> <span class="fu">max</span><span class="op">(</span><span class="va">avg_lifeExp</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span>           <span class="va">avg_lifeExp</span> <span class="op">==</span> <span class="fu">max</span><span class="op">(</span><span class="va">avg_lifeExp</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>

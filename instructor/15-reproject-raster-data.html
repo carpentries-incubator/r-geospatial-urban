@@ -529,14 +529,24 @@ plotting with <code>ggplot</code>.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_TUD_df</span> , </span>
-<span>                 <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
-<span>                  fill <span class="op">=</span> <span class="va">`tud-dtm-5m`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_hill_TUD_df</span>, </span>
-<span>                 <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
-<span>                   alpha <span class="op">=</span> <span class="va">`tud-dtm-5m-hill`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">DTM_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">x</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">y</span>,</span>
+<span>      fill <span class="op">=</span> <span class="va">`tud-dtm-5m`</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">DTM_hill_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">x</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">y</span>,</span>
+<span>      alpha <span class="op">=</span> <span class="va">`tud-dtm-5m-hill`</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <p><img src="../fig/15-reproject-raster-data-rendered-plot-dtm-hill-1.png" style="display: block; margin: auto;" class="figure">
 Our results are curious - neither the DTM (<code>DTM_TUD_df</code>) nor
@@ -547,9 +557,14 @@ plot the DTM on its own to make sure the data are there.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_TUD_df</span>,</span>
-<span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
-<span>                  fill <span class="op">=</span> <span class="va">`tud-dtm-5m`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">DTM_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">x</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">y</span>,</span>
+<span>      fill <span class="op">=</span> <span class="va">`tud-dtm-5m`</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -561,9 +576,14 @@ is OK.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_hill_TUD_df</span>,</span>
-<span>              <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>,</span>
-<span>                  alpha <span class="op">=</span> <span class="va">`tud-dtm-5m-hill`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">DTM_hill_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">x</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">y</span>,</span>
+<span>      alpha <span class="op">=</span> <span class="va">`tud-dtm-5m-hill`</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/15-reproject-raster-data-rendered-plot-hill-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If we examine the axes, we can see that the units (and thus the
@@ -590,7 +610,7 @@ each use?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -711,8 +731,10 @@ match the <code>DTM_TUD</code> raster CRS:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DTM_hill_EPSG28992_TUD</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DTM_hill_TUD</span>,</span>
-<span>                                  <span class="fu">crs</span><span class="op">(</span><span class="va">DTM_TUD</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">DTM_hill_EPSG28992_TUD</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span></span>
+<span>  <span class="va">DTM_hill_TUD</span>,</span>
+<span>  <span class="fu">crs</span><span class="op">(</span><span class="va">DTM_TUD</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now we can compare the CRS of our original DTM hillshade and our new
 DTM hillshade, to see how they are different.</p>
@@ -845,9 +867,10 @@ function.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">DTM_hill_EPSG28992_TUD</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DTM_hill_TUD</span>, </span>
-<span>                                  <span class="fu">crs</span><span class="op">(</span><span class="va">DTM_TUD</span><span class="op">)</span>,</span>
-<span>                                  res <span class="op">=</span> <span class="fu">res</span><span class="op">(</span><span class="va">DTM_TUD</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">DTM_hill_EPSG28992_TUD</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">DTM_hill_TUD</span>,</span>
+<span>  <span class="fu">crs</span><span class="op">(</span><span class="va">DTM_TUD</span><span class="op">)</span>,</span>
+<span>  res <span class="op">=</span> <span class="fu">res</span><span class="op">(</span><span class="va">DTM_TUD</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
 </div>
 <p>Now both our resolutions and our CRSs match, so we can plot these two
 data sets together. Let’s double-check our resolution to be sure:</p>
@@ -887,14 +910,24 @@ data frame from our newly reprojected raster.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_TUD_df</span> , </span>
-<span>                 <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
-<span>                  fill <span class="op">=</span> <span class="va">`tud-dtm-5m`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>     <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DTM_hill_TUD_2_df</span>, </span>
-<span>                 <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, </span>
-<span>                   alpha <span class="op">=</span> <span class="va">`tud-dtm-5m-hill`</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>     <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>     <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">DTM_TUD_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">x</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">y</span>,</span>
+<span>      fill <span class="op">=</span> <span class="va">`tud-dtm-5m`</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_raster</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">DTM_hill_TUD_2_df</span>,</span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">x</span>,</span>
+<span>      y <span class="op">=</span> <span class="va">y</span>,</span>
+<span>      alpha <span class="op">=</span> <span class="va">`tud-dtm-5m-hill`</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_gradientn</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Elevation"</span>, colors <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/15-reproject-raster-data-rendered-plot-dtm-hill-projected-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We have now successfully draped the Digital Terrain Model on top of
 our hillshade to produce a nice looking, textured map!</p>

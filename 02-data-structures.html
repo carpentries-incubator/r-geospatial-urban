@@ -520,7 +520,7 @@ also see the structure in the environment tab of RStudio.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># vector of numbers - numeric data type.</span></span>
-<span><span class="va">numeric_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">6</span>, <span class="fl">3</span><span class="op">)</span> </span>
+<span><span class="va">numeric_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">6</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">numeric_vector</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -543,7 +543,9 @@ also see the structure in the environment tab of RStudio.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># vector of words - or strings of characters- character data type. Note that we need to use quotation marks '' to tell R that we are working with strings. </span></span>
+<code class="sourceCode R"><span><span class="co"># vector of words - or strings of characters- character data type.</span></span>
+<span><span class="co"># Note that we need to use quotation marks '' to tell R that we are</span></span>
+<span><span class="co"># working with strings. </span></span>
 <span><span class="va">character_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'Amsterdam'</span>, <span class="st">"'s Gravenhage"</span>, <span class="st">'Delft'</span><span class="op">)</span> </span>
 <span><span class="va">character_vector</span></span></code></pre>
 </div>
@@ -568,7 +570,7 @@ also see the structure in the environment tab of RStudio.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># vector of logical values (is something true or false?)- logical data type.</span></span>
-<span><span class="va">logical_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span><span class="va">logical_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">logical_vector</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -638,7 +640,7 @@ existing vector:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ab_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'b'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ab_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span></span>
 <span><span class="va">ab_vector</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -650,7 +652,7 @@ existing vector:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">abcd_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="va">ab_vector</span>, <span class="st">'c'</span>, <span class="st">'d'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">abcd_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="va">ab_vector</span>, <span class="st">"c"</span>, <span class="st">"d"</span><span class="op">)</span></span>
 <span><span class="va">abcd_vector</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -679,7 +681,7 @@ vector and why?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <pre><code><span><span class="va">combined_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="va">abcd_vector</span>, <span class="va">numeric_vector</span><span class="op">)</span></span>
 <span><span class="va">combined_vector</span></span>
@@ -699,7 +701,7 @@ it:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">with_na</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="cn">NA</span> <span class="op">)</span> <span class="co"># vector including missing value</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">with_na</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="cn">NA</span><span class="op">)</span> <span class="co"># vector including missing value</span></span></code></pre>
 </div>
 <p>First, let’s try to calculate mean for the values in this vector</p>
 <div class="codewrapper sourceCode" id="cb23">
@@ -719,7 +721,7 @@ it:</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># You can add the argument na.rm=TRUE to calculate the result while</span></span>
 <span><span class="co"># ignoring the missing values.</span></span>
-<span><span class="fu">mean</span><span class="op">(</span><span class="va">with_na</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> </span></code></pre>
+<span><span class="fu">mean</span><span class="op">(</span><span class="va">with_na</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -734,7 +736,7 @@ which elements of the vector hold missing values with
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span> <span class="co"># This will produce a vector of logical values, </span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span> <span class="co"># This will produce a vector of logical values,</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -748,7 +750,8 @@ which elements of the vector hold missing values with
 <code class="sourceCode R"><span><span class="co"># stating if a statement 'This element of the vector is a missing value'</span></span>
 <span><span class="co"># is true or not</span></span>
 <span></span>
-<span><span class="co"># to see how many values are missing in our with_na vector, we can use the sum function</span></span>
+<span><span class="co"># to see how many values are missing in our with_na vector, we can use the</span></span>
+<span><span class="co"># sum function</span></span>
 <span><span class="fu">sum</span><span class="op">(</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -772,7 +775,7 @@ which elements of the vector hold missing values with
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#and to sum all the non-missing values we write</span></span>
+<code class="sourceCode R"><span><span class="co"># and to sum all the non-missing values we write</span></span>
 <span><span class="fu">sum</span><span class="op">(</span><span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -788,7 +791,7 @@ brackets<code>[ ]</code>.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">without_na</span> <span class="op">&lt;-</span> <span class="va">with_na</span><span class="op">[</span> <span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span> <span class="op">]</span> <span class="co"># this notation will return only</span></span>
+<code class="sourceCode R"><span><span class="va">without_na</span> <span class="op">&lt;-</span> <span class="va">with_na</span><span class="op">[</span><span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">with_na</span><span class="op">)</span><span class="op">]</span> <span class="co"># this notation will return only</span></span>
 <span><span class="co"># the elements that have TRUE on their respective positions</span></span>
 <span></span>
 <span><span class="va">without_na</span></span></code></pre>
@@ -818,7 +821,7 @@ known as levels.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nordic_str</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'Norway'</span>, <span class="st">'Sweden'</span>, <span class="st">'Norway'</span>, <span class="st">'Denmark'</span>, <span class="st">'Sweden'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">nordic_str</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Norway"</span>, <span class="st">"Sweden"</span>, <span class="st">"Norway"</span>, <span class="st">"Denmark"</span>, <span class="st">"Sweden"</span><span class="op">)</span></span>
 <span><span class="va">nordic_str</span> <span class="co"># regular character vectors printed out</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -874,7 +877,7 @@ inspect and adapt levels of the factor.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">levels</span><span class="op">(</span><span class="va">nordic_cat</span><span class="op">)</span> <span class="co"># returns all levels of a factor vector.  </span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">levels</span><span class="op">(</span><span class="va">nordic_cat</span><span class="op">)</span> <span class="co"># returns all levels of a factor vector.</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
