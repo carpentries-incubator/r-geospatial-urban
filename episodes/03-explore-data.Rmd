@@ -142,7 +142,7 @@ head(year_country_gdp)
 
 ## Pipe
 Now, this is not the most common notation when working with `dplyr` package.
-`R` offers an operator `|>` called a pipe, which allows you build up very complicated commands in a readable way.
+`R` offers an operator `|>` called a pipe, which allows you to build up complicated commands in a readable way.
 
 
 ::: callout
