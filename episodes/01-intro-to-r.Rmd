@@ -193,7 +193,7 @@ To run all lines before the active line, you can use the keyboard shortcut
 
 ### Escaping
 
-The console shows it's ready to get new commands with `>` sign. 
+The console shows it's ready to get new commands with the `>` sign. 
 It will show `+` sign if it still requires input for the command to be executed.
 
 Sometimes you don't know what is missing/ you change your mind and 
