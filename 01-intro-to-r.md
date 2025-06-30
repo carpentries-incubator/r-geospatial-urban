@@ -8,6 +8,7 @@ exercises: 5
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
+- What is R and what is RStudio?
 - How can I find my way around RStudio?
 - How can I manage projects in R?
 - How can I install packages?
