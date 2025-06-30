@@ -142,7 +142,7 @@ head(year_country_gdp)
 ```
 
 ## Pipe
-Now, this is not the most common notation when working with `dplyr` package. 
+Now, this is not the most common notation when working with the `dplyr` package. 
 Usually, we would use an operator called a pipe: `|>`, which allows you to build up 
 very complicated commands in a readable way.
 
