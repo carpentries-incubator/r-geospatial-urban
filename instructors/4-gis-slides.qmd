@@ -42,7 +42,6 @@ By the end of this lesson, you should be able to...
 ```{r}
 #| label: setup
 #| include: false
-# install.packages("devtools")
 
 knitr::opts_chunk$set(
   cache = FALSE,
