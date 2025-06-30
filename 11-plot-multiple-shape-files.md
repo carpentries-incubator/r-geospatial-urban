@@ -64,7 +64,7 @@ We also need to customise the shape of the points with the `shape` aesthetic if 
 
 ``` r
 point_Delft$leisure <- factor(point_Delft$leisure)
-levels(point_Delft$leisure) %>% length()
+levels(point_Delft$leisure) |> length()
 ```
 
 ``` output
@@ -165,7 +165,7 @@ Tip: You can call `scale_` functions multiple times for the same layer, for any 
 
 
 ``` r
-leisure_locations_selection <- st_read("data/delft-leisure.shp") %>% 
+leisure_locations_selection <- st_read("data/delft-leisure.shp") |> 
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 
@@ -182,7 +182,7 @@ Projected CRS: Amersfoort / RD New
 
 
 ``` r
-factor(leisure_locations_selection$leisure) %>% levels()
+factor(leisure_locations_selection$leisure) |> levels()
 ```
 
 ``` output

@@ -169,7 +169,7 @@ Create a map of South Holland as follows:
 
 
 ``` r
-boundary_ZH <- municipal_boundary_NL %>% 
+boundary_ZH <- municipal_boundary_NL |> 
   filter(ligtInPr_1 == "Zuid-Holland")
 ```
 

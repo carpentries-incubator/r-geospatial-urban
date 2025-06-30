@@ -39,7 +39,7 @@ In the previous plot, our DSM was coloured with a continuous colour range. For c
 
 
 ``` r
-DSM_TUD_df <- DSM_TUD_df %>%
+DSM_TUD_df <- DSM_TUD_df |>
   mutate(fct_elevation = cut(`tud-dsm-5m`, breaks = 3))
 
 ggplot() +
@@ -56,7 +56,7 @@ levels(DSM_TUD_df$fct_elevation)
 And we can get the count of values (that is, number of pixels) in each group using `dplyr`’s `count()` function:
 
 ``` r
-DSM_TUD_df %>% 
+DSM_TUD_df |> 
   count(fct_elevation)
 ```
 
@@ -73,7 +73,7 @@ We might prefer to customize the cut-off values for these groups. Lets round the
 ``` r
 custom_bins <- c(-10, 0, 5, 100)
 
-DSM_TUD_df <- DSM_TUD_df %>%
+DSM_TUD_df <- DSM_TUD_df |>
   mutate(fct_elevation_cb = cut(`tud-dsm-5m`, breaks = custom_bins))
 
 levels(DSM_TUD_df$fct_elevation_cb)
@@ -105,7 +105,7 @@ ggplot() +
 And we can get the count of values in each group in the same way we did before:
 
 ``` r
-DSM_TUD_df %>% 
+DSM_TUD_df |> 
   count(fct_elevation_cb)
 ```
 
@@ -191,7 +191,7 @@ Create a plot of the TU Delft Digital Surface Model (`DSM_TUD`) that has:
 
 
 ``` r
-DSM_TUD_df <- DSM_TUD_df %>%
+DSM_TUD_df <- DSM_TUD_df |>
   mutate(fct_elevation_6 = cut(`tud-dsm-5m`, breaks = 6))
 
 levels(DSM_TUD_df$fct_elevation_6)

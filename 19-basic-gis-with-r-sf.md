@@ -51,11 +51,11 @@ Let's select them and see where they are.
 
 ``` r
 bb <- osmdata::getbb("Brielle, NL")
-x <- opq(bbox = bb) %>%
-   add_osm_feature(key = 'building') %>%
+x <- opq(bbox = bb) |>
+   add_osm_feature(key = 'building') |>
     osmdata_sf()
-buildings <- x$osm_polygons %>%
-  st_transform(.,crs=28992)
+buildings <- x$osm_polygons |>
+  st_transform(crs=28992)
 
 
 summary(buildings$start_date)
@@ -63,7 +63,7 @@ summary(buildings$start_date)
 
 ``` output
    Length     Class      Mode 
-    10735 character character 
+    10749 character character 
 ```
 
 ``` r
@@ -71,7 +71,7 @@ old <- 1800  # year prior to which you consider a building old
 
 buildings$start_date <- as.numeric(buildings$start_date)
 
-old_buildings <- buildings %>%
+old_buildings <- buildings |>
   filter(start_date <= old)
 
  ggplot(data = old_buildings) + 
@@ -170,13 +170,13 @@ Now, we have a lot of overlapping buffers. We would rather create a unique conse
 
 
 ``` r
-single_old_buffer <- st_union(buffer_old_buildings) %>%
-  st_cast(to = "POLYGON") %>%
+single_old_buffer <- st_union(buffer_old_buildings) |>
+  st_cast(to = "POLYGON") |>
   st_as_sf() 
 
-single_old_buffer<- single_old_buffer %>%
-  mutate("ID"=as.factor(1:nrow(single_old_buffer))) %>%
-  st_transform(.,crs=28992) 
+single_old_buffer<- single_old_buffer |>
+  mutate("ID"=as.factor(1:nrow(single_old_buffer))) |>
+  st_transform(crs=28992) 
 ```
 
 We also use `st_cast()` to explicit the type of the resulting object (*POLYGON* instead of the default *MULTIPOLYGON*) and `st_as_sf()` to transform the polygon into an `sf` object. With this function, we ensure that we end up with an `sf` object, which was not the case after we forced the union of old buildings into a *POLYGON* format.
@@ -190,8 +190,8 @@ For the sake of visualisation speed, we would like to represent buildings by a s
 ``` r
 sf::sf_use_s2(FALSE)  # s2 works with geographic projections, so to calculate centroids in projected CRS units (meters), we need to disable it.
 
-centroids_old <- st_centroid(old_buildings) %>%
-  st_transform(.,crs=28992)  
+centroids_old <- st_centroid(old_buildings) |>
+  st_transform(crs=28992)  
 
 ggplot() + 
     geom_sf(data = single_old_buffer, aes(fill=ID)) +
@@ -208,14 +208,14 @@ Now, we would like to distinguish conservation areas based on the number of hist
 
 ``` r
  centroids_buffers <- 
-  st_intersection(centroids_old,single_old_buffer) %>%
+  st_intersection(centroids_old,single_old_buffer) |>
   mutate(n = 1)
 
- centroid_by_buffer <- centroids_buffers %>%
-   group_by(ID) %>%
+ centroid_by_buffer <- centroids_buffers |>
+   group_by(ID) |>
    summarise(n = sum(n))
  
- single_buffer <- single_old_buffer %>%
+ single_buffer <- single_old_buffer |>
    mutate(n_buildings = centroid_by_buffer$n)
 
  
@@ -259,8 +259,8 @@ In our analysis, we have a large number of pre-war buildings, and the buffer zon
 
 
 ``` r
-single_buffer$area <- st_area(single_buffer) %>% 
-  units::set_units(., km^2)
+single_buffer$area <- st_area(single_buffer) |> 
+  units::set_units(km^2)
 
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
@@ -293,38 +293,38 @@ old <- 1939
 distance <- 10
 
 # select
-old_buildings <- buildings %>%
+old_buildings <- buildings |>
   filter(start_date <= old)
 
 # buffer
 buffer_old_buildings <- st_buffer(old_buildings, dist = distance)
   
 # union
-single_old_buffer <- st_union(buffer_old_buildings) %>%
-  st_cast(to = "POLYGON") %>%
+single_old_buffer <- st_union(buffer_old_buildings) |>
+  st_cast(to = "POLYGON") |>
   st_as_sf()  
  
-single_old_buffer <- single_old_buffer %>%
-  mutate("ID"=1:nrow(single_old_buffer))  %>%
+single_old_buffer <- single_old_buffer |>
+  mutate("ID"=1:nrow(single_old_buffer))  |>
   st_transform(single_old_buffer,crs=4326) 
 
 # centroids
-centroids_old <- st_centroid(old_buildings) %>%
-  st_transform(.,crs=4326)  
+centroids_old <- st_centroid(old_buildings) |>
+  st_transform(crs=4326)  
   
 # intersection
-centroids_buffers <- st_intersection(centroids_old,single_old_buffer) %>%
+centroids_buffers <- st_intersection(centroids_old,single_old_buffer) |>
   mutate(n=1)
  
-centroid_by_buffer <- centroids_buffers %>% 
-  group_by(ID) %>%
+centroid_by_buffer <- centroids_buffers |> 
+  group_by(ID) |>
   summarise(n = sum(n))
   
-single_buffer <- single_old_buffer %>% 
+single_buffer <- single_old_buffer |> 
   mutate(n_buildings = centroid_by_buffer$n)
 
-single_buffer$area <- sf::st_area(single_buffer)  %>% 
-  units::set_units(., km^2)
+single_buffer$area <- sf::st_area(single_buffer) |> 
+  units::set_units(km^2)
 single_buffer$old_buildings_per_km2 <- as.numeric(single_buffer$n_buildings / single_buffer$area)
 
  ggplot() + 

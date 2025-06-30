@@ -63,14 +63,14 @@ ggplot(
 You can see that in `ggplot` you use `+` as a pipe, to add layers.
 Within the `ggplot()` call, it is the only pipe that will work. But, it is
 possible to chain operations on a data set with a pipe that we have
-already learned: `%>%` ( or `|>`) and follow them by ggplot syntax.
+already learned: `|>` and follow them by ggplot syntax.
 
 Let's create another plot, this time only on a subset of observations:
 
 
 ``` r
-gapminder %>% # we select a data set
-  filter(year == 2007 & continent == "Americas") %>% # filter to keep one year and one continent
+gapminder |> # we select a data set
+  filter(year == 2007 & continent == "Americas") |> # filter to keep one year and one continent
   ggplot(aes(x = country, y = gdpPercap)) + # the x and y axes represent values of columns
   geom_col() # we select a column graph as a geometry
 ```
@@ -82,11 +82,11 @@ you might want to flip it, to better display the labels.
 
 
 ``` r
-gapminder %>%
+gapminder |>
   filter(
     year == 2007,
     continent == "Americas"
-  ) %>%
+  ) |>
   ggplot(aes(x = country, y = gdpPercap)) +
   geom_col() +
   coord_flip() # flip axes
@@ -104,12 +104,12 @@ capita.
 
 
 ``` r
-gapminder %>%
+gapminder |>
   filter(
     year == 2007,
     continent == "Americas"
-  ) %>%
-  mutate(country = fct_reorder(country, gdpPercap)) %>% # reorder factor levels
+  ) |>
+  mutate(country = fct_reorder(country, gdpPercap)) |> # reorder factor levels
   ggplot(aes(x = country, y = gdpPercap)) +
   geom_col() +
   coord_flip()
@@ -122,12 +122,12 @@ expectancy of a country by colour
 
 
 ``` r
-gapminder %>%
+gapminder |>
   filter(
     year == 2007,
     continent == "Americas"
-  ) %>%
-  mutate(country = fct_reorder(country, gdpPercap)) %>%
+  ) |>
+  mutate(country = fct_reorder(country, gdpPercap)) |>
   ggplot(aes(
     x = country,
     y = gdpPercap,
@@ -145,12 +145,12 @@ readability and colorblind-proofness are the palettes available in the
 
 
 ``` r
-gapminder %>%
+gapminder |>
   filter(
     year == 2007,
     continent == "Americas"
-  ) %>%
-  mutate(country = fct_reorder(country, gdpPercap)) %>%
+  ) |>
+  mutate(country = fct_reorder(country, gdpPercap)) |>
   ggplot(aes(x = country, y = gdpPercap, fill = lifeExp)) +
   geom_col() +
   coord_flip() +
@@ -165,9 +165,9 @@ only want to know if it's below or above average. We will make use of the `if_el
 
 ``` r
 p <- # this time let's save the plot in an object
-  gapminder %>%
+  gapminder |>
   filter(year == 2007 &
-    continent == "Americas") %>%
+    continent == "Americas") |>
   mutate(
     country = fct_reorder(country, gdpPercap),
     lifeExpCat = if_else(
@@ -175,7 +175,7 @@ p <- # this time let's save the plot in an object
       "high",
       "low"
     )
-  ) %>%
+  ) |>
   ggplot(aes(x = country, y = gdpPercap, fill = lifeExpCat)) +
   geom_col() +
   coord_flip() +
@@ -258,8 +258,8 @@ save the data only for Americas:
 
 
 ``` r
-gapminder_amr_2007 <- gapminder %>%
-  filter(year == 2007 & continent == "Americas") %>%
+gapminder_amr_2007 <- gapminder |>
+  filter(year == 2007 & continent == "Americas") |>
   mutate(
     country_reordered = fct_reorder(country, gdpPercap),
     lifeExpCat = if_else(lifeExp >= mean(lifeExp), "high", "low")
