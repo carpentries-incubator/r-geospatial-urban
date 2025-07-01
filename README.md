@@ -24,7 +24,7 @@ Please see the [CONTRIBUTING page](https://github.com/carpentries-incubator/r-ge
 This lesson was developed by:
 
 - [Claudiu Forgaci](https://github.com/cforgaci)
-- [Clémentine Cottineau](https://github.com/ClementineCttn)
+- [Clémentine Cottineau-Mugadza](https://github.com/ClementineCttn)
 - [Aleksandra Wilczynska](https://github.com/alwil)
 - [Ana Petrovic](https://github.com/ana-5r)
 - [Daniele Cannatella](https://github.com/dcannatella)
