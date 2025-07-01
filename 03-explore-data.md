@@ -267,7 +267,7 @@ head(year_country_gdp_euro)
 Let's now focus only on North American countries  
 
 ``` r
-year_gdp_namerica <- year_country_gdp_euro %>%
+year_gdp_namerica <- year_country_gdp_euro |>
   filter(country == "Canada" |  country == "Mexico" | country == "United States") 
 
 # '|' operator (OR) - at least one of the conditions must be met
