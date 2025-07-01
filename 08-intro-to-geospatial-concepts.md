@@ -109,6 +109,8 @@ In addition to using different CRS, these two maps of Rotterdam also have differ
 
 ::: callout
 
+# Where is the scale bar?
+
 Note that the maps presented in this lesson do not use a scale bar. Instead, plot axes will serve that purpose.
 
 :::
@@ -116,11 +118,6 @@ Note that the maps presented in this lesson do not use a scale bar. Instead, plo
 ## Types of geospatial data
 
 The map of Rotterdam in the figure above shows the area of the city as a discrete feature with precise boundaries. This type of data is called vector. Vector data can have the form of points, lines and polygons (areas).
-
-<div class="figure" style="text-align: center">
-<img src="fig/vector-raster-1.png" alt="Same geographical area as raster and vector data" width="419" />
-<p class="caption">Same geographical area as raster and vector data</p>
-</div>
 
 We can also represent geographical features on the Earth as continuous phenomena and images of the Earth. This type of data is called raster. The figure below shows the two types of geospatial data which can be used to represent the real world, namely vector and raster.
 

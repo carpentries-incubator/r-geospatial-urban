@@ -78,6 +78,8 @@ names(lines_Delft)
 
 ::: callout
 
+# The geometry as a column
+
 Note that in R the geometry is just another column and counts towards the number
 returned by `ncol()`. This is different from GIS software with graphical user 
 interfaces, where the geometry is displayed in a viewport not as a column in the 
@@ -140,6 +142,8 @@ unique(lines_Delft$highway)
 ```
 
 :::::::::::::::::::::::: callout 
+
+# Using factors in sf objects
 
 R is also able to handle categorical variables called factors, introduced in [an earlier episode](../episodes/02-data-structures.Rmd). With factors, we can use the `levels()` function to show unique values. To examine unique values of the `highway` variable this way, we have to first transform it into a factor with the `factor()` function:
 

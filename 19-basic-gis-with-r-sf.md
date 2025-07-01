@@ -263,23 +263,11 @@ In our analysis, we have a large number of pre-war buildings, and the buffer zon
 
 ``` r
 single_buffer$area <- st_area(single_buffer) |> 
-  set_units(., km^2)
-```
+  set_units("km^2")
 
-``` error
-Error: object 'km' not found
-```
-
-``` r
 single_buffer$old_buildings_per_km2 <-
   as.numeric(single_buffer$n_buildings / single_buffer$area)
-```
 
-``` error
-Error in `[[<-.data.frame`(`*tmp*`, i, value = numeric(0)): replacement has 0 rows, data has 7
-```
-
-``` r
 ggplot() + 
   geom_sf(data = buildings) +
   geom_sf(data = single_buffer,
@@ -294,13 +282,7 @@ ggplot() +
   )
 ```
 
-``` error
-Error in `geom_sf()`:
-! Problem while computing aesthetics.
-ℹ Error occurred in the 2nd layer.
-Caused by error:
-! object 'old_buildings_per_km2' not found
-```
+<img src="fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" />
 
 
  

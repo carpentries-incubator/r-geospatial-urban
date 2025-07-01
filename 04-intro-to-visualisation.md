@@ -13,7 +13,7 @@ exercises: 2 # to be updated by Jerome & Kyri
 - How can I get basic summary information about my data set?
 - How can I include addition information via a colours palette. 
 - How can I find more information about a function and its arguments? 
-- How can I create new columns or remove existing columns from a data frame?
+- How can I reorder columns in a data frame?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -31,7 +31,7 @@ After completing this episode, participants should be able to…
 
 # Introduction to Visualisation
 
-The package `ggplot2` is a powerful plotting system. We will start with an introduction of key features of `ggplot2`.  `gg` stands for grammar of graphics. The idea idea behind it is that the following three components are needed to create a graph: 
+The package `ggplot2` is a powerful plotting system. We will start with an introduction of key features of `ggplot2`. `gg` stands for grammar of graphics. The idea behind it is that the following three components are needed to create a graph: 
 
 - data,
 - aesthetics - a coordinate system on which we map the data
@@ -40,7 +40,7 @@ The package `ggplot2` is a powerful plotting system. We will start with an intro
 
 A fun part about `ggplot2` is that you can add layers to the plot to provide more information and to make it more beautiful.
 
-In the following parts of this workshop, you will use this package to visualize geospatial data. First, make sure that you have the following packages loaded.
+While here we still focus on the `gapminder` dataset, in later parts of this workshop we will use `ggplot2` to visualize geospatial data. First, make sure that you have the `tidyverse` loaded, which includes `ggplot2`.
 
 
 ``` r
@@ -72,7 +72,7 @@ Let's create another plot, this time only on a subset of observations:
 gapminder |> # we select a data set
   filter(year == 2007 & continent == "Americas") |> # filter year and continent
   ggplot(aes(x = country, y = gdpPercap)) + # the x and y axes represent columns
-  geom_col() # we select a column graph as a geometry
+  geom_col() # we use a column graph as a geometry
 ```
 
 <img src="fig/04-intro-to-visualisation-rendered-ggplot-col-1.png" style="display: block; margin: auto;" />
@@ -83,10 +83,7 @@ you might want to flip it, to better display the labels.
 
 ``` r
 gapminder |>
-  filter(
-    year == 2007,
-    continent == "Americas"
-  ) |>
+  filter(year == 2007 & continent == "Americas") |>
   ggplot(aes(x = country, y = gdpPercap)) +
   geom_col() +
   coord_flip() # flip axes
@@ -105,10 +102,7 @@ capita.
 
 ``` r
 gapminder |>
-  filter(
-    year == 2007,
-    continent == "Americas"
-  ) |>
+  filter(year == 2007 & continent == "Americas") |>
   mutate(country = fct_reorder(country, gdpPercap)) |> # reorder factor levels
   ggplot(aes(x = country, y = gdpPercap)) +
   geom_col() +
@@ -123,10 +117,7 @@ expectancy of a country by colour
 
 ``` r
 gapminder |>
-  filter(
-    year == 2007,
-    continent == "Americas"
-  ) |>
+  filter(year == 2007 & continent == "Americas") |>
   mutate(country = fct_reorder(country, gdpPercap)) |>
   ggplot(aes(
     x = country,
@@ -146,12 +137,13 @@ readability and colorblind-proofness are the palettes available in the
 
 ``` r
 gapminder |>
-  filter(
-    year == 2007,
-    continent == "Americas"
-  ) |>
+  filter(year == 2007 & continent == "Americas") |>
   mutate(country = fct_reorder(country, gdpPercap)) |>
-  ggplot(aes(x = country, y = gdpPercap, fill = lifeExp)) +
+  ggplot(aes(
+    x = country,
+    y = gdpPercap,
+    fill = lifeExp
+  )) +
   geom_col() +
   coord_flip() +
   scale_fill_viridis_c() # _c stands for continuous scale
@@ -166,8 +158,7 @@ only want to know if it's below or above average. We will make use of the `if_el
 ``` r
 p <- # this time let's save the plot in an object
   gapminder |>
-  filter(year == 2007 &
-           continent == "Americas") |>
+  filter(year == 2007 & continent == "Americas") |>
   mutate(
     country = fct_reorder(country, gdpPercap),
     lifeExpCat = if_else(
