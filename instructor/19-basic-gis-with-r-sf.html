@@ -740,30 +740,12 @@ our project.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu">st_area</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">set_units</span><span class="op">(</span><span class="va">.</span>, <span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'km' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb15">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in `[[&lt;-.data.frame`(`*tmp*`, i, value = numeric(0)): replacement has 0 rows, data has 7</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">set_units</span><span class="op">(</span><span class="st">"km^2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">single_buffer</span><span class="op">$</span><span class="va">old_buildings_per_km2</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">as.numeric</span><span class="op">(</span><span class="va">single_buffer</span><span class="op">$</span><span class="va">n_buildings</span> <span class="op">/</span> <span class="va">single_buffer</span><span class="op">$</span><span class="va">area</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">buildings</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">single_buffer</span>,</span>
 <span>          <span class="fu">aes</span><span class="op">(</span>fill<span class="op">=</span><span class="va">old_buildings_per_km2</span><span class="op">)</span>,</span>
@@ -776,16 +758,7 @@ our project.</p>
 <span>    option <span class="op">=</span> <span class="st">"B"</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in `geom_sf()`:
-! Problem while computing aesthetics.
-ℹ Error occurred in the 2nd layer.
-Caused by error:
-! object 'old_buildings_per_km2' not found</code></pre>
-</div>
-<div id="challenge-conservation-rules-have-changed." class="callout challenge">
+<figure><img src="../fig/19-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-conservation-rules-have-changed." class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -805,7 +778,7 @@ density of all buildings per 10m fused buffer?</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">

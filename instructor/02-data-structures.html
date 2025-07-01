@@ -448,21 +448,22 @@
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <p>After completing this episode, participants should be able to…</p>
-<ul><li>To be aware of the different types of data.</li>
-<li>To begin exploring data frames, and understand how they are related
-to vectors, factors and lists.</li>
-<li>To be able to ask questions from R about the type, class, and
-structure of an object.</li>
+<ul><li>Understand different types of data.</li>
+<li>Explore data frames and understand how they are related to vectors,
+factors and lists.</li>
+<li>Ask questions from R about the type, class, and structure of an
+object.</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
 <section><h2 class="section-heading" id="vectors">Vectors<a class="anchor" aria-label="anchor" href="#vectors"></a></h2>
-<hr class="half-width"><p>So far we’ve looked at individual values, such as x &lt;- 100. Now we
-will move to a data structure called vectors. Vectors are arrays of
-values of the same data type. So now we combine multiple values into one
-object: x &lt;- c(100, 200)</p>
+<hr class="half-width"><p>So far we’ve looked at individual values, such as
+<code>x &lt;- 100</code>. Now we will move to a data structure called
+vectors. Vectors are arrays of values of the same data type. So now we
+combine multiple values into one object:
+<code>x &lt;- c(100, 200)</code></p>
 <div id="data-types" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -480,7 +481,8 @@ points)</li>
 <li>
 <code>logical</code> (a boolean - are values TRUE or FALSE?)</li>
 <li>
-<code>character</code> (a text/ string of characters)</li>
+<code>character</code> (a text, also referred to as a string of
+characters)</li>
 <li>
 <code>complex</code> (a complex number)</li>
 <li>
@@ -514,8 +516,7 @@ vector data types. More about vector data in a <a href="09-open-and-plot-vector-
 </div>
 </div>
 <p>You can create a vector with a <code>c()</code> function.</p>
-<p>You can inspect vectors with the <code>str()</code> function. In
-factor vectors, it shows the underlying values of each category. You can
+<p>You can inspect vectors with the <code>str()</code> function. You can
 also see the structure in the environment tab of RStudio.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -545,7 +546,7 @@ also see the structure in the environment tab of RStudio.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># vector of words - or strings of characters- character data type.</span></span>
+<code class="sourceCode R"><span><span class="co"># vector of words or strings of characters - character data type.</span></span>
 <span><span class="co"># Note that we need to use quotation marks '' to tell R that we are</span></span>
 <span><span class="co"># working with strings. </span></span>
 <span><span class="va">character_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">'Amsterdam'</span>, <span class="st">"'s Gravenhage"</span>, <span class="st">'Delft'</span><span class="op">)</span> </span>
@@ -571,7 +572,7 @@ also see the structure in the environment tab of RStudio.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># vector of logical values (is something true or false?)- logical data type.</span></span>
+<code class="sourceCode R"><span><span class="co"># vector of logical values (is something true or false?) - logical data type.</span></span>
 <span><span class="va">logical_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">logical_vector</span></span></code></pre>
 </div>
@@ -598,8 +599,8 @@ also see the structure in the environment tab of RStudio.</p>
 <div id="which-quotation-marks-to-use" class="callout-inner">
 <h3 class="callout-title">Which quotation marks to use?</h3>
 <div class="callout-content">
-<p>In R, you can use both single <code>'...'</code> and double
-<code>"..."</code> quotation marks for strings. However, <strong>best
+<p>In R, you can use both single <code>''</code> and double
+<code>""</code> quotation marks for strings. However, <strong>best
 practice is to use double quotes</strong> by default.</p>
 <p>Use single quotes when the text inside the string contains double
 quotes — this tells R that the double quotation mark is part of the
@@ -683,7 +684,7 @@ vector and why?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <pre><code><span><span class="va">combined_vector</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="va">abcd_vector</span>, <span class="va">numeric_vector</span><span class="op">)</span></span>
 <span><span class="va">combined_vector</span></span>
@@ -703,7 +704,7 @@ it:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">with_na</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="cn">NA</span><span class="op">)</span> <span class="co"># vector including missing value</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">with_na</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="cn">NA</span><span class="op">)</span> <span class="co"># vector including missing values</span></span></code></pre>
 </div>
 <p>First, let’s try to calculate mean for the values in this vector</p>
 <div class="codewrapper sourceCode" id="cb23">
@@ -721,7 +722,7 @@ it:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># You can add the argument na.rm=TRUE to calculate the result while</span></span>
+<code class="sourceCode R"><span><span class="co"># You can add the argument na.rm = TRUE to calculate the result while</span></span>
 <span><span class="co"># ignoring the missing values.</span></span>
 <span><span class="fu">mean</span><span class="op">(</span><span class="va">with_na</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
@@ -909,11 +910,11 @@ value of:</p>
 </ul><p>This is important as it can affect e.g. the order in which categories
 are displayed in a plot or which category is taken as a baseline in a
 statistical model.</p>
-<p>You can reorder the categories using <code>factor()</code> function.
-This can be useful, for instance, to select a reference category (first
-level) in a regression model or for ordering legend items in a plot,
-rather than using the default category systematically (i.e. based on
-alphabetical order).</p>
+<p>You can reorder the categories using the <code>factor()</code>
+function. This can be useful, for instance, to select a reference
+category (first level) in a regression model or for ordering legend
+items in a plot, rather than using the default category systematically
+(i.e., based on alphabetical order).</p>
 <div class="codewrapper sourceCode" id="cb49">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -936,12 +937,12 @@ alphabetical order).</p>
 <pre class="output" tabindex="0"><code>[1] Norway  Sweden  Norway  Denmark Sweden
 Levels: Norway Denmark Sweden</code></pre>
 </div>
-<div id="callout4" class="callout">
+<div id="reordering-factors" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
+<div id="reordering-factors" class="callout-inner">
+<h3 class="callout-title">Reordering factors</h3>
 <div class="callout-content">
 <p>There is more than one way to reorder factors. Later in the lesson,
 we will use <code>fct_relevel()</code> function from
@@ -1025,8 +1026,7 @@ Levels: Norway Denmark</code></pre>
 <div class="callout-content">
 <ul><li>The mostly used basic data types in R are <code>numeric</code>,
 <code>integer</code>, <code>logical</code>, and
-<code>character</code>
-</li>
+<code>character</code>.</li>
 <li>Use factors to represent categories in R.</li>
 </ul></div>
 </div>

@@ -444,7 +444,7 @@
 <h3 class="card-title">Objectives</h3>
 <p>After completing this episode, participants should be able to…</p>
 <ul><li>Create self-contained projects in RStudio</li>
-<li>Install additional packages using R code.</li>
+<li>Install additional packages using R code</li>
 <li>Manage packages</li>
 <li>Define a variable</li>
 <li>Assign data to a variable</li>
@@ -457,14 +457,14 @@
 <div class="section level1">
 <h1 id="project-management-in-rstudio">Project management in RStudio<a class="anchor" aria-label="anchor" href="#project-management-in-rstudio"></a></h1>
 <p>RStudio is an integrated development environment (IDE), which means
-it provides a (much prettier) interface for the R software. For RStudio
-to work, you need to have R installed on your computer. But R is
-integrated into RStudio, so you never actually have to open R
+that it provides a user-friendly interface for the R software. For
+RStudio to work, you need to have R installed on your computer. However,
+R is integrated into RStudio, so you never actually have to open R
 software.</p>
-<p>RStudio provides a useful feature: creating projects - self-contained
-working space (i.e. working directory), to which R will refer to, when
-looking for and saving files. You can create projects in existing
-directories (folders) or create a new one.</p>
+<p>RStudio provides a useful feature: creating projects. A project is a
+self-contained working space (i.e., working directory), to which R will
+refer to when looking for and saving files. You can create a project in
+an existing directory or in a new one.</p>
 <div class="section level2">
 <h2 id="creating-rstudio-project">Creating RStudio Project<a class="anchor" aria-label="anchor" href="#creating-rstudio-project"></a></h2>
 <p>We’re going to create a project in RStudio in a new directory. To
@@ -472,17 +472,17 @@ create a project, go to:</p>
 <ul><li><code>File</code></li>
 <li><code>New Project</code></li>
 <li><code>New directory</code></li>
-<li>Place the project that you will easily find on your laptop and name
-the project <code>data-carpentry</code>
+<li>Browse to a location that you will easily find on your laptop and
+name the directory <code>data-carpentry</code>
 </li>
 <li><code>Create project</code></li>
 </ul></div>
 <div class="section level2">
-<h2 id="organising-working-directory">Organising working directory<a class="anchor" aria-label="anchor" href="#organising-working-directory"></a></h2>
+<h2 id="organising-the-working-directory">Organising the working directory<a class="anchor" aria-label="anchor" href="#organising-the-working-directory"></a></h2>
 <p>Creating an RStudio project is a good first step towards good project
-management. However, most of the time it is a good idea to organize
+management. However, most of the time it is a good idea to organize the
 working space further. This is one suggestion of how your R project can
-look like. Let’s go ahead and create the other folders:</p>
+look like. Let’s go ahead and create the sub-folders:</p>
 <ul><li>
 <code>data/</code> - should be where your raw data is. <strong>READ
 ONLY</strong>
@@ -493,7 +493,7 @@ saved <strong>READ AND WRITE</strong>
 </li>
 <li>
 <code>documents/</code> - all the documentation associated with the
-project (e.g. cookbook)</li>
+project</li>
 <li>
 <code>fig_output/</code> - your figure outputs go here <strong>WRITE
 ONLY</strong>
@@ -506,11 +506,11 @@ WRITE</strong>
 </figure><p>You can create these folders as you would any other folders on your
 laptop, but R and RStudio offer handy ways to do it directly in your
 RStudio session.</p>
-<p>You can use RStudio interface to create a folder in your project by
-going to lower-bottom pane, files tab, and clicking on Folder icon. A
-dialog box will appear, allowing you typing a name of a folder you want
-to create.</p>
-<p>An alternative solution is to create the folders using R command
+<p>You can use the RStudio interface to create a folder in your project
+by going to the lower-bottom pane, Files tab, and clicking on the Folder
+icon. A dialog box will appear, allowing you typing a name of a folder
+you want to create.</p>
+<p>An alternative solution is to create the folders using the R command
 <code>dir.create()</code>. In the console type:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -532,10 +532,10 @@ to create.</p>
 <p>In interest of time, focus on one way of creating the folders. You
 can showcase an alternative method with just one example.</p>
 <p>Once you have finished, ask the participants if they have managed to
-create a R Project and get the same folder structure. To do this, use
+create an R Project and get the same folder structure. To do this, use
 green and red stickers.</p>
 <p>This will become important, as we use relative paths together with
-<code>here</code> package to read and write objects.</p>
+the <code>here</code> package to read and write objects.</p>
 </div>
 </div>
 </div>
@@ -550,12 +550,12 @@ console</strong>
 <li>write and save an <strong>R script (<code>.R</code>
 file)</strong>
 </li>
-</ul><div id="callout1" class="callout">
+</ul><div id="the-console-and-script-windows" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
+<div id="the-console-and-script-windows" class="callout-inner">
+<h3 class="callout-title">The console and script windows</h3>
 <div class="callout-content">
 <p>When you open the RStudio or create the Rstudio project, you will see
 Console window on the left by default. Once you create an R script, it
@@ -578,7 +578,7 @@ drawbacks.</p>
 </tr></tbody></table></div>
 <div class="section level2">
 <h2 id="creating-a-script">Creating a script<a class="anchor" aria-label="anchor" href="#creating-a-script"></a></h2>
-<p>During the workshop we will mostly use an <code>.R</code> script to
+<p>During the workshop, we will mostly use an <code>.R</code> script to
 have a full documentation of what has been written. This way we will
 also be able to reproduce the results. Let’s create one now and save it
 in the <code>scripts</code> directory.</p>
@@ -586,26 +586,26 @@ in the <code>scripts</code> directory.</p>
 <li><code>New File</code></li>
 <li><code>R Script</code></li>
 <li>A new <code>Untitled</code> script will appear in the source
-pane.</li>
-<li>Save it using floppy disc icon.</li>
+pane</li>
+<li>Save it using the floppy disc icon</li>
 <li>Select the <code>scripts/</code> folder as the file location</li>
 <li>Name the script <code>intro-to-r.R</code>
 </li>
 </ul></div>
 <div class="section level2">
 <h2 id="running-the-code">Running the code<a class="anchor" aria-label="anchor" href="#running-the-code"></a></h2>
-<p>Note that all code written in the script can be also executed at a
-spot in the<br>
+<p>Note that all code written in the script can be also executed at once
+in the<br>
 interactive console. We will now learn how to run the code both in the
-console and the script.</p>
-<ul><li>In the Console you run the code by hitting <kbd>Enter</kbd> at the
+console and in the script.</p>
+<ul><li>In the Console you run the code by pressing <kbd>Enter</kbd> at the
 end of the line</li>
 <li>In the R script there are two way to execute the code:
 <ul><li>You can use the <code>Run</code> button on the top right of the
 script window.</li>
 <li>Alternatively, you can use a keyboard shortcut: <kbd>Ctrl</kbd> +
-<kbd>Enter</kbd> or <kbd>Command</kbd> + <kbd>Return</kbd> for MAC
-users.</li>
+<kbd>Enter</kbd> on Windows/Linux or <kbd>Command</kbd> +
+<kbd>Return</kbd> on Mac.</li>
 </ul></li>
 </ul><p>In both cases, the active line (the line where your cursor is placed)
 or a highlighted snippet of code will be executed. A common source of
@@ -626,9 +626,8 @@ line, you can use the keyboard shortcut <kbd>Ctrl</kbd> + <kbd>Alt</kbd>
 <code>&gt;</code> sign. It will show the <code>+</code> sign if it still
 requires input for the command to be executed.</p>
 <p>Sometimes you don’t know what is missing, you change your mind and
-want to run something else, or your code is running much too long and
-you just want it to stop. The way to do it is to press
-<kbd>Esc</kbd>.</p>
+want to run something else, or your code is running too long and you
+just want it to stop. The way to stop it is to press <kbd>Esc</kbd>.</p>
 </div>
 </div>
 </div>
@@ -639,28 +638,27 @@ you just want it to stop. The way to do it is to press
 functions</strong> that are build by the community and once they go
 through a quality process they are available to download from a
 repository called <code>CRAN</code>. They need to be explicitly
-activated. Now, we will be using <code>tidyverse</code> package, which
-is actually a collection of useful packages. Another package that we
-will use is <code>here</code>.</p>
-<p>You were asked to install <code>tidyverse</code> package in the
-preparation for the workshop. You need to install a package only once,
-so you won’t have to do it again. We will however need to install the
-<code>here</code> package. To do so, please go to your script and
-type:</p>
+activated. Now, we will be using the <code>tidyverse</code> package,
+which is actually a collection of useful packages. Another package that
+we will use is <code>here</code>.</p>
+<p>You were asked to install the <code>tidyverse</code> package in
+preparation to the workshop. You need to install a package only once, so
+you won’t have to do it again. We still need to install the
+<code>here</code> package. To do so, go to the script and run:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"here"</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="callout3" class="callout">
+<div id="is-tidyverse-installed" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
+<div id="is-tidyverse-installed" class="callout-inner">
+<h3 class="callout-title">Is <code>tidyverse</code> installed?</h3>
 <div class="callout-content">
-<p>If you are not sure if you have <code>tidyverse</code> packaged
+<p>If you are not sure if you have the <code>tidyverse</code> package
 installed, you can check it in the <code>Packages</code> tab in the
 bottom right pane. In the search box start typing
 ‘<code>tidyverse</code>’ and see if it appears in the list of installed
@@ -686,7 +684,7 @@ script:</p>
 packages need to be installed only once, but now, they will be installed
 each time we run the script, which can take a lot of time if we’re
 installing a large package like <code>tidyverse</code>.</p>
-<p>To keep a trace of you installing the packages, without executing it,
+<p>To keep track of you installing the packages, without executing it,
 you can use a comment. In <code>R</code>, anything that is written after
 a has sign <code>#</code>, is ignored in execution. Thanks to this
 feature, you can annotate your code. Let’s adapt our script by changing
@@ -702,7 +700,7 @@ the first lines into comments:</p>
 </div>
 </div>
 <p>Installing packages is not sufficient to work with them. You will
-need to load them each time you want to use them. To do that you use
+need to load them each time you want to use them. To do that you use the
 <code>library()</code> command:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -724,16 +722,16 @@ need to specify the path from the folder you are in (most likely the
 problem, if the person using your code (including future you) is working
 in a different sub-folder.</p>
 <p>We will use the <code>here()</code> package to tackle this issue.
-This package converts relative paths from the root (main folder) of your
-project to absolute paths (the exact location on your computer). For
-instance, instead of writing out the full path like
-“C:/Users/YourName/Documents/r-geospatial-urban/data/file.csv” or
-“~/Documents/r-geospatial-urban/data/file.csv”, you can use the
-<code>here()</code> function to create a path relative to your project’s
-main directory. This makes your code more portable and reproducible, as
-it doesn’t depend on a specific location of your project on your
-computer.</p>
-<p>It might be confusing, so let’s see how it works. We will use the
+This package converts relative paths from the root (working directory)
+of your project to absolute paths (the exact location on your computer).
+For instance, instead of writing out the full path like
+<code>C:\Users\YourName\Documents\r-geospatial-urban\data\file.csv</code>
+or <code>~/Documents/r-geospatial-urban/data/file.csv</code>, you can
+use the <code>here()</code> function to create a path relative to your
+project’s root directory. This makes your code more portable and
+reproducible, as it doesn’t depend on a specific location of your
+project on your computer.</p>
+<p>This might be confusing, so let’s see how it works. We will use the
 <code>here()</code> function from the <code>here</code> package. In the
 console, we write:</p>
 <div class="codewrapper sourceCode" id="cb6">
@@ -786,7 +784,7 @@ possible. We will not cover these in the workshop.</p>
 </div>
 <div class="section level1">
 <h1 id="introduction-to-r">Introduction to R<a class="anchor" aria-label="anchor" href="#introduction-to-r"></a></h1>
-<p>You can use R as calculator, you can for example write:</p>
+<p>You can use R as calculator. You can for example write:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -797,9 +795,9 @@ possible. We will not cover these in the workshop.</p>
 </div>
 <div class="section level2">
 <h2 id="variables-and-assignment">Variables and assignment<a class="anchor" aria-label="anchor" href="#variables-and-assignment"></a></h2>
-<p>However, what’s more useful is that in R we can store values and use
-them whenever we need to. We using the assignment operator
-<code>&lt;-</code>, like this:</p>
+<p>However, what’s more useful is that in R we can store values, that is
+<strong>assign</strong> them to objects and use them whenever we need
+to. We use the assignment operator <code>&lt;-</code>, like this:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -807,8 +805,8 @@ them whenever we need to. We using the assignment operator
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">40</span></span></code></pre>
 </div>
 <p>Notice that assignment does not print a value. Instead, we’ve stored
-it for later in something called a variable. <code>x</code> variable now
-contains the value <code>0.025</code>:</p>
+it for later in something called a variable. The <code>x</code> variable
+now contains the value <code>0.025</code>:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -818,8 +816,8 @@ contains the value <code>0.025</code>:</p>
 <p>Look for the <code>Environment</code> tab in the upper right pane of
 RStudio. You will see that <code>x</code> and its value have appeared in
 the list of Values. Our variable <code>x</code> can be used in place of
-a number in any calculation that expects a number, e.g. when calculating
-a square root:</p>
+a number in any calculation that expects a number, e.g., when
+calculating a square root:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -840,7 +838,7 @@ value to variable <code>x</code>:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">sqrt</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># you can use value stored in object x to create y</span></span>
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">sqrt</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># you can use the value stored in object x to create y</span></span>
 <span><span class="va">y</span></span></code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">

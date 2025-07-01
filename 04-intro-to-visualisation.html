@@ -434,8 +434,7 @@
 <li>How can I include addition information via a colours palette.</li>
 <li>How can I find more information about a function and its
 arguments?</li>
-<li>How can I create new columns or remove existing columns from a data
-frame?</li>
+<li>How can I reorder columns in a data frame?</li>
 </ul></div>
 </div>
 </div>
@@ -460,8 +459,8 @@ function.</li>
 <h1 id="introduction-to-visualisation">Introduction to Visualisation<a class="anchor" aria-label="anchor" href="#introduction-to-visualisation"></a></h1>
 <p>The package <code>ggplot2</code> is a powerful plotting system. We
 will start with an introduction of key features of <code>ggplot2</code>.
-<code>gg</code> stands for grammar of graphics. The idea idea behind it
-is that the following three components are needed to create a graph:</p>
+<code>gg</code> stands for grammar of graphics. The idea behind it is
+that the following three components are needed to create a graph:</p>
 <ul><li>data,</li>
 <li>aesthetics - a coordinate system on which we map the data (what is
 represented on x axis, what on y axis), and</li>
@@ -469,9 +468,10 @@ represented on x axis, what on y axis), and</li>
 etc.)</li>
 </ul><p>A fun part about <code>ggplot2</code> is that you can add layers to
 the plot to provide more information and to make it more beautiful.</p>
-<p>In the following parts of this workshop, you will use this package to
-visualize geospatial data. First, make sure that you have the following
-packages loaded.</p>
+<p>While here we still focus on the <code>gapminder</code> dataset, in
+later parts of this workshop we will use <code>ggplot2</code> to
+visualize geospatial data. First, make sure that you have the
+<code>tidyverse</code> loaded, which includes <code>ggplot2</code>.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -504,7 +504,7 @@ observations:</p>
 <code class="sourceCode R"><span><span class="va">gapminder</span> <span class="op">|&gt;</span> <span class="co"># we select a data set</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span> <span class="op">&amp;</span> <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># filter year and continent</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">country</span>, y <span class="op">=</span> <span class="va">gdpPercap</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="co"># the x and y axes represent columns</span></span>
-<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="co"># we select a column graph as a geometry</span></span></code></pre>
+<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="co"># we use a column graph as a geometry</span></span></code></pre>
 </div>
 <figure><img src="fig/04-intro-to-visualisation-rendered-ggplot-col-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Now, you can iteratively improve how the plot looks like. For
 example, you might want to flip it, to better display the labels.</p>
@@ -513,10 +513,7 @@ example, you might want to flip it, to better display the labels.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gapminder</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span></span>
-<span>    <span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span>,</span>
-<span>    <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span> <span class="op">&amp;</span> <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">country</span>, y <span class="op">=</span> <span class="va">gdpPercap</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span> <span class="co"># flip axes</span></span></code></pre>
@@ -532,10 +529,7 @@ capita.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gapminder</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span></span>
-<span>    <span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span>,</span>
-<span>    <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span> <span class="op">&amp;</span> <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>country <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">country</span>, <span class="va">gdpPercap</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># reorder factor levels</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">country</span>, y <span class="op">=</span> <span class="va">gdpPercap</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -548,10 +542,7 @@ expectancy of a country by colour</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gapminder</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span></span>
-<span>    <span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span>,</span>
-<span>    <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span> <span class="op">&amp;</span> <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>country <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">country</span>, <span class="va">gdpPercap</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">country</span>,</span>
@@ -569,12 +560,13 @@ the <code>viridis</code> package.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gapminder</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span></span>
-<span>    <span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span>,</span>
-<span>    <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span> <span class="op">&amp;</span> <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>country <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">country</span>, <span class="va">gdpPercap</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">country</span>, y <span class="op">=</span> <span class="va">gdpPercap</span>, fill <span class="op">=</span> <span class="va">lifeExp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">country</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">gdpPercap</span>,</span>
+<span>    fill <span class="op">=</span> <span class="va">lifeExp</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span><span class="op">)</span> <span class="co"># _c stands for continuous scale</span></span></code></pre>
@@ -593,8 +585,7 @@ function:
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="co"># this time let's save the plot in an object</span></span>
 <span>  <span class="va">gapminder</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span> <span class="op">&amp;</span></span>
-<span>           <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2007</span> <span class="op">&amp;</span> <span class="va">continent</span> <span class="op">==</span> <span class="st">"Americas"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span></span>
 <span>    country <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">country</span>, <span class="va">gdpPercap</span><span class="op">)</span>,</span>
 <span>    lifeExpCat <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span></span>
