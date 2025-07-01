@@ -28,6 +28,7 @@ This lesson was developed by:
 - [Aleksandra Wilczynska](https://github.com/alwil)
 - [Ana Petrovic](https://github.com/ana-5r)
 - [Daniele Cannatella](https://github.com/dcannatella)
+- [Ignacio Urria Yáñez](https://github.com/iurriayanez)
 - [Javier San Millán Tejedor](https://github.com/javisanmillan)
 - [Jerome Francisco Conceicao](https://github.com/fcjerome)
 - [Kyri Janssen](https://github.com/KyriJanssen)
