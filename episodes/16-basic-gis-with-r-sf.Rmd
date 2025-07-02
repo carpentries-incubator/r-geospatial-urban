@@ -38,7 +38,7 @@ assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
 
 ## Why `sf` for GIS?
 
-As introduced in [an earlier lesson](episodes/09-open-and-plot-vector-layers.Rmd), `sf` is a package which supports simple features (sf), ["a standardized way to
+As introduced in [an earlier lesson](episodes/06-open-and-plot-vector-layers.Rmd), `sf` is a package which supports simple features (sf), ["a standardized way to
 encode spatial vector data."](https://cran.r-project.org/web/packages/sf/sf.pdf).
 It contains a large set of functions to achieve all the operations on vector spatial data for which you might use traditional GIS software: change the coordinate system, join layers, intersect or unite polygons, create buffers and centroids, etc. cf. the `sf` [cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/sf.pdf).
 

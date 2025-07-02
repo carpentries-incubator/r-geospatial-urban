@@ -44,7 +44,7 @@ This lesson uses the `terra` package in particular. If you have not installed it
 
 :::
 
-In this part, we will plot our raster object using `ggplot2` with customized colour schemes. We will continue working with the Digital Surface Model (DSM) raster from the [previous episode](../episodes/13-intro-to-raster-data.Rmd).
+In this part, we will plot our raster object using `ggplot2` with customized colour schemes. We will continue working with the Digital Surface Model (DSM) raster from the [previous episode](../episodes/10-intro-to-raster-data.Rmd).
 
 ## Plotting Data Using Breaks
 

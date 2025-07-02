@@ -55,7 +55,7 @@ For this episode, we will be working with Digital Terrain Model data. This diffe
 knitr::include_graphics("fig/dsm-dtm.png")
 ```
 
-We will be looking at another model (the canopy/building height model, or CHM) in [a later episode](../episodes/16-raster-calculations.Rmd) and will see how to calculate the CHM from the DSM and DTM. Here, we will create a map of the Digital Terrain Model (`DTM_TUD`) of TU Delft and its surrounding draped (or layered) on top of the hillshade (`DTM_hill_TUD`). 
+We will be looking at another model (the canopy/building height model, or CHM) in [a later episode](../episodes/13-raster-calculations.Rmd) and will see how to calculate the CHM from the DSM and DTM. Here, we will create a map of the Digital Terrain Model (`DTM_TUD`) of TU Delft and its surrounding draped (or layered) on top of the hillshade (`DTM_hill_TUD`). 
 
 :::::::::::::::::::::::::::::::::::::: callout
 
