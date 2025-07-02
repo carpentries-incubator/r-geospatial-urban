@@ -57,7 +57,7 @@ In short:
 
 For a more detailed description, see [Data Types and Structures](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures.html).
 
-Note that vector data in the geospatial context is different from vector data types. More about vector data in a [later lesson](../episodes/09-open-and-plot-vector-layers.Rmd)!
+Note that vector data in the geospatial context is different from vector data types. More about vector data in a [later lesson](../episodes/06-open-and-plot-vector-layers.Rmd)!
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
