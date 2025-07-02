@@ -21,14 +21,14 @@ After completing this episode, participants should be able to…
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-This episode builds upon the [previous episode](../episodes/10-explore-and-plot-by-vector-layer-attributes.Rmd) to work with vector layers in R and explore how to plot multiple vector layers.
+This episode builds upon the [previous episode](../episodes/07-explore-and-plot-by-vector-layer-attributes.Rmd) to work with vector layers in R and explore how to plot multiple vector layers.
 
 
 ## Load the data
 
 To work with vector data in R, we use the `sf` package. Make sure that it is loaded.
 
-We will continue to work with the three shapefiles that we loaded in the [Open and Plot Vector Layers](../episodes/09-open-and-plot-vector-layers.Rmd) episode.
+We will continue to work with the three shapefiles that we loaded in the [Open and Plot Vector Layers](../episodes/06-open-and-plot-vector-layers.Rmd) episode.
 
 
 ## Plotting Multiple Vector Layers
@@ -57,7 +57,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/11-plot-multiple-shape-files-rendered-plot-multiple-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-plot-multiple-shape-files-rendered-plot-multiple-1.png" style="display: block; margin: auto;" />
 
 Next, let’s build a custom legend using the functions `scale_color_manual()` and `scale_fill_manual()`. We will use the custom `road_colors` object created in the previous episode and we will create a new object called `leisure_colors` to store values of all 15 types of leisure with the `rainbow()` function. 
 
@@ -104,7 +104,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/11-plot-multiple-shape-files-rendered-plot-multiple2-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-plot-multiple-shape-files-rendered-plot-multiple2-1.png" style="display: block; margin: auto;" />
 
 ::: challenge
 
@@ -146,7 +146,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/11-plot-multiple-shape-files-rendered-plot-multiple3-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-plot-multiple-shape-files-rendered-plot-multiple3-1.png" style="display: block; margin: auto;" />
 
 :::
 
@@ -223,7 +223,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/11-plot-multiple-shape-files-rendered-plot-leisure-locations-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-plot-multiple-shape-files-rendered-plot-leisure-locations-1.png" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::
 

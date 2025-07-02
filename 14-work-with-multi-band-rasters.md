@@ -60,7 +60,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/17-work-with-multi-band-rasters-rendered-plot-rgb-band1-1.png" style="display: block; margin: auto;" />
+<img src="fig/14-work-with-multi-band-rasters-rendered-plot-rgb-band1-1.png" style="display: block; margin: auto;" />
 
 ## Image Raster Data Values
 
@@ -90,7 +90,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/17-work-with-multi-band-rasters-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+<img src="fig/14-work-with-multi-band-rasters-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 :::
 :::
@@ -170,7 +170,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/17-work-with-multi-band-rasters-rendered-plot-rgb-band2-1.png" style="display: block; margin: auto;" />
+<img src="fig/14-work-with-multi-band-rasters-rendered-plot-rgb-band2-1.png" style="display: block; margin: auto;" />
 
 We can access any individual band in the same way.
 
@@ -192,7 +192,7 @@ plotRGB(RGB_stack_TUD,
 )
 ```
 
-<img src="fig/17-work-with-multi-band-rasters-rendered-plot-rgb-1.png" style="display: block; margin: auto;" />
+<img src="fig/14-work-with-multi-band-rasters-rendered-plot-rgb-1.png" style="display: block; margin: auto;" />
 
 The image above looks pretty good. We can explore whether applying a stretch to the image might improve clarity and contrast using stretch="lin" or stretch="hist", as explained in [this lesson](https://datacarpentry.org/r-raster-vector-geospatial/instructor/05-raster-multi-band-in-r.html#create-a-three-band-image).
 

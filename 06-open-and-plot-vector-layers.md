@@ -262,7 +262,7 @@ Projected CRS: Amersfoort / RD New
 
 # More about CRS
 
-Read more about Coordinate Reference Systems [in the previous episode](../episodes/08-intro-to-geospatial-concepts.Rmd). We will also practice transformation between CRS in [Handling Spatial Projection & CRS](../episodes/12-handling-spatial-projection-and-crs.Rmd).
+Read more about Coordinate Reference Systems [in the previous episode](../episodes/05-intro-to-geospatial-concepts.Rmd). We will also practice transformation between CRS in [Handling Spatial Projection & CRS](../episodes/09-handling-spatial-projection-and-crs.Rmd).
 
 :::
 
@@ -280,7 +280,7 @@ ggplot(data = boundary_Delft) +
   coord_sf(datum = st_crs(28992)) # displays the axes in meters
 ```
 
-<img src="fig/09-open-and-plot-vector-layers-rendered-plot-boundary-1.png" style="display: block; margin: auto;" />
+<img src="fig/06-open-and-plot-vector-layers-rendered-plot-boundary-1.png" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 

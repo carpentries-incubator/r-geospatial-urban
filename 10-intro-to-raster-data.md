@@ -220,7 +220,7 @@ ggplot() +
 ```
 
 <div class="figure" style="text-align: center">
-<img src="fig/13-intro-to-raster-data-rendered-first-rast-plot-1.png" alt="Raster plot with `ggplot2` using the viridis color scale"  />
+<img src="fig/10-intro-to-raster-data-rendered-first-rast-plot-1.png" alt="Raster plot with `ggplot2` using the viridis color scale"  />
 <p class="caption">Raster plot with `ggplot2` using the viridis color scale</p>
 </div>
 
@@ -339,7 +339,7 @@ nlyr(DSM_TUD)
 
 ![Single- and multi-band raster](https://datacarpentry.org/r-raster-vector-geospatial/fig/dc-spatial-raster/single_multi_raster.png)
 
-Our DSM data has only one band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode](../episodes/17-work-with-multi-band-rasters.Rmd).
+Our DSM data has only one band. However, raster data can also be multi-band, meaning that one raster file contains data for more than one variable or time period for each cell. We will discuss multi-band raster data in a [later episode](../episodes/14-work-with-multi-band-rasters.Rmd).
 
 ## Creating a histogram of raster values
 
@@ -356,7 +356,7 @@ Use `describe()` to determine the following about the `tud-dsm-hill.tif` file:
 3. How large would a 5x5 pixel area be on the Earth’s surface?
 4. Is the file a multi- or single-band raster?
 
-Note that this file is a hillshade raster. We will learn about hillshades in the [Working with Multi-band Rasters in R](../episodes/17-work-with-multi-band-rasters.Rmd) episode.
+Note that this file is a hillshade raster. We will learn about hillshades in the [Working with Multi-band Rasters in R](../episodes/14-work-with-multi-band-rasters.Rmd) episode.
 
 ::: solution
 

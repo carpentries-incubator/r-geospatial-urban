@@ -31,7 +31,7 @@ This lesson uses the `terra` package in particular. If you have not installed it
 
 :::
 
-In this part, we will plot our raster object using `ggplot2` with customized colour schemes. We will continue working with the Digital Surface Model (DSM) raster from the [previous episode](../episodes/13-intro-to-raster-data.Rmd).
+In this part, we will plot our raster object using `ggplot2` with customized colour schemes. We will continue working with the Digital Surface Model (DSM) raster from the [previous episode](../episodes/10-intro-to-raster-data.Rmd).
 
 ## Plotting Data Using Breaks
 
@@ -46,7 +46,7 @@ ggplot() +
   geom_bar(data = DSM_TUD_df, aes(fct_elevation))
 ```
 
-<img src="fig/14-plot-raster-data-rendered-dsm-fct-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-plot-raster-data-rendered-dsm-fct-1.png" style="display: block; margin: auto;" />
 
 To see the cut-off values for the groups, we can ask for the levels of `fct_elevation`:
 ```{rdsm-fct-levels}
@@ -100,7 +100,7 @@ ggplot() +
   geom_bar(data = DSM_TUD_df, aes(fct_elevation_cb))
 ```
 
-<img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb-1.png" style="display: block; margin: auto;" />
 
 And we can get the count of values in each group in the same way we did before:
 
@@ -124,7 +124,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb2-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb2-1.png" style="display: block; margin: auto;" />
 The plot above uses the default colours inside `ggplot2` for raster objects. We can specify our own colours to make the plot look a little nicer. R has a built in set of colours for plotting terrain available through the `terrain.colors()` function. Since we have three bins, we want to create a 3-colour palette:
 
 
@@ -145,7 +145,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb3-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb3-1.png" style="display: block; margin: auto;" />
 
 ## More Plot Formatting
 
@@ -166,7 +166,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb4-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb4-1.png" style="display: block; margin: auto;" />
 The axis labels x and y are not necessary, so we can turn them off by passing `element_blank()` to the `axis.title` argument in the `theme()` function.
 
 ``` r
@@ -181,7 +181,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb5-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb5-1.png" style="display: block; margin: auto;" />
 
 
 ::: challenge
@@ -222,7 +222,7 @@ ggplot() +
   labs(title = "Elevation Classes of the Digital Surface Model (DSM)")
 ```
 
-<img src="fig/14-plot-raster-data-rendered-plot-dsm-fct-cb6-1.png" style="display: block; margin: auto;" />
+<img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb6-1.png" style="display: block; margin: auto;" />
 
 :::
 

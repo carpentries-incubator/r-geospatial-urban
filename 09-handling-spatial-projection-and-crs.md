@@ -50,7 +50,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/12-handling-spatial-projection-and-crs-rendered-plot-minicipal-boundary-1.png" style="display: block; margin: auto;" />
+<img src="fig/09-handling-spatial-projection-and-crs-rendered-plot-minicipal-boundary-1.png" style="display: block; margin: auto;" />
 
 We can add a country boundary layer to make it look nicer. If we specify a thicker line width using size = 2 for the country boundary layer, it will make our map pop! We read the country boundary from a different file.
 
@@ -86,7 +86,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/12-handling-spatial-projection-and-crs-rendered-plot-boundaries-1.png" style="display: block; margin: auto;" />
+<img src="fig/09-handling-spatial-projection-and-crs-rendered-plot-boundaries-1.png" style="display: block; margin: auto;" />
 
 We confirm that the CRS of both boundaries is 28992.
 
@@ -160,7 +160,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/12-handling-spatial-projection-and-crs-rendered-plot-boundaries2-1.png" style="display: block; margin: auto;" />
+<img src="fig/09-handling-spatial-projection-and-crs-rendered-plot-boundaries2-1.png" style="display: block; margin: auto;" />
 
 ::: challenge
 
@@ -212,7 +212,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/12-handling-spatial-projection-and-crs-rendered-plot-boundary-zh-1.png" style="display: block; margin: auto;" />
+<img src="fig/09-handling-spatial-projection-and-crs-rendered-plot-boundary-zh-1.png" style="display: block; margin: auto;" />
 
 :::
 
@@ -222,7 +222,7 @@ ggplot() +
 
 # Projecting layers
 
-Note that `ggplot2` may reproject the layers on the fly for visualisation purposes, but for geoprocessing purposes, you still need to reproject the layers explicitly with `st_transform()`. This will become clear in a [later episode](../episodes/19-basic-gis-with-r-sf.Rmd) when we perform GIS operations.
+Note that `ggplot2` may reproject the layers on the fly for visualisation purposes, but for geoprocessing purposes, you still need to reproject the layers explicitly with `st_transform()`. This will become clear in a [later episode](../episodes/16-basic-gis-with-r-sf.Rmd) when we perform GIS operations.
 
 :::
 

@@ -183,7 +183,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/16-raster-calculations-rendered-plot-dtm-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-raster-calculations-rendered-plot-dtm-1.png" style="display: block; margin: auto;" />
 
 And then the DSM elevation data:
 
@@ -197,7 +197,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/16-raster-calculations-rendered-plot-dsm-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-raster-calculations-rendered-plot-dsm-1.png" style="display: block; margin: auto;" />
 
 ## Raster math and Canopy Height Models
 
@@ -224,7 +224,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/16-raster-calculations-rendered-plot-chm-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-raster-calculations-rendered-plot-chm-1.png" style="display: block; margin: auto;" />
 
 Let’s have a look at the distribution of values in our newly created Canopy Height Model (CHM).
 
@@ -233,7 +233,7 @@ ggplot(CHM_TUD_df) +
   geom_histogram(aes(`tud-dsm-5m`))
 ```
 
-<img src="fig/16-raster-calculations-rendered-chm-hist-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-raster-calculations-rendered-chm-hist-1.png" style="display: block; margin: auto;" />
 Notice that the range of values for the output CHM starts right below 0 and ranges to almost 100 meters. Does this make sense for buildings and trees in Delft?
 
 ::: challenge
@@ -270,7 +270,7 @@ ggplot(CHM_TUD_df) +
   geom_histogram(aes(`tud-dsm-5m`))
 ```
 
-<img src="fig/16-raster-calculations-rendered-chm-challenge-1.png" style="display: block; margin: auto;" />
+<img src="fig/13-raster-calculations-rendered-chm-challenge-1.png" style="display: block; margin: auto;" />
 
 ``` r
 custom_bins <- c(-5, 0, 10, 20, 30, 100)
@@ -287,7 +287,7 @@ ggplot() +
   coord_quickmap()
 ```
 
-<img src="fig/16-raster-calculations-rendered-chm-challenge-2.png" style="display: block; margin: auto;" />
+<img src="fig/13-raster-calculations-rendered-chm-challenge-2.png" style="display: block; margin: auto;" />
 
 :::
 
