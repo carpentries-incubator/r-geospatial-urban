@@ -35,14 +35,13 @@ invisible(lapply(packages, library, character.only = TRUE))
 After completing this episode, participants should be able to…
 
 - Describe what a data frame is.
-- Load external data from a .csv file into a data frame.
+- Load external data from a `.csv` file into a data frame.
 - Summarize the contents of a data frame.
-- Select certain columns in a data frame with the dplyr function select.
-- Select certain rows in a data frame according to filtering conditions with the dplyr function filter.
-- Link the output of one dplyr function to the input of another function with the ‘pipe’ operator |>.
-- Add new columns to a data frame that are functions of existing columns with mutate.
-- Use the split-apply-combine concept for data analysis.
-- Use summarize, group_by, and count to split a data frame into groups of observations, apply a summary statistics for each group, and then combine the results.
+- Select certain columns in a data frame with the `dplyr` function `select()`.
+- Select certain rows in a data frame according to filtering conditions with the `dplyr` function `filter()`.
+- Link the output of one dplyr function to the input of another function with the ‘pipe’ operator `|>`.
+- Add new columns to a data frame based on existing columns with mutate.
+- Use `summarize()`, `group_by()`, and `count()` to split a data frame into groups of observations, apply a summary statistics to each group, and then combine the results.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -63,8 +62,8 @@ For example, here is a figure depicting a data frame comprising a numeric, a cha
 
 ## Reading data
 
-`read.csv()` is a function used to read coma separated data files (`.csv` format)). There are other functions for files separated with other delimiters. 
-We're gonna read in the `gapminder` data set with information about countries' size, GDP and average life expectancy in different years.
+`read.csv()` is a function used to read comma separated data files (`.csv` format)). There are other functions for files separated with other delimiters. 
+We read in the `gapminder` data set with information about countries' size, GDP and average life expectancy in different years.
 
 ```{r reading-data}
 gapminder <- read.csv(here("data", "gapminder_data.csv"))
@@ -89,14 +88,18 @@ There are multiple ways to explore a data set. Here are just a few examples:
 
 
 ```{r examine-data}
-head(gapminder) # shows first 6  rows of the data set
+# Show first 6 rows of the data set
+head(gapminder)
 
-summary(gapminder) # basic statistical information about each column.
-# Information format differes by data type.
+# Basic statistical information about each column
+# Information format differs by data type.
+summary(gapminder) 
 
-nrow(gapminder) # returns number of rows in a dataset
+# Return number of rows in a dataset
+nrow(gapminder)
 
-ncol(gapminder) # returns number of columns in a dataset
+# Return number of columns in a dataset
+ncol(gapminder) 
 ```
 
 ### Dollar sign ($)
@@ -149,7 +152,7 @@ The main difference is that you don't need to load any packages to have the nati
 
 :::
 
-The `select()` statement with pipe would look like that:
+The `select()` statement with a pipe would look like that:
 
 ```{r dplyr-pipe}
 year_country_gdp <- gapminder |>
@@ -158,8 +161,8 @@ year_country_gdp <- gapminder |>
 head(year_country_gdp)
 ```
 
-First we define data set, then - with the use of pipe we pass it on to the `select()` function. 
-This way we can chain multiple functions together, which we will be doing now. 
+First we define the dataset, then with the use of the pipe we pass it on to the `select()` function. 
+This way we can chain multiple functions together. 
 
 ## Filter
 
@@ -167,7 +170,7 @@ We already know how to select only the needed columns.
 But now, we also want to filter the rows of our data set on certain conditions
 with the `filter()` function. Instead of doing it in separate steps, we can do it all together. 
 
-In the `gapminder` data set, we want to see the results from outside of Europe for the 21st century. 
+In the `gapminder` dataset, we want to see the results from outside of Europe for the 21st century. 
 
 ```{r filter-data}
 year_country_gdp_euro <- gapminder |>
@@ -180,7 +183,7 @@ head(year_country_gdp_euro)
 
 Let's now focus only on North American countries  
 ```{r filter-data-or}
-year_gdp_namerica <- year_country_gdp_euro %>%
+year_gdp_namerica <- year_country_gdp_euro |>
   filter(country == "Canada" |  country == "Mexico" | country == "United States") 
 
 # '|' operator (OR) - at least one of the conditions must be met
@@ -214,7 +217,7 @@ nrow(year_country_gdp_eurasia)
 :::
 
 ## Group and summarize
-So far, we have provided summary statistics on the whole dataset, selected columns, and filtered the observations. But often instead of doing that, we would like to know statistics about all of the continents, presented by group.
+So far, we have provided summary statistics on the whole dataset, selected columns, and filtered the observations. But often instead of doing that, we would like to know statistics by group. Let's calculate the average GDP per capita by continent.
 
 ```{r dplyr-group}
 gapminder |> # select the dataset
@@ -264,6 +267,8 @@ gdp_pop_bycontinents_byyear <- gapminder |>
     sd_pop = sd(pop),
     n_obs = n()
   )
+
+head(gdp_pop_bycontinents_byyear)
 ```
 
 ## Frequencies
