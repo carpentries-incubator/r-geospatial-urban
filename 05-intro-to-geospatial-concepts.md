@@ -119,11 +119,16 @@ Note that the maps presented in this lesson do not use a scale bar. Instead, plo
 
 The map of Rotterdam in the figure above shows the area of the city as a discrete feature with precise boundaries. This type of data is called vector. Vector data can have the form of points, lines and polygons (areas).
 
-We can also represent geographical features on the Earth as continuous phenomena and images of the Earth. This type of data is called raster. The figure below shows the two types of geospatial data which can be used to represent the real world, namely vector and raster.
-
 <div class="figure" style="text-align: center">
 <img src="fig/vector-raster-2.png" alt="Same geographical area as raster and vector data (Source: Saab, 2003)" width="971" />
 <p class="caption">Same geographical area as raster and vector data (Source: Saab, 2003)</p>
+</div>
+
+We can also represent geographical features on the Earth as continuous phenomena and images of the Earth. This type of data is called raster. The figure below shows the two types of geospatial data which can be used to represent the real world, namely vector and raster.
+
+<div class="figure" style="text-align: center">
+<img src="fig/vector-raster-1.png" alt="Overview of vector and raster data: definitions, subtypes, examples and common file formats (Image by Daniele Cannatella)." width="5333" />
+<p class="caption">Overview of vector and raster data: definitions, subtypes, examples and common file formats (Image by Daniele Cannatella).</p>
 </div>
 
 ::: callout
