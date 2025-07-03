@@ -1,7 +1,6 @@
 ---
 title: "Introduction to visualisation"
-teaching: 10 # to be updated by Jerome & Kyri
-exercises: 2 # to be updated by Jerome & Kyri
+teaching: 45
 ---
 
 ```{r setup, include=FALSE}

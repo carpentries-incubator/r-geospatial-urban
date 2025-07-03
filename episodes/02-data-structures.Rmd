@@ -1,7 +1,7 @@
 ---
 title: 'Data Structures'
-teaching: 10
-exercises: 2
+teaching: 45
+exercises: 5
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 

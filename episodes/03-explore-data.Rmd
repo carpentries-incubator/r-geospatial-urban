@@ -1,7 +1,7 @@
 ---
 title: 'Exploring Data Frames & Data frame Manipulation with dplyr '
-teaching: 10
-exercises: 2
+teaching: 25
+exercises: 10
 ---
 
 ```{r setup, include=FALSE}
