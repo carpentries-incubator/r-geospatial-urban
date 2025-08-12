@@ -418,7 +418,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Open and Plot Vector Layers</h1>
-        <p>Last updated on 2025-08-05 |
+        <p>Last updated on 2025-08-12 |
 
         <a href="https://github.com/carpentries-incubator/r-geospatial-urban/edit/main/episodes/06-open-and-plot-vector-layers.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -460,8 +460,8 @@ data in R?</li>
 <div class="callout-square">
 <i class="callout-icon" data-feather="check"></i>
 </div>
+<span class="callout-header">Prerequisite</span>
 <div class="callout-inner">
-<h3 class="callout-title">Prerequisite</h3>
 <div class="callout-content">
 <p>In this lesson you will work with the <code>sf</code> package. Note
 that the <code>sf</code> package has some external dependencies, namely
@@ -486,6 +486,7 @@ working with spatial vector data.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div id="the-sf-package" class="callout-inner">
 <h3 class="callout-title">The ‘sf’ package</h3>
 <div class="callout-content">
@@ -500,6 +501,7 @@ implementation in R <a href="https://r-spatial.github.io/sf/articles/sf1.html" c
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div id="geometry-in-qgis-and-in-r" class="callout-inner">
 <h3 class="callout-title">Geometry in QGIS and in R</h3>
 <div class="callout-content">
@@ -529,6 +531,7 @@ administrative boundary of Delft with the function
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div id="all-sf-functions-start-with-st_" class="callout-inner">
 <h3 class="callout-title">All ‘sf’ functions start with ‘st_’</h3>
 <div class="callout-content">
@@ -546,6 +549,7 @@ the simple features standard like PostGIS easy.</li>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div id="shapefiles-vs.-geopackage" class="callout-inner">
 <h3 class="callout-title">Shapefiles vs. GeoPackage</h3>
 <div class="callout-content">
@@ -600,6 +604,7 @@ information about the geometry type, which in this case is
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div id="geometry-types" class="callout-inner">
 <h3 class="callout-title">Geometry types</h3>
 <div class="callout-content">
@@ -648,6 +653,7 @@ GEOGCRS["WGS 84",
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div id="examining-the-output-of-st_crs" class="callout-inner">
 <h3 class="callout-title">Examining the output of ‘st_crs()’</h3>
 <div class="callout-content">
@@ -780,6 +786,7 @@ Projected CRS: Amersfoort / RD New
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div id="more-about-crs" class="callout-inner">
 <h3 class="callout-title">More about CRS</h3>
 <div class="callout-content">
@@ -809,8 +816,10 @@ coordinates shown on the two axes are displayed in meters.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="challenge-import-line-and-point-vector-layers" class="callout-inner">
-<h3 class="callout-title">Challenge: Import line and point vector layers</h3>
+<h3 class="callout-title">Challenge: Import line and point vector
+layers</h3>
 <div class="callout-content">
 <p>Read in <code>delft-streets.shp</code> and
 <code>delft-leisure.shp</code> and assign them to
@@ -827,7 +836,7 @@ Answer the following questions:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -925,8 +934,8 @@ CRS using meters as units. <code>lines_Delft()</code> and
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
+<span class="callout-header">Key Points</span>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>Metadata for vector layers include geometry type, CRS, and extent
 and can be examined with the <code>sf</code> functions
@@ -980,7 +989,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.12" class="external-link">sandpaper (0.16.12)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.6" class="external-link">varnish (1.0.6)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.17.1" class="external-link">sandpaper (0.17.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.7" class="external-link">varnish (1.0.7)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1002,8 +1011,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/r-geospatial-urban/06-open-and-plot-vector-layers.html",
   "identifier": "https://carpentries-incubator.github.io/r-geospatial-urban/06-open-and-plot-vector-layers.html",
   "dateCreated": "2025-07-03",
-  "dateModified": "2025-08-05",
-  "datePublished": "2025-08-05"
+  "dateModified": "2025-08-12",
+  "datePublished": "2025-08-12"
 }
 
   </script><script>
