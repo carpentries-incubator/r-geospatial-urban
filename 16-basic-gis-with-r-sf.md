@@ -57,7 +57,8 @@ x <- opq(bbox = bb) |>
 ```
 
 ``` error
-Error in overpass_query(query = obj$overpass_call, quiet = quiet, encoding = encoding): object 'doc' not found
+Error in `httr2::req_perform()` at osmdata/R/overpass-query.R:193:9:
+! HTTP 504 Gateway Timeout.
 ```
 
 ``` r
