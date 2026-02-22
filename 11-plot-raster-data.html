@@ -496,7 +496,7 @@ with <code>cut()</code> to split the data into 3 bins.</p>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_bar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_TUD_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">fct_elevation</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/11-plot-raster-data-rendered-dsm-fct-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>To see the cut-off values for the groups, we can ask for the levels
+<figure><img src="fig/11-plot-raster-data-rendered-dsm-fct-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>To see the cut-off values for the groups, we can ask for the levels
 of <code>fct_elevation</code>:
 <code>{rdsm-fct-levels} levels(DSM_TUD_df$fct_elevation)</code></p>
 <p>And we can get the count of values (that is, number of pixels) in
@@ -560,7 +560,7 @@ through 5”.</p>
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_bar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_TUD_df</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">fct_elevation_cb</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And we can get the count of values in each group in the same way we
+<figure><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>And we can get the count of values in each group in the same way we
 did before:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -587,7 +587,7 @@ being a different colour:</p>
 <span>  <span class="fu">geom_raster</span><span class="op">(</span>data <span class="op">=</span> <span class="va">DSM_TUD_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, fill <span class="op">=</span> <span class="va">fct_elevation_cb</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<p><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb2-1.png" style="display: block; margin: auto;" class="figure">
+<p><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb2-1.png" alt="" style="display: block; margin: auto;" class="figure">
 The plot above uses the default colours inside <code>ggplot2</code> for
 raster objects. We can specify our own colours to make the plot look a
 little nicer. R has a built in set of colours for plotting terrain
@@ -617,7 +617,7 @@ we pass them to the <code>values</code> argument in the
 <span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu">terrain.colors</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb3-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="more-plot-formatting">More Plot Formatting<a class="anchor" aria-label="anchor" href="#more-plot-formatting"></a></h2>
+<figure><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb3-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="more-plot-formatting">More Plot Formatting<a class="anchor" aria-label="anchor" href="#more-plot-formatting"></a></h2>
 <hr class="half-width"><p>If we need to create multiple plots using the same colour palette, we
 can create an R object (<code>my_col</code>) for the set of colours that
 we want to use. We can then quickly change the palette across all plots
@@ -641,7 +641,7 @@ function.</p>
 <span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="va">my_col</span>, name <span class="op">=</span> <span class="st">"Elevation"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<p><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb4-1.png" style="display: block; margin: auto;" class="figure">
+<p><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb4-1.png" alt="" style="display: block; margin: auto;" class="figure">
 The axis labels x and y are not necessary, so we can turn them off by
 passing <code>element_blank()</code> to the <code>axis.title</code>
 argument in the <code>theme()</code> function.</p>
@@ -659,7 +659,7 @@ argument in the <code>theme()</code> function.</p>
 <span>  <span class="fu">theme</span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-using-custom-breaks" class="callout challenge">
+<figure><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb5-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-plot-using-custom-breaks" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -713,7 +713,7 @@ divided among the range of pixel values.</li>
 <span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Elevation Classes of the Digital Surface Model (DSM)"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb6-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/11-plot-raster-data-rendered-plot-dsm-fct-cb6-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 </div>

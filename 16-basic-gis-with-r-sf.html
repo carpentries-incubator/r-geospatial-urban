@@ -524,7 +524,7 @@ a non-construction zone of 100m around pre-1800 buildings.</p>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/16-basic-gis-with-r-sf-rendered-recap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="overpass-query-unavailable-without-internet" class="callout">
+<figure><img src="fig/16-basic-gis-with-r-sf-rendered-recap-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="overpass-query-unavailable-without-internet" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -623,7 +623,7 @@ PROJCRS["Amersfoort / RD New",
 <span>  <span class="fu">geom_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/16-basic-gis-with-r-sf-rendered-buffer-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="union">Union<a class="anchor" aria-label="anchor" href="#union"></a></h2>
+<figure><img src="fig/16-basic-gis-with-r-sf-rendered-buffer-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="union">Union<a class="anchor" aria-label="anchor" href="#union"></a></h2>
 <hr class="half-width"><p>Now, we have a lot of overlapping buffers. We would rather create a
 unique conservation zone rather than overlapping ones in that case. So
 we have to fuse the overlapping buffers into one polygon. This operation
@@ -671,7 +671,7 @@ rather than their actual footprint. This operation means defining their
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">centroids_old</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/16-basic-gis-with-r-sf-rendered-centroids-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="intersection-join">Intersection &amp; join<a class="anchor" aria-label="anchor" href="#intersection-join"></a></h2>
+<figure><img src="fig/16-basic-gis-with-r-sf-rendered-centroids-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="intersection-join">Intersection &amp; join<a class="anchor" aria-label="anchor" href="#intersection-join"></a></h2>
 <hr class="half-width"><p>Now, we would like to distinguish conservation areas based on the
 number of historic buildings they contain. In GIS terms, we would like
 to know how many centroids each fused buffer polygon contains. This
@@ -707,7 +707,7 @@ left join. The corresponding function is
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">coord_sf</span><span class="op">(</span>datum <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">28992</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/16-basic-gis-with-r-sf-rendered-intersection-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="section level3">
+<figure><img src="fig/16-basic-gis-with-r-sf-rendered-intersection-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="section level3">
 <h3 id="maps-of-the-number-of-buildings-per-zone">Maps of the number of buildings per zone:<a class="anchor" aria-label="anchor" href="#maps-of-the-number-of-buildings-per-zone"></a></h3>
 <p>Let’s map this layer over the initial map of individual
 buildings.</p>
@@ -726,7 +726,7 @@ buildings.</p>
 <span>    option <span class="op">=</span> <span class="st">"B"</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/16-basic-gis-with-r-sf-rendered-mapping-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/16-basic-gis-with-r-sf-rendered-mapping-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </section><section><h2 class="section-heading" id="calculating-area-and-density-of-spatial-features">Calculating area and density of spatial features<a class="anchor" aria-label="anchor" href="#calculating-area-and-density-of-spatial-features"></a></h2>
 <hr class="half-width"><p>In our analysis, we have a large number of pre-war buildings, and the
 buffer zones we’re using are quite broad. As a result, the total count
@@ -759,7 +759,7 @@ our project.</p>
 <span>    option <span class="op">=</span> <span class="st">"B"</span></span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/16-basic-gis-with-r-sf-rendered-area-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-conservation-rules-have-changed." class="callout challenge">
+<figure><img src="fig/16-basic-gis-with-r-sf-rendered-area-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-conservation-rules-have-changed." class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -837,7 +837,7 @@ density of all buildings per 10m fused buffer?</p>
 <span>     option <span class="op">=</span> <span class="st">"B"</span></span>
 <span>   <span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/16-basic-gis-with-r-sf-rendered-parameters-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+<figure><img src="fig/16-basic-gis-with-r-sf-rendered-parameters-1.png" alt="" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
 </div>
 </div>
 </div>
