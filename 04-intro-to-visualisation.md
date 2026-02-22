@@ -57,7 +57,7 @@ ggplot(
   geom_histogram() # geometry layer
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-intro-to-visualisation-rendered-ggplot-1.png" alt="" style="display: block; margin: auto;" />
 
 You can see that in `ggplot` you use `+` as a pipe, to add layers.
 Within the `ggplot()` call, it is the only pipe that will work. But, it is
@@ -74,7 +74,7 @@ gapminder |> # we select a data set
   geom_col() # we use a column graph as a geometry
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-col-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-intro-to-visualisation-rendered-ggplot-col-1.png" alt="" style="display: block; margin: auto;" />
 
 Now, you can iteratively improve how the plot looks like. For example,
 you might want to flip it, to better display the labels.
@@ -88,7 +88,7 @@ gapminder |>
   coord_flip() # flip axes
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-coord-flip-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-intro-to-visualisation-rendered-ggplot-coord-flip-1.png" alt="" style="display: block; margin: auto;" />
 
 One thing you might want to change here is the order in which countries
 are displayed. It would be easier to compare GDP per capita, if they
@@ -108,7 +108,7 @@ gapminder |>
   coord_flip()
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-color-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-intro-to-visualisation-rendered-ggplot-color-1.png" alt="" style="display: block; margin: auto;" />
 
 Let's make things more colourful - let's represent the average life
 expectancy of a country by colour
@@ -127,7 +127,7 @@ gapminder |>
   coord_flip()
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-colors-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-intro-to-visualisation-rendered-ggplot-colors-1.png" alt="" style="display: block; margin: auto;" />
 
 We can also adapt the colour scale. Common choice that is used for its
 readability and colorblind-proofness are the palettes available in the
@@ -148,7 +148,7 @@ gapminder |>
   scale_fill_viridis_c() # _c stands for continuous scale
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-colors-adapt-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-intro-to-visualisation-rendered-ggplot-colors-adapt-1.png" alt="" style="display: block; margin: auto;" />
 
 Maybe we don't need that much information about the life expectancy. We
 only want to know if it's below or above average. We will make use of the `if_else()` function inside `mutate()` to create a new column `lifeExpCat` with the value `high` if life expectancy is above average and `low` otherwise. Note the usage of the `if_else()` function: `if_else(<condition>, <value if TRUE>, <value if FALSE>)`.
@@ -186,7 +186,7 @@ call it.
 p
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-call-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-intro-to-visualisation-rendered-ggplot-call-1.png" alt="" style="display: block; margin: auto;" />
 
 Now we can make use of the saved object and add things to it.
 
@@ -207,7 +207,7 @@ p <- p +
 p
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-titles-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-intro-to-visualisation-rendered-ggplot-titles-1.png" alt="" style="display: block; margin: auto;" />
 
 # Writing data
 

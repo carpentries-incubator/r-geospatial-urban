@@ -449,7 +449,7 @@ ggplot(data = motorway_Delft) +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/07-explore-and-plot-by-vector-layer-attributes-rendered-plot-motorway-1.png" style="display: block; margin: auto;" />
+<img src="fig/07-explore-and-plot-by-vector-layer-attributes-rendered-plot-motorway-1.png" alt="" style="display: block; margin: auto;" />
 
 :::
 
@@ -507,7 +507,7 @@ ggplot(data = lines_Delft_selection) +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/07-explore-and-plot-by-vector-layer-attributes-rendered-plot-highway-types-1.png" style="display: block; margin: auto;" />
+<img src="fig/07-explore-and-plot-by-vector-layer-attributes-rendered-plot-highway-types-1.png" alt="" style="display: block; margin: auto;" />
 
 ::: challenge
 
@@ -543,7 +543,7 @@ ggplot(data = lines_Delft_selection) +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/07-explore-and-plot-by-vector-layer-attributes-rendered-plot-highway-types2-1.png" style="display: block; margin: auto;" />
+<img src="fig/07-explore-and-plot-by-vector-layer-attributes-rendered-plot-highway-types2-1.png" alt="" style="display: block; margin: auto;" />
 :::
 
 :::
@@ -606,7 +606,7 @@ ggplot(data = lines_Delft) +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/07-explore-and-plot-by-vector-layer-attributes-rendered-plot-cycleways2-1.png" style="display: block; margin: auto;" />
+<img src="fig/07-explore-and-plot-by-vector-layer-attributes-rendered-plot-cycleways2-1.png" alt="" style="display: block; margin: auto;" />
 
 :::
 

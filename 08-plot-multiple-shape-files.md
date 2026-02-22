@@ -57,7 +57,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/08-plot-multiple-shape-files-rendered-plot-multiple-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-plot-multiple-shape-files-rendered-plot-multiple-1.png" alt="" style="display: block; margin: auto;" />
 
 Next, let’s build a custom legend using the functions `scale_color_manual()` and `scale_fill_manual()`. We will use the custom `road_colors` object created in the previous episode and we will create a new object called `leisure_colors` to store values of all 15 types of leisure with the `rainbow()` function. 
 
@@ -104,7 +104,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/08-plot-multiple-shape-files-rendered-plot-multiple2-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-plot-multiple-shape-files-rendered-plot-multiple2-1.png" alt="" style="display: block; margin: auto;" />
 
 ::: challenge
 
@@ -146,7 +146,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/08-plot-multiple-shape-files-rendered-plot-multiple3-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-plot-multiple-shape-files-rendered-plot-multiple3-1.png" alt="" style="display: block; margin: auto;" />
 
 :::
 
@@ -223,7 +223,7 @@ ggplot() +
   coord_sf(datum = st_crs(28992))
 ```
 
-<img src="fig/08-plot-multiple-shape-files-rendered-plot-leisure-locations-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-plot-multiple-shape-files-rendered-plot-leisure-locations-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::
 

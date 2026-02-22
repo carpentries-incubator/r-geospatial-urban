@@ -94,7 +94,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/12-reproject-raster-data-rendered-plot-dtm-hill-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-reproject-raster-data-rendered-plot-dtm-hill-1.png" alt="" style="display: block; margin: auto;" />
 Our results are curious - neither the DTM (`DTM_TUD_df`) nor the hillshade (`DTM_hill_TUD_df`) are plotted. Let’s try to plot the DTM on its own to make sure the data are there.
 
 
@@ -112,7 +112,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/12-reproject-raster-data-rendered-plot-dtm-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-reproject-raster-data-rendered-plot-dtm-1.png" alt="" style="display: block; margin: auto;" />
 
 Our DTM seems to contain data and plots just fine.
 
@@ -132,7 +132,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/12-reproject-raster-data-rendered-plot-hill-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-reproject-raster-data-rendered-plot-hill-1.png" alt="" style="display: block; margin: auto;" />
 
 If we examine the axes, we can see that the units (and thus the projections) of the two rasters differ. In such cases, `ggplot2` will still render the images, but they may not be visible. The function doesn't throw an error, but rather completes the rendering process, which can make it seem like nothing is wrong. To better understand this, we can compare the Coordinate Reference Systems (CRSs) of the DTM and hillshade data to see how they differ.
 
@@ -415,7 +415,7 @@ ggplot() +
   coord_equal()
 ```
 
-<img src="fig/12-reproject-raster-data-rendered-plot-dtm-hill-projected-1.png" style="display: block; margin: auto;" />
+<img src="fig/12-reproject-raster-data-rendered-plot-dtm-hill-projected-1.png" alt="" style="display: block; margin: auto;" />
 
 We have now successfully draped the Digital Terrain Model on top of our hillshade to produce a nice looking, textured map!
 

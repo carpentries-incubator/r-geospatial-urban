@@ -280,7 +280,7 @@ ggplot(data = boundary_Delft) +
   coord_sf(datum = st_crs(28992)) # displays the axes in meters
 ```
 
-<img src="fig/06-open-and-plot-vector-layers-rendered-plot-boundary-1.png" style="display: block; margin: auto;" />
+<img src="fig/06-open-and-plot-vector-layers-rendered-plot-boundary-1.png" alt="" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
