@@ -149,8 +149,8 @@ x <- opq(bbox = bb) |>
 ```
 
 ``` error
-Error in `httr2::req_perform()` at osmdata/R/overpass-query.R:195:9:
-! HTTP 504 Gateway Timeout.
+Error in `overpass_query()`:
+! object 'doc' not found
 ```
 
 
@@ -276,14 +276,17 @@ extract_buildings <- function(cityname, year = 1900) {
 extract_buildings("Brielle, NL")
 ```
 
-<img src="fig/15-import-and-visualise-osm-data-rendered-Replicability-1.png" alt="" style="display: block; margin: auto;" />
+``` error
+Error in `overpass_query()`:
+! object 'doc' not found
+```
 
 ``` r
 # test on Naarden
 extract_buildings("Naarden, NL")
 ```
 
-<img src="fig/15-import-and-visualise-osm-data-rendered-Replicability-2.png" alt="" style="display: block; margin: auto;" />
+<img src="fig/15-import-and-visualise-osm-data-rendered-Replicability-1.png" alt="" style="display: block; margin: auto;" />
 
 
 ## Going interactive.
