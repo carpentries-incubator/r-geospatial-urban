@@ -33,8 +33,7 @@ municipal_boundary_NL <- st_read("data/nl-gemeenten.shp")
 
 ``` output
 Reading layer `nl-gemeenten' from data source 
-  `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/nl-gemeenten.shp' 
-  using driver `ESRI Shapefile'
+  `/home/rstudio/lesson/site/built/data/nl-gemeenten.shp' using driver `ESRI Shapefile'
 Simple feature collection with 344 features and 6 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -61,8 +60,7 @@ country_boundary_NL <- st_read("data/nl-boundary.shp")
 
 ``` output
 Reading layer `nl-boundary' from data source 
-  `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/nl-boundary.shp' 
-  using driver `ESRI Shapefile'
+  `/home/rstudio/lesson/site/built/data/nl-boundary.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 1 field
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -118,8 +116,7 @@ boundary_Delft <- st_read("data/delft-boundary.shp")
 
 ``` output
 Reading layer `delft-boundary' from data source 
-  `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-boundary.shp' 
-  using driver `ESRI Shapefile'
+  `/home/rstudio/lesson/site/built/data/delft-boundary.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 1 field
 Geometry type: POLYGON
 Dimension:     XY

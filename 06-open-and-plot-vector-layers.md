@@ -104,8 +104,7 @@ st_read("data/delft-boundary.shp")
 
 ``` output
 Reading layer `delft-boundary' from data source 
-  `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-boundary.shp' 
-  using driver `ESRI Shapefile'
+  `/home/rstudio/lesson/site/built/data/delft-boundary.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 1 field
 Geometry type: POLYGON
 Dimension:     XY

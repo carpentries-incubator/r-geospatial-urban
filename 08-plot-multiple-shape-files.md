@@ -173,8 +173,7 @@ leisure_locations_selection <- st_read("data/delft-leisure.shp") |>
 
 ``` output
 Reading layer `delft-leisure' from data source 
-  `/home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-leisure.shp' 
-  using driver `ESRI Shapefile'
+  `/home/rstudio/lesson/site/built/data/delft-leisure.shp' using driver `ESRI Shapefile'
 Simple feature collection with 298 features and 2 fields
 Geometry type: POINT
 Dimension:     XY
