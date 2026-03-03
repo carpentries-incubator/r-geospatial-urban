@@ -1,0 +1,381 @@
+---
+title: 'Import and Visualise OSM Data'
+teaching: 45
+exercises: 25
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How to import and work with vector data from OpenStreetMap?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+After completing this episode, participants should be able to…
+
+- Import OSM vector data from the API
+- Select and manipulate OSM vector data
+- Visualise and map OSM Vector data
+- Use Leaflet for interactive mapping
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+## What is OpenStreetMap?
+
+OpenStreetMap (OSM) is a collaborative project which aims at mapping the world and sharing geospatial data in an open way. Anyone can contribute, by mapping geographical objects they encounter, by adding topical information on existing map objects (their name, function, capacity, etc.), or by mapping buildings and roads from satellite imagery.
+
+This information is then validated by other users and eventually added to the common "map" or information system. This ensures that the information is accessible, open, verified, accurate and up-to-date.
+
+The result looks like this:
+![](fig/OSM1.png)
+
+The geospatial data underlying this interface is made of geometrical objects (i.e. points, lines, polygons) and their associated tags (#building #height, #road #secondary #90kph, etc.).
+
+## How to extract geospatial data from OpenStreetMap?
+
+
+``` r
+library(tidyverse)
+library(sf)
+assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
+```
+
+
+### Bounding box
+
+The first thing to do is to define the area within which you want to retrieve data, aka the *bounding box*. This can be defined easily using a place name and the package `osmdata` to access the free Nominatim API provided by OpenStreetMap. 
+
+We are going to look at *Brielle* together. 
+
+::::::::::::::::::::::::::::::::::::: callout
+
+Beware that downloading and analysing the data for larger cities might be long, slow and cumbersome on your machine. If you choose another location to work with, please try to choose a city of similar size!
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+We first geocode our spatial text search and extract the corresponding bounding box (`getbb`).
+
+
+``` r
+library(osmdata)
+
+bb <- osmdata::getbb("Brielle")
+bb
+```
+
+``` output
+        min       max
+x  4.135294  4.229222
+y 51.883500 51.931410
+```
+
+::::::::::::::::::::::::::::::::::::: callout
+
+### Overpass query unavailable without internet
+
+If you encounter an error linked to your internet proxy ("Error: Overpass query unavailable without internet R"), run this line of code. It might not be needed, but ensures that your machine knows it has internet.
+
+
+``` r
+assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+### A word of caution
+
+There might be multiple responses from the API query, corresponding to different objects at the same location, or different objects at different locations.
+For example: Brielle (Netherlands) and Brielle (New Jersey)
+
+![Brielle, Netherlands](fig/Brielle_NL.jpeg){width=40%}
+
+![Brielle, New Jersey](fig/Brielle_NJ.jpeg "Brielle, New Jersey"){width=40%}
+
+By default, `getbb()` from the `osmdata` package returns the first item. This means that regardless of the number of returned locations with the given name, the function will return a bounding box and it might be that we are not looking for the first item. We should therefore try to be as unambiguous as possible by adding a country code or district name.
+
+
+``` r
+bb <- getbb("Brielle, NL")
+bb
+```
+
+``` output
+        min       max
+x  4.135294  4.229222
+y 51.883500 51.931410
+```
+
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+If this does not work for some reason, the `nominatim_polygon` can be found in the data folder: "episodes/data/bounding-box-brielle.shp".
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+## Extracting features
+
+A [feature](https://wiki.openstreetmap.org/wiki/Map_features) in the OSM language is a category or tag of a geospatial object. Features are described by general keys (e.g. "building", "boundary", "landuse", "highway"), themselves decomposed into sub-categories (values) such as "farm", "hotel" or "house" for `buildings`, "motorway", "secondary" and "residential" for `highway`. This determines how they are represented on the map.
+
+
+### Searching documentation
+
+Let's say we want to download data from OpenStreetMap and we know there is a package for it named `osmdata`, but we don't know which function to use and what arguments are needed. Where should we start?
+
+Let's check the documentation [online](https://docs.ropensci.org/osmdata/):
+
+![The OSMdata Documentation page](fig/osmdata.png){width=80%}
+
+It appears that there is a function to extract features, using the Overpass API. This function is `opq()` (for OverPassQuery) which, in combination with `add_osm_feature()`, seems to do the job. However, it might not be crystal clear how to apply it to our case. Let's click on the function name in the documentation to find out more.
+
+![The Overpass Query Documentation page](fig/opq.png){width=80%}
+
+
+
+On this page we can read about the arguments needed for each function: a bounding box for `opq()` and some `key` and `value` for `add_osm_feature()`. Thanks to the examples provided, we can assume that these keys and values correspond to different levels of tags from the OSM classification. In our case, we will keep it at the first level of classification, with "buildings" as `key`, and no value. We also see from the examples that another function is needed when working with the `sf` package: `osmdata_sf()`. This ensures that the type of object is suited for `sf`. With these tips and examples, we can write our feature extraction function as follows:
+
+
+
+``` r
+x <- opq(bbox = bb) |>
+  add_osm_feature(key = "building") |>
+  osmdata_sf()
+```
+
+``` error
+Error in `overpass_query()`:
+! object 'doc' not found
+```
+
+
+
+### Structure of objects
+
+What is this `x` object made of? It is a data frame of all the buildings contained in the bounding box, which gives us their OSM id, their geometry and a range of attributes, such as their name, building material, building date, etc. The completion level of this data frame depends on user contributions and open resources. Here, for instance, the national [BAG](https://data.overheid.nl/dataset/10491-bag) dataset was used and it is quite complete, but that is different in other countries.
+
+
+
+
+``` r
+str(x$osm_polygons)
+```
+
+``` error
+Error:
+! object 'x' not found
+```
+
+
+
+## Mapping 
+
+
+Let's map the building age of post-1900 Brielle buildings.
+
+
+### Projections
+
+First, we are going to select the polygons and reproject them with the Amersfoort/RD New projection, suited for maps centred on the Netherlands. This code for this projection is: 28992.
+
+
+``` r
+buildings <- x$osm_polygons |>
+  st_transform(crs = 28992)
+```
+
+``` error
+Error:
+! object 'x' not found
+```
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+If this does not work for some reason, the `buildings` can be found in the data folder: "episodes/data/data-brielle.shp".
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+### Visualisation
+
+Then we create a new variable using the threshold at 1900. Every date before 1900 will be recoded as `1900`, so that buildings older than 1900 will be represented with the same shade.
+
+Then we use the `ggplot()` function to visualise the buildings by age. The specific function to represent information as a map is `geom_sf()`. The rest works like other graphs and visualisation, with `aes()` for the aesthetics.
+
+
+``` r
+start_date <- as.numeric(buildings$start_date)
+```
+
+``` error
+Error:
+! object 'buildings' not found
+```
+
+``` r
+buildings$build_date <- if_else(start_date < 1900, 1900, start_date)
+```
+
+``` error
+Error:
+! object 'start_date' not found
+```
+
+``` r
+ggplot(data = buildings) +
+  geom_sf(aes(fill = build_date, colour = build_date)) +
+  scale_fill_viridis_c(option = "viridis") +
+  scale_colour_viridis_c(option = "viridis") +
+  coord_sf(datum = st_crs(28992))
+```
+
+``` error
+Error:
+! object 'buildings' not found
+```
+
+So this reveals the historical centre of Brielle (or the city you chose) and the various urban extensions through time.
+Anything odd? What? Around the centre? Why these limits / isolated points?
+
+
+## Replicability
+
+We have produced a proof a concept on Brielle, but can we factorise our work to be replicable with other small fortified cities? You can use any of the following cities: *Naarden*, *Geertruidenberg*, *Gorinchem*, *Enkhuizen* or *Dokkum*.
+
+We might replace the name in the first line and run everything again. Or we can create a function.
+
+``` r
+extract_buildings <- function(cityname, year = 1900) {
+  bb <- getbb(cityname)
+
+  x <- opq(bbox = bb) |>
+    add_osm_feature(key = "building") |>
+    osmdata_sf()
+
+  buildings <- x$osm_polygons |>
+    st_transform(crs = 28992)
+
+  start_date <- as.numeric(buildings$start_date)
+
+  buildings$build_date <- if_else(start_date < year, year, start_date)
+  ggplot(data = buildings) +
+    geom_sf(aes(fill = build_date, colour = build_date)) +
+    scale_fill_viridis_c(option = "viridis") +
+    scale_colour_viridis_c(option = "viridis") +
+    ggtitle(paste0("Old buildings in ", cityname)) +
+    coord_sf(datum = st_crs(28992))
+}
+
+# test on Brielle
+extract_buildings("Brielle, NL")
+```
+
+``` error
+Error in `overpass_query()`:
+! object 'doc' not found
+```
+
+``` r
+# test on Naarden
+extract_buildings("Naarden, NL")
+```
+
+<img src="fig/15-import-and-visualise-osm-data-rendered-Replicability-1.png" alt="" style="display: block; margin: auto;" />
+
+
+## Going interactive.
+
+Leaflet is an ["open-source JavaScript library for mobile-friendly interactive maps"](https://leafletjs.com/). It allows to create interactive maps on which you can zoom, navigate and click for pop-up information. Within R, there is a corresponding package called `leaflet`. 
+
+As with `ggplot2`, you build a leaflet map as a collection of layers. In this case, you will have a leaflet basemap with tiles, and one or more layers of shapes (such as points, lines and polygons). You can also add settings such as the default level of zoom, default location and content of pop-ups.
+
+The standard structure of a leaflet choropleth map is therefore: `leaflet(data) |> addTiles() |> addPolygons(~variable)` where `data` is our dataset and `variable` the variable we use to colour the polygons. The standard projection used in Leaflet is WGS84.
+
+- Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/) for more information.
+
+
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge: import an interactive basemap layer under the buildings with 'Leaflet' (20min)
+
+For this challenge, you will have to use the Leaflet online documentation to create an interactive map of the building ages in Brielle. The underlying data remains the same, but you will use the leaflet package to make the map interactive (in other words, your `data` is the R object `buildings` and `variable` corresponds to `start_date`).
+
+To do this, you will have to:
+- Transform the CRS of `buildings` into WGS84
+- Plot the basemap
+- Add the tiles of your choice
+- Add polygons (the buildings)
+- Use the `fillColor` attribute of these polygons to represent the `build_date` variable.
+
+You will find guidance and examples on how to do that in the following links:
+- Basemap and tiles documentation [basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
+- [Choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html). 
+Tip: use the examples given in the documentation and replace the variable names where needed. You can also check out the [GDCU cheatsheet](https://github.com/ClementineCttn/r-geospatial-urban/blob/main/instructors/cheatsheet/GDCU_cheatsheet.pdf) for relevant leaflet functions.
+
+:::::::::::::::::::::::: solution 
+
+## One solution
+ 
+
+``` r
+# install.packages("leaflet")
+library(leaflet)
+
+
+buildings2 <- buildings |>
+  st_transform(crs = 4326)
+```
+
+``` error
+Error:
+! object 'buildings' not found
+```
+
+``` r
+# leaflet(buildings2) |>
+#  addTiles() |>
+#   addPolygons(fillColor = ~colorQuantile("YlGnBu", -build_date)(-build_date))
+
+# For a better visual rendering, try:
+
+leaflet(buildings2) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolygons(
+    color = "#444444",
+    weight = 0.1,
+    smoothFactor = 0.5,
+    opacity = 0.2, fillOpacity = 0.8,
+    fillColor = ~ colorQuantile("YlGnBu", -build_date)(-build_date),
+    highlightOptions = highlightOptions(
+      color = "white", weight = 2,
+      bringToFront = TRUE
+    )
+  )
+```
+
+``` error
+Error:
+! object 'buildings2' not found
+```
+
+
+:::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: 
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use the `Nominatim` and `Overpass` APIs within R
+- Use the `osmdata` package to retrieve geospatial data
+- Select features and attributes among OSM tags
+- Use the `ggplot`, `sf` and `leaflet` packages to map data
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
