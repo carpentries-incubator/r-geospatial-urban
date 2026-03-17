@@ -51,7 +51,7 @@ describe("data/tud-dtm-5m.tif")
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
- [2] "Files: /home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/tud-dtm-5m.tif"                         
+ [2] "Files: /__w/r-geospatial-urban/r-geospatial-urban/site/built/data/tud-dtm-5m.tif"                                      
  [3] "Size is 722, 386"                                                                                                      
  [4] "Coordinate System is:"                                                                                                 
  [5] "PROJCRS[\"Amersfoort / RD New\","                                                                                      
@@ -114,7 +114,7 @@ describe("data/tud-dsm-5m.tif")
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
- [2] "Files: /home/runner/work/r-geospatial-urban/r-geospatial-urban/site/built/data/tud-dsm-5m.tif"                         
+ [2] "Files: /__w/r-geospatial-urban/r-geospatial-urban/site/built/data/tud-dsm-5m.tif"                                      
  [3] "Size is 722, 386"                                                                                                      
  [4] "Coordinate System is:"                                                                                                 
  [5] "PROJCRS[\"Amersfoort / RD New\","                                                                                      

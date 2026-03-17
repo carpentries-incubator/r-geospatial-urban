@@ -209,7 +209,11 @@ crs(DTM_hill_TUD, parse = TRUE)
 [11] "        AXIS[\"geodetic longitude (Lon)\",east,"       
 [12] "            ORDER[2],"                                 
 [13] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"
-[14] "    ID[\"EPSG\",4326]]"                                
+[14] "    USAGE["                                            
+[15] "        SCOPE[\"Horizontal component of 3D system.\"],"
+[16] "        AREA[\"World.\"],"                             
+[17] "        BBOX[-90,-180,90,180]],"                       
+[18] "    ID[\"EPSG\",4326]]"                                
 ```
 
 `DTM_TUD` is in the Amersfoort / RD New projection, whereas `DTM_hill_TUD` is in WGS 84.
@@ -315,7 +319,11 @@ crs(DTM_hill_TUD, parse = TRUE)
 [11] "        AXIS[\"geodetic longitude (Lon)\",east,"       
 [12] "            ORDER[2],"                                 
 [13] "            ANGLEUNIT[\"degree\",0.0174532925199433]],"
-[14] "    ID[\"EPSG\",4326]]"                                
+[14] "    USAGE["                                            
+[15] "        SCOPE[\"Horizontal component of 3D system.\"],"
+[16] "        AREA[\"World.\"],"                             
+[17] "        BBOX[-90,-180,90,180]],"                       
+[18] "    ID[\"EPSG\",4326]]"                                
 ```
 
 We can also compare the extent of the two objects.
