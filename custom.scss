@@ -1,0 +1,28 @@
+/*-- scss:defaults --*/
+
+$body-bg: #fff;
+$body-color: #000000;
+$link-color: #00A6D6;
+
+/*-- scss:rules --*/
+
+.reveal .slide blockquote {
+  border-left: 3px solid $text-muted;
+  padding-left: 0.5em;
+}
+
+.fragment {
+  font-size: 1.6rem;
+}
+
+p {
+  font-size: 2.4rem;
+}
+
+.psmaller {
+  font-size: 2.0rem;
+}
+
+.caption {
+  text-align: center;
+}

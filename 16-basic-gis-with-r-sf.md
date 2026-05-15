@@ -1,0 +1,511 @@
+---
+title: 'Basic GIS operations with R and sf'
+teaching: 45
+exercises: 25
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How to perform basic GIS operations with the `sf` package?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+After completing this episode, participants should be able to…
+
+- Perform geoprocessing operations such as unions, joins and intersections with dedicated functions from the `sf` package
+- Compute the area of spatial polygons
+- Create buffers and centroids 
+- Map and save the results
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+
+``` r
+library(tidyverse)
+library(sf)
+library(osmdata)
+library(leaflet)
+library(lwgeom)
+library(units)
+assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
+```
+
+
+## Why `sf` for GIS?
+
+As introduced in [an earlier lesson](episodes/06-open-and-plot-vector-layers.Rmd), `sf` is a package which supports simple features (sf), ["a standardized way to
+encode spatial vector data."](https://cran.r-project.org/web/packages/sf/sf.pdf).
+It contains a large set of functions to achieve all the operations on vector spatial data for which you might use traditional GIS software: change the coordinate system, join layers, intersect or unite polygons, create buffers and centroids, etc. cf. the `sf` [cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/sf.pdf).
+
+
+### Conservation in Brielle, NL
+
+Let's focus on old buildings and imagine we're in charge of their conservation. We want to know how much of the city would be affected by a non-construction zone of 100m around pre-1800 buildings.
+
+Let's select them and see where they are.
+
+
+``` r
+bb <- osmdata::getbb("Brielle, NL")
+x <- opq(bbox = bb) |>
+  add_osm_feature(key = "building") |>
+  osmdata_sf()
+```
+
+``` error
+Error in `httr2::req_perform()` at osmdata/R/overpass-query.R:195:9:
+! HTTP 504 Gateway Timeout.
+```
+
+``` r
+buildings <- x$osm_polygons |>
+  st_transform(crs = 28992)
+```
+
+``` error
+Error:
+! object 'x' not found
+```
+
+``` r
+summary(buildings$start_date)
+```
+
+``` error
+Error:
+! object 'buildings' not found
+```
+
+``` r
+old <- 1800 # year prior to which you consider a building old
+
+buildings$start_date <- as.numeric(buildings$start_date)
+```
+
+``` error
+Error:
+! object 'buildings' not found
+```
+
+``` r
+old_buildings <- buildings |>
+  filter(start_date <= old)
+```
+
+``` error
+Error:
+! object 'buildings' not found
+```
+
+``` r
+ggplot(data = old_buildings) +
+  geom_sf(colour = "red") +
+  coord_sf(datum = st_crs(28992))
+```
+
+``` error
+Error:
+! object 'old_buildings' not found
+```
+
+::::::::::::::::::::::::::::::::::::: callout
+
+### Overpass query unavailable without internet
+
+If you encounter an error linked to your internet proxy ("Error: Overpass query unavailable without internet R"), run this line of code. It might not be needed, but ensures that your machine knows it has internet.
+
+
+``` r
+assign("has_internet_via_proxy", TRUE, environment(curl::has_internet))
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+As conservationists, we want to create a zone around historical buildings where building regulation will have special restrictions to preserve historical buildings. 
+
+## Buffers
+
+Let's say the conservation zone should be 100 meters. In GIS terms, we want to create a _buffer_ around polygons. The corresponding `sf` function is `st_buffer()`, with 2 arguments: the polygons around which to create buffers, and the radius of the buffer.
+
+
+``` r
+distance <- 100 # in meters
+
+# First, we check that the "old_buildings" layer projection is measured
+# in meters:
+st_crs(old_buildings)
+```
+
+``` error
+Error:
+! object 'old_buildings' not found
+```
+
+``` r
+# then we use `st_buffer()`
+buffer_old_buildings <-
+  st_buffer(x = old_buildings, dist = distance)
+```
+
+``` error
+Error:
+! object 'old_buildings' not found
+```
+
+``` r
+ggplot(data = buffer_old_buildings) +
+  geom_sf() +
+  coord_sf(datum = st_crs(28992))
+```
+
+``` error
+Error:
+! object 'buffer_old_buildings' not found
+```
+
+## Union
+
+Now, we have a lot of overlapping buffers. We would rather create a unique conservation zone rather than overlapping ones in that case. So we have to fuse the overlapping buffers into one polygon. This operation is called _union_ and the corresponding function is `st_union()`.
+
+
+``` r
+single_old_buffer <- st_union(buffer_old_buildings) |>
+  st_cast(to = "POLYGON") |>
+  st_as_sf()
+```
+
+``` error
+Error:
+! object 'buffer_old_buildings' not found
+```
+
+``` r
+single_old_buffer <- single_old_buffer |>
+  mutate("ID" = as.factor(seq_len(nrow(single_old_buffer)))) |>
+  st_transform(crs = 28992)
+```
+
+``` error
+Error:
+! object 'single_old_buffer' not found
+```
+
+We also use `st_cast()` to explicit the type of the resulting object (*POLYGON* instead of the default *MULTIPOLYGON*) and `st_as_sf()` to transform the polygon into an `sf` object. With this function, we ensure that we end up with an `sf` object, which was not the case after we forced the union of old buildings into a *POLYGON* format.
+
+We create unique IDs to identify the new polygons.
+
+## Centroids
+For the sake of visualisation speed, we would like to represent buildings by a single point (for instance: their geometric centre) rather than their actual footprint. This operation means defining their _centroid_ and the corresponding function is `st_centroid()`.
+
+
+``` r
+# s2 works with geographic projections, so to calculate centroids in projected
+# CRS units (meters), we need to disable it.
+sf::sf_use_s2(FALSE)
+
+centroids_old <- st_centroid(old_buildings) |>
+  st_transform(crs = 28992)
+```
+
+``` error
+Error:
+! object 'old_buildings' not found
+```
+
+``` r
+ggplot() +
+  geom_sf(data = single_old_buffer, aes(fill = ID)) +
+  geom_sf(data = centroids_old) +
+  coord_sf(datum = st_crs(28992))
+```
+
+``` error
+Error:
+! object 'single_old_buffer' not found
+```
+
+## Intersection & join
+Now, we would like to distinguish conservation areas based on the number of historic buildings they contain. In GIS terms, we would like to know how many centroids each fused buffer polygon contains. This operation means _intersecting_ the layer of polygons with the layer of points and the corresponding function is `st_intersection()`.
+We then need to _join_ the aggregated number of centroids with the original layer, using a spatial left join. The corresponding function is `st_join(., left=T)`.
+
+
+``` r
+centroids_buffers <- 
+  st_intersection(centroids_old, single_old_buffer) |>
+  mutate(n = 1)
+```
+
+``` error
+Error:
+! object 'centroids_old' not found
+```
+
+``` r
+centroid_by_buffer <- centroids_buffers |>
+  group_by(ID) |>
+  summarise(n_buildings = n())
+```
+
+``` error
+Error:
+! object 'centroids_buffers' not found
+```
+
+``` r
+single_buffer <- single_old_buffer |>
+  st_join(centroid_by_buffer, left = TRUE)
+```
+
+``` error
+Error:
+! object 'single_old_buffer' not found
+```
+
+``` r
+ggplot() + 
+  geom_sf(data = single_buffer, aes(fill = n_buildings)) +
+  scale_fill_viridis_c(
+    alpha = 0.8,
+    begin = 0.6,
+    end = 1,
+    direction = -1,
+    option = "B"
+  ) +
+  coord_sf(datum = st_crs(28992))
+```
+
+``` error
+Error:
+! object 'single_buffer' not found
+```
+
+
+### Maps of the number of buildings per zone:
+
+Let's map this layer over the initial map of individual buildings.
+
+
+``` r
+ggplot() +
+  geom_sf(data = buildings) +
+  geom_sf(data = single_buffer, aes(fill = n_buildings), colour = NA) +
+  scale_fill_viridis_c(
+    alpha = 0.6,
+    begin = 0.6,
+    end = 1,
+    direction = -1,
+    option = "B"
+  )
+```
+
+``` error
+Error:
+! object 'buildings' not found
+```
+ 
+## Calculating area and density of spatial features
+
+In our analysis, we have a large number of pre-war buildings, and the buffer zones we’re using are quite broad. As a result, the total count of old buildings within these zones doesn’t provide us with the most meaningful insight. To make our analysis more useful, we should calculate the density of pre-war buildings within each buffer zone. This will help us better understand how these buildings are distributed across the area, providing more relevant and actionable information for our project.
+
+
+``` r
+single_buffer$area <- st_area(single_buffer) |> 
+  set_units("km^2")
+```
+
+``` error
+Error:
+! object 'single_buffer' not found
+```
+
+``` r
+single_buffer$old_buildings_per_km2 <-
+  as.numeric(single_buffer$n_buildings / single_buffer$area)
+```
+
+``` error
+Error:
+! object 'single_buffer' not found
+```
+
+``` r
+ggplot() + 
+  geom_sf(data = buildings) +
+  geom_sf(data = single_buffer,
+          aes(fill=old_buildings_per_km2),
+          colour = NA) +
+  scale_fill_viridis_c(
+    alpha = 0.6,
+    begin = 0.6,
+    end = 1,
+    direction = -1,
+    option = "B"
+  )
+```
+
+``` error
+Error:
+! object 'buildings' not found
+```
+
+
+ 
+::::::::::::::::::::::::::::::::::::: challenge 
+ 
+## Challenge: Conservation rules have changed. 
+
+The historical threshold now applies to all pre-war buildings, but the distance to these building is reduced to 10m. Can you map the density of all buildings per 10m fused buffer?
+
+
+:::::::::::::::::::::::: solution 
+ 
+
+``` r
+old <- 1939
+distance <- 10
+
+# select
+old_buildings <- buildings |>
+  filter(start_date <= old)
+```
+
+``` error
+Error:
+! object 'buildings' not found
+```
+
+``` r
+# buffer
+buffer_old_buildings <- st_buffer(old_buildings, dist = distance)
+```
+
+``` error
+Error:
+! object 'old_buildings' not found
+```
+
+``` r
+# union
+single_old_buffer <- st_union(buffer_old_buildings) |>
+  st_cast(to = "POLYGON") |>
+  st_as_sf()
+```
+
+``` error
+Error:
+! object 'buffer_old_buildings' not found
+```
+
+``` r
+single_old_buffer <- single_old_buffer |>
+  mutate("ID" = seq_len(nrow(single_old_buffer))) |>
+  st_transform(single_old_buffer, crs = 4326)
+```
+
+``` error
+Error:
+! object 'single_old_buffer' not found
+```
+
+``` r
+# centroids
+centroids_old <- st_centroid(old_buildings) |>
+  st_transform(crs = 4326)  
+```
+
+``` error
+Error:
+! object 'old_buildings' not found
+```
+
+``` r
+# intersection & join
+centroids_buffers <- 
+  st_intersection(centroids_old, single_old_buffer) 
+```
+
+``` error
+Error:
+! object 'centroids_old' not found
+```
+
+``` r
+centroid_by_buffer <- centroids_buffers |>
+  group_by(ID) |>
+  summarise(n_buildings = n())
+```
+
+``` error
+Error:
+! object 'centroids_buffers' not found
+```
+
+``` r
+single_buffer <- single_old_buffer |>
+  st_join(centroid_by_buffer, left = TRUE)
+```
+
+``` error
+Error:
+! object 'single_old_buffer' not found
+```
+
+``` r
+single_buffer$area <- st_area(single_buffer) |> 
+  set_units(km^2)
+```
+
+``` error
+Error:
+! object 'single_buffer' not found
+```
+
+``` r
+single_buffer$old_buildings_per_km2 <-
+  as.numeric(single_buffer$n_buildings / single_buffer$area)
+```
+
+``` error
+Error:
+! object 'single_buffer' not found
+```
+
+``` r
+ ggplot() + 
+   geom_sf(data = buildings) +
+   geom_sf(data = single_buffer,
+           aes(fill=old_buildings_per_km2),
+           colour = NA) +
+   scale_fill_viridis_c(
+     alpha = 0.6,
+     begin = 0.6,
+     end = 1,
+     direction = -1,
+     option = "B"
+   )
+```
+
+``` error
+Error:
+! object 'buildings' not found
+```
+::::::::::::::::::::::::
+
+
+:::::::::::::::::::::::::::::::::::::
+
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use the `st_*` functions from `sf` for basic GIS operations
+- Perform unions, joins and intersection operations
+- Compute the area of spatial polygons with `st_area()`
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
