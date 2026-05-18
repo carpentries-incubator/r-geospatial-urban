@@ -173,6 +173,10 @@ The following `R` packages are used in the various geospatial lessons.
 - [`tidyverse`](https://cran.r-project.org/package=tidyverse) v.2.0 - this is a collection of packages for data science that contains the `dplyr` and `ggplot2` packages we will use throughout the lessons.
 - [`terra`](https://cran.r-project.org/package=terra) v.1.7
 - [`sf`](https://cran.r-project.org/package=sf) v1.0
+- [`osmdata`](https://cran.r-project.org/package=osmdata) v.0.3.0
+- [`leaflet`](https://cran.r-project.org/package=leaflet) v.2.2.3
+- [`lwgeom`](https://cran.r-project.org/package=lwgeom) v0.2-16
+- [`units`](https://cran.r-project.org/package=units) v1.0-1
 
 To install these packages in RStudio, do the following:  
 1\. Open RStudio by double-clicking the RStudio application icon. You should see something like this:
