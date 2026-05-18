@@ -42,6 +42,7 @@ First we need to load the packages we will use in this lesson. We will use the `
 ```{r lib, warning=FALSE, message=FALSE}
 library(tidyverse) # wrangle, reshape and visualize data
 library(sf) # work with spatial vector data
+library(here) # managing paths
 ```
 
 ::: callout
@@ -69,7 +70,7 @@ You may be familiar with GIS software using graphical interfaces like QGIS. In Q
 Let's start by opening a shapefile. Shapefiles are a common file format to store spatial vector data used in GIS software. Note that a shapefile consists of multiple files and it is important to keep them all together in the same location. We will read a shapefile with the administrative boundary of Delft with the function `st_read()` from the `sf` package. 
 
 ```{r read-boundary}
-boundary_Delft <- st_read("data/delft-boundary.shp", quiet = TRUE)
+boundary_Delft <- st_read(here("data", "delft-boundary.shp"), quiet = TRUE)
 ```
 
 ::: callout
@@ -96,7 +97,7 @@ Shapefiles are increasingly being replaced by more modern formats like GeoPackag
 By default (with `quiet = FALSE`), the `st_read()` function provides a message with a summary of metadata about the file that was read in.
 
 ```{r read-boundary-loud}
-st_read("data/delft-boundary.shp")
+st_read(here("data", "delft-boundary.shp"))
 ```
 
 To examine the metadata in more detail, we can use other, more specialised, functions from the `sf` package. The `st_geometry_type()` function, for instance, gives us information about the geometry type, which in this case is `POLYGON`.
@@ -197,8 +198,8 @@ Read in `delft-streets.shp` and `delft-leisure.shp` and assign them to `lines_De
 :::::::::::::::::::::::: solution 
 
 ```{r lp-read, results='hide'}
-lines_Delft <- st_read("data/delft-streets.shp")
-points_Delft <- st_read("data/delft-leisure.shp")
+lines_Delft <- st_read(here("data", "delft-streets.shp"))
+points_Delft <- st_read(here("data", "delft-leisure.shp"))
 ```
 
 We can check the type of type of geometry with the `st_geometry_type()` function. `lines_Delft` contains `"LINESTRING"` geometry and `points_Delft` is made of `"POINT"` geometries. 
