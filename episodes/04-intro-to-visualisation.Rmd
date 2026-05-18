@@ -12,13 +12,13 @@ knitr::opts_chunk$set(
 
 # Load libraries ----------------------------------------------------------
 # Package names
-packages <- c("tidyverse", "here")
+packages <- c("tidyverse", "here", "forcats")
 
 # Packages loading
 invisible(lapply(packages, library, character.only = TRUE))
 
 # Load gapminder data
-gapminder <- read.csv("data/gapminder_data.csv")
+gapminder <- read.csv(here("data", "gapminder_data.csv"))
 ```
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -59,6 +59,7 @@ While here we still focus on the `gapminder` dataset, in later parts of this wor
 
 ```{r load-pkgs, eval=FALSE}
 library(tidyverse)
+library(forcats)
 ```
 
 Now, lets plot the distribution of life expectancy in the `gapminder` dataset:
@@ -102,7 +103,7 @@ were showed in order. To do that, we need to reorder factor levels (you
 remember, we've already done this before).
 
 Now the order of the levels will depend on another variable - GDP per
-capita.
+capita. For this, you can use the function `fct_reorder()` from the `forcats` package.
 
 ```{r ggplot-color}
 gapminder |>
