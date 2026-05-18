@@ -89,7 +89,7 @@ ggplot() +
 
 ## Raster math and Canopy Height Models
 
-We can perform raster calculations by subtracting (or adding, multiplying, etc.) two rasters. In the geospatial world, we call this “raster math”.
+We can perform raster calculations by subtracting (or adding, multiplying, etc.) two rasters. In the geospatial world, we call this “![Map Algebra](https://en.wikipedia.org/wiki/Map_algebra)”.
 
 Let’s subtract the DTM from the DSM to create a Canopy Height Model. After subtracting, let’s create a data frame so we can plot with `ggplot`.
 
