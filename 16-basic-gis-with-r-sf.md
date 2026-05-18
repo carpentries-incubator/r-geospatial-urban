@@ -57,8 +57,11 @@ x <- opq(bbox = bb) |>
 ```
 
 ``` error
-Error in `httr2::req_perform()` at osmdata/R/overpass-query.R:195:9:
-! HTTP 504 Gateway Timeout.
+Error in `httr2::req_perform()` at osmdata/R/overpass-query.R:37:9:
+! Failed to perform HTTP request.
+Caused by error in `curl::curl_fetch_memory()`:
+! Couldn't connect to server [overpass.kumi.systems]:
+Failed to connect to overpass.kumi.systems port 443 after 4002 ms: Couldn't connect to server
 ```
 
 ``` r
