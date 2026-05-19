@@ -196,6 +196,12 @@ Anything odd? What? Around the centre? Why these limits / isolated points?
 We have produced a proof a concept on Brielle, but can we factorise our work to be replicable with other small fortified cities? You can use any of the following cities: *Naarden*, *Geertruidenberg*, *Gorinchem*, *Enkhuizen* or *Dokkum*.
 
 We might replace the name in the first line and run everything again. Or we can create a function.
+
+A function is a reusable block of code that performs a specific task. Instead of repeating the same sequence of steps multiple times, we can place those steps inside a function and run them whenever we need.
+
+Functions can also take inputs (called arguments) that allow us to change parts of the analysis without rewriting the whole workflow.
+
+For example, instead of manually repeating the same analysis for different cities or years, we can create a function and simply provide a different city or year as input.
 ```{r Replicability}
 extract_buildings <- function(cityname, year = 1900) {
   bb <- getbb(cityname)
