@@ -92,6 +92,21 @@ Shapefiles are increasingly being replaced by more modern formats like GeoPackag
 
 :::
 
+::: callout
+
+# Shapefile components
+
+A Shapefile is not a single file, but a collection of files that work together to store geographic data. There are three mandatory files:
+
+- `.shp` : Main file that we import and contains the geometry (the shapes of points, lines, or polygons).
+- `.shx` : Index file that contains the index of the geometry.
+- `.dbf` : Database file that contains the attributes of the features.
+
+There are also optional files that can be included, such as:
+- `.prj` : Projection file that contains the coordinate reference system information.
+- `.sbn` and `.sbx` : Spatial index files that improve the performance of spatial queries.
+:::
+
 ## Spatial Metadata
 
 By default (with `quiet = FALSE`), the `st_read()` function provides a message with a summary of metadata about the file that was read in.
