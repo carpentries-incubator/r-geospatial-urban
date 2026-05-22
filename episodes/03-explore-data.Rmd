@@ -66,7 +66,7 @@ For example, here is a figure depicting a data frame comprising a numeric, a cha
 We read in the `gapminder` data set with information about countries' size, GDP and average life expectancy in different years.
 
 ```{r reading-data}
-gapminder <- read.csv(here("data", "gapminder_data.csv"))
+gapminder <- read.csv(here("data", "gapminder-data.csv"))
 ```
 
 ## Exploring dataset
@@ -131,9 +131,9 @@ Let's start manipulating the data.
 First, we will adapt our data set, by keeping only the columns we're interested in, using the `select()` function from the `dplyr` package:
 
 ```{r dplyr-select}
-year_country_gdp <- select(gapminder, year, country, gdpPercap)
+year_country_urb <- select(gapminder, year, country, perc_urban_pop)
 
-head(year_country_gdp)
+head(year_country_urb)
 ```
 
 ## Pipe
@@ -155,10 +155,10 @@ The main difference is that you don't need to load any packages to have the nati
 The `select()` statement with a pipe would look like that:
 
 ```{r dplyr-pipe}
-year_country_gdp <- gapminder |>
-  select(year, country, gdpPercap)
+year_country_urb <- gapminder |>
+  select(year, country, perc_urban_pop)
 
-head(year_country_gdp)
+head(year_country_urb)
 ```
 
 First we define the dataset, then with the use of the pipe we pass it on to the `select()` function. 
@@ -173,22 +173,22 @@ with the `filter()` function. Instead of doing it in separate steps, we can do i
 In the `gapminder` dataset, we want to see the results from outside of Europe for the 21st century. 
 
 ```{r filter-data}
-year_country_gdp_euro <- gapminder |>
+year_country_urb_noneuro <- gapminder |>
   filter(continent != "Europe" & year >= 2000) |>
-  select(year, country, gdpPercap)
+  select(year, country, perc_urban_pop)
 # '&' operator (AND) - both conditions must be met
 
-head(year_country_gdp_euro)
+head(year_country_urb_noneuro)
 ```
 
 Let's now focus only on North American countries  
 ```{r filter-data-or}
-year_gdp_namerica <- year_country_gdp_euro |>
+year_urb_namerica <- year_country_urb_noneuro |>
   filter(country == "Canada" |  country == "Mexico" | country == "United States") 
 
 # '|' operator (OR) - at least one of the conditions must be met
 
-head(year_gdp_namerica)
+head(year_urb_namerica)
 ```
 
 ::: challenge
@@ -196,7 +196,7 @@ head(year_gdp_namerica)
 ##  Challenge: filtered data frame
 
 Write a single command (which can span multiple lines and includes pipes) 
-that will produce a data frame that has the values for **life expectancy**, 
+that will produce a data frame that has the values for **GDP per capita**, 
 **country** and **year**, only for **EurAsia**. 
 
 How many rows does your data frame have and why? 
@@ -206,7 +206,7 @@ How many rows does your data frame have and why?
 ```{r ex5, class.source="bg-info"}
 year_country_gdp_eurasia <- gapminder |>
   filter(continent == "Europe" | continent == "Asia") |>
-  select(year, country, gdpPercap)
+  select(year, country, gdp_per_capita)
 # '|' operator (OR) - one of the conditions must be met
 
 nrow(year_country_gdp_eurasia)
@@ -217,19 +217,19 @@ nrow(year_country_gdp_eurasia)
 :::
 
 ## Group and summarize
-So far, we have provided summary statistics on the whole dataset, selected columns, and filtered the observations. But often instead of doing that, we would like to know statistics by group. Let's calculate the average GDP per capita by continent.
+So far, we have provided summary statistics on the whole dataset, selected columns, and filtered the observations. But often instead of doing that, we would like to know statistics by group. Let's calculate the average percentage of urban population by continent.
 
 ```{r dplyr-group}
 gapminder |> # select the dataset
   group_by(continent) |> # group by continent
-  summarize(avg_gdpPercap = mean(gdpPercap)) # create basic stats
+  summarize(avg_perc_urban_pop = mean(perc_urban_pop)) # create basic stats
 ```
 
 ::: challenge
 
-## Challenge: longest and shortest life expectancy
+## Challenge: highest and lowest GDP per capita
 
-Calculate the average life expectancy per country. Which country has the longest average life expectancy and which has the shortest average life expectancy?
+Calculate the average GDP per capita per country. Which country has the highest average GDP per capita and which has the lowest?
 
 <strong>Hint</strong> Use `max()`  and `min()` functions to find minimum and maximum.
 
@@ -238,9 +238,9 @@ Calculate the average life expectancy per country. Which country has the longest
 ```{r ex6 , class.source="bg-info"}
 gapminder |>
   group_by(country) |>
-  summarize(avg_lifeExp = mean(lifeExp)) |>
-  filter(avg_lifeExp == min(avg_lifeExp) |
-           avg_lifeExp == max(avg_lifeExp))
+  summarize(avg_gdp_per_capita = mean(gdp_per_capita)) |>
+  filter(avg_gdp_per_capita == min(avg_gdp_per_capita) |
+           avg_gdp_per_capita == max(avg_gdp_per_capita))
 ```
 
 :::
@@ -253,22 +253,22 @@ You can also group by multiple columns:
 ```{r dplyr-group-multi}
 gapminder |>
   group_by(continent, year) |>
-  summarize(avg_gdpPercap = mean(gdpPercap))
+  summarize(avg_perc_urban_pop = mean(perc_urban_pop))
 ```
 
 On top of this, you can also make multiple summaries of those groups:
 ```{r dplyr-summ}
-gdp_pop_bycontinents_byyear <- gapminder |>
+urb_pop_bycontinents_byyear <- gapminder |>
   group_by(continent, year) |>
   summarize(
-    avg_gdpPercap = mean(gdpPercap),
-    sd_gdpPercap = sd(gdpPercap),
+    avg_perc_urban_pop = mean(perc_urban_pop),
+    sd_perc_urban_pop = sd(perc_urban_pop),
     avg_pop = mean(pop),
     sd_pop = sd(pop),
     n_obs = n()
   )
 
-head(gdp_pop_bycontinents_byyear)
+head(urb_pop_bycontinents_byyear)
 ```
 
 ## Frequencies
@@ -287,7 +287,7 @@ Frequently you’ll want to create new columns based on the values in existing c
 
 ```{r dplyr-mutate}
 gapminder_gdp <- gapminder |>
-  mutate(gdpBillion = gdpPercap * pop / 10^9)
+  mutate(gdp_billion = gdp_per_capita * pop / 10^9)
 
 head(gapminder_gdp)
 ```
