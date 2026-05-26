@@ -59,7 +59,6 @@ While here we still focus on the `gapminder` dataset, in later parts of this wor
 
 ```{r load-pkgs, eval=FALSE}
 library(tidyverse)
-library(forcats)
 ```
 
 Now, lets plot the distribution of life expectancy in the `gapminder` dataset:
