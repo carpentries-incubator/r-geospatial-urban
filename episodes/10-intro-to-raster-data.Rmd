@@ -137,18 +137,11 @@ For faster previews, you can use the `plot()` function on a `terra` object.
 :::
 
 ::: callout
-# Backticks in R
+# Dealing with non-syntactic names in R
 
-Backticks ( `` ` `` ) are used in several ways in R:
-
-- **Non-syntactic names**: If a variable name contains spaces, special characters, or starts with a number, you can use backticks to enclose the name. 
+If a variable name contains spaces, special characters, or starts with a number, you can use backticks ( `` ` `` ) to enclose the name. 
 For example, the column name: `tud-dsm-5m` cannot be used directly because R interprets the dash (`-`) as a subtraction operator.
 To tell R that this is a single column name, wrap it in backticks: `` `tud-dsm-5m` ``.
-
-- **Inline code in R Markdown**: Single backticks are also used to format inline code, for example `mean(x)`, 
-while triple backticks are used for code chunks. 
-
-- **Escaping backticks**: To display literal backticks in Markdown text, use double backticks wraping the backtick you want to display.
 :::
 
 ## View Raster Coordinate Reference System (CRS)
