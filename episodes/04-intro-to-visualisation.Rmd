@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 
 # Load libraries ----------------------------------------------------------
 # Package names
-packages <- c("tidyverse", "here", "forcats")
+packages <- c("tidyverse", "here")
 
 # Packages loading
 invisible(lapply(packages, library, character.only = TRUE))
