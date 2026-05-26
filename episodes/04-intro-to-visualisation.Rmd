@@ -18,7 +18,7 @@ packages <- c("tidyverse", "here")
 invisible(lapply(packages, library, character.only = TRUE))
 
 # Load gapminder data
-gapminder <- read.csv("data/gapminder-data.csv")
+gapminder <- read.csv(here("data", "gapminder_data.csv"))
 ```
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -102,6 +102,7 @@ population, if they were showed in order. To do that, we need to reorder factor 
 remember, we've already done this before).
 
 Now the order of the levels will depend on another variable - the percentage of urban population.
+For this, you can use the function `fct_reorder()` from the `forcats` package.
 
 ```{r ggplot-color}
 gapminder |>

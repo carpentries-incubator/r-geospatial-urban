@@ -13,12 +13,13 @@ knitr::opts_chunk$set(
 )
 
 library(tidyverse)
+library(here)
 library(terra)
 
-DSM_TUD <- rast("data/tud-dsm-5m.tif")
+DSM_TUD <- rast(here("data", "tud-dsm-5m.tif"))
 DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
 
-DTM_TUD <- rast("data/tud-dtm-5m.tif")
+DTM_TUD <- rast(here("data", "tud-dtm-5m.tif"))
 DTM_TUD_df <- as.data.frame(DTM_TUD, xy = TRUE)
 ```
 
@@ -61,8 +62,8 @@ For this episode, we will use the DTM and DSM data which we already have loaded 
 
 We use the `describe()` function to view information about the DTM and DSM data files. 
 ```{r dtm-dsm-describe}
-describe("data/tud-dtm-5m.tif")
-describe("data/tud-dsm-5m.tif")
+describe(here("data", "tud-dtm-5m.tif"))
+describe(here("data", "tud-dsm-5m.tif"))
 ```
 
 We have already loaded and worked with these two data files in earlier episodes. Let’s plot them each once more to remind ourselves what this data looks like. First we plot the DTM elevation data:
@@ -178,7 +179,7 @@ When we write this raster object to a GeoTIFF file we name it `CHM_TUD.tiff`. Th
 
 We will specify the output format `"GTiff"` and tell R to overwrite any data that is already in a file of the same name.
 ```{r chm-write}
-writeRaster(CHM_TUD, "fig/CHM_TUD.tiff",
+writeRaster(CHM_TUD, here("fig", "CHM_TUD.tiff"),
   filetype = "GTiff",
   overwrite = TRUE
 )

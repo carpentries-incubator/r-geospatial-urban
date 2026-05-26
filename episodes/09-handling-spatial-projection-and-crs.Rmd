@@ -9,7 +9,7 @@ library(tidyverse) # tools for wrangling, reshaping and visualizing data
 library(here) # managing paths
 library(sf) # work with spatial vector data
 
-leisure_locations_selection <- st_read("data/delft-leisure.shp") |>
+leisure_locations_selection <- st_read(here("data", "delft-leisure.shp")) |>
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 
@@ -34,7 +34,7 @@ In this episode, we will work with a different dataset containing Dutch municipa
 boundaries. We start by reading the data and plotting it.
 
 ```{r minicipal-boundary}
-municipal_boundary_NL <- st_read("data/nl-gemeenten.shp")
+municipal_boundary_NL <- st_read(here("data", "nl-gemeenten.shp"))
 ```
 
 ```{r plot-minicipal-boundary}
@@ -47,7 +47,7 @@ ggplot() +
 We can add a country boundary layer to make it look nicer. If we specify a thicker line width using size = 2 for the country boundary layer, it will make our map pop! We read the country boundary from a different file.
 
 ```{r country-boundary}
-country_boundary_NL <- st_read("data/nl-boundary.shp")
+country_boundary_NL <- st_read(here("data", "nl-boundary.shp"))
 ```
 
 ```{r plot-boundaries}
@@ -79,7 +79,7 @@ We read the municipal boundary of Delft and make sure that it is in the same CRS
 as the country-level municipal boundaries and country boundary layers.
 
 ```{r municipal-boundary-crs-2}
-boundary_Delft <- st_read("data/delft-boundary.shp")
+boundary_Delft <- st_read(here("data", "delft-boundary.shp"))
 st_crs(boundary_Delft)$epsg
 boundary_Delft <- st_transform(boundary_Delft, 28992)
 ```
@@ -170,7 +170,7 @@ To save a file, use the `st_write()` function from the `sf` package. Although `s
 
 ```{r write-leisure-locations, eval=FALSE}
 st_write(leisure_locations_selection,
-  "data/leisure_locations_selection.shp",
+  here("data", "leisure_locations_selection.shp"),
   driver = "ESRI Shapefile"
 )
 ```

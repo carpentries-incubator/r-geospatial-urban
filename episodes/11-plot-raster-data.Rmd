@@ -13,9 +13,10 @@ knitr::opts_chunk$set(
 )
 
 library(tidyverse)
+library(here)
 library(terra)
 
-DSM_TUD <- rast("data/tud-dsm-5m.tif")
+DSM_TUD <- rast(here("data", "tud-dsm-5m.tif"))
 DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
 ```
 
