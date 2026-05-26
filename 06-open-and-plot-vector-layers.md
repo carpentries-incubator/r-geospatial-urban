@@ -43,6 +43,7 @@ First we need to load the packages we will use in this lesson. We will use the `
 ``` r
 library(tidyverse) # wrangle, reshape and visualize data
 library(sf) # work with spatial vector data
+library(here) # managing paths
 ```
 
 ::: callout
@@ -71,7 +72,7 @@ Let's start by opening a shapefile. Shapefiles are a common file format to store
 
 
 ``` r
-boundary_Delft <- st_read("data/delft-boundary.shp", quiet = TRUE)
+boundary_Delft <- st_read(here("data", "delft-boundary.shp"), quiet = TRUE)
 ```
 
 ::: callout
@@ -93,19 +94,33 @@ Shapefiles are increasingly being replaced by more modern formats like GeoPackag
 
 :::
 
+::: callout
+
+# Shapefile components
+
+A Shapefile is not a single file, but a collection of files that work together to store geographic data. There are three mandatory files:
+
+- `.shp` : Main file that we import and contains the geometry (the shapes of points, lines, or polygons).
+- `.shx` : Index file that contains the index of the geometry.
+- `.dbf` : Database file that contains the attributes of the features.
+
+There are also optional files that can be included, such as:
+- `.prj` : Projection file that contains the coordinate reference system information.
+- `.sbn` and `.sbx` : Spatial index files that improve the performance of spatial queries.
+:::
+
 ## Spatial Metadata
 
 By default (with `quiet = FALSE`), the `st_read()` function provides a message with a summary of metadata about the file that was read in.
 
 
 ``` r
-st_read("data/delft-boundary.shp")
+st_read(here("data", "delft-boundary.shp"))
 ```
 
 ``` output
 Reading layer `delft-boundary' from data source 
-  `/__w/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-boundary.shp' 
-  using driver `ESRI Shapefile'
+  `/home/rstudio/lesson/site/built/data/delft-boundary.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 1 field
 Geometry type: POLYGON
 Dimension:     XY
@@ -296,8 +311,8 @@ Read in `delft-streets.shp` and `delft-leisure.shp` and assign them to `lines_De
 
 
 ``` r
-lines_Delft <- st_read("data/delft-streets.shp")
-points_Delft <- st_read("data/delft-leisure.shp")
+lines_Delft <- st_read(here("data", "delft-streets.shp"))
+points_Delft <- st_read(here("data", "delft-leisure.shp"))
 ```
 
 We can check the type of type of geometry with the `st_geometry_type()` function. `lines_Delft` contains `"LINESTRING"` geometry and `points_Delft` is made of `"POINT"` geometries. 

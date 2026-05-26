@@ -59,8 +59,8 @@ First, we need to import the DTM and DTM hillshade data.
 
 
 ``` r
-DTM_TUD <- rast("data/tud-dtm-5m.tif")
-DTM_hill_TUD <- rast("data/tud-dtm-5m-hill-WGS84.tif")
+DTM_TUD <- rast(here("data", "tud-dtm-5m.tif"))
+DTM_hill_TUD <- rast(here("data", "tud-dtm-5m-hill-WGS84.tif"))
 ```
 
 Next, we will convert each of these datasets to a data frame for plotting with `ggplot`.

@@ -46,18 +46,24 @@ While here we still focus on the `gapminder` dataset, in later parts of this wor
 library(tidyverse)
 ```
 
-Now, lets plot the distribution of life expectancy in the `gapminder` dataset:
+Now, lets plot the distribution of the percentage of urban population in the `gapminder` dataset:
 
 
 ``` r
 ggplot(
   data = gapminder, # data
-  aes(x = lifeExp) # aesthetics layer
+  aes(x = perc_urban_pop) # aesthetics layer
 ) +
   geom_histogram() # geometry layer
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-1.png" alt="" style="display: block; margin: auto;" />
+``` error
+Error in `geom_histogram()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 1st layer.
+Caused by error:
+! object 'perc_urban_pop' not found
+```
 
 You can see that in `ggplot` you use `+` as a pipe, to add layers.
 Within the `ggplot()` call, it is the only pipe that will work. But, it is
@@ -70,11 +76,17 @@ Let's create another plot, this time only on a subset of observations:
 ``` r
 gapminder |> # we select a data set
   filter(year == 2007 & continent == "Americas") |> # filter year and continent
-  ggplot(aes(x = country, y = gdpPercap)) + # the x and y axes represent columns
+  ggplot(aes(x = country, y = perc_urban_pop)) + # the x and y axes represent columns
   geom_col() # we use a column graph as a geometry
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-col-1.png" alt="" style="display: block; margin: auto;" />
+``` error
+Error in `geom_col()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 1st layer.
+Caused by error:
+! object 'perc_urban_pop' not found
+```
 
 Now, you can iteratively improve how the plot looks like. For example,
 you might want to flip it, to better display the labels.
@@ -83,51 +95,66 @@ you might want to flip it, to better display the labels.
 ``` r
 gapminder |>
   filter(year == 2007 & continent == "Americas") |>
-  ggplot(aes(x = country, y = gdpPercap)) +
+  ggplot(aes(x = country, y = perc_urban_pop)) +
   geom_col() +
   coord_flip() # flip axes
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-coord-flip-1.png" alt="" style="display: block; margin: auto;" />
+``` error
+Error in `geom_col()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 1st layer.
+Caused by error:
+! object 'perc_urban_pop' not found
+```
 
 One thing you might want to change here is the order in which countries
-are displayed. It would be easier to compare GDP per capita, if they
-were showed in order. To do that, we need to reorder factor levels (you
+are displayed. It would be easier to compare the percentage of urban
+population, if they were showed in order. To do that, we need to reorder factor levels (you
 remember, we've already done this before).
 
-Now the order of the levels will depend on another variable - GDP per
-capita.
+Now the order of the levels will depend on another variable - the percentage of urban population.
+For this, you can use the function `fct_reorder()` from the `forcats` package.
 
 
 ``` r
 gapminder |>
   filter(year == 2007 & continent == "Americas") |>
-  mutate(country = fct_reorder(country, gdpPercap)) |> # reorder factor levels
-  ggplot(aes(x = country, y = gdpPercap)) +
+  mutate(country = fct_reorder(country, perc_urban_pop)) |> # reorder factor levels
+  ggplot(aes(x = country, y = perc_urban_pop)) +
   geom_col() +
   coord_flip()
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-color-1.png" alt="" style="display: block; margin: auto;" />
+``` error
+Error in `mutate()`:
+ℹ In argument: `country = fct_reorder(country, perc_urban_pop)`.
+Caused by error:
+! object 'perc_urban_pop' not found
+```
 
-Let's make things more colourful - let's represent the average life
-expectancy of a country by colour
+Let's make things more colourful - let's represent the GDP per capita of a country by colour
 
 
 ``` r
 gapminder |>
   filter(year == 2007 & continent == "Americas") |>
-  mutate(country = fct_reorder(country, gdpPercap)) |>
+  mutate(country = fct_reorder(country, perc_urban_pop)) |>
   ggplot(aes(
     x = country,
-    y = gdpPercap,
-    fill = lifeExp # use 'fill' for surfaces; 'colour' for points and lines
+    y = perc_urban_pop,
+    fill = gdp_per_capita # use 'fill' for surfaces; 'colour' for points and lines
   )) +
   geom_col() +
   coord_flip()
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-colors-1.png" alt="" style="display: block; margin: auto;" />
+``` error
+Error in `mutate()`:
+ℹ In argument: `country = fct_reorder(country, perc_urban_pop)`.
+Caused by error:
+! object 'perc_urban_pop' not found
+```
 
 We can also adapt the colour scale. Common choice that is used for its
 readability and colorblind-proofness are the palettes available in the
@@ -137,21 +164,27 @@ readability and colorblind-proofness are the palettes available in the
 ``` r
 gapminder |>
   filter(year == 2007 & continent == "Americas") |>
-  mutate(country = fct_reorder(country, gdpPercap)) |>
+  mutate(country = fct_reorder(country, perc_urban_pop)) |>
   ggplot(aes(
     x = country,
-    y = gdpPercap,
-    fill = lifeExp
+    y = perc_urban_pop,
+    fill = gdp_per_capita
   )) +
   geom_col() +
   coord_flip() +
   scale_fill_viridis_c() # _c stands for continuous scale
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-colors-adapt-1.png" alt="" style="display: block; margin: auto;" />
+``` error
+Error in `mutate()`:
+ℹ In argument: `country = fct_reorder(country, perc_urban_pop)`.
+Caused by error:
+! object 'perc_urban_pop' not found
+```
 
-Maybe we don't need that much information about the life expectancy. We
-only want to know if it's below or above average. We will make use of the `if_else()` function inside `mutate()` to create a new column `lifeExpCat` with the value `high` if life expectancy is above average and `low` otherwise. Note the usage of the `if_else()` function: `if_else(<condition>, <value if TRUE>, <value if FALSE>)`.
+Maybe we don't need that much information about GDP per capita. We only want to know if it's below or above average. 
+We will make use of the `if_else()` function inside `mutate()` to create a new column `gdp_cat` with the value `high` if GDP per capita is above average and `low` otherwise. 
+Note the usage of the `if_else()` function: `if_else(<condition>, <value if TRUE>, <value if FALSE>)`.
 
 
 ``` r
@@ -159,14 +192,14 @@ p <- # this time let's save the plot in an object
   gapminder |>
   filter(year == 2007 & continent == "Americas") |>
   mutate(
-    country = fct_reorder(country, gdpPercap),
-    lifeExpCat = if_else(
-      lifeExp >= mean(lifeExp),
+    country = fct_reorder(country, perc_urban_pop),
+    gdp_cat = if_else(
+      gdp_per_capita >= mean(gdp_per_capita),
       "high",
       "low"
     )
   ) |>
-  ggplot(aes(x = country, y = gdpPercap, fill = lifeExpCat)) +
+  ggplot(aes(x = country, y = perc_urban_pop, fill = gdp_cat)) +
   geom_col() +
   coord_flip() +
   scale_fill_manual(
@@ -175,6 +208,13 @@ p <- # this time let's save the plot in an object
       "orange"
     ) # customize the colors
   )
+```
+
+``` error
+Error in `mutate()`:
+ℹ In argument: `country = fct_reorder(country, perc_urban_pop)`.
+Caused by error:
+! object 'perc_urban_pop' not found
 ```
 
 Since we saved a plot as an object `p`, nothing has been printed out. Just
@@ -186,7 +226,10 @@ call it.
 p
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-call-1.png" alt="" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'p' not found
+```
 
 Now we can make use of the saved object and add things to it.
 
@@ -196,18 +239,28 @@ Let's also give it a title, name the axes and the legend:
 ``` r
 p <- p +
   labs(
-    title = "GDP per capita in Americas",
+    title = "Urban population in Americas",
     subtitle = "Year 2007",
     x = "Country",
-    y = "GDP per capita",
-    fill = "Life Expectancy categories"
+    y = "Percentage of Urban Population",
+    fill = "GDP per capita categories"
   )
+```
 
+``` error
+Error:
+! object 'p' not found
+```
+
+``` r
 # show plot
 p
 ```
 
-<img src="fig/04-intro-to-visualisation-rendered-ggplot-titles-1.png" alt="" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'p' not found
+```
 
 # Writing data
 
@@ -253,8 +306,8 @@ save the data only for Americas:
 gapminder_amr_2007 <- gapminder |>
   filter(year == 2007 & continent == "Americas") |>
   mutate(
-    country_reordered = fct_reorder(country, gdpPercap),
-    lifeExpCat = if_else(lifeExp >= mean(lifeExp), "high", "low")
+    country_reordered = fct_reorder(country, perc_urban_pop),
+    gdp_cat = if_else(gdp_per_capita >= mean(gdp_per_capita), "high", "low")
   )
 
 write.csv(gapminder_amr_2007,

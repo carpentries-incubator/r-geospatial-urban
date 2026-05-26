@@ -62,8 +62,8 @@ summary(buildings$start_date)
 ```
 
 ``` output
-   Length     Class      Mode 
-    12363 character character 
+   Length  N.unique   N.blank Min.nchar Max.nchar       NAs 
+    12363       206         0         4         4       458 
 ```
 
 ``` r

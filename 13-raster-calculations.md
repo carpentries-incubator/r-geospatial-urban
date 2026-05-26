@@ -46,12 +46,12 @@ For this episode, we will use the DTM and DSM data which we already have loaded 
 We use the `describe()` function to view information about the DTM and DSM data files. 
 
 ``` r
-describe("data/tud-dtm-5m.tif")
+describe(here("data", "tud-dtm-5m.tif"))
 ```
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
- [2] "Files: /__w/r-geospatial-urban/r-geospatial-urban/site/built/data/tud-dtm-5m.tif"                                      
+ [2] "Files: /home/rstudio/lesson/site/built/data/tud-dtm-5m.tif"                                                            
  [3] "Size is 722, 386"                                                                                                      
  [4] "Coordinate System is:"                                                                                                 
  [5] "PROJCRS[\"Amersfoort / RD New\","                                                                                      
@@ -109,12 +109,12 @@ describe("data/tud-dtm-5m.tif")
 ```
 
 ``` r
-describe("data/tud-dsm-5m.tif")
+describe(here("data", "tud-dsm-5m.tif"))
 ```
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
- [2] "Files: /__w/r-geospatial-urban/r-geospatial-urban/site/built/data/tud-dsm-5m.tif"                                      
+ [2] "Files: /home/rstudio/lesson/site/built/data/tud-dsm-5m.tif"                                                            
  [3] "Size is 722, 386"                                                                                                      
  [4] "Coordinate System is:"                                                                                                 
  [5] "PROJCRS[\"Amersfoort / RD New\","                                                                                      
@@ -318,7 +318,7 @@ When we write this raster object to a GeoTIFF file we name it `CHM_TUD.tiff`. Th
 We will specify the output format `"GTiff"` and tell R to overwrite any data that is already in a file of the same name.
 
 ``` r
-writeRaster(CHM_TUD, "fig/CHM_TUD.tiff",
+writeRaster(CHM_TUD, here("fig", "CHM_TUD.tiff"),
   filetype = "GTiff",
   overwrite = TRUE
 )

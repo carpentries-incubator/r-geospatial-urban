@@ -28,13 +28,12 @@ boundaries. We start by reading the data and plotting it.
 
 
 ``` r
-municipal_boundary_NL <- st_read("data/nl-gemeenten.shp")
+municipal_boundary_NL <- st_read(here("data", "nl-gemeenten.shp"))
 ```
 
 ``` output
 Reading layer `nl-gemeenten' from data source 
-  `/__w/r-geospatial-urban/r-geospatial-urban/site/built/data/nl-gemeenten.shp' 
-  using driver `ESRI Shapefile'
+  `/home/rstudio/lesson/site/built/data/nl-gemeenten.shp' using driver `ESRI Shapefile'
 Simple feature collection with 344 features and 6 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -56,13 +55,12 @@ We can add a country boundary layer to make it look nicer. If we specify a thick
 
 
 ``` r
-country_boundary_NL <- st_read("data/nl-boundary.shp")
+country_boundary_NL <- st_read(here("data", "nl-boundary.shp"))
 ```
 
 ``` output
 Reading layer `nl-boundary' from data source 
-  `/__w/r-geospatial-urban/r-geospatial-urban/site/built/data/nl-boundary.shp' 
-  using driver `ESRI Shapefile'
+  `/home/rstudio/lesson/site/built/data/nl-boundary.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 1 field
 Geometry type: MULTIPOLYGON
 Dimension:     XY
@@ -113,13 +111,12 @@ as the country-level municipal boundaries and country boundary layers.
 
 
 ``` r
-boundary_Delft <- st_read("data/delft-boundary.shp")
+boundary_Delft <- st_read(here("data", "delft-boundary.shp"))
 ```
 
 ``` output
 Reading layer `delft-boundary' from data source 
-  `/__w/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-boundary.shp' 
-  using driver `ESRI Shapefile'
+  `/home/rstudio/lesson/site/built/data/delft-boundary.shp' using driver `ESRI Shapefile'
 Simple feature collection with 1 feature and 1 field
 Geometry type: POLYGON
 Dimension:     XY
@@ -233,7 +230,7 @@ To save a file, use the `st_write()` function from the `sf` package. Although `s
 
 ``` r
 st_write(leisure_locations_selection,
-  "data/leisure_locations_selection.shp",
+  here("data", "leisure_locations_selection.shp"),
   driver = "ESRI Shapefile"
 )
 ```

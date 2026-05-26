@@ -167,14 +167,13 @@ Tip: You can call `scale_` functions multiple times for the same layer, for any 
 
 
 ``` r
-leisure_locations_selection <- st_read("data/delft-leisure.shp") |>
+leisure_locations_selection <- st_read(here("data", "delft-leisure.shp")) |>
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 
 ``` output
 Reading layer `delft-leisure' from data source 
-  `/__w/r-geospatial-urban/r-geospatial-urban/site/built/data/delft-leisure.shp' 
-  using driver `ESRI Shapefile'
+  `/home/rstudio/lesson/site/built/data/delft-leisure.shp' using driver `ESRI Shapefile'
 Simple feature collection with 298 features and 2 fields
 Geometry type: POINT
 Dimension:     XY

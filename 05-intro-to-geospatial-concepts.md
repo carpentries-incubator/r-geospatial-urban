@@ -151,7 +151,8 @@ c.  EPSG:3035
 Hint: Go to <https://epsg.io/> or <https://epsg.org/search/by-name> and check properties of the given CRS, such as datum, type of map projection, units of measure etc.
 
 ::: solution
-Correct answer: c. EPSG:3035
+Correct answer: c. EPSG:3035 because it is the projected coordinate system for Europe.
+EPSG:4326 is for global data and EPSG:28992 is for the Netherlands.
 :::
 :::
 
@@ -167,7 +168,8 @@ c.  EPSG:3035
 Hint: Go to <https://epsg.io/> or <https://epsg.org/search/by-name> and check properties of the given CRS, such as datum, type of map projection, units of measure etc.
 
 ::: solution
-Correct answer: b. EPSG:28992
+Correct answer: b. EPSG:28992 because it is the projected coordinate system for the Netherlands.
+EPSG:4326 is for global data and EPSG:3035 is for European data.
 :::
 :::
 

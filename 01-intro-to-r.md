@@ -292,7 +292,7 @@ In the script, we will write:
 ``` r
 # Download the data
 download.file(
-  "https://bit.ly/geospatial_data",
+  "https://edu.nl/8e7u6",
   here("data", "gapminder-data.csv")
 )
 ```

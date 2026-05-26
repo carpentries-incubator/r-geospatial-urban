@@ -54,7 +54,7 @@ We read in the `gapminder` data set with information about countries' size, GDP 
 
 
 ``` r
-gapminder <- read.csv(here("data", "gapminder_data.csv"))
+gapminder <- read.csv(here("data", "gapminder-data.csv"))
 ```
 
 ## Exploring dataset
@@ -68,16 +68,16 @@ str(gapminder)
 ```
 
 ``` output
-'data.frame':	1704 obs. of  6 variables:
- $ country  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
- $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
- $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
- $ continent: chr  "Asia" "Asia" "Asia" "Asia" ...
- $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
- $ gdpPercap: num  779 821 853 836 740 ...
+'data.frame':	2316 obs. of  6 variables:
+ $ continent     : chr  "Africa" "Africa" "Africa" "Africa" ...
+ $ country       : chr  "Algeria" "Algeria" "Algeria" "Algeria" ...
+ $ year          : int  1962 1967 1972 1977 1982 1987 1992 1997 2002 2007 ...
+ $ pop           : int  11800771 12876118 14427072 17015994 19872348 23443624 26628568 29579301 31750835 34189416 ...
+ $ perc_urban_pop: num  34.5 39.1 39.8 40.8 44.8 ...
+ $ gdp_per_capita: num  3211 4258 5537 6554 8316 ...
 ```
 
-We can see that the `gapminder` object is a data.frame with 1704 observations (rows) and 6 variables (columns). 
+We can see that the `gapminder` object is a data.frame with 2316 observations (rows) and 6 variables (columns). 
 
 In each line after a `$` sign, we see the name of each column, its type and first few values. 
 
@@ -93,13 +93,13 @@ head(gapminder)
 ```
 
 ``` output
-      country year      pop continent lifeExp gdpPercap
-1 Afghanistan 1952  8425333      Asia  28.801  779.4453
-2 Afghanistan 1957  9240934      Asia  30.332  820.8530
-3 Afghanistan 1962 10267083      Asia  31.997  853.1007
-4 Afghanistan 1967 11537966      Asia  34.020  836.1971
-5 Afghanistan 1972 13079460      Asia  36.088  739.9811
-6 Afghanistan 1977 14880372      Asia  38.438  786.1134
+  continent country year      pop perc_urban_pop gdp_per_capita
+1    Africa Algeria 1962 11800771       34.51176       3210.708
+2    Africa Algeria 1967 12876118       39.10168       4257.662
+3    Africa Algeria 1972 14427072       39.81607       5536.876
+4    Africa Algeria 1977 17015994       40.77373       6553.959
+5    Africa Algeria 1982 19872348       44.75414       8315.723
+6    Africa Algeria 1987 23443624       49.73254       9299.413
 ```
 
 ``` r
@@ -109,20 +109,20 @@ summary(gapminder)
 ```
 
 ``` output
-   country               year           pop             continent        
- Length:1704        Min.   :1952   Min.   :6.001e+04   Length:1704       
- Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Class :character  
- Mode  :character   Median :1980   Median :7.024e+06   Mode  :character  
-                    Mean   :1980   Mean   :2.960e+07                     
-                    3rd Qu.:1993   3rd Qu.:1.959e+07                     
-                    Max.   :2007   Max.   :1.319e+09                     
-    lifeExp        gdpPercap       
- Min.   :23.60   Min.   :   241.2  
- 1st Qu.:48.20   1st Qu.:  1202.1  
- Median :60.71   Median :  3531.8  
- Mean   :59.47   Mean   :  7215.3  
- 3rd Qu.:70.85   3rd Qu.:  9325.5  
- Max.   :82.60   Max.   :113523.1  
+     continent         country          year           pop           
+ Length   :2316   Length   :2316   Min.   :1962   Min.   :4.979e+03  
+ N.unique :   4   N.unique : 193   1st Qu.:1976   1st Qu.:1.178e+06  
+ N.blank  :   0   N.blank  :   0   Median :1990   Median :5.134e+06  
+ Min.nchar:   4   Min.nchar:   3   Mean   :1990   Mean   :2.733e+07  
+ Max.nchar:   8   Max.nchar:  30   3rd Qu.:2003   3rd Qu.:1.608e+07  
+                                   Max.   :2017   Max.   :1.412e+09  
+ perc_urban_pop    gdp_per_capita    
+ Min.   :  2.014   Min.   :   316.1  
+ 1st Qu.: 28.718   1st Qu.:  2861.9  
+ Median : 47.968   Median :  7405.4  
+ Mean   : 48.744   Mean   : 15343.1  
+ 3rd Qu.: 67.857   3rd Qu.: 17848.8  
+ Max.   :100.000   Max.   :352820.4  
 ```
 
 ``` r
@@ -131,7 +131,7 @@ nrow(gapminder)
 ```
 
 ``` output
-[1] 1704
+[1] 2316
 ```
 
 ``` r
@@ -158,8 +158,7 @@ head(country_vec)
 ```
 
 ``` output
-[1] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan"
-[6] "Afghanistan"
+[1] "Algeria" "Algeria" "Algeria" "Algeria" "Algeria" "Algeria"
 ```
 
 Now you can explore distinct values from a vector with the unique() function:
@@ -169,8 +168,11 @@ head(unique(country_vec), 10)
 ```
 
 ``` output
- [1] "Afghanistan" "Albania"     "Algeria"     "Angola"      "Argentina"  
- [6] "Australia"   "Austria"     "Bahrain"     "Bangladesh"  "Belgium"    
+ [1] "Algeria"                  "Angola"                  
+ [3] "Benin"                    "Botswana"                
+ [5] "Burkina Faso"             "Burundi"                 
+ [7] "Cameroon"                 "Cape Verde"              
+ [9] "Central African Republic" "Chad"                    
 ```
 Note that the calling a column with a `$` sign will return a *vector* - it's not a data frame anymore.
 
@@ -184,19 +186,19 @@ First, we will adapt our data set, by keeping only the columns we're interested 
 
 
 ``` r
-year_country_gdp <- select(gapminder, year, country, gdpPercap)
+year_country_urb <- select(gapminder, year, country, perc_urban_pop)
 
-head(year_country_gdp)
+head(year_country_urb)
 ```
 
 ``` output
-  year     country gdpPercap
-1 1952 Afghanistan  779.4453
-2 1957 Afghanistan  820.8530
-3 1962 Afghanistan  853.1007
-4 1967 Afghanistan  836.1971
-5 1972 Afghanistan  739.9811
-6 1977 Afghanistan  786.1134
+  year country perc_urban_pop
+1 1962 Algeria       34.51176
+2 1967 Algeria       39.10168
+3 1972 Algeria       39.81607
+4 1977 Algeria       40.77373
+5 1982 Algeria       44.75414
+6 1987 Algeria       49.73254
 ```
 
 ## Pipe
@@ -219,20 +221,20 @@ The `select()` statement with a pipe would look like that:
 
 
 ``` r
-year_country_gdp <- gapminder |>
-  select(year, country, gdpPercap)
+year_country_urb <- gapminder |>
+  select(year, country, perc_urban_pop)
 
-head(year_country_gdp)
+head(year_country_urb)
 ```
 
 ``` output
-  year     country gdpPercap
-1 1952 Afghanistan  779.4453
-2 1957 Afghanistan  820.8530
-3 1962 Afghanistan  853.1007
-4 1967 Afghanistan  836.1971
-5 1972 Afghanistan  739.9811
-6 1977 Afghanistan  786.1134
+  year country perc_urban_pop
+1 1962 Algeria       34.51176
+2 1967 Algeria       39.10168
+3 1972 Algeria       39.81607
+4 1977 Algeria       40.77373
+5 1982 Algeria       44.75414
+6 1987 Algeria       49.73254
 ```
 
 First we define the dataset, then with the use of the pipe we pass it on to the `select()` function. 
@@ -248,43 +250,43 @@ In the `gapminder` dataset, we want to see the results from outside of Europe fo
 
 
 ``` r
-year_country_gdp_euro <- gapminder |>
+year_country_urb_noneuro <- gapminder |>
   filter(continent != "Europe" & year >= 2000) |>
-  select(year, country, gdpPercap)
+  select(year, country, perc_urban_pop)
 # '&' operator (AND) - both conditions must be met
 
-head(year_country_gdp_euro)
+head(year_country_urb_noneuro)
 ```
 
 ``` output
-  year     country gdpPercap
-1 2002 Afghanistan  726.7341
-2 2007 Afghanistan  974.5803
-3 2002     Algeria 5288.0404
-4 2007     Algeria 6223.3675
-5 2002      Angola 2773.2873
-6 2007      Angola 4797.2313
+  year country perc_urban_pop
+1 2002 Algeria       61.38127
+2 2007 Algeria       65.16908
+3 2012 Algeria       68.34213
+4 2017 Algeria       71.32279
+5 2002  Angola       52.89262
+6 2007  Angola       57.75646
 ```
 
 Let's now focus only on North American countries  
 
 ``` r
-year_gdp_namerica <- year_country_gdp_euro |>
+year_urb_namerica <- year_country_urb_noneuro |>
   filter(country == "Canada" |  country == "Mexico" | country == "United States") 
 
 # '|' operator (OR) - at least one of the conditions must be met
 
-head(year_gdp_namerica)
+head(year_urb_namerica)
 ```
 
 ``` output
-  year       country gdpPercap
-1 2002        Canada  33328.97
-2 2007        Canada  36319.24
-3 2002        Mexico  10742.44
-4 2007        Mexico  11977.57
-5 2002 United States  39097.10
-6 2007 United States  42951.65
+  year country perc_urban_pop
+1 2002  Canada       79.09902
+2 2007  Canada       80.44256
+3 2012  Canada       81.15135
+4 2017  Canada       81.40189
+5 2002  Mexico       75.68408
+6 2007  Mexico       76.50473
 ```
 
 ::: challenge
@@ -292,7 +294,7 @@ head(year_gdp_namerica)
 ##  Challenge: filtered data frame
 
 Write a single command (which can span multiple lines and includes pipes) 
-that will produce a data frame that has the values for **life expectancy**, 
+that will produce a data frame that has the values for **GDP per capita**, 
 **country** and **year**, only for **EurAsia**. 
 
 How many rows does your data frame have and why? 
@@ -303,14 +305,14 @@ How many rows does your data frame have and why?
 ```{.r .bg-info}
 year_country_gdp_eurasia <- gapminder |>
   filter(continent == "Europe" | continent == "Asia") |>
-  select(year, country, gdpPercap)
+  select(year, country, gdp_per_capita)
 # '|' operator (OR) - one of the conditions must be met
 
 nrow(year_country_gdp_eurasia)
 ```
 
 ``` output
-[1] 756
+[1] 1248
 ```
 
 :::
@@ -318,31 +320,30 @@ nrow(year_country_gdp_eurasia)
 :::
 
 ## Group and summarize
-So far, we have provided summary statistics on the whole dataset, selected columns, and filtered the observations. But often instead of doing that, we would like to know statistics by group. Let's calculate the average GDP per capita by continent.
+So far, we have provided summary statistics on the whole dataset, selected columns, and filtered the observations. But often instead of doing that, we would like to know statistics by group. Let's calculate the average percentage of urban population by continent.
 
 
 ``` r
 gapminder |> # select the dataset
   group_by(continent) |> # group by continent
-  summarize(avg_gdpPercap = mean(gdpPercap)) # create basic stats
+  summarize(avg_perc_urban_pop = mean(perc_urban_pop)) # create basic stats
 ```
 
 ``` output
-# A tibble: 5 × 2
-  continent avg_gdpPercap
-  <chr>             <dbl>
-1 Africa            2194.
-2 Americas          7136.
-3 Asia              7902.
-4 Europe           14469.
-5 Oceania          18622.
+# A tibble: 4 × 2
+  continent avg_perc_urban_pop
+  <chr>                  <dbl>
+1 Africa                  32.0
+2 Americas                56.0
+3 Asia                    47.1
+4 Europe                  64.6
 ```
 
 ::: challenge
 
-## Challenge: longest and shortest life expectancy
+## Challenge: highest and lowest GDP per capita
 
-Calculate the average life expectancy per country. Which country has the longest average life expectancy and which has the shortest average life expectancy?
+Calculate the average GDP per capita per country. Which country has the highest average GDP per capita and which has the lowest?
 
 <strong>Hint</strong> Use `max()`  and `min()` functions to find minimum and maximum.
 
@@ -352,17 +353,17 @@ Calculate the average life expectancy per country. Which country has the longest
 ```{.r .bg-info}
 gapminder |>
   group_by(country) |>
-  summarize(avg_lifeExp = mean(lifeExp)) |>
-  filter(avg_lifeExp == min(avg_lifeExp) |
-           avg_lifeExp == max(avg_lifeExp))
+  summarize(avg_gdp_per_capita = mean(gdp_per_capita)) |>
+  filter(avg_gdp_per_capita == min(avg_gdp_per_capita) |
+           avg_gdp_per_capita == max(avg_gdp_per_capita))
 ```
 
 ``` output
 # A tibble: 2 × 2
-  country      avg_lifeExp
-  <chr>              <dbl>
-1 Iceland             76.5
-2 Sierra Leone        36.8
+  country    avg_gdp_per_capita
+  <chr>                   <dbl>
+1 Monaco                182409.
+2 Mozambique               773.
 ```
 
 :::
@@ -376,54 +377,54 @@ You can also group by multiple columns:
 ``` r
 gapminder |>
   group_by(continent, year) |>
-  summarize(avg_gdpPercap = mean(gdpPercap))
+  summarize(avg_perc_urban_pop = mean(perc_urban_pop))
 ```
 
 ``` output
-# A tibble: 60 × 3
-# Groups:   continent [5]
-   continent  year avg_gdpPercap
-   <chr>     <int>         <dbl>
- 1 Africa     1952         1253.
- 2 Africa     1957         1385.
- 3 Africa     1962         1598.
- 4 Africa     1967         2050.
- 5 Africa     1972         2340.
- 6 Africa     1977         2586.
- 7 Africa     1982         2482.
- 8 Africa     1987         2283.
- 9 Africa     1992         2282.
-10 Africa     1997         2379.
-# ℹ 50 more rows
+# A tibble: 48 × 3
+# Groups:   continent [4]
+   continent  year avg_perc_urban_pop
+   <chr>     <int>              <dbl>
+ 1 Africa     1962               16.8
+ 2 Africa     1967               19.7
+ 3 Africa     1972               23.1
+ 4 Africa     1977               26.1
+ 5 Africa     1982               28.7
+ 6 Africa     1987               31.7
+ 7 Africa     1992               34.7
+ 8 Africa     1997               36.4
+ 9 Africa     2002               38.3
+10 Africa     2007               40.5
+# ℹ 38 more rows
 ```
 
 On top of this, you can also make multiple summaries of those groups:
 
 ``` r
-gdp_pop_bycontinents_byyear <- gapminder |>
+urb_pop_bycontinents_byyear <- gapminder |>
   group_by(continent, year) |>
   summarize(
-    avg_gdpPercap = mean(gdpPercap),
-    sd_gdpPercap = sd(gdpPercap),
+    avg_perc_urban_pop = mean(perc_urban_pop),
+    sd_perc_urban_pop = sd(perc_urban_pop),
     avg_pop = mean(pop),
     sd_pop = sd(pop),
     n_obs = n()
   )
 
-head(gdp_pop_bycontinents_byyear)
+head(urb_pop_bycontinents_byyear)
 ```
 
 ``` output
 # A tibble: 6 × 7
 # Groups:   continent [1]
-  continent  year avg_gdpPercap sd_gdpPercap  avg_pop    sd_pop n_obs
-  <chr>     <int>         <dbl>        <dbl>    <dbl>     <dbl> <int>
-1 Africa     1952         1253.         983. 4570010.  6317450.    52
-2 Africa     1957         1385.        1135. 5093033.  7076042.    52
-3 Africa     1962         1598.        1462. 5702247.  7957545.    52
-4 Africa     1967         2050.        2848. 6447875.  8985505.    52
-5 Africa     1972         2340.        3287. 7305376. 10130833.    52
-6 Africa     1977         2586.        4142. 8328097. 11585184.    52
+  continent  year avg_perc_urban_pop sd_perc_urban_pop   avg_pop    sd_pop n_obs
+  <chr>     <int>              <dbl>             <dbl>     <dbl>     <dbl> <int>
+1 Africa     1962               16.8              12.1  5509400.  8109418.    54
+2 Africa     1967               19.7              12.8  6246703.  9144160.    54
+3 Africa     1972               23.1              14.0  7124157. 10348870.    54
+4 Africa     1977               26.1              15.1  8185263. 11830845.    54
+5 Africa     1982               28.7              15.8  9485037. 13673487.    54
+6 Africa     1987               31.7              16.2 10958077. 15757881.    54
 ```
 
 ## Frequencies
@@ -437,11 +438,10 @@ gapminder |>
 
 ``` output
   continent   n
-1    Africa 624
-2  Americas 300
-3      Asia 396
-4    Europe 360
-5   Oceania  24
+1    Africa 648
+2  Americas 420
+3      Asia 684
+4    Europe 564
 ```
  
 
@@ -452,19 +452,19 @@ Frequently you’ll want to create new columns based on the values in existing c
 
 ``` r
 gapminder_gdp <- gapminder |>
-  mutate(gdpBillion = gdpPercap * pop / 10^9)
+  mutate(gdp_billion = gdp_per_capita * pop / 10^9)
 
 head(gapminder_gdp)
 ```
 
 ``` output
-      country year      pop continent lifeExp gdpPercap gdpBillion
-1 Afghanistan 1952  8425333      Asia  28.801  779.4453   6.567086
-2 Afghanistan 1957  9240934      Asia  30.332  820.8530   7.585449
-3 Afghanistan 1962 10267083      Asia  31.997  853.1007   8.758856
-4 Afghanistan 1967 11537966      Asia  34.020  836.1971   9.648014
-5 Afghanistan 1972 13079460      Asia  36.088  739.9811   9.678553
-6 Afghanistan 1977 14880372      Asia  38.438  786.1134  11.697659
+  continent country year      pop perc_urban_pop gdp_per_capita gdp_billion
+1    Africa Algeria 1962 11800771       34.51176       3210.708    37.88882
+2    Africa Algeria 1967 12876118       39.10168       4257.662    54.82216
+3    Africa Algeria 1972 14427072       39.81607       5536.876    79.88092
+4    Africa Algeria 1977 17015994       40.77373       6553.959   111.52213
+5    Africa Algeria 1982 19872348       44.75414       8315.723   165.25294
+6    Africa Algeria 1987 23443624       49.73254       9299.413   218.01195
 ```
 
 

@@ -412,8 +412,8 @@ Levels: Norway Denmark Sweden
 
 ### Reordering factors
 
-There is more than one way to reorder factors. Later in the lesson,
-we will use `fct_relevel()` function from `forcats` package to do the reordering.
+There is more than one way to reorder factors. You can manually specify the order
+using the `fct_relevel()` function from `forcats` package to do the reordering.
 
 
 ``` r

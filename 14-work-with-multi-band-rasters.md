@@ -43,7 +43,7 @@ By using the `rast()` function along with the `lyrs` parameter, we can read spec
 
 
 ``` r
-RGB_band1_TUD <- rast("data/tudlib-rgb.tif", lyrs = 1)
+RGB_band1_TUD <- rast(here("data", "tudlib-rgb.tif"), lyrs = 1)
 ```
 
 We need to convert this data to a data frame in order to plot it with `ggplot`.
@@ -78,7 +78,7 @@ Import and plot the green band.
 
 
 ``` r
-RGB_band2_TUD <- rast("data/tudlib-rgb.tif", lyrs = 2)
+RGB_band2_TUD <- rast(here("data", "tudlib-rgb.tif"), lyrs = 2)
 
 RGB_band2_TUD_df <- as.data.frame(RGB_band2_TUD, xy = TRUE)
 
@@ -102,7 +102,7 @@ Next, we will work with all three image bands (red, green and blue) as an R rast
 To bring in all bands of a multi-band raster, we use the `rast()` function without specifying a `lyrs` value.
 
 ``` r
-RGB_stack_TUD <- rast("data/tudlib-rgb.tif")
+RGB_stack_TUD <- rast(here("data", "tudlib-rgb.tif"))
 ```
 
 Let’s preview the attributes of our stack object:

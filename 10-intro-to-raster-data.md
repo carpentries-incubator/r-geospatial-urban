@@ -39,6 +39,7 @@ We continue to work with the `tidyverse` package and we will use the `terra` pac
 
 ``` r
 library(tidyverse)
+library(here)
 library(terra)
 ```
 
@@ -59,12 +60,12 @@ We will be working with a series of GeoTIFF files in this lesson. The GeoTIFF fo
 
 
 ``` r
-describe("data/tud-dsm-5m.tif")
+describe(here("data", "tud-dsm-5m.tif"))
 ```
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
- [2] "Files: /__w/r-geospatial-urban/r-geospatial-urban/site/built/data/tud-dsm-5m.tif"                                      
+ [2] "Files: /home/rstudio/lesson/site/built/data/tud-dsm-5m.tif"                                                            
  [3] "Size is 722, 386"                                                                                                      
  [4] "Coordinate System is:"                                                                                                 
  [5] "PROJCRS[\"Amersfoort / RD New\","                                                                                      
@@ -135,7 +136,7 @@ Let's load our raster file into R and view its data structure.
 
 
 ``` r
-DSM_TUD <- rast("data/tud-dsm-5m.tif")
+DSM_TUD <- rast(here("data", "tud-dsm-5m.tif"))
 DSM_TUD
 ```
 
@@ -235,6 +236,14 @@ The `"turbo"` scale in our code provides a good contrasting scale for our raster
 
 For faster previews, you can use the `plot()` function on a `terra` object.
 
+:::
+
+::: callout
+# Dealing with non-syntactic names in R
+
+If a variable name contains spaces, special characters, or starts with a number, you can use backticks ( `` ` `` ) to enclose the name. 
+For example, the column name: `tud-dsm-5m` cannot be used directly because R interprets the dash (`-`) as a subtraction operator.
+To tell R that this is a single column name, wrap it in backticks: `` `tud-dsm-5m` ``.
 :::
 
 ## View Raster Coordinate Reference System (CRS)
@@ -362,12 +371,12 @@ Note that this file is a hillshade raster. We will learn about hillshades in the
 
 
 ``` r
-describe("data/tud-dsm-5m-hill.tif")
+describe(here("data", "tud-dsm-5m-hill.tif"))
 ```
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                 
- [2] "Files: /__w/r-geospatial-urban/r-geospatial-urban/site/built/data/tud-dsm-5m-hill.tif"                                 
+ [2] "Files: /home/rstudio/lesson/site/built/data/tud-dsm-5m-hill.tif"                                                       
  [3] "Size is 722, 386"                                                                                                      
  [4] "Coordinate System is:"                                                                                                 
  [5] "PROJCRS[\"Amersfoort / RD New\","                                                                                      
