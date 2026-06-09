@@ -47,9 +47,11 @@ See the [setup instructions](../learners/setup.md) for detailed information abou
 
 :::
 
-We often want to combine values of and perform calculations on rasters to create a new output raster. This episode covers how to subtract one raster from another using basic raster math.
-
 ## Raster calculations in R
+
+We often want to combine values of and perform calculations on rasters to create a new output raster. This episode covers how to subtract one raster from another using basic raster math. Raster calculations are a core part of spatial analysis because they allow us to combine, transform, and derive new information from existing raster layers. By applying mathematical operations cell-by-cell, we can create entirely new datasets that reveal spatial patterns and relationships.
+
+For example, in environmental analysis, we can combine rainfall and temperature rasters to identify areas that are more suitable for agriculture or more vulnerable to drought. Similarly, in urban planning, land surface temperature rasters can be combined with vegetation cover data to detect urban heat island hotspots.
 
 Let's say we are interested in mapping the heights of trees and buildings across an urban area. To that end, we can calculate the difference between the Digital Surface Model (DSM, tops of trees and buildings) and the Digital Terrain Model (DTM, ground level). The resulting dataset is referred to as a Canopy Height Model (CHM) and represents the actual height of trees, buildings, etc. with the influence of ground elevation removed.
 
@@ -89,7 +91,7 @@ ggplot() +
 
 ## Raster math and Canopy Height Models
 
-We can perform raster calculations by subtracting (or adding, multiplying, etc.) two rasters. In the geospatial world, we call this “raster math”.
+We can perform raster calculations by subtracting (or adding, multiplying, etc.) two rasters. In the geospatial world, we call this “![Map Algebra](https://en.wikipedia.org/wiki/Map_algebra)”.
 
 Let’s subtract the DTM from the DSM to create a Canopy Height Model. After subtracting, let’s create a data frame so we can plot with `ggplot`.
 
