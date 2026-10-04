@@ -237,29 +237,24 @@ The standard structure of a leaflet choropleth map is therefore: `leaflet(data) 
 - Check out the [leaflet package documentation](https://rstudio.github.io/leaflet/) for more information.
 
 
+## Mapping with `Leaflet`
 
-::::::::::::::::::::::::::::::::::::: challenge 
-
-## Challenge: import an interactive basemap layer under the buildings with 'Leaflet' (20min)
-
-For this challenge, you will have to use the Leaflet online documentation to create an interactive map of the building ages in Brielle. The underlying data remains the same, but you will use the leaflet package to make the map interactive (in other words, your `data` is the R object `buildings` and `variable` corresponds to `start_date`).
+To map the building ages in Brielle with `Leaflet`, the underlying data remains the same, but we will use the leaflet package to make the map interactive (in other words, our `data` is the R object `buildings` and the visualisation `variable` corresponds to `start_date`).
 
 To do this, you will have to:
 - Transform the CRS of `buildings` into WGS84
-- Plot the basemap
-- Add the tiles of your choice
+- Plot a zoomable basemap
+- Add the tiles of our choice
 - Add polygons (the buildings)
 - Use the `fillColor` attribute of these polygons to represent the `build_date` variable.
 
-You will find guidance and examples on how to do that in the following links:
+We can find guidance and examples on how to do that in the following links:
 - Basemap and tiles documentation [basemap documentation](https://rstudio.github.io/leaflet/basemaps.html)
 - [Choropleth documentation](https://rstudio.github.io/leaflet/choropleths.html). 
-Tip: use the examples given in the documentation and replace the variable names where needed. You can also check out the [GDCU cheatsheet](https://github.com/ClementineCttn/r-geospatial-urban/blob/main/instructors/cheatsheet/GDCU_cheatsheet.pdf) for relevant leaflet functions.
+Tip: You can also check out the [GDCU cheatsheet](https://github.com/ClementineCttn/r-geospatial-urban/blob/main/instructors/cheatsheet/GDCU_cheatsheet.pdf) for relevant leaflet functions.
 
-:::::::::::::::::::::::: solution 
+## Mapping with `Leaflet`
 
-## One solution
- 
 ```{r leaflet}
 # install.packages("leaflet")
 library(leaflet)
@@ -267,12 +262,6 @@ library(leaflet)
 
 buildings2 <- buildings |>
   st_transform(crs = 4326)
-
-# leaflet(buildings2) |>
-#  addTiles() |>
-#   addPolygons(fillColor = ~colorQuantile("YlGnBu", -build_date)(-build_date))
-
-# For a better visual rendering, try:
 
 leaflet(buildings2) |>
   addProviderTiles(providers$CartoDB.Positron) |>

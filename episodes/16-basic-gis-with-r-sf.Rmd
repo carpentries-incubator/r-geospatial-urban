@@ -17,6 +17,7 @@ After completing this episode, participants should be able to…
 - Perform geoprocessing operations such as unions, joins and intersections with dedicated functions from the `sf` package
 - Compute the area of spatial polygons
 - Create buffers and centroids 
+- Combine vector and raster layers
 - Map and save the results
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -214,6 +215,53 @@ ggplot() +
 ```
 
 
+
+
+## Combining vector and raster data
+
+Another criterion to characterise the potential conservation zones would be their mean elevation level (if we tried to prioritise polder structures for instance).
+
+To do that, we need to use elevation values of the dtm (digital terrain model) we used in the rater lesson, select the cells corresponding to the different zone and compute their mean value.
+
+If so happens that Brielle is located at the intersection of two tiles. Let's open and combine them.
+
+
+```{r}
+library(terra)
+
+dtm_brielle <- rast("data/Brielle_dtm.tif")
+crs(dtm_brielle)
+
+dtm_brielle_df <- as.data.frame(dtm_brielle, xy = TRUE)
+
+dtm_brielle <- project(dtm_brielle,
+                               crs(single_buffer))
+
+conservation_elevation <- extract(x = dtm_brielle, y = single_buffer, raw = FALSE)
+
+summary(conservation_elevation)
+
+ggplot() +
+  geom_histogram(data = conservation_elevation, aes(x = Brielle_dtm)) +
+  ggtitle("Histogram of elevation values in conservation zones (m)") +
+  xlab("Elevation") +
+  ylab("Frequency of Pixels")
+
+avg_conservation_elevation <- extract(x = dtm_brielle, y = single_buffer,
+                                fun = mean)
+
+str(avg_conservation_elevation)
+
+single_buffer_elevation <- single_buffer |>
+  merge(avg_conservation_elevation, by.x = "ID.x", by.y = "ID",left = TRUE)
+
+ ggplot() + 
+   geom_sf(data = buildings) +
+   geom_sf(data = single_buffer_elevation,
+           aes(fill=Brielle_dtm),
+           colour = NA) +
+   scale_fill_viridis_c()
+```
  
 ::::::::::::::::::::::::::::::::::::: challenge 
  
@@ -264,6 +312,7 @@ single_buffer$area <- st_area(single_buffer) |>
 single_buffer$old_buildings_per_km2 <-
   as.numeric(single_buffer$n_buildings / single_buffer$area)
 
+# plot density of old buildings
  ggplot() + 
    geom_sf(data = buildings) +
    geom_sf(data = single_buffer,
@@ -276,11 +325,28 @@ single_buffer$old_buildings_per_km2 <-
      direction = -1,
      option = "B"
    )
+ 
+# extract elevation values
+avg_conservation_elevation <- extract(x = dtm_brielle, y = single_buffer,
+                                fun = mean)
+# join elevation to buffer layer
+single_buffer_elevation <- single_buffer |>
+  merge(avg_conservation_elevation, by.x = "ID.x", by.y = "ID",left = TRUE)
+
+# visualise mean elevation of clusters
+ ggplot() + 
+   geom_sf(data = buildings) +
+   geom_sf(data = single_buffer_elevation,
+           aes(fill=Brielle_dtm),
+           colour = NA) +
+   scale_fill_viridis_c()
 ```
 ::::::::::::::::::::::::
 
 
 :::::::::::::::::::::::::::::::::::::
+
+
 
 
 
