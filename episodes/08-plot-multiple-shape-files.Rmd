@@ -9,9 +9,9 @@ library(tidyverse) # tools for wrangling, reshaping and visualizing data
 library(here) # managing paths
 library(sf) # work with spatial vector data
 
-boundary_Delft <- st_read("data/delft-boundary.shp")
-lines_Delft <- st_read("data/delft-streets.shp")
-point_Delft <- st_read("data/delft-leisure.shp")
+boundary_Delft <- st_read(here("data", "delft-boundary.shp"))
+lines_Delft <- st_read(here("data", "delft-streets.shp"))
+point_Delft <- st_read(here("data", "delft-leisure.shp"))
 
 road_types <- c("motorway", "primary", "secondary", "cycleway")
 road_colors <- c("blue", "green", "navy", "purple")
@@ -165,7 +165,7 @@ Tip: You can call `scale_` functions multiple times for the same layer, for any 
 :::::::::::::::::::::::: solution 
 
 ```{r leisure-locations}
-leisure_locations_selection <- st_read("data/delft-leisure.shp") |>
+leisure_locations_selection <- st_read(here("data", "delft-leisure.shp")) |>
   filter(leisure %in% c("playground", "picnic_table"))
 ```
 

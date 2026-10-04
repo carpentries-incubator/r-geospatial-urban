@@ -13,9 +13,10 @@ knitr::opts_chunk$set(
 )
 
 library(tidyverse)
+library(here)
 library(terra)
 
-DSM_TUD <- rast("data/tud-dsm-5m.tif")
+DSM_TUD <- rast(here("data", "tud-dsm-5m.tif"))
 DSM_TUD_df <- as.data.frame(DSM_TUD, xy = TRUE)
 ```
 
@@ -70,8 +71,8 @@ Read more about layering rasters [here](https://datacarpentry.org/r-raster-vecto
 First, we need to import the DTM and DTM hillshade data.
 
 ```{r dtm-hill-read}
-DTM_TUD <- rast("data/tud-dtm-5m.tif")
-DTM_hill_TUD <- rast("data/tud-dtm-5m-hill-WGS84.tif")
+DTM_TUD <- rast(here("data", "tud-dtm-5m.tif"))
+DTM_hill_TUD <- rast(here("data", "tud-dtm-5m-hill-WGS84.tif"))
 ```
 
 Next, we will convert each of these datasets to a data frame for plotting with `ggplot`.

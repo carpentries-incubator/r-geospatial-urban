@@ -9,9 +9,9 @@ library(tidyverse) # tools for wrangling, reshaping and visualizing data
 library(here) # managing paths
 library(sf) # work with spatial vector data
 
-boundary_Delft <- st_read("data/delft-boundary.shp")
-lines_Delft <- st_read("data/delft-streets.shp")
-point_Delft <- st_read("data/delft-leisure.shp")
+boundary_Delft <- st_read(here("data", "delft-boundary.shp"))
+lines_Delft <- st_read(here("data", "delft-streets.shp"))
+point_Delft <- st_read(here("data", "delft-leisure.shp"))
 ```
 
 
